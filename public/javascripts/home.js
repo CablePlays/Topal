@@ -23,8 +23,8 @@ function createCard(text, user) {
 function setupSlideshow() {
     const cards = [ // TODO: make dynamic
         createCard("Caleb Jennings recently achieved the Venture Award", 1),
-        createCard("Megan Ramsey recently achieved the Polar Bear Award", 2),
-        createCard("Chirs Nel recently achieved the Kyaking Award", 3)
+        createCard("Astra Spero recently achieved the Polar Bear Award", 2),
+        createCard("John Doe recently achieved the Kyaking Award", 3)
     ];
 
     const slideshow = createSlideshow(cards, 5000, {
