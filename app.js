@@ -5,7 +5,7 @@ const consoleCommands = require("./server/console-commands");
 const requestsRouter = require("./requests/index");
 const renderRouter = require("./render");
 
-const PORT = 80;
+const PORT = 90;
 const ARTIFICIAL_LATENCY = 0;
 const REQUESTS_PATH = "/requests";
 
