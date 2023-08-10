@@ -4,8 +4,6 @@ const cookieParser = require('cookie-parser');
 const consoleCommands = require("./server/console-commands");
 const requestsRouter = require("./requests/index");
 const renderRouter = require("./render");
-const https = require("https");
-const fs = require("fs");
 
 const PORT = 90;
 const ARTIFICIAL_LATENCY = 0;
@@ -63,11 +61,4 @@ app.use((err, req, res, next) => { // handle render errors
     }
 });
 
-const options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/opawards.treverton.co.za/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/opawards.treverton.co.za/fullchain.pem')
-};
-
-https.createServer(options, app).listen(PORT, (req, res) => {
-    console.log("Server started at port " + PORT);
-});
+app.listen(PORT);
