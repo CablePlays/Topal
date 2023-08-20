@@ -2,8 +2,6 @@ const nodemailer = require('nodemailer');
 const cookies = require("./cookies");
 const sqlDatabase = require('./sql-database');
 
-const INVISIBLE_USERS = []; // users who do not show up in audit log as actor
-
 const RECENT_AWARDS_LIFETIME = 48; // hours
 const RECENT_AWARDS_MAX = 10;
 
@@ -16,7 +14,7 @@ const PERMISSIONS = [
     "manageAwards",
     "managePermissions",
     "viewAuditLog"
-];
+];  
 
 const LOG_TYPES = { // cannot be both sub and singleton
     endurance: {},
@@ -41,16 +39,13 @@ const LOG_TYPES = { // cannot be both sub and singleton
         signable: true
     },
     solitaire: {
-        singleton: true,
-        keys: ["date", "location", "othersInvolved", "supervisors", "items", "experience"]
+        singleton: true
     },
     solitaireInstructor: {
-        singleton: true,
-        keys: ["date", "location", "groupSupervised", "comments"]
+        singleton: true
     },
     solitaireLeader: {
-        singleton: true,
-        keys: ["date", "location", "groupSupervised", "comments"]
+        singleton: true
     },
     traverseHikePlan: {
         singleton: true,
@@ -106,10 +101,6 @@ function isSignable(logType) {
 
 function isSingleton(logType) {
     return LOG_TYPES[logType].singleton === true;
-}
-
-function getSingletonKeys(logType) {
-    return LOG_TYPES[logType].keys;
 }
 
 function hasSublogs(logType) {
@@ -314,7 +305,6 @@ async function sendEmail(recipient, subject, content) {
 }
 
 module.exports = {
-    INVISIBLE_USERS,
     RECENT_AWARDS_LIFETIME,
     RECENT_AWARDS_MAX,
     PERMISSIONS,
@@ -327,7 +317,6 @@ module.exports = {
     isLogType,
     isSignable,
     isSingleton,
-    getSingletonKeys,
     hasSublogs,
     isPermission,
     isSignoff,

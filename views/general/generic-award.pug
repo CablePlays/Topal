@@ -1,0 +1,68 @@
+extends ../layout
+
+block assets
+  link(rel='stylesheet' href='/stylesheets/pages/generic-award.css')
+  script(src='/javascripts/general/generic-award.js')
+
+block content
+  h1 Logs
+
+  .spacer.v20
+
+  #test-container
+
+  //- .logs
+    .create-log
+      .create-button +
+      p Create Log
+    .log
+      .items
+        .item
+          h3 Item 1
+          input(type="text")
+        .item
+          h3 Item 2
+          p Input
+        .item
+          h3 Item 3
+          p Input
+    .log
+      .items
+        .item
+          h3 Item 1
+          p Something
+        .item
+          h3 Item 2
+          p Something
+        .item
+          h3 Item 3
+          p Something
+        .item
+          h3 Item x
+          p Something
+        .item
+          h3 Item x
+          p Something
+      .bottom-bar
+        button Edit
+        button Delete
+    .log
+      .items
+        .item
+          h3 Item 1
+          p Something
+        .item
+          h3 Item 2
+          p Something Something Something Something Something Something Something Something Something Something
+        .item
+          h3 Item 3
+          p Something Something Something Something Something Something Something Something
+        .item
+          h3 Item x
+          p Something
+        .item
+          h3 Item x
+          p Something
+      .bottom-bar
+        button Edit
+        button Delete

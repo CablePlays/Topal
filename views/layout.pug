@@ -9,8 +9,13 @@ head
   link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
   link(href='https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' rel='stylesheet')
 
-  script(src='/javascripts/slideshow.js')
-  script(src='/javascripts/layout.js')
+  script(src='/javascripts/global/cookies.js')
+  script(src='/javascripts/global/layout.js')
+  script(src='/javascripts/global/logs.js')
+  script(src='/javascripts/global/rest.js')
+  script(src='/javascripts/global/slideshow.js')
+  script(src='/javascripts/global/utility.js')
+  
   block assets
 body
   .topbar
@@ -28,7 +33,8 @@ body
 
   .topbar-spacer
 
-  block content
+  .block-content-container
+    block content
 
   footer
     p.a &copy 2023 <a href="/">TOPAL</a>

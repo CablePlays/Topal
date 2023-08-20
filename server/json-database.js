@@ -12,7 +12,6 @@ const APPROVALS_PATH = "approvals";
 const AWARDS_PATH = "awards";
 const PERMISSIONS_PATH = "permissions";
 const SIGNOFFS_PATH = "signoffs";
-const SINGLETON_LOGS_PATH = "singletonLogs";
 
 // other
 const AUDIT_LOG_RECORDS_PATH = "records";
@@ -81,7 +80,6 @@ module.exports = {
     AWARDS_PATH,
     PERMISSIONS_PATH,
     SIGNOFFS_PATH,
-    SINGLETON_LOGS_PATH,
 
     getAuditLog,
     getUser,

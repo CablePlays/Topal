@@ -5,8 +5,10 @@ const consoleCommands = require("./server/console-commands");
 const requestsRouter = require("./requests/index");
 const renderRouter = require("./render");
 
-const PORT = 90;
-const ARTIFICIAL_LATENCY = 0;
+const sqlDatabase = require("./server/sql-database");
+
+const PORT = 80;
+const ARTIFICIAL_LATENCY = 1000;
 const REQUESTS_PATH = "/requests";
 
 const app = express();
@@ -21,15 +23,14 @@ app.use(express.static('public'));
 app.use(express.json()); // for reading json post requests
 app.use(cookieParser()); // for cookie object
 
-function simulateLag(req, res, next) {
-    setTimeout(next, ARTIFICIAL_LATENCY);
-}
-
 app.use("/", renderRouter); // render
 
 if (ARTIFICIAL_LATENCY > 0) {
     console.info(`Using artificial latency: ${ARTIFICIAL_LATENCY}ms`);
-    app.use("/", simulateLag);
+
+    app.use("/", (req, res, next) => {
+        setTimeout(next, ARTIFICIAL_LATENCY);
+    });
 }
 
 app.use(REQUESTS_PATH, requestsRouter); // requests
@@ -57,7 +58,8 @@ app.use((err, req, res, next) => { // handle render errors
     if (status === 404) {
         res.advancedRender("errors/not-found");
     } else {
-        res.advancedRender("errors/other");
+        // res.advancedRender("errors/other");
+        res.send(err);
     }
 });
 

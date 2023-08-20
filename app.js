@@ -8,7 +8,6 @@ const https = require("https");
 const fs = require("fs");
 
 const PORT = 90;
-const ARTIFICIAL_LATENCY = 0;
 const REQUESTS_PATH = "/requests";
 
 const app = express();
@@ -23,16 +22,7 @@ app.use(express.static('public'));
 app.use(express.json()); // for reading json post requests
 app.use(cookieParser()); // for cookie object
 
-function simulateLag(req, res, next) {
-    setTimeout(next, ARTIFICIAL_LATENCY);
-}
-
 app.use("/", renderRouter); // render
-
-if (ARTIFICIAL_LATENCY > 0) {
-    console.info(`Using artificial latency: ${ARTIFICIAL_LATENCY}ms`);
-    app.use("/", simulateLag);
-}
 
 app.use(REQUESTS_PATH, requestsRouter); // requests
 
@@ -69,5 +59,5 @@ const options = {
 };
 
 https.createServer(options, app).listen(PORT, (req, res) => {
-    console.log("Server started at port " + PORT);
+    console.info("Server started at port " + PORT);
 });

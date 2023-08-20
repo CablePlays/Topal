@@ -5,7 +5,11 @@
   padding: 0;
 }
 
+.block-content-container {
+  min-height: 90vh;
+}
+
 a.link {
-    color: rgb(0, 200, 255);
-    text-decoration: underline;
+  color: rgb(0, 200, 255);
+  text-decoration: underline;
 }

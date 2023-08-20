@@ -1,20 +1,22 @@
-const express = require('express');
+const express = require("express");
 const cookies = require("../server/cookies");
 const general = require("../server/general");
 const jsonDatabase = require("../server/json-database");
 
-// routers
+const logsRouter = require("./logs");
 const permissionsRouter = require("./permissions");
+const usersRouter = require("./users");
 
 const router = express.Router();
 
 /* Middleware */
 
-router.use("/", async (req, res, next) => { // provide permissions
+router.use("/", async (req, res, next) => { // provide user information
     if (await general.isPasswordValid(req)) {
         const userId = cookies.getUserId(req);
-        req.permissions = jsonDatabase.getPermissions(userId);
         req.loggedIn = true;
+        req.userId = userId;
+        req.permissions = jsonDatabase.getPermissions(userId);
     } else {
         req.permissions = {};
         req.loggedIn = false;
@@ -41,6 +43,8 @@ router.use("/", (req, res, next) => { // provide response methods
 
 /* Routers */
 
+router.use('/logs', logsRouter);
 router.use('/permissions', permissionsRouter);
+router.use('/users', usersRouter);
 
 module.exports = router;

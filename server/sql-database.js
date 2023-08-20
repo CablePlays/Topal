@@ -23,15 +23,15 @@ function useDatabase(consumer) {
     });
 }
 
-function all(sql) {
-    return new Promise(resolve => {
+async function doOperation(operationName, sql) {
+    return await new Promise(r => {
         useDatabase(db => {
             db.serialize(() => {
-                db.all(sql, [], (error, rows) => {
+                db[operationName](sql, [], (error, val) => {
                     if (error) {
                         console.error(error);
                     } else {
-                        resolve(rows);
+                        r(val);
                     }
                 });
             });
@@ -39,74 +39,16 @@ function all(sql) {
     });
 }
 
-function get(sql) {
-    return new Promise(resolve => {
-        useDatabase(db => {
-            db.serialize(() => {
-                db.get(sql, [], (error, row) => {
-                    if (error) {
-                        console.error(error);
-                    } else {
-                        resolve(row);
-                    }
-                });
-            });
-        });
-    });
+async function all(sql) {
+    return await doOperation("all", sql);
 }
 
-function run(sql) {
-    return new Promise(resolve => {
-        useDatabase(db => {
-            db.serialize(() => {
-                db.run(sql, [], error => {
-                    if (error) {
-                        console.error(error);
-                    } else {
-                        resolve();
-                    }
-                });
-            });
-        });
-    });
+async function get(sql) {
+    return await doOperation("get", sql);
 }
 
-async function replace(table, conditionColumn, conditionValue, values) {
-    let columns = Object.getOwnPropertyNames(values);
-    if (columns.length === 0) return; // nothing to replace
-
-    if (typeof conditionValue === "string") conditionValue = `"${conditionValue}"`;
-
-    let setting = "";
-    let columnsString = "";
-    let valuesString = "";
-
-    for (let column of columns) {
-        // value
-        let value = values[column];
-        if (typeof value === "string") value = `"${value}"`; // add quotes if necessary
-
-        // setting
-        if (setting.length > 0) setting += ", ";
-        setting += column + " = " + value;
-
-        // columns
-        if (columnsString.length > 0) columnsString += ", ";
-        columnsString += column;
-
-        // values
-        if (valuesString.length > 0) valuesString += ", ";
-        valuesString += value;
-    }
-
-    if (typeof conditionValue === "string") {
-        conditionValue = `"${conditionValue}";`
-    }
-
-    await Promise.all([
-        run(`UPDATE ${table} SET ${setting} WHERE ${conditionColumn} = ${conditionValue}`),
-        run(`INSERT OR IGNORE INTO ${table} (${conditionColumn}, ${columnsString}) VALUES (${conditionValue}, ${valuesString})`)
-    ]);
+async function run(sql) {
+    await doOperation("run", sql);
 }
 
 /* Helper */
@@ -163,34 +105,40 @@ async function getUserInfo(userId) {
 /* Create Tables */
 
 useDatabase(db => {
+    const c = (tableName, details) => {
+        db.run(`CREATE TABLE IF NOT EXISTS ${tableName} (${details})`);
+    }
 
     /* General */
 
-    db.all("CREATE TABLE IF NOT EXISTS unverified_users (email TEXT UNIQUE NOT NULL, token TEXT UNIQUE NOT NULL)");
-    db.all("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE NOT NULL, password TEXT NOT NULL, name TEXT NOT NULL, surname TEXT NOT NULL)");
-    db.all("CREATE TABLE IF NOT EXISTS recent_awards (id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, award TEXT NOT NULL, date INTEGER NOT NULL)");
+    c("users", "id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE NOT NULL, password TEXT NOT NULL, name TEXT NOT NULL, surname TEXT NOT NULL");
+    c("recent_awards", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, award TEXT NOT NULL, date INTEGER NOT NULL");
 
     /* Logs */
 
-    db.all("CREATE TABLE IF NOT EXISTS endurance_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, distance INTEGER NOT NULL, time INTEGER NOT NULL, description TEXT)");
-    db.all("CREATE TABLE IF NOT EXISTS midmar_mile_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, distance INTEGER NOT NULL, time INTEGER NOT NULL, comments TEXT)");
-    db.all("CREATE TABLE IF NOT EXISTS mountaineering_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, start_date TEXT NOT NULL, area TEXT NOT NULL, days INTEGER NOT NULL, distance INTEGER NOT NULL, altitude_gained INTEGER NOT NULL, party_size INTEGER NOT NULL, shelter TEXT NOT NULL, trail INTEGER NOT NULL, leader INTEGER NOT NULL, majority_above_2000m INTEGER NOT NULL, route TEXT, weather TEXT, situations TEXT)");
-    db.all("CREATE TABLE IF NOT EXISTS running_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, distance INTEGER NOT NULL, time INTEGER NOT NULL, description TEXT)");
-    db.all("CREATE TABLE IF NOT EXISTS service_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, service TEXT NOT NULL, time INTEGER NOT NULL, description TEXT, signer INTEGER)");
+    c("endurance_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, distance INTEGER NOT NULL, time INTEGER NOT NULL, description TEXT");
+    c("midmar_mile_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, distance INTEGER NOT NULL, time INTEGER NOT NULL, comments TEXT");
+    c("mountaineering_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, start_date TEXT NOT NULL, area TEXT NOT NULL, days INTEGER NOT NULL, distance INTEGER NOT NULL, altitude_gained INTEGER NOT NULL, party_size INTEGER NOT NULL, shelter TEXT NOT NULL, trail INTEGER NOT NULL, leader INTEGER NOT NULL, majority_above_2000m INTEGER NOT NULL, route TEXT, weather TEXT, situations TEXT");
+    c("running_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, distance INTEGER NOT NULL, time INTEGER NOT NULL, description TEXT");
+    c("service_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, service TEXT NOT NULL, time INTEGER NOT NULL, description TEXT, signer INTEGER");
 
-    db.all("CREATE TABLE IF NOT EXISTS flat_water_paddling_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT, training TEXT, boat TEXT, time INTEGER, distance TEXT, place TEXT, comments TEXT)");
-    db.all("CREATE TABLE IF NOT EXISTS river_trip_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT, put_in TEXT, take_out TEXT, time INTEGER, distance INTEGER, party_size INTEGER, river TEXT, water_level TEXT, boat TEXT, signer INTEGER)");
+    // paddling
+    c("flat_water_paddling_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT, training TEXT, boat TEXT, time INTEGER, distance TEXT, place TEXT, comments TEXT");
+    c("river_trip_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT, put_in TEXT, take_out TEXT, time INTEGER, distance INTEGER, party_size INTEGER, river TEXT, water_level TEXT, boat TEXT, signer INTEGER");
 
-    db.all("CREATE TABLE IF NOT EXISTS rock_climbing_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, area TEXT, party_size INTEGER, weather TEXT)");
-    db.all("CREATE TABLE IF NOT EXISTS rock_climbing_sublogs (id INTEGER PRIMARY KEY AUTOINCREMENT, log_id INTEGER NOT NULL, route_name TEXT, method TEXT, grade TEXT, pitches INTEGER)");
-    db.all("CREATE TABLE IF NOT EXISTS rock_climbing_instruction_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, duration INTEGER NOT NULL, climbers INTEGER NOT NULL, location TEXT NOT NULL, signer INTEGER)");
+    // rock climbing
+    c("rock_climbing_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, area TEXT, party_size INTEGER, weather TEXT");
+    c("rock_climbing_sublogs", "id INTEGER PRIMARY KEY AUTOINCREMENT, log_id INTEGER NOT NULL, route_name TEXT, method TEXT, grade TEXT, pitches INTEGER");
+    c("rock_climbing_instruction_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, duration INTEGER NOT NULL, climbers INTEGER NOT NULL, location TEXT NOT NULL, signer INTEGER");
+
+    // solitaire
+    c("solitaire_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, location TEXT NOT NULL, others_involved TEXT NOT NULL, supervisors TEXT NOT NULL, items TEXT NOT NULL, experience TEXT NOT NULL");
+    c("solitaire_instructor_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, location TEXT NOT NULL, groupSupervised TEXT NOT NULL, comments TEXT NOT NULL");
+    c("solitaire_leader_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, location TEXT NOT NULL, groupSupervised TEXT NOT NULL, comments TEXT NOT NULL");
 });
 
 module.exports = {
-    all,
-    get,
-    run,
-    replace,
+    all, get, run,
 
     getTableColumns,
 
