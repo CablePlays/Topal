@@ -8,7 +8,7 @@ const renderRouter = require("./render");
 const sqlDatabase = require("./server/sql-database");
 
 const PORT = 80;
-const ARTIFICIAL_LATENCY = 1000;
+const ARTIFICIAL_LATENCY = 500;
 const REQUESTS_PATH = "/requests";
 
 const app = express();

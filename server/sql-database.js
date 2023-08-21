@@ -128,7 +128,7 @@ useDatabase(db => {
 
     // rock climbing
     c("rock_climbing_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, area TEXT, party_size INTEGER, weather TEXT");
-    c("rock_climbing_sublogs", "id INTEGER PRIMARY KEY AUTOINCREMENT, log_id INTEGER NOT NULL, route_name TEXT, method TEXT, grade TEXT, pitches INTEGER");
+    c("rock_climbing_climbs_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, parent INTEGER NOT NULL, route_name TEXT, method TEXT, grade TEXT, pitches INTEGER");
     c("rock_climbing_instruction_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, duration INTEGER NOT NULL, climbers INTEGER NOT NULL, location TEXT NOT NULL, signer INTEGER");
 
     // solitaire

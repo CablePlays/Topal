@@ -1,3 +1,5 @@
+const LOADING_TEXT = "Loading . . .";
+
 function byId(id) {
     return (typeof id === "string") ? document.getElementById(id) : id;
 }

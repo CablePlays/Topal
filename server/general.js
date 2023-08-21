@@ -14,9 +14,9 @@ const PERMISSIONS = [
     "manageAwards",
     "managePermissions",
     "viewAuditLog"
-];  
+];
 
-const LOG_TYPES = { // cannot be both sub and singleton
+const LOG_TYPES = { // cannot be both sublog and singleton
     endurance: {},
     flatWaterPaddling: {},
     midmarMile: {},
@@ -27,9 +27,8 @@ const LOG_TYPES = { // cannot be both sub and singleton
     rockClimbing: {
         sublogs: true
     },
-    rockClimbingBookReviews: {
-        singleton: true,
-        keys: ["link"]
+    rockClimbingClimbs: {
+        parent: "rockClimbing"
     },
     rockClimbingInstruction: {
         signable: true
@@ -46,14 +45,6 @@ const LOG_TYPES = { // cannot be both sub and singleton
     },
     solitaireLeader: {
         singleton: true
-    },
-    traverseHikePlan: {
-        singleton: true,
-        keys: ["link"]
-    },
-    traverseSummaries: {
-        singleton: true,
-        keys: ["link"]
     }
 };
 
@@ -73,26 +64,26 @@ function isApproval(id) {
     return APPROVALS.includes(id);
 }
 
-function isAward(award) {
-    return [
-        'drakensberg',
-        'endurance', 'enduranceInstructor', 'enduranceLeader',
-        'kayaking', 'kayakingInstructor', 'kayakingLeader',
-        'midmarMile', 'midmarMileInstructor', 'midmarMileLeader',
-        'mountaineeringInstructor', 'mountaineeringLeader',
-        'polarBear', 'polarBearInstructor', 'polarBearLeader',
-        'rockClimbing', 'rockClimbingInstructor', 'rockClimbingLeader',
-        'running',
-        'service', 'serviceInstructor', 'serviceLeader',
-        'solitaire', 'solitaireInstructor', 'solitaireLeader',
-        'summit',
-        'traverse',
-        'venture', "ventureLeader"
-    ].includes(award);
-}
-
 function isLogType(logType) {
     return Object.getOwnPropertyNames(LOG_TYPES).includes(logType);
+}
+
+function getParentLogType(logType) {
+    return LOG_TYPES[logType].parent;
+}
+
+function getChildrenLogTypes(logType) {
+    const children = [];
+
+    for (let key in LOG_TYPES) {
+        const { parent } = LOG_TYPES[key];
+
+        if (parent === logType) {
+            children.push(key);
+        }
+    }
+
+    return children;
 }
 
 function isSignable(logType) {
@@ -313,8 +304,9 @@ module.exports = {
     getSublogsTable,
 
     isApproval,
-    isAward,
     isLogType,
+    getParentLogType,
+    getChildrenLogTypes,
     isSignable,
     isSingleton,
     hasSublogs,

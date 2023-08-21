@@ -1,4 +1,4 @@
 window.addEventListener("load", async () => {
-    const logs = createLogDisplay({ logType: "running", showCreate: true, showOptions: true });
+    const logs = createLogDisplay({ logType: "rockClimbing", viewOnly: false });
     byId("test-container").replaceWith(logs);
 });

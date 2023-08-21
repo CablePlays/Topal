@@ -1,25 +1,17 @@
 {
     "logs": {
-        ":type": {
+        ":logType": {
+            "POST": "Create new log or sublog",
             ":logId": {
-                "DELETE": "Delete log",
-                "PUT": "Edit log"
-            },
-            "sub": {
-                ":logId/sublogId": {
-                    "DELETE": "Delete sublog",
-                    "POST": "Create sublog of log",
-                    "PUT": "Edit sublog"
-                }
+                "DELETE": "Delete log or sublog"
             }
         }
     },
     "users": {
-        ":": {
+        ":userId": {
             "logs": {
-                ":type": {
-                    "GET": "Get user logs of type",
-                    "POST": "Create new log"
+                ":logType": {
+                    "GET": "Get user logs & sublogs of type"
                 }
             }
         }
