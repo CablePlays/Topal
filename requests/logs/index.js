@@ -6,7 +6,7 @@ const router = express.Router();
 
 const typeRouter = express.Router();
 
-async function getRecordOwner(logType, logId) {
+async function getLogOwner(logType, logId) {
     while (true) {
         const table = general.getLogsTable(logType);
         const record = await sqlDatabase.get(`SELECT * FROM ${table} WHERE id = ${logId}`);
@@ -29,6 +29,50 @@ router.use("/:logType", (req, res, next) => { // verify log type
     }
 }, typeRouter);
 
+typeRouter.get("/", async (req, res) => {
+    const { logType, permissions, userId } = req;
+    const { parentLogId, targetUserId } = req.query;
+
+    async function getLogs(lt, whereClause) {
+        const tableName = general.getLogsTable(lt);
+        const logs = await sqlDatabase.all(`SELECT * FROM ${tableName} WHERE ${whereClause}`);
+        const childrenLogTypes = general.getChildrenLogTypes(lt);
+
+        for (let log of logs) {
+            const { id: logId } = log;
+
+            for (let childLogType of childrenLogTypes) {
+                log[childLogType] = await getLogs(childLogType, `parent = ${logId}`);
+            }
+        }
+
+        return logs;
+    }
+
+    const parentLogType = general.getParentLogType(logType);
+    let logs;
+
+    if (parentLogType) { // has parent
+        const logOwnerId = await getLogOwner(parentLogType, parentLogId);
+
+        if (logOwnerId !== userId && !permissions.manageAwards) { // verify self or manageAwards
+            res.res(403);
+            return;
+        }
+
+        logs = await getLogs(logType, `parent = ${parentLogId}`);
+    } else {
+        if (targetUserId != userId && !permissions.manageAwards) { // verify self or manageAwards
+            res.res(403);
+            return;
+        }
+
+        logs = await getLogs(logType, `user = ${targetUserId}`);
+    }
+
+    res.res(200, { logs });
+});
+
 typeRouter.post("/", async (req, res) => { // create log
     const { log, parentLogId, id: replaceId } = req.body;
     const { loggedIn, logType, userId } = req;
@@ -45,7 +89,7 @@ typeRouter.post("/", async (req, res) => { // create log
     const table = general.getLogsTable(logType);
 
     if (parentLogId) { // sublog
-        const recordOwnerId = await getRecordOwner(general.getParentLogType(logType), parentLogId);
+        const recordOwnerId = await getLogOwner(general.getParentLogType(logType), parentLogId);
 
         if (recordOwnerId !== userId) { // verify own
             res.res(403, "not_own");
@@ -146,7 +190,7 @@ typeRouter.use("/:logId", async (req, res, next) => { // verify log and self
         return;
     }
 
-    const recordOwnerId = await getRecordOwner(logType, logId);
+    const recordOwnerId = await getLogOwner(logType, logId);
 
     if (recordOwnerId != userId) {
         res.res(403);

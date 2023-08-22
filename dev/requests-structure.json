@@ -1,6 +1,7 @@
 {
     "logs": {
         ":logType": {
+            "GET": "Get user logs & sublogs of type",
             "POST": "Create new log or sublog",
             ":logId": {
                 "DELETE": "Delete log or sublog"

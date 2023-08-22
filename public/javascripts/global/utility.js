@@ -44,16 +44,10 @@ function createElement(type, options) {
 }
 
 function createSpacer(space, options) {
-    let { c } = options;
-
-    if (!c) {
-        c = [];
-        options.c = c;
-    }
-
-    c.push("spacer");
-    c.push("v" + space);
-    return createElement("div", options);
+    const e = createElement("div", options);
+    e.classList.add("spacer");
+    e.classList.add("v" + space);
+    return e;
 }
 
 /* Formatting */

@@ -54,7 +54,7 @@ const _LOG_TYPES = {
             {
                 name: "Climbs",
                 display: {
-                    type: "sublog",
+                    type: "sublogs",
                     sublog: "rockClimbingClimbs"
                 }
             }
@@ -175,11 +175,10 @@ const _LOG_TYPES = {
 /*
     Types
         date
-        sublog
+        sublogs
         text
 */
-function _createDisplaySection(options) {
-    const { log, logType, parentLogId, post, viewOnly } = options;
+function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, viewOnly }) {
     const displaySectionElement = createElement("div", { c: ["log", "display"] });
     const itemsContainer = createElement("div", { c: "items", p: displaySectionElement });
 
@@ -202,15 +201,17 @@ function _createDisplaySection(options) {
                 createElement("p", { p: itemElement, t: displayValue });
                 break;
             }
-            case "sublog": {
+            case "sublogs": {
                 const { sublog: sublogType } = display;
-                itemElement.classList.add("sublog");
+                itemElement.classList.add("sublogs");
 
                 idPromise.then(id => {
+                    createSpacer(10, { p: itemElement });
+
                     const sublogElement = createLogDisplay({
                         logType: sublogType,
                         parentLogId: id,
-                        sublogs: log[sublogType] ?? [],
+                        sublogs: log[sublogType] ?? (fetchSublogs ? null : []),
                         viewOnly
                     });
 
@@ -459,7 +460,7 @@ function _createInputSection(options) {
     createElement("button", {
         c: edit ? "save" : "create", p: inputSectionElement, t: edit ? "Save" : "Create", onClick: async () => {
             let missing = false;
-            const log = initialValues ?? {};
+            const log = {};
 
             for (let attribute in itemStorage) {
                 const { heading, valueSupplier } = itemStorage[attribute];
@@ -480,6 +481,7 @@ function _createInputSection(options) {
             }
             if (edit) {
                 const logElement = _createDisplaySection({
+                    fetchSublogs: true,
                     logType,
                     log,
                     parentLogId,
@@ -537,15 +539,23 @@ function createLogDisplay(options) {
         createElement("p", { p: createLogElement, t: "Create Log" });
     }
 
-    if (sublogs) {
+    if (parentLogId && sublogs) { // requires no loading
         for (let log of sublogs) {
             const logElement = _createDisplaySection({ log, logType, parentLogId, viewOnly });
             logDisplayElement.appendChild(logElement);
         }
     } else {
+        let promise;
+
+        if (parentLogId) {
+            promise = getRequest(`/logs/${logType}?parentLogId=${parentLogId}`);
+        } else {
+            promise = getRequest(`/logs/${logType}?targetUserId=${getUserId()}`);
+        }
+
         const loadingElement = createElement("p", { c: "loading-text", p: logDisplayElement, t: LOADING_TEXT });
 
-        getRequest(`/users/${getUserId()}/logs/${logType}`).then(res => {
+        promise.then(res => {
             const { logs } = res;
             loadingElement.remove();
 

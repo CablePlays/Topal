@@ -44,7 +44,19 @@ typeRouter.get("/", verifySelfOrManageAwards, async (req, res) => { // get logs
         return logs;
     }
 
-    const logs = await getLogs(logType, `user = ${targetUserId}`);
+    let logs;
+
+    if (general.getParentLogType(logType)) { // has parent
+        const logOwnerId = general.getLogOwner(logType, logId);
+
+        if(logOwnerId !== targetUserId)
+
+        logs = await getLogs(logType, `id = ${logId}`);
+    } else {
+        logs = await getLogs(logType, `user = ${targetUserId}`);
+    }
+
+
     res.res(200, { logs });
 });
 
