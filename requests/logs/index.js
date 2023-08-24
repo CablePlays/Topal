@@ -89,7 +89,14 @@ typeRouter.post("/", async (req, res) => { // create log
     const table = general.getLogsTable(logType);
 
     if (parentLogId) { // sublog
-        const recordOwnerId = await getLogOwner(general.getParentLogType(logType), parentLogId);
+        const parentLogType = general.getParentLogType(logType);
+
+        if (!await sqlDatabase.get(`SELECT * FROM ${general.getLogsTable(parentLogType)} WHERE id = ${parentLogId}`)) {
+            res.res(404, "invalid_id");
+            return;
+        }
+
+        const recordOwnerId = await getLogOwner(parentLogType, parentLogId);
 
         if (recordOwnerId !== userId) { // verify own
             res.res(403, "not_own");

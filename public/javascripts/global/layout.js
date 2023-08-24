@@ -1,28 +1,36 @@
 window.addEventListener("load", () => {
 
-  /* Logo */
+    /* Logo */
 
-  document.getElementById("logo").addEventListener("click", () => {
-    window.location.href = "/";
-  });
+    byId("logo").addEventListener("click", () => {
+        window.location.href = "/";
+    });
 
-  /* Search */
+    /* Search */
 
-  const searchInput = document.getElementById("search-input");
+    const searchInput = byId("search-input");
 
-  function search() {
-    const query = searchInput.value.trim();
+    function search() {
+        const query = searchInput.value.trim();
 
-    if (query.length > 0) {
-      window.location.href = "/search?query=" + query;
+        if (query.length > 0) {
+            window.location.href = "/search?query=" + query;
+        }
     }
-  }
 
-  searchInput.addEventListener("keydown", e => {
-    if (e.key == "Enter") {
-      search();
-    }
-  });
+    searchInput.addEventListener("keydown", e => {
+        if (e.key == "Enter") {
+            search();
+        }
+    });
 
-  document.getElementById("search-icon").addEventListener("click", search);
+    byId("search-icon").addEventListener("click", search);
+
+    /* Sign In */
+
+    byId("sign-in-button").addEventListener("click", () => {
+        document.cookie = "user_id=1";
+        document.cookie = "session_token=abc";
+        location.reload();
+    });
 });

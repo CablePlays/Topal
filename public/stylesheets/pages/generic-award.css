@@ -41,6 +41,10 @@ a.link {
   height: 80px;
 }
 
+.material-icons {
+  color: rgb(148, 148, 148);
+}
+
 .slideshow {
   overflow: hidden;
 }
@@ -169,14 +173,15 @@ footer .treverton-link {
   position: relative;
 }
 .logs .log .bottom-bar {
-  -moz-column-gap: 10px;
-       column-gap: 10px;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
   display: flex;
   justify-content: right;
+  margin-right: 10px;
   margin-top: 10px;
 }
-.logs .log .bottom-bar button {
-  padding: 4px;
+.logs .log .bottom-bar * {
+  cursor: pointer;
 }
 .logs .log .items {
   display: flex;
@@ -382,7 +387,6 @@ footer .treverton-link {
 }
 
 #search-icon {
-  color: #949494;
   cursor: pointer;
 }
 

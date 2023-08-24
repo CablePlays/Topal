@@ -172,6 +172,8 @@ const _LOG_TYPES = {
     }
 };
 
+// TODO: make new created logs place on top
+
 /*
     Types
         date
@@ -243,8 +245,8 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
             idPromiseR(logId);
             const bottomBar = createElement("div", { c: "bottom-bar", p: displaySectionElement });
 
-            createElement("button", {
-                p: bottomBar, t: "Edit", onClick: () => {
+            createElement("div", {
+                c: "material-icons", p: bottomBar, t: "edit_square", onClick: () => {
                     const inputSectionElement = _createInputSection({
                         edit: true,
                         logId,
@@ -255,8 +257,8 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
                     displaySectionElement.replaceWith(inputSectionElement);
                 }
             });
-            createElement("button", {
-                p: bottomBar, t: "Delete", onClick: () => {
+            createElement("div", {
+                c: "material-icons", p: bottomBar, t: "delete", onClick: () => {
                     deleteRequest(`/logs/${logType}/${logId}`);
                     displaySectionElement.remove();
                 }
@@ -540,7 +542,7 @@ function createLogDisplay(options) {
     }
 
     if (parentLogId && sublogs) { // requires no loading
-        for (let log of sublogs) {
+        for (let log of sublogs.reverse()) {
             const logElement = _createDisplaySection({ log, logType, parentLogId, viewOnly });
             logDisplayElement.appendChild(logElement);
         }
@@ -559,7 +561,7 @@ function createLogDisplay(options) {
             const { logs } = res;
             loadingElement.remove();
 
-            for (let log of logs) {
+            for (let log of logs.reverse()) {
                 const logElement = _createDisplaySection({ logType, log, viewOnly });
                 logDisplayElement.appendChild(logElement);
             }
@@ -568,3 +570,13 @@ function createLogDisplay(options) {
 
     return logDisplayElement;
 }
+
+window.addEventListener("load", () => {
+    const logElements = document.getElementsByClassName("logs");
+
+    for (let element of logElements) {
+        const logType = element.getAttribute("data-type");
+        const logElement = createLogDisplay({ logType, viewOnly: false });
+        element.replaceWith(logElement);
+    }
+});

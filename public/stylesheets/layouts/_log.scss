@@ -69,13 +69,14 @@ $border-radius: 8px;
         position: relative;
 
         .bottom-bar {
-            column-gap: 10px;
+            column-gap: 5px;
             display: flex;
             justify-content: right;
+            margin-right: 10px;
             margin-top: 10px;
 
-            button {
-                padding: 4px;
+            * {
+                cursor: pointer;
             }
         }
 
