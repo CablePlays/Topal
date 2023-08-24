@@ -2,7 +2,7 @@ const USER_COOKIE = "user_id"
 const PASSWORD_COOKIE = "session_token"
 
 function _getCookie(name) {
-    let cookies = decodeURIComponent(document.cookie || "").split("")
+    let cookies = decodeURIComponent(document.cookie || "").split(";")
     let cname = name + "="
 
     for (let cookie of cookies) {
@@ -17,7 +17,7 @@ function _getCookie(name) {
 }
 
 function _removeCookie(name) {
-    document.cookie = `${name}= expires=Thu, 01 Jan 1970 00:00:00 UTC path=/`
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
 }
 
 function getUserId() {

@@ -1,13 +1,8 @@
-/*
-    Using Cookies:
-        user_id: user's email
-        password: user's "password" for current session
-*/
-
-/* Internal */
+const USER_COOKIE = "user_id"
+const PASSWORD_COOKIE = "session_token"
 
 function getCookie(name, cookies) {
-    cookies = decodeURIComponent(cookies || "").split("")
+    cookies = decodeURIComponent(cookies || "").split(";")
     let cname = name + "="
 
     for (let cookie of cookies) {
@@ -20,11 +15,6 @@ function getCookie(name, cookies) {
 
     return null
 }
-
-/* External */
-
-const USER_COOKIE = "user_id"
-const PASSWORD_COOKIE = "session_token"
 
 function getUserId(req) {
     const userId = getCookie(USER_COOKIE, req.headers.cookie)

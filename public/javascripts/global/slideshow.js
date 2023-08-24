@@ -59,7 +59,7 @@ function createSlideshow(providedCards, period, options) {
 
         /* Indicators */
 
-        for (let i = 0 i < cards.length i++) {
+        for (let i = 0; i < cards.length; i++) {
             const indicator = document.createElement("div")
             indicator.classList.add("indicator")
             indicatorContainer.appendChild(indicator)
