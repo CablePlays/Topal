@@ -1,20 +1,20 @@
-const nodemailer = require('nodemailer');
-const cookies = require("./cookies");
-const sqlDatabase = require('./sql-database');
+const nodemailer = require('nodemailer')
+const cookies = require("./cookies")
+const sqlDatabase = require('./sql-database')
 
-const RECENT_AWARDS_LIFETIME = 48; // hours
-const RECENT_AWARDS_MAX = 10;
+const RECENT_AWARDS_LIFETIME = 48 // hours
+const RECENT_AWARDS_MAX = 10
 
 const APPROVALS = [
     "rockClimbingBelayer",
     "ventureProposal"
-];
+]
 
 const PERMISSIONS = [
     "manageAwards",
     "managePermissions",
     "viewAuditLog"
-];
+]
 
 const LOG_TYPES = { // cannot be both sublog and singleton
     endurance: {},
@@ -46,60 +46,60 @@ const LOG_TYPES = { // cannot be both sublog and singleton
     solitaireLeader: {
         singleton: true
     }
-};
+}
 
 function camelToSnakeCase(camelCaseString) {
-    return camelCaseString.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`);
+    return camelCaseString.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`)
 }
 
 function getLogsTable(logType) {
-    return camelToSnakeCase(logType) + "_logs";
+    return camelToSnakeCase(logType) + "_logs"
 }
 
 function getSublogsTable(logType) {
-    return camelToSnakeCase(logType) + "_sublogs";
+    return camelToSnakeCase(logType) + "_sublogs"
 }
 
 function isApproval(id) {
-    return APPROVALS.includes(id);
+    return APPROVALS.includes(id)
 }
 
 function isLogType(logType) {
-    return Object.getOwnPropertyNames(LOG_TYPES).includes(logType);
+    return Object.getOwnPropertyNames(LOG_TYPES).includes(logType)
 }
 
 function getParentLogType(logType) {
-    return LOG_TYPES[logType].parent;
+    return LOG_TYPES[logType].parent
 }
 
 function getChildrenLogTypes(logType) {
-    const children = [];
+    const children = []
 
     for (let key in LOG_TYPES) {
-        const { parent } = LOG_TYPES[key];
+        const { parent } = LOG_TYPES[key]
 
         if (parent === logType) {
-            children.push(key);
+            children.push(key)
         }
     }
 
-    return children;
+    return children
 }
 
 function isSignable(logType) {
-    return LOG_TYPES[logType].signable === true;
+    return LOG_TYPES[logType].signable === true
 }
 
 function isSingleton(logType) {
-    return LOG_TYPES[logType].singleton === true;
+    return LOG_TYPES[logType].singleton === true
 }
 
 function hasSublogs(logType) {
-    return LOG_TYPES[logType].sublogs === true;
+    return LOG_TYPES[logType].sublogs === true
 }
 
 function isPermission(permission) {
-    return PERMISSIONS.includes(permission);
+    return PERMISSIONS.includes(permission)
 }
 
 function isSignoff(type, id) {
@@ -110,7 +110,7 @@ function isSignoff(type, id) {
                 "backBack",
                 "ecologicalAwareness",
                 "pitchTent"
-            ].includes(id);
+            ].includes(id)
         case "enduranceInstructor":
             return [
                 'bothAwardsTwice',
@@ -120,7 +120,7 @@ function isSignoff(type, id) {
                 'organisingEvents',
                 'readBook',
                 'who'
-            ].includes(id);
+            ].includes(id)
         case "kayaking":
             return [
                 'circuits',
@@ -130,7 +130,7 @@ function isSignoff(type, id) {
                 'safetyChecks',
                 'theoryTest',
                 'timeTrial'
-            ].includes(id);
+            ].includes(id)
         case "kayakingInstructor":
             return [
                 "attitude",
@@ -141,7 +141,7 @@ function isSignoff(type, id) {
                 "mooiRiver",
                 "rescue",
                 "skill"
-            ].includes(id);
+            ].includes(id)
         case "mountaineeringInstructor":
             return [
                 "firstAid",
@@ -150,7 +150,7 @@ function isSignoff(type, id) {
                 "logs",
                 "rescueProcedues",
                 "ropeWork"
-            ].includes(id);
+            ].includes(id)
         case "rockClimbing": {
             const valid = [
                 ["knots", 4],
@@ -159,17 +159,17 @@ function isSignoff(type, id) {
                 ["wallLeadClimb", 3],
                 ["abseiling", 3],
                 ["finalTests", 3]
-            ];
+            ]
 
             for (let a of valid) {
                 for (let i = 1; i <= a[1]; i++) {
                     if (id === a[0] + i) {
-                        return true;
+                        return true
                     }
                 }
             }
 
-            return false;
+            return false
         }
         case "rockClimbingInstructor":
             return [
@@ -188,7 +188,7 @@ function isSignoff(type, id) {
                 "protection",
                 "rescueTechniques",
                 "traverse"
-            ].includes(id);
+            ].includes(id)
         case "rockClimbingLeader":
             return [
                 "abseiling",
@@ -197,84 +197,84 @@ function isSignoff(type, id) {
                 "hoist",
                 "logs",
                 "tangles"
-            ].includes(id);
+            ].includes(id)
         case "summit":
             return [
                 "mapReading",
                 "preparedness",
                 "routeFinding"
-            ].includes(id);
+            ].includes(id)
         case "traverse":
             return [
                 "hikePlan",
                 "summary"
-            ].includes(id);
+            ].includes(id)
     }
 
-    return false;
+    return false
 }
 
 function hasAnyPermission(permissions) {
     for (let permission of PERMISSIONS) {
         if (permissions[permission] === true) {
-            return true;
+            return true
         }
     }
 
-    return false;
+    return false
 }
 
 async function isPasswordValid(req) {
-    const userId = cookies.getUserId(req);
-    if (userId == null) return false;
+    const userId = cookies.getUserId(req)
+    if (userId == null) return false
 
-    const clientPassword = cookies.getPassword(req);
-    if (clientPassword == null) return false;
+    const clientPassword = cookies.getPassword(req)
+    if (clientPassword == null) return false
 
-    const password = await sqlDatabase.getPassword(userId);
-    return (clientPassword === password);
+    const password = await sqlDatabase.getPassword(userId)
+    return (clientPassword === password)
 }
 
 /*
     Runs an async function on a list of objects and waits for all functions to be completed.
 */
 async function forEachAndWait(array, consumer) {
-    const promises = [];
+    const promises = []
 
     for (let value of array) {
-        const promise = consumer(value);
-        promises.push(promise);
+        const promise = consumer(value)
+        promises.push(promise)
     }
 
-    return Promise.all(promises);
+    return Promise.all(promises)
 }
 
 async function provideUserInfoToStatus(status) {
-    const { decline, signer } = status;
+    const { decline, signer } = status
 
     if (signer != null && await sqlDatabase.isUser(signer)) {
-        status.signer = await sqlDatabase.getUserInfo(signer);
+        status.signer = await sqlDatabase.getUserInfo(signer)
     }
     if (decline != null) {
-        const { user } = decline;
+        const { user } = decline
 
         if (user != null && await sqlDatabase.isUser(user)) {
-            decline.user = await sqlDatabase.getUserInfo(user);
+            decline.user = await sqlDatabase.getUserInfo(user)
         }
     }
 }
 
 async function provideUserInfoToStatuses(statuses) {
-    const separatedStatuses = Object.getOwnPropertyNames(statuses);
+    const separatedStatuses = Object.getOwnPropertyNames(statuses)
 
     await forEachAndWait(separatedStatuses, async status => {
-        await provideUserInfoToStatus(statuses[status]);
-    });
+        await provideUserInfoToStatus(statuses[status])
+    })
 }
 
 async function sendEmail(recipient, subject, content) {
-    console.info("Sending email to " + recipient + ": " + subject);
-    const from = "cableplays1912@gmail.com";
+    console.info("Sending email to " + recipient + ": " + subject)
+    const from = "cableplays1912@gmail.com"
 
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
@@ -283,16 +283,16 @@ async function sendEmail(recipient, subject, content) {
             user: from,
             pass: "lvbiogzkrjbabbnb"
         }
-    });
+    })
 
     const info = await transporter.sendMail({
         from: from,
         to: recipient,
         subject,
         html: content
-    });
+    })
 
-    console.info("Email sent: " + info.messageId);
+    console.info("Email sent: " + info.messageId)
 }
 
 module.exports = {

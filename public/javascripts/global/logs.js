@@ -170,7 +170,7 @@ const _LOG_TYPES = {
             }
         ]
     }
-};
+}
 
 // TODO: make new created logs place on top
 
@@ -181,69 +181,69 @@ const _LOG_TYPES = {
         text
 */
 function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, viewOnly }) {
-    const displaySectionElement = createElement("div", { c: ["log", "display"] });
-    const itemsContainer = createElement("div", { c: "items", p: displaySectionElement });
+    const displaySectionElement = createElement("div", { c: ["log", "display"] })
+    const itemsContainer = createElement("div", { c: "items", p: displaySectionElement })
 
-    const { items } = _LOG_TYPES[logType];
+    const { items } = _LOG_TYPES[logType]
 
-    let idPromiseR;
-    const idPromise = new Promise(r => idPromiseR = r);
+    let idPromiseR
+    const idPromise = new Promise(r => idPromiseR = r)
 
     for (let item of items) {
-        const { name, display } = item;
-        const { type } = display;
+        const { name, display } = item
+        const { type } = display
 
-        const itemElement = createElement("div", { c: "item", p: itemsContainer });
-        createElement("h3", { p: itemElement, t: name });
+        const itemElement = createElement("div", { c: "item", p: itemsContainer })
+        createElement("h3", { p: itemElement, t: name })
 
         switch (type) {
             case "date": {
-                const { attribute = "date" } = display;
-                const displayValue = formatDate(log[attribute]);
-                createElement("p", { p: itemElement, t: displayValue });
-                break;
+                const { attribute = "date" } = display
+                const displayValue = formatDate(log[attribute])
+                createElement("p", { p: itemElement, t: displayValue })
+                break
             }
             case "sublogs": {
-                const { sublog: sublogType } = display;
-                itemElement.classList.add("sublogs");
+                const { sublog: sublogType } = display
+                itemElement.classList.add("sublogs")
 
                 idPromise.then(id => {
-                    createSpacer(10, { p: itemElement });
+                    createSpacer(10, { p: itemElement })
 
                     const sublogElement = createLogDisplay({
                         logType: sublogType,
                         parentLogId: id,
                         sublogs: log[sublogType] ?? (fetchSublogs ? null : []),
                         viewOnly
-                    });
+                    })
 
-                    itemElement.appendChild(sublogElement);
-                });
+                    itemElement.appendChild(sublogElement)
+                })
 
-                break;
+                break
             }
             case "text": {
-                const { value } = display;
-                let displayValue;
+                const { value } = display
+                let displayValue
 
                 if (typeof value === "string") {
-                    displayValue = log[value];
+                    displayValue = log[value]
                 } else {
-                    displayValue = value(log);
+                    displayValue = value(log)
                 }
 
-                createElement("p", { p: itemElement, t: displayValue });
-                break;
+                createElement("p", { p: itemElement, t: displayValue })
+                break
             }
         }
     }
 
     if (viewOnly) {
-        idPromiseR(log.id);
+        idPromiseR(log.id)
     } else {
         function loadOptions(logId) {
-            idPromiseR(logId);
-            const bottomBar = createElement("div", { c: "bottom-bar", p: displaySectionElement });
+            idPromiseR(logId)
+            const bottomBar = createElement("div", { c: "bottom-bar", p: displaySectionElement })
 
             createElement("div", {
                 c: "material-icons", p: bottomBar, t: "edit_square", onClick: () => {
@@ -253,47 +253,47 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
                         initialValues: log,
                         logType,
                         parentLogId
-                    });
-                    displaySectionElement.replaceWith(inputSectionElement);
+                    })
+                    displaySectionElement.replaceWith(inputSectionElement)
                 }
-            });
+            })
             createElement("div", {
                 c: "material-icons", p: bottomBar, t: "delete", onClick: () => {
-                    deleteRequest(`/logs/${logType}/${logId}`);
-                    displaySectionElement.remove();
+                    deleteRequest(`/logs/${logType}/${logId}`)
+                    displaySectionElement.remove()
                 }
-            });
+            })
         }
 
         if (post) { // request needs to be handled
-            const loadingElement = createElement("div", { c: "loading" });
-            displaySectionElement.insertBefore(loadingElement, displaySectionElement.childNodes[0]);
-            const infoElement = createElement("p", { p: loadingElement });
+            const loadingElement = createElement("div", { c: "loading" })
+            displaySectionElement.insertBefore(loadingElement, displaySectionElement.childNodes[0])
+            const infoElement = createElement("p", { p: loadingElement })
 
             function handlePost() {
-                infoElement.innerHTML = LOADING_TEXT;
+                infoElement.innerHTML = LOADING_TEXT
 
                 post().then(logId => {
-                    loadingElement.remove();
-                    loadOptions(logId);
+                    loadingElement.remove()
+                    loadOptions(logId)
                 }).catch(() => {
-                    infoElement.innerHTML = "An error occured!";
+                    infoElement.innerHTML = "An error occured!"
                     createElement("button", {
                         p: loadingElement, t: "Try Again", onClick: b => {
-                            b.remove();
-                            handlePost();
+                            b.remove()
+                            handlePost()
                         }
-                    });
-                });
+                    })
+                })
             }
 
-            handlePost();
+            handlePost()
         } else {
-            loadOptions(log.id);
+            loadOptions(log.id)
         }
     }
 
-    return displaySectionElement;
+    return displaySectionElement
 }
 
 /*
@@ -305,149 +305,149 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
         textShort
 */
 function _createInputSection(options) {
-    const { edit, createLogElement, initialValues, logId, logsContainer, logType, parentLogId } = options ?? {}; // edit, logId || createLogElement, logsContainer
+    const { edit, createLogElement, initialValues, logId, logsContainer, logType, parentLogId } = options ?? {} // edit, logId || createLogElement, logsContainer
 
-    const inputSectionElement = createElement("div", { c: ["log", "input"] });
-    const itemsContainer = createElement("div", { c: "items", p: inputSectionElement });
+    const inputSectionElement = createElement("div", { c: ["log", "input"] })
+    const itemsContainer = createElement("div", { c: "items", p: inputSectionElement })
 
-    const { items } = _LOG_TYPES[logType];
-    const itemStorage = {}; // stores value suppliers & item elements
+    const { items } = _LOG_TYPES[logType]
+    const itemStorage = {} // stores value suppliers & item elements
 
     for (let item of items) {
-        const { name, input } = item;
-        if (!input) continue; // item does not support input
+        const { name, input } = item
+        if (!input) continue // item does not support input
 
-        const { attribute, type } = input;
-        const initialValue = initialValues?.[attribute] ?? null;
+        const { attribute, type } = input
+        const initialValue = initialValues?.[attribute] ?? null
 
-        const itemElement = createElement("div", { c: "item", p: itemsContainer });
-        const headingElement = createElement("h3", { p: itemElement, t: name });
+        const itemElement = createElement("div", { c: "item", p: itemsContainer })
+        const headingElement = createElement("h3", { p: itemElement, t: name })
 
-        let valueSupplier; // null indicates no value provided
+        let valueSupplier // null indicates no value provided
 
         switch (type) {
             case "date": {
-                itemElement.classList.add("date");
-                createSpacer(10, { p: itemElement });
+                itemElement.classList.add("date")
+                createSpacer(10, { p: itemElement })
 
-                const inputElement = createElement("input", { p: itemElement });
-                inputElement.type = "date";
+                const inputElement = createElement("input", { p: itemElement })
+                inputElement.type = "date"
 
                 if (initialValue) {
-                    inputElement.value = initialValue;
+                    inputElement.value = initialValue
                 } else {
-                    setDateCurrent(inputElement);
+                    setDateCurrent(inputElement)
                 }
 
                 valueSupplier = () => {
-                    const val = inputElement.value;
-                    return (val === "") ? null : val;
-                };
+                    const val = inputElement.value
+                    return (val === "") ? null : val
+                }
 
-                break;
+                break
             }
             case "duration": {
-                itemElement.classList.add("duration");
-                createSpacer(10, { p: itemElement });
+                itemElement.classList.add("duration")
+                createSpacer(10, { p: itemElement })
 
-                const inputContainer = createElement("div", { c: "input-container", p: itemElement });
+                const inputContainer = createElement("div", { c: "input-container", p: itemElement })
 
                 const createTimeInput = (unit, max, initialValue) => {
-                    const inputElement = createElement("input", { p: inputContainer });
-                    inputElement.type = "text";
-                    inputElement.placeholder = 0;
-                    inputElement.value = initialValue || null;
+                    const inputElement = createElement("input", { p: inputContainer })
+                    inputElement.type = "text"
+                    inputElement.placeholder = 0
+                    inputElement.value = initialValue || null
 
                     inputElement.addEventListener("input", () => {
-                        const val = parseInt(inputElement.value);
+                        const val = parseInt(inputElement.value)
 
                         if (isNaN(val) || val === 0) {
-                            inputElement.value = null;
+                            inputElement.value = null
                         } else if (val > max) {
-                            inputElement.value = max;
+                            inputElement.value = max
                         } else {
-                            inputElement.value = Math.abs(val);
+                            inputElement.value = Math.abs(val)
                         }
                     })
 
-                    createElement("p", { p: inputContainer, t: unit });
-                    return inputElement;
+                    createElement("p", { p: inputContainer, t: unit })
+                    return inputElement
                 }
-                const createColon = () => createElement("p", { c: "colon", p: inputContainer, t: ":" });
+                const createColon = () => createElement("p", { c: "colon", p: inputContainer, t: ":" })
 
-                let ih, im, is;
+                let ih, im, is
 
                 if (initialValue) {
-                    ih = Math.floor(initialValue / 3600);
-                    im = Math.floor((initialValue - ih * 3600) / 60);
-                    is = initialValue - ih * 3600 - im * 60;
+                    ih = Math.floor(initialValue / 3600)
+                    im = Math.floor((initialValue - ih * 3600) / 60)
+                    is = initialValue - ih * 3600 - im * 60
                 }
 
-                const hoursElement = createTimeInput("h", 99, ih);
-                createColon();
-                const minutesElement = createTimeInput("m", 59, im);
-                createColon();
-                const secondsElement = createTimeInput("s", 59, is);
+                const hoursElement = createTimeInput("h", 99, ih)
+                createColon()
+                const minutesElement = createTimeInput("m", 59, im)
+                createColon()
+                const secondsElement = createTimeInput("s", 59, is)
 
                 valueSupplier = () => {
-                    const total = (hoursElement.value || 0) * 3600 + (minutesElement.value || 0) * 60 + (secondsElement.value || 0) * 1;
-                    return (total > 0) ? total : null;
+                    const total = (hoursElement.value || 0) * 3600 + (minutesElement.value || 0) * 60 + (secondsElement.value || 0) * 1
+                    return (total > 0) ? total : null
                 }
 
-                break;
+                break
             }
             case "slider": {
-                const { min, max, step, value, display } = input.slider;
-                itemElement.classList.add("slider");
+                const { min, max, step, value, display } = input.slider
+                itemElement.classList.add("slider")
 
-                const sliderElement = createElement("input");
-                sliderElement.type = "range";
-                sliderElement.max = max;
-                sliderElement.min = min;
+                const sliderElement = createElement("input")
+                sliderElement.type = "range"
+                sliderElement.max = max
+                sliderElement.min = min
                 sliderElement.step = step
-                sliderElement.value = initialValue ?? value;
+                sliderElement.value = initialValue ?? value
 
-                valueSupplier = () => sliderElement.value;
+                valueSupplier = () => sliderElement.value
 
                 if (display) {
-                    const displayElement = createElement("p", { p: itemElement });
-                    const updateDisplayText = () => displayElement.innerHTML = display(sliderElement.value);
+                    const displayElement = createElement("p", { p: itemElement })
+                    const updateDisplayText = () => displayElement.innerHTML = display(sliderElement.value)
 
-                    updateDisplayText();
-                    sliderElement.addEventListener("input", updateDisplayText);
+                    updateDisplayText()
+                    sliderElement.addEventListener("input", updateDisplayText)
                 }
 
-                itemElement.appendChild(sliderElement);
-                break;
+                itemElement.appendChild(sliderElement)
+                break
             }
             case "textLong": {
-                itemElement.classList.add("text-long");
-                createSpacer(10, { p: itemElement });
+                itemElement.classList.add("text-long")
+                createSpacer(10, { p: itemElement })
 
-                const textElement = createElement("textarea", { p: itemElement });
-                textElement.value = initialValue;
+                const textElement = createElement("textarea", { p: itemElement })
+                textElement.value = initialValue
 
                 valueSupplier = () => {
-                    const val = textElement.value;
-                    return (val === "") ? null : val;
-                };
+                    const val = textElement.value
+                    return (val === "") ? null : val
+                }
 
-                break;
+                break
             }
             case "textShort": {
-                itemElement.classList.add("text-short");
-                createSpacer(10, { p: itemElement });
+                itemElement.classList.add("text-short")
+                createSpacer(10, { p: itemElement })
 
-                const inputElement = createElement("input", { p: itemElement });
-                inputElement.type = "text";
-                inputElement.value = initialValue;
+                const inputElement = createElement("input", { p: itemElement })
+                inputElement.type = "text"
+                inputElement.value = initialValue
 
                 valueSupplier = () => {
-                    const val = inputElement.value;
-                    return (val === "") ? null : val;
-                };
+                    const val = inputElement.value
+                    return (val === "") ? null : val
+                }
 
-                break;
+                break
             }
         }
 
@@ -457,29 +457,29 @@ function _createInputSection(options) {
         }
     }
 
-    const infoElement = createElement("p", { p: inputSectionElement });
+    const infoElement = createElement("p", { p: inputSectionElement })
 
     createElement("button", {
         c: edit ? "save" : "create", p: inputSectionElement, t: edit ? "Save" : "Create", onClick: async () => {
-            let missing = false;
-            const log = {};
+            let missing = false
+            const log = {}
 
             for (let attribute in itemStorage) {
-                const { heading, valueSupplier } = itemStorage[attribute];
-                const value = valueSupplier();
+                const { heading, valueSupplier } = itemStorage[attribute]
+                const value = valueSupplier()
 
                 if (value == null) {
-                    heading.classList.add("required");
-                    missing = true;
+                    heading.classList.add("required")
+                    missing = true
                 } else {
-                    heading.classList.remove("required");
-                    log[attribute] = value;
+                    heading.classList.remove("required")
+                    log[attribute] = value
                 }
             }
 
             if (missing) {
-                infoElement.innerHTML = "You are missing required fields!";
-                return;
+                infoElement.innerHTML = "You are missing required fields!"
+                return
             }
             if (edit) {
                 const logElement = _createDisplaySection({
@@ -491,14 +491,14 @@ function _createInputSection(options) {
                     post: () => {
                         return new Promise((r, re) => {
                             postRequest(`/logs/${logType}`, { log, id: logId, parentLogId })
-                                .then(() => r(logId)).catch(err => re(err));
-                        });
+                                .then(() => r(logId)).catch(err => re(err))
+                        })
                     }
-                });
-                inputSectionElement.replaceWith(logElement);
+                })
+                inputSectionElement.replaceWith(logElement)
             } else {
-                inputSectionElement.remove();
-                createLogElement.style.display = "flex";
+                inputSectionElement.remove()
+                createLogElement.style.display = "flex"
 
                 const logElement = _createDisplaySection({
                     logType,
@@ -508,21 +508,21 @@ function _createInputSection(options) {
                     post: () => {
                         return new Promise((r, re) => {
                             postRequest(`/logs/${logType}`, { log, parentLogId })
-                                .then(json => r(json.id)).catch(err => re(err));
-                        });
+                                .then(json => r(json.id)).catch(err => re(err))
+                        })
                     }
-                });
-                logsContainer.appendChild(logElement);
+                })
+                logsContainer.appendChild(logElement)
             }
         }
-    });
+    })
 
-    return inputSectionElement;
+    return inputSectionElement
 }
 
 function createLogDisplay(options) {
-    const { logType, parentLogId, sublogs, viewOnly } = options ?? {};
-    const logDisplayElement = createElement("div", { c: "logs" });
+    const { logType, parentLogId, sublogs, viewOnly } = options ?? {}
+    const logDisplayElement = createElement("div", { c: "logs" })
 
     if (!viewOnly) {
         const createLogElement = createElement("div", {
@@ -532,51 +532,51 @@ function createLogDisplay(options) {
                     logsContainer: logDisplayElement,
                     logType,
                     parentLogId
-                });
-                createLogElement.style.display = "none";
-                createLogElement.insertAdjacentElement("afterend", log);
+                })
+                createLogElement.style.display = "none"
+                createLogElement.insertAdjacentElement("afterend", log)
             }
-        });
-        createElement("div", { c: "create-button", p: createLogElement, t: "+" });
-        createElement("p", { p: createLogElement, t: "Create Log" });
+        })
+        createElement("div", { c: "create-button", p: createLogElement, t: "+" })
+        createElement("p", { p: createLogElement, t: "Create Log" })
     }
 
     if (parentLogId && sublogs) { // requires no loading
         for (let log of sublogs.reverse()) {
-            const logElement = _createDisplaySection({ log, logType, parentLogId, viewOnly });
-            logDisplayElement.appendChild(logElement);
+            const logElement = _createDisplaySection({ log, logType, parentLogId, viewOnly })
+            logDisplayElement.appendChild(logElement)
         }
     } else {
-        let promise;
+        let promise
 
         if (parentLogId) {
-            promise = getRequest(`/logs/${logType}?parentLogId=${parentLogId}`);
+            promise = getRequest(`/logs/${logType}?parentLogId=${parentLogId}`)
         } else {
-            promise = getRequest(`/logs/${logType}?targetUserId=${getUserId()}`);
+            promise = getRequest(`/logs/${logType}?targetUserId=${getUserId()}`)
         }
 
-        const loadingElement = createElement("p", { c: "loading-text", p: logDisplayElement, t: LOADING_TEXT });
+        const loadingElement = createElement("p", { c: "loading-text", p: logDisplayElement, t: LOADING_TEXT })
 
         promise.then(res => {
-            const { logs } = res;
-            loadingElement.remove();
+            const { logs } = res
+            loadingElement.remove()
 
             for (let log of logs.reverse()) {
-                const logElement = _createDisplaySection({ logType, log, viewOnly });
-                logDisplayElement.appendChild(logElement);
+                const logElement = _createDisplaySection({ logType, log, viewOnly })
+                logDisplayElement.appendChild(logElement)
             }
-        });
+        })
     }
 
-    return logDisplayElement;
+    return logDisplayElement
 }
 
 window.addEventListener("load", () => {
-    const logElements = document.getElementsByClassName("logs");
+    const logElements = document.getElementsByClassName("logs")
 
     for (let element of logElements) {
-        const logType = element.getAttribute("data-type");
-        const logElement = createLogDisplay({ logType, viewOnly: false });
-        element.replaceWith(logElement);
+        const logType = element.getAttribute("data-type")
+        const logElement = createLogDisplay({ logType, viewOnly: false })
+        element.replaceWith(logElement)
     }
-});
+})

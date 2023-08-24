@@ -1,63 +1,63 @@
-const express = require("express");
-const general = require("../../server/general");
-const sqlDatabase = require("../../server/sql-database");
+const express = require("express")
+const general = require("../../server/general")
+const sqlDatabase = require("../../server/sql-database")
 
-const router = express.Router();
+const router = express.Router()
 
-const typeRouter = express.Router();
+const typeRouter = express.Router()
 
 router.use("/:logType", (req, res, next) => { // verify log type
-    const { logType } = req.params;
+    const { logType } = req.params
 
     if (general.isLogType(logType)) {
-        req.logType = logType;
-        next();
+        req.logType = logType
+        next()
     } else {
-        res.res(404, "invalid_log_type");
+        res.res(404, "invalid_log_type")
     }
-}, typeRouter);
+}, typeRouter)
 
 function verifySelfOrManageAwards(req, res, next) {
     if (req.userId === req.targetUserId || req.permissions.manageAwards) {
-        next();
+        next()
     } else {
-        res.res(403);
+        res.res(403)
     }
 }
 
 typeRouter.get("/", verifySelfOrManageAwards, async (req, res) => { // get logs
-    const { logType, targetUserId } = req;
+    const { logType, targetUserId } = req
 
     async function getLogs(lt, where) {
-        const tableName = general.getLogsTable(lt);
-        const logs = await sqlDatabase.all(`SELECT * FROM ${tableName} WHERE ${where}`);
-        const childrenLogTypes = general.getChildrenLogTypes(lt);
+        const tableName = general.getLogsTable(lt)
+        const logs = await sqlDatabase.all(`SELECT * FROM ${tableName} WHERE ${where}`)
+        const childrenLogTypes = general.getChildrenLogTypes(lt)
 
         for (let log of logs) {
-            const { id: logId } = log;
+            const { id: logId } = log
 
             for (let childLogType of childrenLogTypes) {
-                log[childLogType] = await getLogs(childLogType, `parent = ${logId}`);
+                log[childLogType] = await getLogs(childLogType, `parent = ${logId}`)
             }
         }
 
-        return logs;
+        return logs
     }
 
-    let logs;
+    let logs
 
     if (general.getParentLogType(logType)) { // has parent
-        const logOwnerId = general.getLogOwner(logType, logId);
+        const logOwnerId = general.getLogOwner(logType, logId)
 
         if(logOwnerId !== targetUserId)
 
-        logs = await getLogs(logType, `id = ${logId}`);
+        logs = await getLogs(logType, `id = ${logId}`)
     } else {
-        logs = await getLogs(logType, `user = ${targetUserId}`);
+        logs = await getLogs(logType, `user = ${targetUserId}`)
     }
 
 
-    res.res(200, { logs });
-});
+    res.res(200, { logs })
+})
 
-module.exports = router;
+module.exports = router

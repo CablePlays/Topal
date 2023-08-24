@@ -1,235 +1,235 @@
-const express = require("express");
-const general = require("../../server/general");
-const sqlDatabase = require("../../server/sql-database");
+const express = require("express")
+const general = require("../../server/general")
+const sqlDatabase = require("../../server/sql-database")
 
-const router = express.Router();
+const router = express.Router()
 
-const typeRouter = express.Router();
+const typeRouter = express.Router()
 
 async function getLogOwner(logType, logId) {
     while (true) {
-        const table = general.getLogsTable(logType);
-        const record = await sqlDatabase.get(`SELECT * FROM ${table} WHERE id = ${logId}`);
+        const table = general.getLogsTable(logType)
+        const record = await sqlDatabase.get(`SELECT * FROM ${table} WHERE id = ${logId}`)
 
-        logType = general.getParentLogType(logType);
-        if (logType == null) return record.user;
+        logType = general.getParentLogType(logType)
+        if (logType == null) return record.user
 
-        logId = record.parent;
+        logId = record.parent
     }
 }
 
 router.use("/:logType", (req, res, next) => { // verify log type
-    const { logType } = req.params;
+    const { logType } = req.params
 
     if (general.isLogType(logType)) {
-        req.logType = logType;
-        next();
+        req.logType = logType
+        next()
     } else {
-        res.res(404, "invalid_log_type");
+        res.res(404, "invalid_log_type")
     }
-}, typeRouter);
+}, typeRouter)
 
 typeRouter.get("/", async (req, res) => {
-    const { logType, permissions, userId } = req;
-    const { parentLogId, targetUserId } = req.query;
+    const { logType, permissions, userId } = req
+    const { parentLogId, targetUserId } = req.query
 
     async function getLogs(lt, whereClause) {
-        const tableName = general.getLogsTable(lt);
-        const logs = await sqlDatabase.all(`SELECT * FROM ${tableName} WHERE ${whereClause}`);
-        const childrenLogTypes = general.getChildrenLogTypes(lt);
+        const tableName = general.getLogsTable(lt)
+        const logs = await sqlDatabase.all(`SELECT * FROM ${tableName} WHERE ${whereClause}`)
+        const childrenLogTypes = general.getChildrenLogTypes(lt)
 
         for (let log of logs) {
-            const { id: logId } = log;
+            const { id: logId } = log
 
             for (let childLogType of childrenLogTypes) {
-                log[childLogType] = await getLogs(childLogType, `parent = ${logId}`);
+                log[childLogType] = await getLogs(childLogType, `parent = ${logId}`)
             }
         }
 
-        return logs;
+        return logs
     }
 
-    const parentLogType = general.getParentLogType(logType);
-    let logs;
+    const parentLogType = general.getParentLogType(logType)
+    let logs
 
     if (parentLogType) { // has parent
-        const logOwnerId = await getLogOwner(parentLogType, parentLogId);
+        const logOwnerId = await getLogOwner(parentLogType, parentLogId)
 
         if (logOwnerId !== userId && !permissions.manageAwards) { // verify self or manageAwards
-            res.res(403);
-            return;
+            res.res(403)
+            return
         }
 
-        logs = await getLogs(logType, `parent = ${parentLogId}`);
+        logs = await getLogs(logType, `parent = ${parentLogId}`)
     } else {
         if (targetUserId != userId && !permissions.manageAwards) { // verify self or manageAwards
-            res.res(403);
-            return;
+            res.res(403)
+            return
         }
 
-        logs = await getLogs(logType, `user = ${targetUserId}`);
+        logs = await getLogs(logType, `user = ${targetUserId}`)
     }
 
-    res.res(200, { logs });
-});
+    res.res(200, { logs })
+})
 
 typeRouter.post("/", async (req, res) => { // create log
-    const { log, parentLogId, id: replaceId } = req.body;
-    const { loggedIn, logType, userId } = req;
+    const { log, parentLogId, id: replaceId } = req.body
+    const { loggedIn, logType, userId } = req
 
     if (!loggedIn) { // verify logged in
-        res.res(401);
-        return;
+        res.res(401)
+        return
     }
     if (log == null) {
-        res.res(400);
-        return;
+        res.res(400)
+        return
     }
 
-    const table = general.getLogsTable(logType);
+    const table = general.getLogsTable(logType)
 
     if (parentLogId) { // sublog
-        const parentLogType = general.getParentLogType(logType);
+        const parentLogType = general.getParentLogType(logType)
 
         if (!await sqlDatabase.get(`SELECT * FROM ${general.getLogsTable(parentLogType)} WHERE id = ${parentLogId}`)) {
-            res.res(404, "invalid_id");
-            return;
+            res.res(404, "invalid_id")
+            return
         }
 
-        const recordOwnerId = await getLogOwner(parentLogType, parentLogId);
+        const recordOwnerId = await getLogOwner(parentLogType, parentLogId)
 
         if (recordOwnerId !== userId) { // verify own
-            res.res(403, "not_own");
-            return;
+            res.res(403, "not_own")
+            return
         }
         if (general.isSingleton(logType)
             && await sqlDatabase.get(`SELECT * FROM ${table} WHERE parent = ${parentLogId}`)) { // check singleton
-            res.res(409, "existing_singleton");
-            return;
+            res.res(409, "existing_singleton")
+            return
         }
         if (replaceId != null) { // own already verified -> delete
-            await sqlDatabase.run(`DELETE FROM ${table} WHERE id = ${replaceId}`);
+            await sqlDatabase.run(`DELETE FROM ${table} WHERE id = ${replaceId}`)
         }
     } else {
         if (general.isSingleton(logType)
             && await sqlDatabase.get(`SELECT * FROM ${table} WHERE userId = ${userId}`)) { // check singleton
-            res.res(409, "existing_singleton");
-            return;
+            res.res(409, "existing_singleton")
+            return
         }
         if (replaceId != null) { // verify own
-            const record = await sqlDatabase.get(`SELECT * FROM ${table} WHERE id = ${replaceId}`);
+            const record = await sqlDatabase.get(`SELECT * FROM ${table} WHERE id = ${replaceId}`)
 
             if (record?.user != userId) {
-                res.res(403, "invalid_id");
-                return;
+                res.res(403, "invalid_id")
+                return
             }
 
-            await sqlDatabase.run(`DELETE FROM ${table} WHERE id = ${replaceId}`);
+            await sqlDatabase.run(`DELETE FROM ${table} WHERE id = ${replaceId}`)
         }
     }
 
-    const columns = await sqlDatabase.getTableColumns(table);
+    const columns = await sqlDatabase.getTableColumns(table)
 
-    let insertingColumns = "";
-    let insertingValues = "";
+    let insertingColumns = ""
+    let insertingValues = ""
 
     for (let i = 2; i < columns.length; i++) { // start 2: skip ID and user
         if (i > 2) {
-            insertingColumns += ", ";
-            insertingValues += ", ";
+            insertingColumns += ", "
+            insertingValues += ", "
         }
 
-        const col = columns[i];
-        const val = log[col];
+        const col = columns[i]
+        const val = log[col]
 
-        insertingColumns += col;
+        insertingColumns += col
 
         if (typeof val === "string") {
-            insertingValues += `"${val}"`;
+            insertingValues += `"${val}"`
         } else if (val == null) { // handle undefined
-            insertingValues += null;
+            insertingValues += null
         } else {
-            insertingValues += val;
+            insertingValues += val
         }
     }
 
-    let returnId;
+    let returnId
 
     if (replaceId) {
-        returnId = replaceId;
-        let run;
+        returnId = replaceId
+        let run
 
         if (parentLogId) {
-            run = `INSERT INTO ${table} (id, parent, ${insertingColumns}) VALUES (${replaceId}, ${parentLogId}, ${insertingValues})`;
+            run = `INSERT INTO ${table} (id, parent, ${insertingColumns}) VALUES (${replaceId}, ${parentLogId}, ${insertingValues})`
         } else {
-            run = `INSERT INTO ${table} (id, user, ${insertingColumns}) VALUES (${replaceId}, ${userId}, ${insertingValues})`;
+            run = `INSERT INTO ${table} (id, user, ${insertingColumns}) VALUES (${replaceId}, ${userId}, ${insertingValues})`
         }
 
-        await sqlDatabase.run(run);
+        await sqlDatabase.run(run)
     } else {
-        let run;
+        let run
 
         if (parentLogId) {
-            run = `INSERT INTO ${table} (parent, ${insertingColumns}) VALUES (${parentLogId}, ${insertingValues})`;
+            run = `INSERT INTO ${table} (parent, ${insertingColumns}) VALUES (${parentLogId}, ${insertingValues})`
         } else {
-            run = `INSERT INTO ${table} (user, ${insertingColumns}) VALUES (${userId}, ${insertingValues})`;
+            run = `INSERT INTO ${table} (user, ${insertingColumns}) VALUES (${userId}, ${insertingValues})`
         }
 
-        await sqlDatabase.run(run);
-        const { id: recordId } = await sqlDatabase.get(`SELECT * FROM ${table} ORDER BY id DESC`);
-        returnId = recordId;
+        await sqlDatabase.run(run)
+        const { id: recordId } = await sqlDatabase.get(`SELECT * FROM ${table} ORDER BY id DESC`)
+        returnId = recordId
     }
 
-    res.res(200, { id: returnId });
-});
+    res.res(200, { id: returnId })
+})
 
-const logIdRouter = express.Router();
+const logIdRouter = express.Router()
 
 typeRouter.use("/:logId", async (req, res, next) => { // verify log and self
-    const { logType, userId } = req;
-    const { logId } = req.params;
-    const logsTable = general.getLogsTable(logType);
+    const { logType, userId } = req
+    const { logId } = req.params
+    const logsTable = general.getLogsTable(logType)
 
-    const record = await sqlDatabase.get(`SELECT * FROM ${logsTable} WHERE id = "${logId}"`);
+    const record = await sqlDatabase.get(`SELECT * FROM ${logsTable} WHERE id = "${logId}"`)
 
     if (!record) {
-        res.res(404, "invalid_log");
-        return;
+        res.res(404, "invalid_log")
+        return
     }
 
-    const recordOwnerId = await getLogOwner(logType, logId);
+    const recordOwnerId = await getLogOwner(logType, logId)
 
     if (recordOwnerId != userId) {
-        res.res(403);
-        return;
+        res.res(403)
+        return
     }
 
-    req.logId = logId;
-    next();
-}, logIdRouter);
+    req.logId = logId
+    next()
+}, logIdRouter)
 
 logIdRouter.delete("/", async (req, res) => { // delete log
-    const { logId, logType } = req;
+    const { logId, logType } = req
 
     async function deleteDescendantLogs(parentLogType, parentLogId) {
-        const childrenLogTypes = general.getChildrenLogTypes(parentLogType);
+        const childrenLogTypes = general.getChildrenLogTypes(parentLogType)
 
         for (let childLogType of childrenLogTypes) {
-            const table = general.getLogsTable(childLogType);
-            const records = await sqlDatabase.all(`SELECT * FROM ${table} WHERE parent = ${parentLogId}`);
-            sqlDatabase.run(`DELETE FROM ${table} WHERE parent = ${parentLogId}`);
+            const table = general.getLogsTable(childLogType)
+            const records = await sqlDatabase.all(`SELECT * FROM ${table} WHERE parent = ${parentLogId}`)
+            sqlDatabase.run(`DELETE FROM ${table} WHERE parent = ${parentLogId}`)
 
             for (let record of records) {
-                await deleteDescendantLogs(childLogType, record.id);
+                await deleteDescendantLogs(childLogType, record.id)
             }
         }
     }
 
-    const logsTable = general.getLogsTable(logType);
-    await sqlDatabase.run(`DELETE FROM ${logsTable} WHERE id = ${logId}`);
+    const logsTable = general.getLogsTable(logType)
+    await sqlDatabase.run(`DELETE FROM ${logsTable} WHERE id = ${logId}`)
 
-    await deleteDescendantLogs(logType, logId);
-    res.res(204);
-});
+    await deleteDescendantLogs(logType, logId)
+    res.res(204)
+})
 
-module.exports = router;
+module.exports = router
