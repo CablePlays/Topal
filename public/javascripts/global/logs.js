@@ -172,8 +172,6 @@ const _LOG_TYPES = {
     }
 }
 
-// TODO: make new created logs place on top
-
 /*
     Types
         date
@@ -512,7 +510,8 @@ function _createInputSection(options) {
                         })
                     }
                 })
-                logsContainer.appendChild(logElement)
+
+                createLogElement.insertAdjacentElement("afterend", logElement)
             }
         }
     })
