@@ -161,7 +161,7 @@ a.link {
     top: -20px;
   }
 }
-.sides-container .right .info {
+.sides-container .right #info {
   align-items: center;
   border: 2px solid black;
   display: flex;
@@ -169,54 +169,58 @@ a.link {
   padding: 16px;
 }
 @media screen and (min-width: 620px) {
-  .sides-container .right .info {
+  .sides-container .right #info {
     display: block;
   }
 }
-.sides-container .right .info h2 {
+.sides-container .right #info h2 {
   text-align: center;
 }
-.sides-container .right .info meter {
+.sides-container .right #info meter {
   height: 30px;
   width: 100%;
 }
-.sides-container .right .info meter::-webkit-meter-optimum-value {
+.sides-container .right #info meter::-webkit-meter-optimum-value {
   background-color: #EF7523;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
-.sides-container .right .info meter::-moz-meter-bar {
+.sides-container .right #info meter::-moz-meter-bar {
   background-color: #EF7523;
+  -moz-transition: 0.5s;
+  transition: 0.5s;
 }
-.sides-container .right .info .line {
+.sides-container .right #info .line {
   border-top: 2px solid black;
   margin-left: 5%;
   width: 90%;
 }
-.sides-container .right .info .rating {
+.sides-container .right #info .rating {
   display: flex;
   -moz-column-gap: 2px;
        column-gap: 2px;
 }
-.sides-container .right .info .rating span {
+.sides-container .right #info .rating span {
   border-radius: 6px;
   height: 20px;
   width: 20px;
 }
-.sides-container .right .info .rating span:not(.fill) {
+.sides-container .right #info .rating span:not(.fill) {
   background-color: rgb(200, 200, 200);
 }
-.sides-container .right .info .rating.lvl1 .fill {
+.sides-container .right #info .rating.lvl1 .fill {
   background-color: rgb(50, 205, 50);
 }
-.sides-container .right .info .rating.lvl2 .fill {
+.sides-container .right #info .rating.lvl2 .fill {
   background-color: rgb(255, 255, 0);
 }
-.sides-container .right .info .rating.lvl3 .fill {
+.sides-container .right #info .rating.lvl3 .fill {
   background-color: rgb(255, 165, 0);
 }
-.sides-container .right .info .rating.lvl4 .fill {
+.sides-container .right #info .rating.lvl4 .fill {
   background-color: rgb(255, 99, 71);
 }
-.sides-container .right .info .rating.lvl5 .fill {
+.sides-container .right #info .rating.lvl5 .fill {
   background-color: rgb(255, 0, 0);
 }
 

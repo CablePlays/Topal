@@ -39,7 +39,7 @@ function createElement(type, options) {
     if (p) byId(p).appendChild(element)
     if (t) element.innerHTML = t
     if (consumer) consumer(element)
-
+    
     return element
 }
 

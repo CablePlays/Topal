@@ -1,8 +1,10 @@
 extends ../layout
 
 block content
+  script(src='/javascripts/global/awards.js')
+
   .spacer.v20
-  h1.pl16 Running Award
+  h1#award-title.pl16 Award Title
 
   .sides-container
     .left
@@ -14,13 +16,10 @@ block content
         block requirements
 
     .right
-      .info
-        h2 Running Award Info
+      #info
+        h2#award-info-title Award Info Title
         .spacer.v10
-        p.
-          Spend time on the trails and accumulate 100km of distance to earn this award.
-          Every time you go for a run, log it so that your total distance increases.
-          Once you've reached 100km, you will receive this award.
+        p#award-description
 
         .spacer.v20
         .line
@@ -28,8 +27,8 @@ block content
 
         h3 Difficulty
         .spacer.v10
-        .rating.lvl1
-          span.fill
+        #difficulty.rating
+          span
           span
           span
           span
@@ -39,24 +38,9 @@ block content
 
         h3 Skill Level
         .spacer.v10
-        .rating.lvl3
-          span.fill
-          span.fill
-          span.fill
+        #skill-level.rating
           span
           span
-
-        .spacer.v20
-        .line
-        .spacer.v20
-
-        h3 Points
-        p 263 points
-
-        .spacer.v20
-        .line
-        .spacer.v20
-
-        h3 Total Distance
-        p 30km / 100km
-        meter(max=100 value=40)
+          span
+          span
+          span

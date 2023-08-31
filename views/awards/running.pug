@@ -32,3 +32,34 @@ block requirements
       Before races, you will need to show your logbook to the TIC to qualify for entry.
       Your distance per day must also be taken into account
       (seven runs of 1km each are more benefitial than one 7km run).
+
+block scripts
+  script.
+    const totalDistance = new Promise(r => {
+      setTimeout(()=> r(70000), 1000)
+    })
+
+    setAwardName("Running")
+    setAwardDescription(`Spend time on the trails and accumulate 100km of distance to earn this award.
+      Every time you go for a run, log it so that your total distance increases.
+      Once you've reached 100km, you will receive this award.`)
+    setDifficulty(1)
+    setSkillLevel(2)
+    includePoints()
+
+    const totalDistanceDisplay = createElement("p")
+    totalDistanceDisplay.innerHTML = LOADING_TEXT
+
+    const totalDistanceMeter = createElement("meter")
+    totalDistanceMeter.max = 100000
+
+    totalDistance.then(d => {
+      totalDistanceDisplay.innerHTML = `${d / 1000}km / 100km`
+      totalDistanceMeter.value = d
+    })
+
+    appendInfo([
+      createElement("h3", {t: "Total Distance"}),
+      totalDistanceDisplay,
+      totalDistanceMeter
+    ])

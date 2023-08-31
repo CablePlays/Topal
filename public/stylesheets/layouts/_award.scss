@@ -58,7 +58,7 @@ $right-block-width: 280px;
             }
         }
 
-        .info {
+        #info {
             align-items: center;
             border: 2px solid black;
             display: flex;
@@ -79,10 +79,12 @@ $right-block-width: 280px;
 
                 &::-webkit-meter-optimum-value {
                     background-color: $color-primary-400;
+                    transition: 0.5s;
                 }
 
                 &::-moz-meter-bar {
                     background-color: $color-primary-400;
+                    transition: 0.5s;
                 }
             }
 
