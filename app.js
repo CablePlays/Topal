@@ -32,13 +32,13 @@ app.use((req, res, next) => { // catch 404 and forward to error handler
 })
 
 app.use(REQUESTS_PATH, (err, req, res, next) => { // handle request errors
+    const status = err.status || 500
     console.error(err)
-    let status = err.status || 500
     res.sendStatus(status)
 })
 
 app.use((err, req, res, next) => { // handle render errors
-    let status = err.status || 500
+    const status = err.status || 500
     res.status(status)
     console.error(err)
 

@@ -1,0 +1,62 @@
+extends ../layout
+
+block content
+  .spacer.v20
+  h1.pl16 Running Award
+
+  .sides-container
+    .left
+      .spacer.v20
+
+      .requirements
+        h2 Requirements
+        .spacer.v20
+        block requirements
+
+    .right
+      .info
+        h2 Running Award Info
+        .spacer.v10
+        p.
+          Spend time on the trails and accumulate 100km of distance to earn this award.
+          Every time you go for a run, log it so that your total distance increases.
+          Once you've reached 100km, you will receive this award.
+
+        .spacer.v20
+        .line
+        .spacer.v20
+
+        h3 Difficulty
+        .spacer.v10
+        .rating.lvl1
+          span.fill
+          span
+          span
+          span
+          span
+
+        .spacer.v10
+
+        h3 Skill Level
+        .spacer.v10
+        .rating.lvl3
+          span.fill
+          span.fill
+          span.fill
+          span
+          span
+
+        .spacer.v20
+        .line
+        .spacer.v20
+
+        h3 Points
+        p 263 points
+
+        .spacer.v20
+        .line
+        .spacer.v20
+
+        h3 Total Distance
+        p 30km / 100km
+        meter(max=100 value=40)

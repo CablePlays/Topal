@@ -1,0 +1,131 @@
+$info-width: 270px;
+$change-occur-width: 620px;
+$right-block-width: 280px;
+
+.sides-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column-reverse;
+    padding-top: 20px;
+
+    @media screen and (min-width: $change-occur-width) {
+        align-items: flex-start;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-top: 0;
+    }
+
+    .left {
+        max-width: 1000px;
+
+        .requirements {
+            padding: 0 16px;
+            text-align: justify;
+
+            ol,
+            ul {
+                margin-left: 20px;
+            }
+
+            >ol,
+            >ul {
+                display: flex;
+                flex-direction: column;
+                row-gap: 20px;
+            }
+        }
+    }
+
+    .right {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+
+        @media screen and (min-width: $change-occur-width) {
+            padding: 0px 20px 0 0;
+        }
+
+        >* {
+            max-width: 380px;
+            width: 90%;
+
+            @media screen and (min-width: $change-occur-width) {
+                max-width: $right-block-width;
+                min-width: $right-block-width;
+                position: relative;
+                top: -20px;
+            }
+        }
+
+        .info {
+            align-items: center;
+            border: 2px solid black;
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+
+            @media screen and (min-width: $change-occur-width) {
+                display: block;
+            }
+
+            h2 {
+                text-align: center;
+            }
+
+            meter {
+                height: 30px;
+                width: 100%;
+
+                &::-webkit-meter-optimum-value {
+                    background-color: $color-primary-400;
+                }
+
+                &::-moz-meter-bar {
+                    background-color: $color-primary-400;
+                }
+            }
+
+            .line {
+                border-top: 2px solid black;
+                margin-left: 5%;
+                width: 90%;
+            }
+
+            .rating {
+                display: flex;
+                column-gap: 2px;
+
+                span {
+                    border-radius: 6px;
+                    height: 20px;
+                    width: 20px;
+
+                    &:not(.fill) {
+                        background-color: rgb(200, 200, 200);
+                    }
+                }
+
+                &.lvl1 .fill {
+                    background-color: rgb(50, 205, 50);
+                }
+
+                &.lvl2 .fill {
+                    background-color: rgb(255, 255, 0);
+                }
+
+                &.lvl3 .fill {
+                    background-color: rgb(255, 165, 0);
+                }
+
+                &.lvl4 .fill {
+                    background-color: rgb(255, 99, 71);
+                }
+
+                &.lvl5 .fill {
+                    background-color: rgb(255, 0, 0);
+                }
+            }
+        }
+    }
+}

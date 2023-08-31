@@ -1,5 +1,5 @@
 // abstracts
-@import "abstracts/colors";
+@import "abstracts/colors", "abstracts/dimensions";
 
 // base
 @import "base/base", "base/helpers";
@@ -8,4 +8,4 @@
 @import "components/icon", "components/slideshow";
 
 // layouts
-@import "layouts/footer", "layouts/log", "layouts/topbar";
+@import "layouts/award", "layouts/footer", "layouts/log", "layouts/topbar";

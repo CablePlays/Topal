@@ -3,7 +3,7 @@ $search-bar-breakpoint: 800px;
 
 .topbar,
 .topbar-spacer {
-    height: 100px;
+    height: $topbar-height;
 }
 
 .topbar {

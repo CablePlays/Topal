@@ -4,7 +4,7 @@ const general = require("../server/general")
 const jsonDatabase = require("../server/json-database")
 
 // routers
-// TODO
+const awardsRouter = require("./awards")
 
 const router = express.Router()
 
@@ -86,8 +86,12 @@ router.get("/settings", (req, res) => {
     res.advancedRender("general/settings")
 })
 
+router.get("/test", (req, res) => {
+    res.advancedRender("awards/design")
+})
+
 /* Routers */
 
-// TODO
+router.use("/awards", awardsRouter)
 
 module.exports = router
