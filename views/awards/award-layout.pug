@@ -6,16 +6,16 @@ block content
   .spacer.v20
   h1#award-title.pl16 Award Title
 
-  .sides-container
-    .left
-      .spacer.v20
-
+  .col-container
+    .col1
       .requirements
         h2 Requirements
         .spacer.v20
         block requirements
 
-    .right
+      block extra
+
+    .col2
       #info
         h2#award-info-title Award Info Title
         .spacer.v10
@@ -44,3 +44,18 @@ block content
           span
           span
           span
+
+    #award-links.col3
+      div(onclick="window.location.href='/awards'")
+        p Awards
+        .material-icons chevron_right
+      div
+        p Instructor Award
+        .material-icons chevron_right
+      div
+        p Leader Award
+        .material-icons chevron_right
+
+  #title-start
+  block logs
+  .spacer.v40

@@ -3,6 +3,29 @@ function setAwardName(name) {
     byId("award-info-title").innerHTML = name + " Award Info"
 }
 
+window.addEventListener("load", () => {
+    const awardLinksElement = byId("award-links")
+    const titleStart = byId("title-start")
+    let next = titleStart
+
+    while (true) {
+        next = next.nextElementSibling
+        const currentElement = next
+
+        if (currentElement == null) break
+        if (currentElement.tagName !== "H2") continue;
+
+        const div = createElement("div", {
+            p: awardLinksElement, onClick() {
+                currentElement.scrollIntoView({ behavior: "smooth" })
+            }
+        })
+
+        createElement("p", { p: div, t: next.innerHTML })
+        createElement("div", { c: "material-icons", p: div, t: "keyboard_arrow_down" })
+    }
+})
+
 function _setRating(rating, val) {
     const ratingElement = byId(rating)
     const children = ratingElement.childNodes

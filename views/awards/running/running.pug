@@ -1,4 +1,4 @@
-extends ./award-layout
+extends ../award-layout
 
 block assets
   link(rel="stylesheet" href="/stylesheets/pages/generic.css")
@@ -32,6 +32,12 @@ block requirements
       Before races, you will need to show your logbook to the TIC to qualify for entry.
       Your distance per day must also be taken into account
       (seven runs of 1km each are more benefitial than one 7km run).
+
+block logs
+  h2.pl16 Running Logs
+  .spacer.v20
+  .logs(data-type="running")
+  h2 Test
 
 block scripts
   script.

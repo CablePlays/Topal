@@ -1,0 +1,48 @@
+extends ../award-layout
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/generic.css")
+
+block requirements
+  ol
+    li A
+
+block logs
+  h2.pl16 Flat Water Paddling Logs
+  .spacer.v20
+  .logs(data-type="flatWaterPaddling")
+
+  .spacer.v40
+
+  h2.pl16 River Trip Logs
+  .spacer.v20
+  .logs(data-type="riverTrip")
+
+block scripts
+  script.
+    const totalDistance = new Promise(r => {
+      setTimeout(()=> r(70000), 1000)
+    })
+
+    setAwardName("Kayaking")
+    setAwardDescription(`TODO`)
+    setDifficulty(1)
+    setSkillLevel(1)
+    includePoints()
+
+    const totalDistanceDisplay = createElement("p")
+    totalDistanceDisplay.innerHTML = LOADING_TEXT
+
+    const totalDistanceMeter = createElement("meter")
+    totalDistanceMeter.max = 100000
+
+    totalDistance.then(d => {
+      totalDistanceDisplay.innerHTML = `${d / 1000}km / 100km`
+      totalDistanceMeter.value = d
+    })
+
+    appendInfo([
+      createElement("h3", {t: "Total Distance"}),
+      totalDistanceDisplay,
+      totalDistanceMeter
+    ])

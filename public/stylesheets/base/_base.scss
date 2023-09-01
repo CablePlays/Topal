@@ -1,15 +1,19 @@
 * {
-  box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
+// html {
+//     scroll-behavior: smooth;
+// }
+
 .block-content-container {
-  min-height: 90vh;
+    min-height: 90vh;
 }
 
 a.link {
-  color: rgb(0, 200, 255);
-  text-decoration: underline;
+    color: rgb(0, 200, 255);
+    text-decoration: underline;
 }
