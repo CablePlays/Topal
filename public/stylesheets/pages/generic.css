@@ -354,6 +354,9 @@ footer .treverton-link {
   font-size: 20px;
   text-align: center;
 }
+.logs .log {
+  position: relative;
+}
 .logs .log .bottom-bar {
   -moz-column-gap: 5px;
        column-gap: 5px;
