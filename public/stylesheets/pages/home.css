@@ -681,9 +681,14 @@ footer .treverton-link {
 .banner .slideshow .card button {
   background-color: white;
   border: none;
+  border-radius: 16px;
   color: black;
+  cursor: pointer;
+  font-size: 16px;
   font-weight: 400;
+  height: 60px;
   margin: 20px 0 40px 0;
+  width: 175px;
 }
 .banner .slideshow .card button:hover {
   background-color: rgb(220, 220, 220);
