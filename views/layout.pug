@@ -19,10 +19,18 @@ head
   block assets
 body
   .topbar
-    img#logo(src="/assets/logos/logo.svg")
+    img#logo(src="/assets/logos/logo.svg" onclick="location.href='/'")
     .links
-      a.selected(href='/') Home
-      a(href='/awards') Awards
+      a#home-tab(href='/') Home
+      a#awards-tab(href='/awards') Awards
+      script.
+        const path = location.pathname
+
+        if (path === "/") {
+          byId("home-tab").classList.add("selected")
+        } else if (path === "/awards") {
+          byId("awards-tab").classList.add("selected")
+        }
 
     .search
       #search-icon.material-icons search

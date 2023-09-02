@@ -1,11 +1,5 @@
 window.addEventListener("load", () => {
 
-    /* Logo */
-
-    byId("logo").addEventListener("click", () => {
-        window.location.href = "/"
-    })
-
     /* Search */
 
     const searchInput = byId("search-input")
