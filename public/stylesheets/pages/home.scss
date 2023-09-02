@@ -7,15 +7,6 @@ $banner-breakpoint: 450px;
     height: 980px;
     position: relative;
 
-    button {
-        border-radius: 16px;
-        cursor: pointer;
-        width: 175px;
-        height: 60px;
-        font-weight: 300;
-        font-size: 16px;
-    }
-
     .top {
         @extend .flex-center;
         padding: 0 20px;
@@ -48,14 +39,27 @@ $banner-breakpoint: 450px;
             }
         }
 
-        .button-container {
+        .links {
             display: flex;
             flex-wrap: wrap;
             gap: 8px 32px;
             justify-content: center;
             margin-top: 32px;
 
-            .button-primary {
+            a {
+                align-items: center;
+                border-radius: 16px;
+                cursor: pointer;
+                display: flex;
+                font-size: 16px;
+                font-weight: 400;
+                justify-content: center;
+                height: 60px;
+                text-decoration: none;
+                width: 175px;
+            }
+
+            .primary {
                 background-color: $color-primary-400;
                 border: none;
                 color: white;
@@ -65,7 +69,7 @@ $banner-breakpoint: 450px;
                 }
             }
 
-            .button-secondary {
+            .secondary {
                 background-color: rgb(0, 0, 0, 0);
                 border: 2px solid $color-primary-400;
                 color: $color-primary-400;
