@@ -594,3 +594,79 @@ footer .treverton-link {
 #sign-in-button:hover {
   background-color: #f29354;
 }
+
+.cards-container {
+  justify-content: center;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: min(95%, 500px);
+  padding: 16px;
+}
+@media screen and (min-width: 1060px) {
+  .cards-container {
+    grid-template-columns: repeat(2, 500px);
+  }
+}
+@media screen and (min-width: 1580px) {
+  .cards-container {
+    grid-template-columns: repeat(3, 500px);
+  }
+}
+.cards-container .card {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+.cards-container .card img {
+  border-radius: 4px 4px 0 0;
+  display: block;
+  height: 180px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  width: 100%;
+}
+.cards-container .card .info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 16px;
+}
+.cards-container .card .info p {
+  margin-bottom: 20px;
+  text-align: justify;
+}
+.cards-container .card .info .links {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 5px 10px;
+}
+@media screen and (min-width: 550px) {
+  .cards-container .card .info .links {
+    align-items: flex-end;
+    flex-direction: row;
+  }
+}
+.cards-container .card .info .links a {
+  background-color: #EF7523;
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
+  min-width: 150px;
+  padding: 6px;
+  text-decoration: none;
+}
+@media screen and (min-width: 550px) {
+  .cards-container .card .info .links a {
+    font-size: 14px;
+    min-width: initial;
+    padding: 8px;
+  }
+}
+.cards-container .card .info .links a:hover {
+  background-color: #f29354;
+}

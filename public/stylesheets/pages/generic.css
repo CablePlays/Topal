@@ -244,6 +244,8 @@ a.link {
   grid-row: 1/2;
   padding: 16px;
   row-gap: 10px;
+  width: -moz-max-content;
+  width: max-content;
 }
 @media screen and (min-width: 620px) {
   .col-container .col3 {
@@ -256,13 +258,14 @@ a.link {
     grid-row: initial;
     padding: 16px 16px 16px 0;
     row-gap: 20px;
+    width: -moz-min-content;
+    width: min-content;
   }
 }
 .col-container .col3 > div {
   align-items: center;
   cursor: pointer;
   display: flex;
-  max-width: 140px;
   width: 100%;
 }
 .col-container .col3 > div p {

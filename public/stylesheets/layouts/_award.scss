@@ -153,6 +153,7 @@ $width-b: 900px;
         grid-row: 1 / 2;
         padding: 16px;
         row-gap: 10px;
+        width: max-content;
 
         @media screen and (min-width: $width-a) {
             grid-column: 1 / 2;
@@ -163,13 +164,13 @@ $width-b: 900px;
             grid-row: initial;
             padding: 16px 16px 16px 0;
             row-gap: 20px;
+            width: min-content;
         }
 
         >div {
             align-items: center;
             cursor: pointer;
             display: flex;
-            max-width: 140px;
             width: 100%;
 
             p {

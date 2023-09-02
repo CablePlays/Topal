@@ -4,6 +4,10 @@ const path = require('path');
 
 const router = express.Router()
 
+router.get("/", (req, res) => {
+    res.advancedRender("awards/awards")
+})
+
 router.get("/:awardType", (req, res, next) => {
     const sequelTypes = ["instructor", "leader"]
     const awardType = req.params.awardType

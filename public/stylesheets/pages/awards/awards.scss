@@ -1,0 +1,82 @@
+@import "../../global";
+
+$card-border-radius: 4px;
+$card-width: 500px;
+$link-change-width: 550px;
+
+.cards-container {
+    justify-content: center;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: min(95%, $card-width);
+    padding: 16px;
+
+    @media screen and (min-width: 1060px) {
+        grid-template-columns: repeat(2, $card-width);
+    }
+
+    @media screen and (min-width: 1580px) {
+        grid-template-columns: repeat(3, $card-width);
+    }
+
+    .card {
+        box-shadow: 0 0 8px rgb(0, 0, 0, 0.5);
+        border-radius: $card-border-radius;
+        display: flex;
+        flex-direction: column;
+
+        img {
+            border-radius: $card-border-radius $card-border-radius 0 0;
+            display: block; // removes space underneath
+            height: 180px;
+            object-fit: cover;
+            object-position: center;
+            width: 100%;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 16px;
+
+            p {
+                margin-bottom: 20px;
+                text-align: justify;
+            }
+
+            .links {
+                align-items: flex-start;
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                gap: 5px 10px;
+
+                @media screen and (min-width: $link-change-width) {
+                    align-items: flex-end;
+                    flex-direction: row;
+                }
+
+                a {
+                    background-color: $color-primary-400;
+                    border-radius: 4px;
+                    color: white;
+                    font-size: 12px;
+                    min-width: 150px;
+                    padding: 6px;
+                    text-decoration: none;
+
+                    @media screen and (min-width: $link-change-width) {
+                        font-size: 14px;
+                        min-width: initial;
+                        padding: 8px;
+                    }
+
+                    &:hover {
+                        background-color: $color-primary-300;
+                    }
+                }
+            }
+        }
+    }
+}
