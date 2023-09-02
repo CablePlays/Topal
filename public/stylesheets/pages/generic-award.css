@@ -114,11 +114,13 @@ a.link {
 @media screen and (min-width: 620px) {
   .col-container {
     grid-template-columns: 10fr 1fr;
+    grid-template-rows: auto 1fr;
   }
 }
 @media screen and (min-width: 900px) {
   .col-container {
-    grid-template-columns: 10fr 1fr 1fr;
+    grid-template-columns: 1fr auto auto;
+    grid-template-rows: initial;
   }
 }
 .col-container .col1 {
@@ -175,6 +177,7 @@ a.link {
 .col-container .col2 #info {
   align-items: center;
   border: 2px solid black;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   padding: 16px;

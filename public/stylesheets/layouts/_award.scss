@@ -9,10 +9,12 @@ $width-b: 900px;
 
     @media screen and (min-width: $width-a) {
         grid-template-columns: 10fr 1fr;
+        grid-template-rows: auto 1fr;
     }
 
     @media screen and (min-width: $width-b) {
-        grid-template-columns: 10fr 1fr 1fr;
+        grid-template-columns: 1fr auto auto;
+        grid-template-rows: initial;
     }
 
     .col1 {
@@ -73,6 +75,7 @@ $width-b: 900px;
         #info {
             align-items: center;
             border: 2px solid black;
+            border-radius: 8px;
             display: flex;
             flex-direction: column;
             padding: 16px;
