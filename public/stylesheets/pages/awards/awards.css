@@ -206,7 +206,7 @@ a.link {
 }
 .col-container .col2 #info .line {
   border-top: 2px solid black;
-  margin-left: 5%;
+  margin: 20px 0 20px 5%;
   width: 90%;
 }
 .col-container .col2 #info .rating {
@@ -236,6 +236,58 @@ a.link {
 }
 .col-container .col2 #info .rating.lvl5 .fill {
   background-color: rgb(255, 0, 0);
+}
+.col-container .col2 #info #award-status {
+  align-items: center;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  display: flex;
+}
+.col-container .col2 #info #award-status-info {
+  margin-top: 10px;
+}
+.col-container .col2 #info #request-container {
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  align-items: center;
+  display: flex;
+  margin-top: 10px;
+}
+.col-container .col2 #info #request-container button {
+  background-color: rgb(100, 100, 100);
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 8px;
+  transition: 0.15s;
+}
+.col-container .col2 #info #request-container button:hover {
+  box-shadow: -3px 3px 4px rgba(0, 0, 0, 0.3);
+  transform: translateX(1px) translateY(-1px);
+}
+.col-container .col2 #info #request-container .info {
+  cursor: pointer;
+  position: relative;
+}
+.col-container .col2 #info #request-container .info p {
+  background-color: rgba(100, 100, 100, 0.9);
+  bottom: 0;
+  border-radius: 4px;
+  color: white;
+  display: none;
+  font-size: 14px;
+  padding: 8px;
+  position: absolute;
+  word-wrap: normal;
+  width: 200px;
+  right: 0;
+  white-space: normal;
+}
+.col-container .col2 #info #request-container .info:hover p {
+  display: block;
 }
 .col-container .col3 {
   align-items: flex-start;

@@ -105,7 +105,7 @@ $width-b: 900px;
 
             .line {
                 border-top: 2px solid black;
-                margin-left: 5%;
+                margin: 20px 0 20px 5%;
                 width: 90%;
             }
 
@@ -141,6 +141,64 @@ $width-b: 900px;
 
                 &.lvl5 .fill {
                     background-color: rgb(255, 0, 0);
+                }
+            }
+
+            #award-status {
+                align-items: center;
+                column-gap: 10px;
+                display: flex;
+            }
+
+            #award-status-info {
+                margin-top: 10px;
+            }
+
+            #request-container {
+                column-gap: 10px;
+                align-items: center;
+                display: flex;
+                margin-top: 10px;
+
+                button {
+                    background-color: rgb(100, 100, 100);
+                    border: none;
+                    border-radius: 8px;
+                    box-shadow: 0 0 4px rgb(0, 0, 0, 0.3);
+                    color: white;
+                    cursor: pointer;
+                    font-size: 12px;
+                    padding: 8px;
+                    transition: 0.15s;
+
+                    &:hover {
+                        box-shadow: -3px 3px 4px rgb(0, 0, 0, 0.3);
+                        transform: translateX(1px) translateY(-1px);
+                    }
+                }
+
+                .info {
+                    cursor: pointer;
+                    position: relative;
+
+                    p {
+                        background-color: rgb(100, 100, 100, 0.9);
+                        bottom: 0;
+                        border-radius: 4px;
+                        color: white;
+                        display: none;
+                        font-size: 14px;
+                        padding: 8px;
+                        position: absolute;
+                        word-wrap: normal;
+                        width: 200px;
+                        right: 0;
+                        white-space: normal;
+                    }
+
+                    &:hover p {
+                        display: block;
+                    }
                 }
             }
         }

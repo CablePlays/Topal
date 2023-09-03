@@ -32,17 +32,14 @@ function setAwardDescription(desc) {
 
 function appendInfo(elements) {
     const infoElement = byId("info")
-
-    createSpacer("20", { p: infoElement })
     createElement("div", { c: "line", p: infoElement })
-    createSpacer("20", { p: infoElement })
 
     for (let element of elements) {
         infoElement.appendChild(element)
     }
 }
 
-function includePoints() {
+function showPoints() {
     const points = new Promise(r => {
         setTimeout(() => r(263), 1000)
     })
@@ -116,4 +113,22 @@ window.addEventListener("load", () => {
         createElement("p", { p: div, t: next.innerHTML })
         createElement("div", { c: "material-icons", p: div, t: "keyboard_arrow_down" })
     }
+
+    /* Status */
+
+    const awardStatus = byId("award-status")
+    awardStatus.children[0].innerHTML = LOADING_TEXT
+
+    const completePromise = new Promise(r => setTimeout(() => r(false), 500))
+
+    completePromise.then(complete => {
+        awardStatus.children[0].innerHTML = (complete ? "Complete" : "Incomplete")
+        awardStatus.children[1].innerHTML = (complete ? "check_box" : "check_box_outline_blank")
+
+        if (complete) {
+            byId("award-status-info").style.display = "block"
+        } else {
+            byId("request-container").style.display = "flex"
+        }
+    })
 })

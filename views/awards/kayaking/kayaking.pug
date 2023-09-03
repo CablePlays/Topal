@@ -28,21 +28,4 @@ block scripts
     setAwardDescription(`TODO`)
     setDifficulty(1)
     setSkillLevel(1)
-    includePoints()
-
-    const totalDistanceDisplay = createElement("p")
-    totalDistanceDisplay.innerHTML = LOADING_TEXT
-
-    const totalDistanceMeter = createElement("meter")
-    totalDistanceMeter.max = 100000
-
-    totalDistance.then(d => {
-      totalDistanceDisplay.innerHTML = `${d / 1000}km / 100km`
-      totalDistanceMeter.value = d
-    })
-
-    appendInfo([
-      createElement("h3", {t: "Total Distance"}),
-      totalDistanceDisplay,
-      totalDistanceMeter
-    ])
+    showPoints()
