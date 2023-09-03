@@ -8,7 +8,7 @@ const renderRouter = require("./render")
 const sqlDatabase = require("./server/sql-database")
 
 const PORT = 80
-const ARTIFICIAL_LATENCY = 500
+const ARTIFICIAL_LATENCY = 1000
 const REQUESTS_PATH = "/requests"
 
 const app = express()
@@ -56,9 +56,9 @@ app.use((err, req, res, next) => { // handle render errors
     res.locals.status = status
 
     if (status === 404) {
-        res.advancedRender("errors/not-found")
+        res.ren("errors/not-found")
     } else {
-        res.advancedRender("errors/other")
+        res.ren("errors/other")
     }
 })
 

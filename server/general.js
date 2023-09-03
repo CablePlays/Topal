@@ -1,6 +1,5 @@
-const nodemailer = require('nodemailer')
 const cookies = require("./cookies")
-const sqlDatabase = require('./sql-database')
+const sqlDatabase = require("./sql-database")
 
 const RECENT_AWARDS_LIFETIME = 48 // hours
 const RECENT_AWARDS_MAX = 10
@@ -272,29 +271,6 @@ async function provideUserInfoToStatuses(statuses) {
     })
 }
 
-async function sendEmail(recipient, subject, content) {
-    console.info("Sending email to " + recipient + ": " + subject)
-    const from = "cableplays1912@gmail.com"
-
-    const transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        auth: {
-            user: from,
-            pass: "lvbiogzkrjbabbnb"
-        }
-    })
-
-    const info = await transporter.sendMail({
-        from: from,
-        to: recipient,
-        subject,
-        html: content
-    })
-
-    console.info("Email sent: " + info.messageId)
-}
-
 module.exports = {
     RECENT_AWARDS_LIFETIME,
     RECENT_AWARDS_MAX,
@@ -317,6 +293,5 @@ module.exports = {
     isPasswordValid,
     forEachAndWait,
     provideUserInfoToStatus,
-    provideUserInfoToStatuses,
-    sendEmail
+    provideUserInfoToStatuses
 }

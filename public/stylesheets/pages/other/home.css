@@ -543,7 +543,7 @@ footer .treverton-link {
 
 .topbar,
 .topbar-spacer {
-  height: 100px;
+  height: 80px;
 }
 
 .topbar {
@@ -574,16 +574,15 @@ footer .treverton-link {
   }
 }
 .topbar .links a {
-  color: #3a3a3a;
+  align-items: center;
+  color: rgb(58, 58, 58);
+  display: flex;
   font-weight: 500;
   font-size: 16px;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 5px solid rgba(0, 0, 0, 0);
   height: 100%;
-  width: 121px;
+  justify-content: center;
+  text-decoration: none;
+  width: 120px;
   cursor: pointer;
 }
 .topbar .links a:hover {
@@ -592,6 +591,11 @@ footer .treverton-link {
 .topbar .links a.selected {
   border-bottom: 5px solid #EF7523;
   border-radius: 2px;
+}
+.topbar .logo {
+  cursor: pointer;
+  height: 48px;
+  width: 131px;
 }
 .topbar .search {
   align-items: center;
@@ -622,28 +626,22 @@ footer .treverton-link {
   height: 24px;
   margin-left: 16px;
 }
-
-#logo {
-  cursor: pointer;
-  height: 48px;
-  width: 131px;
-}
-
-#search-icon {
+.topbar .search #search-icon {
   cursor: pointer;
 }
-
-#sign-in-button {
+.topbar .sign-in {
   background-color: #EF7523;
   border: none;
   border-radius: 4px;
   color: #fff;
   cursor: pointer;
+  font-size: 13px;
   padding: 8px;
+  text-decoration: none;
   transition: background-color 0.1s;
   white-space: nowrap;
 }
-#sign-in-button:hover {
+.topbar .sign-in:hover {
   background-color: #f29354;
 }
 

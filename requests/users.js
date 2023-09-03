@@ -1,5 +1,5 @@
 const express = require("express")
-const sqlDatabase = require("../../server/sql-database")
+const sqlDatabase = require("../server/sql-database")
 
 const router = express.Router()
 

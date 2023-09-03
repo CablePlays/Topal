@@ -30,7 +30,7 @@ function getPermissionMiddleware(permission) {
             }
         }
 
-        res.advancedRender("errors/not-found") // make it look like page does not exist
+        res.ren("errors/not-found") // make it look like page does not exist
     }
 }
 

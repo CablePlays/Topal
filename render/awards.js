@@ -1,11 +1,11 @@
-const express = require('express')
-const fs = require('fs');
-const path = require('path');
+const express = require("express")
+const fs = require("fs");
+const path = require("path");
 
 const router = express.Router()
 
 router.get("/", (req, res) => {
-    res.advancedRender("awards/awards")
+    res.ren("awards/awards")
 })
 
 router.get("/:awardType", (req, res, next) => {
@@ -27,7 +27,7 @@ router.get("/:awardType", (req, res, next) => {
         if (err) {
             next() // does not exist
         } else {
-            res.advancedRender(filePath)
+            res.ren(filePath)
         }
     })
 })

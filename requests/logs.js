@@ -1,6 +1,6 @@
 const express = require("express")
-const general = require("../../server/general")
-const sqlDatabase = require("../../server/sql-database")
+const general = require("../server/general")
+const sqlDatabase = require("../server/sql-database")
 
 const router = express.Router()
 

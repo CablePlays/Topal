@@ -1,9 +1,9 @@
-const express = require('express')
+const express = require("express")
 const cookies = require("../server/cookies")
 const general = require("../server/general")
 const jsonDatabase = require("../server/json-database")
+const middleware = require("./middleware")
 
-// routers
 const awardsRouter = require("./awards")
 
 const router = express.Router()
@@ -52,7 +52,7 @@ async function advancedRender(req, res, path, adminPage) {
 }
 
 router.use("/", (req, res, next) => { // provide advanced render
-    res.advancedRender = (path, adminPage) => {
+    res.ren = (path, adminPage) => {
         advancedRender(req, res, path, adminPage)
     }
 
@@ -71,15 +71,19 @@ router.use("/", async (req, res, next) => { // verify login
 /* Get */
 
 router.get("/", (req, res) => {
-    res.advancedRender("general/home")
+    res.ren("other/home")
+})
+
+router.get("/login", middleware.requireLoggedOut, (req, res) => {
+    res.ren("other/login")
 })
 
 router.get("/search", (req, res) => {
-    res.advancedRender("general/search")
+    res.ren("other/search")
 })
 
 router.get("/settings", (req, res) => {
-    res.advancedRender("general/settings")
+    res.ren("other/settings")
 })
 
 /* Routers */

@@ -1,25 +1,10 @@
-doctype html
-head
-  title Topal BETA
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+extends ./head
 
-  link(rel='preconnect' href='https://fonts.googleapis.com')
-  link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
-  link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
-  link(href='https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' rel='stylesheet')
+block body
+  script(src="/javascripts/layout.js")
 
-  script(src='/javascripts/global/cookies.js')
-  script(src='/javascripts/global/layout.js')
-  script(src='/javascripts/global/logs.js')
-  script(src='/javascripts/global/rest.js')
-  script(src='/javascripts/global/slideshow.js')
-  script(src='/javascripts/global/utility.js')
-
-  block assets
-body
   .topbar
-    img#logo(src="/assets/logos/logo.svg" onclick="location.href='/'")
+    img.logo(src="/assets/logos/logo.svg" onclick="location.href='/'")
     .links
       a#home-tab(href='/') Home
       a#awards-tab(href='/awards') Awards
@@ -37,7 +22,7 @@ body
       .vertical-line
       input#search-input(type='text' placeholder='Search..')
 
-    button#sign-in-button Sign In
+    a.sign-in(href="/login" style=`display: ${displays.loggedIn.false.block}`) Sign In
 
   .topbar-spacer
 

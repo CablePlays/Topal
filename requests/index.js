@@ -3,29 +3,14 @@ const cookies = require("../server/cookies")
 const general = require("../server/general")
 const jsonDatabase = require("../server/json-database")
 
+const accountRouter = require("./account")
 const logsRouter = require("./logs")
 const permissionsRouter = require("./permissions")
 const usersRouter = require("./users")
 
 const router = express.Router()
 
-/* Middleware */
-
-router.use("/", async (req, res, next) => { // provide user information
-    if (await general.isPasswordValid(req)) {
-        const userId = cookies.getUserId(req)
-        req.loggedIn = true
-        req.userId = userId
-        req.permissions = jsonDatabase.getPermissions(userId)
-    } else {
-        req.permissions = {}
-        req.loggedIn = false
-    }
-
-    next()
-})
-
-router.use("/", (req, res, next) => { // provide response methods
+router.use("/", (req, res, next) => { // provide response method
     res.res = (responseCode, extra) => {
         if (extra == null) {
             res.sendStatus(responseCode)
@@ -41,8 +26,23 @@ router.use("/", (req, res, next) => { // provide response methods
     next()
 })
 
+router.use("/", async (req, res, next) => { // provide user information
+    if (await general.isPasswordValid(req)) {
+        const userId = cookies.getUserId(req)
+        req.loggedIn = true
+        req.userId = userId
+        req.permissions = jsonDatabase.getPermissions(userId)
+    } else {
+        req.permissions = {}
+        req.loggedIn = false
+    }
+
+    next()
+})
+
 /* Routers */
 
+router.use('/account', accountRouter)
 router.use('/logs', logsRouter)
 router.use('/permissions', permissionsRouter)
 router.use('/users', usersRouter)

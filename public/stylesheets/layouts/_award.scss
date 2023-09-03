@@ -1,18 +1,17 @@
-$info-width: 270px;
-$right-block-width: 280px;
-$width-a: 620px;
-$width-b: 900px;
+$info-block-width: 280px;
+$breakpoint-a: 620px;
+$breakpoint-b: 900px;
 
 .col-container {
     display: grid;
     grid-template-columns: 1fr;
 
-    @media screen and (min-width: $width-a) {
+    @media screen and (min-width: $breakpoint-a) {
         grid-template-columns: 10fr 1fr;
         grid-template-rows: auto 1fr;
     }
 
-    @media screen and (min-width: $width-b) {
+    @media screen and (min-width: $breakpoint-b) {
         grid-template-columns: 1fr auto auto;
         grid-template-rows: initial;
     }
@@ -24,7 +23,7 @@ $width-b: 900px;
         padding: 20px 0;
         row-gap: 20px;
 
-        @media screen and (min-width: $width-a) and (max-width: calc($width-b - 0.1px)) {
+        @media screen and (min-width: $breakpoint-a) and (max-width: calc($breakpoint-b - 0.1px)) {
             padding-top: initial;
         }
 
@@ -52,12 +51,12 @@ $width-b: 900px;
     .col2 {
         grid-row: 2 / 3;
 
-        @media screen and (min-width: $width-a) {
+        @media screen and (min-width: $breakpoint-a) {
             grid-row: 1 / 3;
             padding-right: 20px;
         }
 
-        @media screen and (min-width: $width-b) {
+        @media screen and (min-width: $breakpoint-b) {
             grid-row: initial;
         }
 
@@ -66,9 +65,9 @@ $width-b: 900px;
             max-width: 380px;
             width: 90%;
 
-            @media screen and (min-width: $width-a) {
-                max-width: $right-block-width;
-                min-width: $right-block-width;
+            @media screen and (min-width: $breakpoint-a) {
+                max-width: $info-block-width;
+                min-width: $info-block-width;
             }
         }
 
@@ -80,7 +79,7 @@ $width-b: 900px;
             flex-direction: column;
             padding: 16px;
 
-            @media screen and (min-width: $width-a) {
+            @media screen and (min-width: $breakpoint-a) {
                 display: block;
             }
 
@@ -213,11 +212,11 @@ $width-b: 900px;
         row-gap: 10px;
         width: max-content;
 
-        @media screen and (min-width: $width-a) {
+        @media screen and (min-width: $breakpoint-a) {
             grid-column: 1 / 2;
         }
 
-        @media screen and (min-width: $width-b) {
+        @media screen and (min-width: $breakpoint-b) {
             grid-column: initial;
             grid-row: initial;
             padding: 16px 16px 16px 0;

@@ -47,9 +47,9 @@ app.use((err, req, res, next) => { // handle render errors
     res.locals.status = status
 
     if (status === 404) {
-        res.advancedRender("errors/not-found")
+        res.ren("errors/not-found")
     } else {
-        res.advancedRender("errors/other")
+        res.ren("errors/other")
     }
 })
 

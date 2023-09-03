@@ -1,0 +1,69 @@
+@import "../../global";
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; // compatibility
+    height: 100dvh;
+
+    @media screen and (orientation: landscape) {
+        flex-direction: row;
+    }
+
+    .col1,
+    .col2 {
+        height: 50%;
+
+        @media screen and (orientation: landscape) {
+            height: 100%;
+            width: 50%;
+        }
+    }
+
+    .col1 {
+        object-fit: cover;
+        object-position: 30% 50%;
+    }
+
+    .logo {
+        cursor: pointer;
+        left: 20px;
+        position: absolute;
+        top: 20px;
+    }
+
+    .col2 {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        padding: 32px;
+
+        .col2-center {
+            align-items: center;
+            bottom: 5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            width: min(400px, 100%);
+
+            h1 {
+                color: $color-primary-400;
+            }
+
+            p {
+                text-align: center;
+            }
+
+            .description {
+                color: rgb(150, 150, 150);
+                font-size: 12px;
+            }
+
+            #info-text {
+                color: rgb(100, 100, 100);
+                font-size: 14px;
+            }
+        }
+    }
+}

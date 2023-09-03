@@ -1,0 +1,43 @@
+extends ../head
+
+block body
+  script(async src="https://accounts.google.com/gsi/client")
+  script(src='/javascripts/other/login.js')
+  link(rel='stylesheet' href='/stylesheets/pages/other/login.css')
+
+  .main-container
+    img.logo(src="/assets/logos/logo.svg" onclick="location.href='/'")
+    image.col1(src="/assets/backgrounds/login.webp")
+    .col2
+      .col2-center
+        h1 Account Login
+
+        .spacer.v20
+
+        p.description.
+          Sign in to Topal to save your logs and sign-offs.
+          Your friends will also be able to find your profile and view your progress.
+          When signing in, you must use a Treverton google account.
+
+        .spacer.v20
+
+        p#info-text
+
+        .spacer.v20
+
+        #g_id_onload(
+          data-client_id="234912320633-vfi8srp2bhol1lb0a814mn4e4oo7a920.apps.googleusercontent.com"
+          data-context="signin"
+          data-ux_mode="popup"
+          data-callback="handleLogin"
+          data-auto_prompt="false"
+        )
+        .g_id_signin(
+          data-type="standard"
+          data-shape="pill"
+          data-theme="filled_black"
+          data-text="signin"
+          data-size="large"
+          data-logo_alignment="left"
+          data-width="250"
+        )
