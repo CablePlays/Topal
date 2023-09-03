@@ -23,8 +23,27 @@ block body
       input#search-input(type='text' placeholder='Search..')
 
     a.sign-in(href="/login" style=`display: ${displays.loggedIn.false.block}`) Sign In
+    #account-display(style=`display: ${displays.loggedIn.true.flex}`)
+      img(src="/assets/backgrounds/awards/midmar-mile.jpg")
+      div
+        p.name Caleb Jennings
+        p.email 4jencal@treverton.co.za
+
+    #sidebar-icon.hamburger-icon
+      div
+      div
+      div
 
   .topbar-spacer
+
+  #sidebar
+    a(href="/") Home
+    a(href="/awards") Awards
+    a(href="/leaderboard") Leaderboard
+    a(href="/login") Sign In
+    a(href="/settings") Settings
+    a Profile
+    a Admin
 
   .block-content-container
     block content

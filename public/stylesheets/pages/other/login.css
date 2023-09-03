@@ -57,6 +57,32 @@ a.link {
   height: 80px;
 }
 
+.hamburger-icon {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  max-width: 38px;
+  min-width: 38px;
+  row-gap: 8px;
+}
+.hamburger-icon div {
+  background-color: rgb(150, 150, 150);
+  border-radius: 3px;
+  height: 4px;
+  transition: 0.5s;
+  width: 100%;
+}
+.hamburger-icon.active div:nth-child(1) {
+  transform: rotateZ(-45deg) translateY(9px) translateX(-8px);
+}
+.hamburger-icon.active div:nth-child(2) {
+  width: 0;
+}
+.hamburger-icon.active div:nth-child(3) {
+  transform: rotateZ(45deg) translateY(-9px) translateX(-8px);
+}
+
 .material-icons {
   color: rgb(148, 148, 148);
 }
@@ -541,6 +567,46 @@ footer .treverton-link {
   outline: none;
 }
 
+#sidebar {
+  background-color: white;
+  border-bottom-left-radius: 100px;
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  height: 0;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 80px;
+  transition: 0.25s;
+  width: 0;
+  z-index: 50;
+}
+@media screen and (max-height: 360px) {
+  #sidebar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+  }
+}
+#sidebar.visible {
+  border-radius: 0;
+  height: calc(100vh - 80px);
+  width: 280px;
+}
+#sidebar a {
+  background-color: rgb(230, 230, 230);
+  border-top: 3px solid white;
+  border-left: 3px solid white;
+  color: black;
+  padding: 8px;
+  text-decoration: none;
+}
+#sidebar a:hover {
+  background-color: rgb(240, 240, 240);
+  color: #EF7523;
+}
+
 .topbar,
 .topbar-spacer {
   height: 80px;
@@ -548,14 +614,13 @@ footer .treverton-link {
 
 .topbar {
   align-items: center;
-  background-color: #fff;
-  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15);
-  color: white;
+  background-color: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   -moz-column-gap: 20px;
        column-gap: 20px;
   display: flex;
   justify-content: space-around;
-  padding: 0 20px;
+  padding: 0 78px 0 20px;
   position: fixed;
   width: 100%;
   z-index: 100;
@@ -568,7 +633,7 @@ footer .treverton-link {
   height: 100%;
   justify-content: flex-end;
 }
-@media screen and (min-width: 550px) {
+@media screen and (min-width: 780px) {
   .topbar .links {
     display: flex;
   }
@@ -606,7 +671,7 @@ footer .treverton-link {
   padding: 0 16px;
   width: 500px;
 }
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 1050px) {
   .topbar .search {
     display: flex;
   }
@@ -643,6 +708,35 @@ footer .treverton-link {
 }
 .topbar .sign-in:hover {
   background-color: #f29354;
+}
+.topbar #account-display {
+  align-items: center;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  display: none;
+}
+@media screen and (min-width: 530px) {
+  .topbar #account-display {
+    display: flex;
+  }
+}
+.topbar #account-display img {
+  border-radius: 25px;
+  height: 45px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 45px;
+}
+.topbar #account-display .email {
+  color: rgb(148, 148, 148);
+  font-size: 14px;
+}
+.topbar #account-display .name {
+  font-size: 16px;
+}
+.topbar #sidebar-icon {
+  position: absolute;
+  right: 20px;
 }
 
 .main-container {

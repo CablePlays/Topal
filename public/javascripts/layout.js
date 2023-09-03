@@ -19,4 +19,22 @@ window.addEventListener("load", () => {
     })
 
     byId("search-icon").addEventListener("click", search)
+
+    /* Sidebar */
+
+    const sidebarIcon = byId("sidebar-icon")
+    const sidebar = byId("sidebar")
+    let sidebarVisible = false
+
+    sidebarIcon.addEventListener("click", () => {
+        sidebarVisible = !sidebarVisible
+
+        if (sidebarVisible) {
+            sidebarIcon.classList.add("active")
+            sidebar.classList.add("visible")
+        } else {
+            sidebarIcon.classList.remove("active")
+            sidebar.classList.remove("visible")
+        }
+    })
 })

@@ -1,0 +1,41 @@
+#sidebar {
+    background-color: white;
+    border-bottom-left-radius: 100px;
+    box-shadow: -4px 0 16px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    height: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: $topbar-height;
+    transition: 0.25s;
+    width: 0;
+    z-index: 50;
+
+    @media screen and (max-height: 360px) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(10, 1fr);
+    }
+
+    &.visible {
+        border-radius: 0;
+        height: calc(100vh - $topbar-height);
+        width: 280px;
+    }
+
+    a {
+        background-color: rgb(230, 230, 230);
+        border-top: 3px solid white;
+        border-left: 3px solid white;
+        color: black;
+        padding: 8px;
+        text-decoration: none;
+
+        &:hover {
+            background-color: rgb(240, 240, 240);
+            color: $color-primary-400;
+        }
+    }
+}

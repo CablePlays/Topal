@@ -1,5 +1,6 @@
-$links-breakpoint: 550px;
-$search-bar-breakpoint: 800px;
+$account-display-breakpoint: 530px;
+$links-breakpoint: 780px;
+$search-bar-breakpoint: 1050px;
 
 .topbar,
 .topbar-spacer {
@@ -8,13 +9,12 @@ $search-bar-breakpoint: 800px;
 
 .topbar {
     align-items: center;
-    background-color: #fff;
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15);
-    color: white;
+    background-color: white;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     column-gap: 20px;
     display: flex;
     justify-content: space-around;
-    padding: 0 20px;
+    padding: 0 78px 0 20px;
     position: fixed;
     width: 100%;
     z-index: 100;
@@ -106,9 +106,40 @@ $search-bar-breakpoint: 800px;
         text-decoration: none;
         transition: background-color 0.1s;
         white-space: nowrap;
-    
+
         &:hover {
             background-color: $color-primary-300;
         }
+    }
+
+    #account-display {
+        align-items: center;
+        column-gap: 10px;
+        display: none;
+
+        @media screen and (min-width: $account-display-breakpoint) {
+            display: flex;
+        }
+
+        img {
+            border-radius: 25px;
+            height: 45px;
+            object-fit: cover;
+            width: 45px;
+        }
+
+        .email {
+            color: rgb(148, 148, 148);
+            font-size: 14px;
+        }
+
+        .name {
+            font-size: 16px;
+        }
+    }
+
+    #sidebar-icon {
+        position: absolute;
+        right: 20px;
     }
 }

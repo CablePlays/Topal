@@ -5,7 +5,7 @@
 @import "base/base", "base/helpers";
 
 // components
-@import "components/icon", "components/slideshow";
+@import "components/hamburger-icon", "components/icon", "components/slideshow";
 
 // layouts
-@import "layouts/award", "layouts/footer", "layouts/log", "layouts/topbar";
+@import "layouts/award", "layouts/footer", "layouts/log", "layouts/sidebar", "layouts/topbar";
