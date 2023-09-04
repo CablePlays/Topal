@@ -22,6 +22,16 @@ function setDateCurrent(dateInput) {
     dateInput.value = year + "-" + month + "-" + day
 }
 
+function setVisible(element, visible) {
+    element = byId(element)
+
+    if (visible ?? true) {
+        element.classList.remove("invisible")
+    } else {
+        element.classList.add("invisible")
+    }
+}
+
 /* Create Element */
 
 function createElement(type, options) {
@@ -39,7 +49,7 @@ function createElement(type, options) {
     if (p) byId(p).appendChild(element)
     if (t) element.innerHTML = t
     if (consumer) consumer(element)
-    
+
     return element
 }
 

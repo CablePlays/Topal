@@ -7,6 +7,20 @@ $border-radius: 8px;
     padding: 0 16px;
     row-gap: 20px;
 
+    .login-required {
+        align-items: center;
+        background-color: rgb(240, 240, 240);
+        border: 2px dashed rgb(50, 50, 50);
+        border-radius: 16px;
+        display: flex;
+        height: 130px;
+        justify-content: center;
+
+        a {
+            margin-right: 5px;
+        }
+    }
+
     .create-log {
         align-items: center;
         border-radius: 16px;
@@ -67,7 +81,7 @@ $border-radius: 8px;
 
     .log {
         position: relative;
-        
+
         .bottom-bar {
             column-gap: 5px;
             display: flex;
@@ -216,5 +230,21 @@ $border-radius: 8px;
                 }
             }
         }
+    }
+}
+
+.logs-login-required {
+    align-items: center;
+    border-radius: 16px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 130px;
+    justify-content: center;
+    transition: background-color 0.15s;
+
+    &:hover {
+        background-color: rgb(240, 240, 240);
+        border: 2px dashed rgb(50, 50, 50);
     }
 }

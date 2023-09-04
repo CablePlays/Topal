@@ -38,32 +38,31 @@ block logs
   .spacer.v20
   .logs(data-type="running")
 
-block scripts
+block script
   script.
-    const totalDistance = new Promise(r => {
-      setTimeout(()=> r(70000), 1000)
-    })
-
-    setAwardName("Running")
-    setAwardDescription(`Spend time on the trails and accumulate 100km of distance to earn this award.
-      Every time you go for a run, log it so that your total distance increases.
-      Once you've reached 100km, you will receive this award.`)
+    setAward("running")
     setDifficulty(1)
     setSkillLevel(2)
 
-    const totalDistanceDisplay = createElement("p")
-    totalDistanceDisplay.innerHTML = LOADING_TEXT
+    if (isLoggedIn()) {
+      const totalDistance = new Promise(r => {
+        setTimeout(()=> r(70000), 1000)
+      })
 
-    const totalDistanceMeter = createElement("meter")
-    totalDistanceMeter.max = 100000
+      const totalDistanceDisplay = createElement("p")
+      totalDistanceDisplay.innerHTML = LOADING_TEXT
 
-    totalDistance.then(d => {
-      totalDistanceDisplay.innerHTML = `${d / 1000}km / 100km`
-      totalDistanceMeter.value = d
-    })
+      const totalDistanceMeter = createElement("meter")
+      totalDistanceMeter.max = 100000
 
-    appendInfo([
-      createElement("h3", {t: "Total Distance"}),
-      totalDistanceDisplay,
-      totalDistanceMeter
-    ])
+      totalDistance.then(d => {
+        totalDistanceDisplay.innerHTML = `${d / 1000}km / 100km`
+        totalDistanceMeter.value = d
+      })
+
+      appendInfo([
+        createElement("h3", {t: "Total Distance"}),
+        totalDistanceDisplay,
+        totalDistanceMeter
+      ])
+    }

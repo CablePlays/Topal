@@ -4,38 +4,32 @@ block assets
   link(rel="stylesheet" href="/stylesheets/pages/awards/awards.css")
 
 block content
-  .cards-container
-    .card
+  #cards-container
+    .card(data-award="endurance")
       img(src="/assets/backgrounds/awards/endurance.jpg")
       .info
-        h2 Endurance Award
-        p.
-          Spend time on the trails and accumulate 100km of distance to earn this award.
-          Every time you go for a run, log it so that your total distance increases.
-          Once you've reached 100km, you will receive this award.
+        h2
+        p
         .links
           a(href="/awards/endurance") Endurance Award
           a(href="/awards/endurance-instructor") Instructor Award
           a(href="/awards/endurance-leader") Leader Award
 
-    .card
+    .card(data-award="kayaking")
       img(src="/assets/backgrounds/awards/kayaking.jpg")
       .info
-        h2 Kayaing Award
-        p.
-          Spend time on the trails and accumulate 100km of distance to earn this award.
-          Every time you go for a run, log it so that your total distance increases.
-          Once you've reached 100km, you will receive this award.
+        h2
+        p
         .links
           a(href="/awards/kayaking") Kayaking Award
           a(href="/awards/kayaking-instructor") Instructor Award
           a(href="/awards/kayaking-leader") Leader Award
 
-    .card
+    .card(data-award="midmarMile")
       img(src="/assets/backgrounds/awards/midmar-mile.jpg")
       .info
-        h2 Midmar Mile Award
-        p TODO
+        h2
+        p
         .links
           a(href="/awards/midmar-mile") Midmar Mile Award
           a(href="/awards/midmar-mile-instructor") Instructor Award
@@ -53,75 +47,68 @@ block content
           a(href="/awards/mountaineering-instructor") Instructor Award
           a(href="/awards/mountaineering-leader") Leader Award
 
-    .card
+    .card(data-award="polarBear")
       img(src="/assets/backgrounds/awards/polar-bear.jpg" style="object-position: 50% 30%")
       .info
-        h2 Polar Bear Award
-        p.
-          Mr. Neil Solomon who introduced the Outdoor Persuits and Post-Matric programmes to Treverton instituted this unique and exclusive club.
-          It is based upon other crazy awards the world over in which people brave frigid waters.
-          This experience is said to aid the body's immunity against illness due to an increase in antioxidant production in the body!
-          So if for nothing else, do it for your health!
+        h2
+        p
         .links
           a(href="/awards/polar-bear") Polar Bear Award
 
-    .card
+    .card(data-award="rockClimbing")
       img(src="/assets/backgrounds/awards/rock-climbing.jpg" style="object-position: 90% 30%")
       .info
-        h2 Rock Climbing Award
-        p TODO
+        h2
+        p
         .links
           a(href="/awards/rock-climbing") Rock Climbing Award
           a(href="/awards/rock-climbing-instructor") Instructor Award
           a(href="/awards/rock-climbing-leader") Leader Award
 
-    .card
+    .card(data-award="running")
       img(src="/assets/backgrounds/awards/running.jpg" style="object-position: 90% 40%")
       .info
-        h2 Running Award
-        p.
-          Spend time on the trails and accumulate 100km of distance to earn this award.
-          Every time you go for a run, log it so that your total distance increases.
-          Once you've reached 100km, you will receive this award.
+        h2
+        p
         .links
           a(href="/awards/running") Running Award
 
-    .card
+    .card(data-award="service")
       img(src="/assets/backgrounds/awards/service.png" style="object-position: 20% 100%")
       .info
-        h2 Service Award
-        p.
-          This award was created to encourage an awareness of the needs of others and provides a tangible means
-          of expressing the responsibility of members of a comunity for one another.
+        h2
+        p
         .links
           a(href="/awards/service") Service Award
           a(href="/awards/service-instructor") Instructor Award
           a(href="/awards/service-leader") Leader Award
 
-    .card
+    .card(data-award="solitaire")
       img(src="/assets/backgrounds/awards/solitaire.jpg" style="object-position: 50% 25%")
       .info
-        h2 Solitaire Award
-        p.
-          This award will provide you with the novel experience of being alone, without the usual reinforcing comforts of a secure shelter,
-          food, reading material and other diversions such as music, internet, movies and social medial.
-          It aims to challenge your ability to make constructive use of your time using your initiative in making your 48 hours as comfortable as possible.
-          It also aims to give you an unhindered opportunity to comtemplate God's creation and your place in it, your own existance
-          (life's journey traveled thus far) and your future role in society (that path still to travel, i.e. life direction).
+        h2
+        p
         .links
           a(href="/awards/solitaire") Solitaire Award
           a(href="/awards/solitaire-instructor") Instructor Award
           a(href="/awards/solitaire-leader") Leader Award
 
-    .card
+    .card(data-award="venture")
       img(src="/assets/backgrounds/awards/venture.jpg")
       .info
-        h2 Venture Award
-        p.
-          Adventure in Outdoor Persuits doesn't stop after Treverton.
-          This is why the goal of this award is to encourage the development of a spirit of
-          adventure amongst participants in the O.P. programme that will stay with them forever.
-          Most of the excitement and learning of the Venture experience occurs in the planning stage and buildup.
+        h2
+        p
         .links
           a(href="/awards/venture") Venture Award
           a(href="/awards/venture-leader") Leader Award
+
+block script
+  script.
+    for (let card of byId("cards-container").children) {
+      const awardId = card.getAttribute("data-award")
+      if (awardId == null) continue
+
+      const infoContainer = card.children[1].children
+      infoContainer[0].innerHTML = getAwardName(awardId)
+      infoContainer[1].innerHTML = getAwardDescription(awardId)
+    }

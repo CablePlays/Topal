@@ -2,6 +2,7 @@ const express = require("express")
 const cookies = require("../server/cookies")
 const general = require("../server/general")
 const jsonDatabase = require("../server/json-database")
+const sqlDatabase = require("../server/sql-database")
 const middleware = require("./middleware")
 
 const awardsRouter = require("./awards")
@@ -29,7 +30,6 @@ async function advancedRender(req, res, path, adminPage) {
     }
 
     const placeholders = {
-        userId,
         displays: {
             adminPage: {
                 true: generateDisplays(adminPage)
@@ -41,7 +41,8 @@ async function advancedRender(req, res, path, adminPage) {
             permission: {
                 any: generateDisplays(general.hasAnyPermission(permissions))
             }
-        }
+        },
+        userInfo: userId == null ? {} : await sqlDatabase.getUserInfo(userId)
     }
 
     for (let permission of general.PERMISSIONS) {

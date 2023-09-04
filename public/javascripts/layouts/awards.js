@@ -2,13 +2,15 @@ const _BASIC_LINK_ID = "basic-link"
 const _INSTRUCTOR_LINK_ID = "instructor-link"
 const _LEADER_LINK_ID = "leader-link"
 
-function setAwardName(name) {
+function setAward(awardId) {
+    const name = getAwardName(awardId)
     byId("award-title").innerHTML = name + " Award"
     byId("award-info-title").innerHTML = name + " Award Info"
+    byId("award-description").innerHTML = getAwardDescription(awardId)
 }
 
-function _setRating(rating, val) {
-    const ratingElement = byId(rating)
+function _setRating(ratingId, val) {
+    const ratingElement = byId(ratingId)
     const children = ratingElement.childNodes
 
     ratingElement.classList.add("lvl" + val)
@@ -24,10 +26,6 @@ function setDifficulty(val) {
 
 function setSkillLevel(val) {
     _setRating("skill-level", val)
-}
-
-function setAwardDescription(desc) {
-    byId("award-description").innerHTML = desc
 }
 
 function appendInfo(elements) {
@@ -116,19 +114,22 @@ window.addEventListener("load", () => {
 
     /* Status */
 
-    const awardStatus = byId("award-status")
-    awardStatus.children[0].innerHTML = LOADING_TEXT
+    if (isLoggedIn()) {
+        const awardStatus = byId("award-status")
+        awardStatus.children[0].innerHTML = LOADING_TEXT
+        setVisible(awardStatus)
 
-    const completePromise = new Promise(r => setTimeout(() => r(false), 500))
+        const completePromise = new Promise(r => setTimeout(() => r(false), 500))
 
-    completePromise.then(complete => {
-        awardStatus.children[0].innerHTML = (complete ? "Complete" : "Incomplete")
-        awardStatus.children[1].innerHTML = (complete ? "check_box" : "check_box_outline_blank")
+        completePromise.then(complete => {
+            awardStatus.children[0].innerHTML = (complete ? "Complete" : "Incomplete")
+            awardStatus.children[1].innerHTML = (complete ? "check_box" : "check_box_outline_blank")
 
-        if (complete) {
-            byId("award-status-info").style.display = "block"
-        } else {
-            byId("request-container").style.display = "flex"
-        }
-    })
+            if (complete) {
+                setVisible("award-status-info")
+            } else {
+                setVisible("request-container")
+            }
+        })
+    }
 })

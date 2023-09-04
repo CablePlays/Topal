@@ -1,7 +1,7 @@
 extends ./head
 
 block body
-  script(src="/javascripts/layout.js")
+  script(src="/javascripts/layouts/layout.js")
 
   .topbar
     img.logo(src="/assets/logos/logo.svg" onclick="location.href='/'")
@@ -26,8 +26,8 @@ block body
     #account-display(style=`display: ${displays.loggedIn.true.flex}`)
       img(src="/assets/backgrounds/awards/midmar-mile.jpg")
       div
-        p.name Caleb Jennings
-        p.email 4jencal@treverton.co.za
+        p.name= userInfo.fullName
+        p.email= userInfo.email
 
     #sidebar-icon.hamburger-icon
       div
@@ -44,7 +44,7 @@ block body
     a(href="/settings") Settings
     a Profile
     a Admin
-    button#logout-button Log Out
+    button#logout-button(style=`display: ${displays.loggedIn.true.block}`) Log Out
 
   .block-content-container
     block content
@@ -53,4 +53,4 @@ block body
     p.a &copy 2023 <a href="/">TOPAL</a>
     a.treverton-link(href="https://www.treverton.co.za" target="_blank") TREVERTON
 
-  block scripts
+  block script

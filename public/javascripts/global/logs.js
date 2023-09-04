@@ -520,8 +520,20 @@ function _createInputSection(options) {
 }
 
 function createLogDisplay(options) {
-    const { logType, parentLogId, sublogs, viewOnly } = options ?? {}
+    options ??= {}
+    const { logType, parentLogId, sublogs, viewOnly } = options
+    let { userId } = options
+
     const logDisplayElement = createElement("div", { c: "logs" })
+
+    if (userId == null) {
+        if (isLoggedIn()) {
+            userId = getUserId()
+        } else {
+            createElement("p", { c: "login-required", p: logDisplayElement, t: `<a href="/login?redirect=${location.pathname}">Sign in</a> to view logs.` })
+            return logDisplayElement
+        }
+    }
 
     if (!viewOnly) {
         const createLogElement = createElement("div", {
@@ -546,15 +558,14 @@ function createLogDisplay(options) {
             logDisplayElement.appendChild(logElement)
         }
     } else {
+        const loadingElement = createElement("p", { c: "loading-text", p: logDisplayElement, t: LOADING_TEXT })
         let promise
 
         if (parentLogId) {
             promise = getRequest(`/logs/${logType}?parentLogId=${parentLogId}`)
         } else {
-            promise = getRequest(`/logs/${logType}?targetUserId=${getUserId()}`)
+            promise = getRequest(`/logs/${logType}?targetUserId=${userId}`)
         }
-
-        const loadingElement = createElement("p", { c: "loading-text", p: logDisplayElement, t: LOADING_TEXT })
 
         promise.then(res => {
             const { logs } = res

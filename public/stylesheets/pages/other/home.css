@@ -5,13 +5,18 @@
   padding: 0;
 }
 
-.block-content-container {
-  min-height: 90vh;
+a {
+  color: rgb(7, 148, 187);
+  cursor: pointer;
+  text-decoration: none;
+}
+a:hover {
+  color: rgb(15, 176, 221);
+  text-decoration: underline;
 }
 
-a.link {
-  color: rgb(0, 200, 255);
-  text-decoration: underline;
+.block-content-container {
+  min-height: 90vh;
 }
 
 .flex-center, .banner .top {
@@ -19,6 +24,10 @@ a.link {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.invisible {
+  display: none !important;
 }
 
 .padding8 {
@@ -386,6 +395,18 @@ footer .treverton-link {
   padding: 0 16px;
   row-gap: 20px;
 }
+.logs .login-required {
+  align-items: center;
+  background-color: rgb(240, 240, 240);
+  border: 2px dashed rgb(50, 50, 50);
+  border-radius: 16px;
+  display: flex;
+  height: 130px;
+  justify-content: center;
+}
+.logs .login-required a {
+  margin-right: 5px;
+}
 .logs .create-log {
   align-items: center;
   border-radius: 16px;
@@ -565,6 +586,21 @@ footer .treverton-link {
 .logs .input .items .text-short input:focus {
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
   outline: none;
+}
+
+.logs-login-required {
+  align-items: center;
+  border-radius: 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 130px;
+  justify-content: center;
+  transition: background-color 0.15s;
+}
+.logs-login-required:hover {
+  background-color: rgb(240, 240, 240);
+  border: 2px dashed rgb(50, 50, 50);
 }
 
 #sidebar {

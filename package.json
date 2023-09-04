@@ -1,10 +1,10 @@
 {
     "name": "topal",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "private": true,
     "scripts": {
-        "start": "node app.js",
-        "dev": "nodemon app-dev.js"
+        "dev": "nodemon app-dev.js",
+        "start": "node app.js"
     },
     "dependencies": {
         "cookie-parser": "^1.4.6",
