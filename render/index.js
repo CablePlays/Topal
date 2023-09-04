@@ -75,8 +75,16 @@ router.get("/", (req, res) => {
     res.ren("other/home")
 })
 
-router.get("/login", middleware.requireLoggedOut, (req, res) => {
-    res.ren("other/login")
+router.get("/leaderboard", (req, res) => {
+    res.ren("errors/coming-soon")
+})
+
+router.get("/leaderboards", (req, res) => {
+    res.redirect("leaderboard")
+})
+
+router.get("/login", (req, res) => {
+    res.redirect("signin")
 })
 
 router.get("/search", (req, res) => {
@@ -85,6 +93,10 @@ router.get("/search", (req, res) => {
 
 router.get("/settings", (req, res) => {
     res.ren("other/settings")
+})
+
+router.get("/signin", middleware.requireLoggedOut, (req, res) => {
+    res.ren("other/signin")
 })
 
 /* Routers */

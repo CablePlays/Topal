@@ -173,8 +173,7 @@ const _LOG_TYPES = {
 }
 
 function getLogTypeName(logType) {
-    // TODO: format correctly
-    return logType
+    return capitalizeWithSpaces(logType)
 }
 
 /*
@@ -535,7 +534,7 @@ function createLogDisplay(options) {
         if (isLoggedIn()) {
             userId = getUserId()
         } else {
-            createElement("p", { c: "login-required", p: logDisplayElement, t: `<a href="/login?redirect=${location.pathname}">Sign in</a> to view your logs.` })
+            createElement("p", { c: "login-required", p: logDisplayElement, t: `<a class="signin-link">Sign in</a> to view your logs.` })
             return logDisplayElement
         }
     }

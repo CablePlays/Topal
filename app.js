@@ -1,13 +1,14 @@
-const createError = require('http-errors')
-const express = require('express')
-const cookieParser = require('cookie-parser')
+const createError = require("http-errors")
+const express = require("express")
+const cookieParser = require("cookie-parser")
 const consoleCommands = require("./server/console-commands")
 const requestsRouter = require("./requests/index")
 const renderRouter = require("./render")
 const https = require("https")
 const fs = require("fs")
 
-const PORT = 90
+const PORT_HTTPS = 90; // 443
+const PORT_HTTP = 80;
 const REQUESTS_PATH = "/requests"
 
 const app = express()
@@ -32,13 +33,13 @@ app.use((req, res, next) => { // catch 404 and forward to error handler
 })
 
 app.use(REQUESTS_PATH, (err, req, res, next) => { // handle request errors
-    const status = err.status || 500
+    const status = err.status ?? 500
     console.error(err)
     res.sendStatus(status)
 })
 
 app.use((err, req, res, next) => { // handle render errors
-    const status = err.status || 500
+    const status = err.status ?? 500
     res.status(status)
     console.error(err)
 
@@ -58,6 +59,16 @@ const options = {
     cert: fs.readFileSync('/etc/letsencrypt/live/opawards.treverton.co.za/fullchain.pem')
 }
 
-https.createServer(options, app).listen(PORT, (req, res) => {
-    console.info("Server started at port " + PORT)
+https.createServer(options, app).listen(PORT_HTTPS, (req, res) => {
+    console.info("Server started at port " + PORT_HTTPS)
 })
+
+if (false) {
+    const httpApp = express()
+
+    httpApp.use("/", (req, res) => {
+        res.redirect(`https://${req.headers.host}${req.url}`)
+    });
+
+    httpApp.listen(PORT_HTTP)
+}

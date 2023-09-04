@@ -3,6 +3,12 @@ extends ../layout
 block content
   script(src='/javascripts/layouts/awards.js')
 
+  .login-notice(style=`display: ${displays.loggedIn.false.block}`)
+    h2 Sign in!
+    p.
+      Signing in will allow you to view your logs, sign-offs and other information about each award.
+      Sign in <a class="signin-link">here</a>.
+
   .spacer.v20
   h1#award-title.pl16 Award Title
 
@@ -66,5 +72,5 @@ block content
         .material-icons chevron_right
 
   #logs-section
-  
+
   .spacer.v40

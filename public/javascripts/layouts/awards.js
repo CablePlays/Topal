@@ -7,6 +7,31 @@ function setAward(awardId) {
     byId("award-title").innerHTML = name + " Award"
     byId("award-info-title").innerHTML = name + " Info"
     byId("award-description").innerHTML = getAwardDescription(awardId)
+
+    /* Status */
+
+    if (isLoggedIn()) {
+        const awardStatus = byId("award-status")
+        awardStatus.children[0].innerHTML = LOADING_TEXT
+        setVisible(awardStatus)
+
+        getRequest(`/users/${getUserId()}/awards`).then(res => {
+            const { awards } = res
+            const { complete, date, signer } = awards[awardId] ?? {}
+
+            awardStatus.children[0].innerHTML = (complete ? "Complete" : "Incomplete")
+            awardStatus.children[1].innerHTML = (complete ? "check_box" : "check_box_outline_blank")
+
+            if (complete) {
+                const awardStatusInfo = byId("award-status-info")
+                awardStatusInfo.children[0].innerHTML = formatDate(date)
+                awardStatusInfo.children[1].innerHTML = "by " + signer.fullName
+                setVisible(awardStatusInfo)
+            } else {
+                setVisible("request-container")
+            }
+        })
+    }
 }
 
 function _setRating(ratingId, val) {
@@ -107,7 +132,7 @@ function showLogs(...logTypes) {
 
         const name = getLogTypeName(logType) + " Logs"
         const headingElement = createElement("h2", { c: "pl16", p: logTypeContainer, t: name })
-        
+
         createSpacer("20", { p: logTypeContainer })
 
         const logDisplay = createLogDisplay({ logType, viewOnly: false })
@@ -116,27 +141,3 @@ function showLogs(...logTypes) {
         createShortcut(name, "down", () => headingElement.scrollIntoView({ behavior: "smooth" }))
     }
 }
-
-window.addEventListener("load", () => {
-
-    /* Status */
-
-    if (isLoggedIn()) {
-        const awardStatus = byId("award-status")
-        awardStatus.children[0].innerHTML = LOADING_TEXT
-        setVisible(awardStatus)
-
-        const completePromise = new Promise(r => setTimeout(() => r(false), 500))
-
-        completePromise.then(complete => {
-            awardStatus.children[0].innerHTML = (complete ? "Complete" : "Incomplete")
-            awardStatus.children[1].innerHTML = (complete ? "check_box" : "check_box_outline_blank")
-
-            if (complete) {
-                setVisible("award-status-info")
-            } else {
-                setVisible("request-container")
-            }
-        })
-    }
-})

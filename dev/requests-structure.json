@@ -10,10 +10,9 @@
     },
     "users": {
         ":userId": {
-            "logs": {
-                ":logType": {
-                    "GET": "Get user logs & sublogs of type"
-                }
+            "awards": {
+                "GET": "Get user awards information",
+                "PUT": "Set award completion for user"
             }
         }
     }

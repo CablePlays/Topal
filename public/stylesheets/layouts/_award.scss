@@ -248,6 +248,16 @@ $breakpoint-b: 900px;
     }
 }
 
+.login-notice {
+    background-color: black;
+    color: white;
+    padding: 8px 64px;
+
+    p {
+        font-size: 14px;
+    }
+}
+
 #logs-section {
     display: flex;
     flex-direction: column;

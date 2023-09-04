@@ -1,5 +1,11 @@
 const LOADING_TEXT = "Loading . . ."
 
+document.addEventListener("click", event => {
+    if (event.target.classList.contains("signin-link")) {
+        location.href = `/signin?redirect=${location.pathname}`
+    }
+})
+
 function byId(id) {
     return (typeof id === "string") ? document.getElementById(id) : id
 }
@@ -61,6 +67,10 @@ function createSpacer(space, options) {
 }
 
 /* Formatting */
+
+function capitalizeWithSpaces(input) {
+    return input.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, str => str.toUpperCase())
+}
 
 function formatDate(date) {
     if (typeof date === "string") {

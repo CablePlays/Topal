@@ -1,5 +1,7 @@
 const express = require("express")
-const sqlDatabase = require("../server/sql-database")
+const sqlDatabase = require("../../server/sql-database")
+
+const awardsRouter = require("./awards")
 
 const router = express.Router()
 
@@ -15,5 +17,7 @@ router.use("/:targetUserId", async (req, res, next) => { // verify target user
         res.res(404, "invalid_user")
     }
 }, targetUserRouter)
+
+targetUserRouter.use("/awards", awardsRouter)
 
 module.exports = router

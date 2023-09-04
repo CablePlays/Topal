@@ -1,14 +1,12 @@
-const createError = require('http-errors')
-const express = require('express')
-const cookieParser = require('cookie-parser')
+const createError = require("http-errors")
+const express = require("express")
+const cookieParser = require("cookie-parser")
 const consoleCommands = require("./server/console-commands")
 const requestsRouter = require("./requests/index")
 const renderRouter = require("./render")
 
-const sqlDatabase = require("./server/sql-database")
-
 const PORT = 80
-const ARTIFICIAL_LATENCY = 0
+const ARTIFICIAL_LATENCY = 200
 const REQUESTS_PATH = "/requests"
 
 const app = express()
@@ -42,12 +40,12 @@ app.use((req, res, next) => { // catch 404 and forward to error handler
 
 app.use(REQUESTS_PATH, (err, req, res, next) => { // handle request errors
     console.error(err)
-    const status = err.status || 500
+    const status = err.status ?? 500
     res.sendStatus(status)
 })
 
 app.use((err, req, res, next) => { // handle render errors
-    const status = err.status || 500
+    const status = err.status ?? 500
     res.status(status)
     console.error(err)
 

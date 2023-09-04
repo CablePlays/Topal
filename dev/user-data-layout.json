@@ -1,0 +1,43 @@
+{
+    "statusTypes": {
+        "STATUS": {
+            "complete": false,
+            "date": "DATE",
+            "signer": "USER"
+        },
+        "REQUESTABLE_STATUS": {
+            "complete": false,
+            "date": "DATE",
+            "signer": "USER",
+            "requestDate": "DATE",
+            "declined": false
+        },
+        "DETAILED_REQUESTABLE_STATUS": {
+            "complete": false,
+            "date": "DATE",
+            "signer": "USER",
+            "requestDate": "DATE",
+            "decline": {
+                "date": "DATE",
+                "user": "USER",
+                "message": "Message content."
+            }
+        }
+    },
+    "approvals": {
+        "approval": "STATUS"
+    },
+    "awards": {
+        "running": "DETAILED_REQUESTABLE_STATUS"
+    },
+    "permissions": {
+        "manageAwards": false,
+        "managePermissions": false,
+        "viewLogs": false
+    },
+    "signoffs": {
+        "type": {
+            "signoff": "REQUESTABLE_STATUS"
+        }
+    }
+}
