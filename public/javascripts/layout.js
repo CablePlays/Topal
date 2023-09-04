@@ -1,5 +1,12 @@
 window.addEventListener("load", () => {
 
+    /* Log Out */
+
+    byId("logout-button").addEventListener("click", () => {
+        logOut()
+        location.reload()
+    })
+
     /* Search */
 
     const searchInput = byId("search-input")
