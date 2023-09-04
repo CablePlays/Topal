@@ -1,0 +1,11 @@
+extends ../award-layout
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/generic.css")
+
+block script
+  block s
+  script.
+    showPoints()
+    showSequels(true, true)
+    showLogs("flatWaterPaddling", "riverTrip")

@@ -33,16 +33,12 @@ block requirements
       Your distance per day must also be taken into account
       (seven runs of 1km each are more benefitial than one 7km run).
 
-block logs
-  h2.pl16 Running Logs
-  .spacer.v20
-  .logs(data-type="running")
-
 block script
   script.
     setAward("running")
     setDifficulty(1)
-    setSkillLevel(2)
+    setSkillLevel(1)
+    showLogs("running")
 
     if (isLoggedIn()) {
       const totalDistance = new Promise(r => {

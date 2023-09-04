@@ -247,3 +247,9 @@ $breakpoint-b: 900px;
         }
     }
 }
+
+#logs-section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+}

@@ -5,7 +5,7 @@ const _LEADER_LINK_ID = "leader-link"
 function setAward(awardId) {
     const name = getAwardName(awardId)
     byId("award-title").innerHTML = name + " Award"
-    byId("award-info-title").innerHTML = name + " Award Info"
+    byId("award-info-title").innerHTML = name + " Info"
     byId("award-description").innerHTML = getAwardDescription(awardId)
 }
 
@@ -74,43 +74,50 @@ function showSequels(instructor, leader) {
     }
 
     if (sequelType) {
-        byId(_BASIC_LINK_ID).addEventListener("click", () => window.location.href = `${pathRoot}/${awardType}`)
-        byId(_BASIC_LINK_ID).style.display = "flex"
+        createShortcut("Basic Award", "right", () => location.href = `${pathRoot}/${awardType}`)
     }
     if (instructor && sequelType !== "instructor") {
-        byId(_INSTRUCTOR_LINK_ID).addEventListener("click", () => window.location.href = `${pathRoot}/${awardType}-instructor`)
-        byId(_INSTRUCTOR_LINK_ID).style.display = "flex"
+        createShortcut("Instructor Award", "right", () => location.href = `${pathRoot}/${awardType}-instructor`)
     }
     if (leader && sequelType !== "leader") {
-        byId(_LEADER_LINK_ID).addEventListener("click", () => window.location.href = `${pathRoot}/${awardType}-leader`)
-        byId(_LEADER_LINK_ID).style.display = "flex"
+        createShortcut("Leader Award", "right", () => location.href = `${pathRoot}/${awardType}-leader`)
+    }
+}
+
+function createShortcut(text, arrowType, onClick) {
+    const linksElement = byId("award-links")
+    const container = createElement("div", { p: linksElement, onClick })
+    let icon
+
+    if (arrowType === "down") {
+        icon = "keyboard_arrow_down"
+    } else if (arrowType === "right") {
+        icon = "chevron_right"
+    }
+
+    createElement("p", { p: container, t: text })
+    createElement("div", { c: "material-icons", p: container, t: icon })
+}
+
+function showLogs(...logTypes) {
+    const logsSection = byId("logs-section")
+
+    for (let logType of logTypes) {
+        const logTypeContainer = createElement("div", { p: logsSection })
+
+        const name = getLogTypeName(logType) + " Logs"
+        const headingElement = createElement("h2", { c: "pl16", p: logTypeContainer, t: name })
+        
+        createSpacer("20", { p: logTypeContainer })
+
+        const logDisplay = createLogDisplay({ logType, viewOnly: false })
+        logTypeContainer.appendChild(logDisplay)
+
+        createShortcut(name, "down", () => headingElement.scrollIntoView({ behavior: "smooth" }))
     }
 }
 
 window.addEventListener("load", () => {
-
-    /* Log Headings */
-
-    const awardLinksElement = byId("award-links")
-    const titleStart = byId("title-start")
-    let next = titleStart
-
-    while (true) {
-        next = next.nextElementSibling
-        const currentElement = next
-
-        if (currentElement == null) break
-        if (currentElement.tagName !== "H2") continue;
-
-        const div = createElement("div", {
-            p: awardLinksElement, onClick() {
-                currentElement.scrollIntoView({ behavior: "smooth" })
-            }
-        })
-
-        createElement("p", { p: div, t: next.innerHTML })
-        createElement("div", { c: "material-icons", p: div, t: "keyboard_arrow_down" })
-    }
 
     /* Status */
 

@@ -172,6 +172,11 @@ const _LOG_TYPES = {
     }
 }
 
+function getLogTypeName(logType) {
+    // TODO: format correctly
+    return logType
+}
+
 /*
     Types
         date
@@ -530,7 +535,7 @@ function createLogDisplay(options) {
         if (isLoggedIn()) {
             userId = getUserId()
         } else {
-            createElement("p", { c: "login-required", p: logDisplayElement, t: `<a href="/login?redirect=${location.pathname}">Sign in</a> to view logs.` })
+            createElement("p", { c: "login-required", p: logDisplayElement, t: `<a href="/login?redirect=${location.pathname}">Sign in</a> to view your logs.` })
             return logDisplayElement
         }
     }
@@ -580,13 +585,3 @@ function createLogDisplay(options) {
 
     return logDisplayElement
 }
-
-window.addEventListener("load", () => {
-    const logElements = document.getElementsByClassName("logs")
-
-    for (let element of logElements) {
-        const logType = element.getAttribute("data-type")
-        const logElement = createLogDisplay({ logType, viewOnly: false })
-        element.replaceWith(logElement)
-    }
-})

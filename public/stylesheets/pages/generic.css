@@ -368,6 +368,12 @@ a:hover {
   color: #EF7523;
 }
 
+#logs-section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+}
+
 footer {
   align-items: center;
   box-shadow: 0px -4px 16px rgba(0, 0, 0, 0.15);
