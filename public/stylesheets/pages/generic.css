@@ -6,12 +6,12 @@
 }
 
 a {
-  color: rgb(7, 148, 187);
+  color: #0794bb;
   cursor: pointer;
   text-decoration: none;
 }
 a:hover {
-  color: rgb(15, 176, 221);
+  color: #0fb0dd;
   text-decoration: underline;
 }
 

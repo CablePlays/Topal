@@ -6,12 +6,12 @@
 }
 
 a {
-  color: rgb(7, 148, 187);
+  color: #0794bb;
   cursor: pointer;
   text-decoration: none;
 }
 a:hover {
-  color: rgb(15, 176, 221);
+  color: #0fb0dd;
   text-decoration: underline;
 }
 
@@ -877,7 +877,7 @@ footer .treverton-link {
   width: 175px;
 }
 .banner .slideshow .card button:hover {
-  background-color: rgb(220, 220, 220);
+  background-color: #dcdcdc;
 }
 .banner .slideshow .card h1 {
   font-size: 38px;
@@ -938,7 +938,7 @@ footer .treverton-link {
 }
 .banner .slideshow .next:hover,
 .banner .slideshow .previous:hover {
-  background-color: rgb(220, 220, 220);
+  background-color: #dcdcdc;
 }
 .banner .slideshow .next img,
 .banner .slideshow .previous img {
