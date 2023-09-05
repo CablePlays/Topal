@@ -120,7 +120,6 @@ function _createSignoffElement(options) {
         const loadingTextElement = createElement("p", { p: bottomElement, t: LOADING_TEXT })
 
         const signoffDataLoaded = await signoffData
-        console.log(signoffDataLoaded)
         const { complete, date, signer, requestDate, decline } = signoffDataLoaded ?? {}
 
         initialDescriptionElement.remove()
