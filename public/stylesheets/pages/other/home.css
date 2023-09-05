@@ -96,6 +96,48 @@ a:hover {
   color: rgb(148, 148, 148);
 }
 
+.notice {
+  background-color: rgb(240, 240, 240);
+  border-radius: 4px;
+  padding: 20px;
+}
+.notice.error {
+  border-left: 3px solid rgb(231, 76, 60);
+}
+.notice.error::before {
+  content: "Error";
+  color: rgb(231, 76, 60);
+  font-weight: 600;
+  margin-right: 10px;
+}
+.notice.info {
+  border-left: 3px solid rgb(52, 152, 219);
+}
+.notice.info::before {
+  content: "Info";
+  color: rgb(52, 152, 219);
+  font-weight: 600;
+  margin-right: 10px;
+}
+.notice.success {
+  border-left: 3px solid rgb(0, 167, 74);
+}
+.notice.success::before {
+  content: "Success";
+  color: rgb(0, 167, 74);
+  font-weight: 600;
+  margin-right: 10px;
+}
+.notice.warning {
+  border-left: 3px solid rgb(243, 156, 18);
+}
+.notice.warning::before {
+  content: "Warning";
+  color: rgb(243, 156, 18);
+  font-weight: 600;
+  margin-right: 10px;
+}
+
 .slideshow {
   overflow: hidden;
 }
@@ -140,6 +182,12 @@ a:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 5px 0 rgba(0, 0, 0, 0.7);
   width: 12px;
+}
+
+.bottom-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
 }
 
 .col-container {
@@ -375,6 +423,54 @@ a:hover {
 }
 .login-notice p {
   font-size: 14px;
+}
+
+#signoffs {
+  display: grid;
+  gap: 10px 50px;
+  grid-template-columns: 1fr;
+  padding: 0 16px;
+}
+@media screen and (min-width: 650px) {
+  #signoffs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+#signoffs h3 {
+  color: rgb(25, 25, 25);
+  font-size: 20px;
+  font-weight: 600;
+}
+#signoffs .signoff {
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: 0.25s;
+}
+#signoffs .signoff:hover {
+  background-color: rgb(230, 230, 230);
+  padding: 8px;
+}
+#signoffs .signoff p {
+  height: 0;
+  overflow: hidden;
+}
+#signoffs .signoff p.show {
+  height: initial;
+}
+#signoffs .signoff .top {
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  display: flex;
+}
+#signoffs .signoff .top .dropdown {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.25s;
+}
+#signoffs .signoff .top .dropdown.active {
+  transform: rotateZ(180deg);
 }
 
 #logs-section {

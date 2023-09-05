@@ -40,9 +40,9 @@ block body
     a(href="/") Home
     a(href="/awards") Awards
     a(href="/leaderboard") Leaderboard
-    a.signin-link Sign In
     //- a Profile
     //- a Admin
+    a.signin-link(style=`display: ${displays.loggedIn.false.block}`) Sign In
     button#logout-button(style=`display: ${displays.loggedIn.true.block}`) Sign Out
 
   .block-content-container

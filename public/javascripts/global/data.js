@@ -17,7 +17,21 @@ const _AWARDS = {
     },
     kayaking: {
         name: "Kayaking",
-        description: "TODO"
+        description: "TODO",
+        signoffs: [
+            {
+                name: "Signoff A",
+                description: "This is a description of signoff A."
+            },
+            {
+                name: "Signoff B",
+                description: "This is a description of signoff B."
+            },
+            {
+                name: "Signoff C",
+                description: "This is a description of signoff C."
+            }
+        ]
     },
     kayakingInstructor: {
         name: "Kayaking Instructor",
@@ -125,4 +139,8 @@ function getAwardName(awardId) {
 
 function getAwardDescription(awardId) {
     return _AWARDS[awardId].description
+}
+
+function getAwardSignoffs(awardId) {
+    return _AWARDS[awardId].signoffs
 }

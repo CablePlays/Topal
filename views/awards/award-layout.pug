@@ -6,7 +6,7 @@ block content
   .login-notice(style=`display: ${displays.loggedIn.false.block}`)
     h2 Sign in!
     p.
-      Signing in will allow you to view your logs, sign-offs and other information about each award.
+      Signing in will allow you to view your logs, signoffs and other information about each award.
       Sign in <a class="signin-link">here</a>.
 
   .spacer.v20
@@ -71,6 +71,12 @@ block content
         p Awards
         .material-icons chevron_right
 
-  #logs-section
+  .bottom-content
+    #signoffs-section.invisible
+      h2.pl16 Signoffs
+      .spacer.v20
+      #signoffs
+
+    #logs-section
 
   .spacer.v40

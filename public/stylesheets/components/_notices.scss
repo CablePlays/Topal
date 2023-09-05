@@ -1,0 +1,32 @@
+@mixin notice($color, $text) {
+    border-left: 3px solid $color;
+
+    &::before {
+        content: $text;
+        color: $color;
+        font-weight: 600;
+        margin-right: 10px;
+    }
+}
+
+.notice {
+    background-color: rgb(240, 240, 240);
+    border-radius: 4px;
+    padding: 20px;
+
+    &.error {
+        @include notice($color-error, "Error");
+    }
+
+    &.info {
+        @include notice($color-info, "Info");
+    }
+
+    &.success {
+        @include notice($color-success, "Success");
+    }
+
+    &.warning {
+        @include notice($color-warning, "Warning");
+    }
+}

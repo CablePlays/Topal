@@ -8,6 +8,41 @@ function setAward(awardId) {
     byId("award-info-title").innerHTML = name + " Info"
     byId("award-description").innerHTML = getAwardDescription(awardId)
 
+    /* Signoffs */
+
+    const signoffs = getAwardSignoffs(awardId)
+
+    if (signoffs) {
+        const signoffsElement = byId("signoffs")
+
+        for (let signoff of signoffs) {
+            const { name: signoffName, description: signoffDescription } = signoff
+            const signoffElement = createElement("div", { c: "signoff", p: signoffsElement })
+            const top = createElement("div", { c: "top", p: signoffElement })
+
+            createElement("div", { c: "material-icons", p: top, t: "check_box_outline_blank" })
+            createElement("h3", { p: top, t: signoffName })
+            const dropDownElement = createElement("div", { c: ["material-icons", "dropdown"], p: top, t: "expand_more" })
+            const descriptionElement = createElement("p", { p: signoffElement, t: signoffDescription })
+
+            let descriptionOpen = false
+
+            signoffElement.addEventListener("click", () => {
+                descriptionOpen = !descriptionOpen
+
+                if (descriptionOpen) {
+                    descriptionElement.classList.add("show")
+                    dropDownElement.classList.add("active")
+                } else {
+                    descriptionElement.classList.remove("show")
+                    dropDownElement.classList.remove("active")
+                }
+            })
+        }
+
+        setVisible("signoffs-section")
+    }
+
     /* Status */
 
     if (isLoggedIn()) {
