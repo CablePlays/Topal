@@ -10,13 +10,6 @@
             "date": "DATE",
             "signer": "USER",
             "requestDate": "DATE",
-            "declined": false
-        },
-        "DETAILED_REQUESTABLE_STATUS": {
-            "complete": false,
-            "date": "DATE",
-            "signer": "USER",
-            "requestDate": "DATE",
             "decline": {
                 "date": "DATE",
                 "user": "USER",
@@ -28,7 +21,7 @@
         "approval": "STATUS"
     },
     "awards": {
-        "running": "DETAILED_REQUESTABLE_STATUS"
+        "running": "REQUESTABLE_STATUS"
     },
     "permissions": {
         "manageAwards": false,
@@ -36,8 +29,8 @@
         "viewLogs": false
     },
     "signoffs": {
-        "type": {
-            "signoff": "REQUESTABLE_STATUS"
+        "awardId": {
+            "signoffId": "REQUESTABLE_STATUS"
         }
     }
 }

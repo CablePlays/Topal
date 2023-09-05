@@ -68,8 +68,12 @@ function createSpacer(space, options) {
 
 /* Formatting */
 
-function capitalizeWithSpaces(input) {
-    return input.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, str => str.toUpperCase())
+function pascalToCapitalized(s) {
+    return s.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, str => str.toUpperCase())
+}
+
+function pascalToKebab(s) {
+    return s.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 }
 
 function formatDate(date) {

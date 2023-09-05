@@ -1,5 +1,5 @@
 @mixin notice($color, $text) {
-    border-left: 3px solid $color;
+    border-left: 4px solid $color;
 
     &::before {
         content: $text;

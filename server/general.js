@@ -9,6 +9,22 @@ const APPROVALS = [
     "ventureProposal"
 ]
 
+const AWARDS = [
+    "drakensberg",
+    "endurance", "enduranceInstructor", "enduranceLeader",
+    "kayaking", "kayakingInstructor", "kayakingLeader",
+    "midmarMile", "midmarMileInstructor", "midmarMileLeader",
+    "mountaineeringInstructor", "mountaineeringLeader",
+    "polarBear", "polarBearInstructor", "polarBearLeader",
+    "rockClimbing", "rockClimbingInstructor", "rockClimbingLeader",
+    "running",
+    "service", "serviceInstructor", "serviceLeader",
+    "solitaire", "solitaireInstructor", "solitaireLeader",
+    "summit",
+    "traverse",
+    "venture", "ventureInstructor"
+]
+
 const PERMISSIONS = [
     "manageAwards",
     "managePermissions",
@@ -59,6 +75,10 @@ function getSublogsTable(logType) {
     return camelToSnakeCase(logType) + "_sublogs"
 }
 
+function isAward(id) {
+    return AWARDS.includes(id)
+}
+
 function isApproval(id) {
     return APPROVALS.includes(id)
 }
@@ -101,15 +121,18 @@ function isPermission(permission) {
     return PERMISSIONS.includes(permission)
 }
 
-function isSignoff(type, id) {
-    switch (type) {
+function isSignoff(awardId, signoffId) {
+    if (["signoffA", "signoffB", "signoffC"].includes(signoffId)) { // TODO: remove
+        return true
+    }
+    switch (awardId) {
         case "drakensberg":
             return [
                 "cooker",
                 "backBack",
                 "ecologicalAwareness",
                 "pitchTent"
-            ].includes(id)
+            ].includes(signoffId)
         case "enduranceInstructor":
             return [
                 'bothAwardsTwice',
@@ -119,7 +142,7 @@ function isSignoff(type, id) {
                 'organisingEvents',
                 'readBook',
                 'who'
-            ].includes(id)
+            ].includes(signoffId)
         case "kayaking":
             return [
                 'circuits',
@@ -129,7 +152,7 @@ function isSignoff(type, id) {
                 'safetyChecks',
                 'theoryTest',
                 'timeTrial'
-            ].includes(id)
+            ].includes(signoffId)
         case "kayakingInstructor":
             return [
                 "attitude",
@@ -140,7 +163,7 @@ function isSignoff(type, id) {
                 "mooiRiver",
                 "rescue",
                 "skill"
-            ].includes(id)
+            ].includes(signoffId)
         case "mountaineeringInstructor":
             return [
                 "firstAid",
@@ -149,7 +172,7 @@ function isSignoff(type, id) {
                 "logs",
                 "rescueProcedues",
                 "ropeWork"
-            ].includes(id)
+            ].includes(signoffId)
         case "rockClimbing": {
             const valid = [
                 ["knots", 4],
@@ -162,7 +185,7 @@ function isSignoff(type, id) {
 
             for (let a of valid) {
                 for (let i = 1; i <= a[1]; i++) {
-                    if (id === a[0] + i) {
+                    if (signoffId === a[0] + i) {
                         return true
                     }
                 }
@@ -187,7 +210,7 @@ function isSignoff(type, id) {
                 "protection",
                 "rescueTechniques",
                 "traverse"
-            ].includes(id)
+            ].includes(signoffId)
         case "rockClimbingLeader":
             return [
                 "abseiling",
@@ -196,18 +219,18 @@ function isSignoff(type, id) {
                 "hoist",
                 "logs",
                 "tangles"
-            ].includes(id)
+            ].includes(signoffId)
         case "summit":
             return [
                 "mapReading",
                 "preparedness",
                 "routeFinding"
-            ].includes(id)
+            ].includes(signoffId)
         case "traverse":
             return [
                 "hikePlan",
                 "summary"
-            ].includes(id)
+            ].includes(signoffId)
     }
 
     return false
@@ -279,6 +302,7 @@ module.exports = {
     getLogsTable,
     getSublogsTable,
 
+    isAward,
     isApproval,
     isLogType,
     getParentLogType,

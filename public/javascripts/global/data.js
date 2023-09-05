@@ -20,14 +20,17 @@ const _AWARDS = {
         description: "TODO",
         signoffs: [
             {
+                id: "signoffA",
                 name: "Signoff A",
                 description: "This is a description of signoff A."
             },
             {
+                id: "signoffB",
                 name: "Signoff B",
                 description: "This is a description of signoff B."
             },
             {
+                id: "signoffC",
                 name: "Signoff C",
                 description: "This is a description of signoff C."
             }
@@ -143,4 +146,12 @@ function getAwardDescription(awardId) {
 
 function getAwardSignoffs(awardId) {
     return _AWARDS[awardId].signoffs
+}
+
+function awardHasInstructor(awardId) {
+    return _AWARDS[awardId + "Instructor"] != null
+}
+
+function awardHasLeader(awardId) {
+    return _AWARDS[awardId + "Leader"] != null
 }

@@ -2,73 +2,6 @@ const _BASIC_LINK_ID = "basic-link"
 const _INSTRUCTOR_LINK_ID = "instructor-link"
 const _LEADER_LINK_ID = "leader-link"
 
-function setAward(awardId) {
-    const name = getAwardName(awardId)
-    byId("award-title").innerHTML = name + " Award"
-    byId("award-info-title").innerHTML = name + " Info"
-    byId("award-description").innerHTML = getAwardDescription(awardId)
-
-    /* Signoffs */
-
-    const signoffs = getAwardSignoffs(awardId)
-
-    if (signoffs) {
-        const signoffsElement = byId("signoffs")
-
-        for (let signoff of signoffs) {
-            const { name: signoffName, description: signoffDescription } = signoff
-            const signoffElement = createElement("div", { c: "signoff", p: signoffsElement })
-            const top = createElement("div", { c: "top", p: signoffElement })
-
-            createElement("div", { c: "material-icons", p: top, t: "check_box_outline_blank" })
-            createElement("h3", { p: top, t: signoffName })
-            const dropDownElement = createElement("div", { c: ["material-icons", "dropdown"], p: top, t: "expand_more" })
-            const descriptionElement = createElement("p", { p: signoffElement, t: signoffDescription })
-
-            let descriptionOpen = false
-
-            signoffElement.addEventListener("click", () => {
-                descriptionOpen = !descriptionOpen
-
-                if (descriptionOpen) {
-                    descriptionElement.classList.add("show")
-                    dropDownElement.classList.add("active")
-                } else {
-                    descriptionElement.classList.remove("show")
-                    dropDownElement.classList.remove("active")
-                }
-            })
-        }
-
-        setVisible("signoffs-section")
-    }
-
-    /* Status */
-
-    if (isLoggedIn()) {
-        const awardStatus = byId("award-status")
-        awardStatus.children[0].innerHTML = LOADING_TEXT
-        setVisible(awardStatus)
-
-        getRequest(`/users/${getUserId()}/awards`).then(res => {
-            const { awards } = res
-            const { complete, date, signer } = awards[awardId] ?? {}
-
-            awardStatus.children[0].innerHTML = (complete ? "Complete" : "Incomplete")
-            awardStatus.children[1].innerHTML = (complete ? "check_box" : "check_box_outline_blank")
-
-            if (complete) {
-                const awardStatusInfo = byId("award-status-info")
-                awardStatusInfo.children[0].innerHTML = formatDate(date)
-                awardStatusInfo.children[1].innerHTML = "by " + signer.fullName
-                setVisible(awardStatusInfo)
-            } else {
-                setVisible("request-container")
-            }
-        })
-    }
-}
-
 function _setRating(ratingId, val) {
     const ratingElement = byId(ratingId)
     const children = ratingElement.childNodes
@@ -114,36 +47,6 @@ function showPoints() {
     ])
 }
 
-function showSequels(instructor, leader) {
-    const pathSplit = location.pathname.split("/")
-    let awardType = pathSplit[pathSplit.length - 1]
-    let sequelType
-
-    for (let st of ["instructor", "leader"]) {
-        if (awardType.endsWith("-" + st)) {
-            awardType = awardType.substring(0, awardType.length - st.length - 1)
-            sequelType = st
-            break
-        }
-    }
-
-    let pathRoot = ""
-
-    for (let i = 1; i < pathSplit.length - 1; i++) { // start 1 -> skip blank
-        pathRoot += "/" + pathSplit[i]
-    }
-
-    if (sequelType) {
-        createShortcut("Basic Award", "right", () => location.href = `${pathRoot}/${awardType}`)
-    }
-    if (instructor && sequelType !== "instructor") {
-        createShortcut("Instructor Award", "right", () => location.href = `${pathRoot}/${awardType}-instructor`)
-    }
-    if (leader && sequelType !== "leader") {
-        createShortcut("Leader Award", "right", () => location.href = `${pathRoot}/${awardType}-leader`)
-    }
-}
-
 function createShortcut(text, arrowType, onClick) {
     const linksElement = byId("award-links")
     const container = createElement("div", { p: linksElement, onClick })
@@ -174,5 +77,245 @@ function showLogs(...logTypes) {
         logTypeContainer.appendChild(logDisplay)
 
         createShortcut(name, "down", () => headingElement.scrollIntoView({ behavior: "smooth" }))
+    }
+}
+
+function _createSignoffElement(options) {
+    const { awardId, open, signoffData, signoffInfo } = options // if logged in then signoffData and awardId
+    const { id, name, description } = signoffInfo
+
+    const signoffElement = createElement("div", { c: "signoff" })
+    if (open) signoffElement.classList.add("open")
+
+    /* Open */
+
+    let bottomOpen = open
+
+    signoffElement.addEventListener("click", event => {
+        const targetType = event.target.nodeName
+        if (targetType === "A" || targetType === "BUTTON") return // clicked button or link -> ignore
+
+        bottomOpen = !bottomOpen
+
+        if (bottomOpen) {
+            signoffElement.classList.add("open")
+        } else {
+            signoffElement.classList.remove("open")
+        }
+    })
+
+    /* Top */
+
+    const topElement = createElement("div", { c: "top", p: signoffElement })
+    const statusElement = createElement("div", { c: ["material-icons", "status"], p: topElement, t: "hourglass_empty" })
+    createElement("h3", { p: topElement, t: name })
+    createElement("div", { c: ["dropdown", "material-icons"], p: topElement, t: "expand_more" })
+
+    /* Bottom & Load */
+
+    const bottomElement = createElement("div", { c: "bottom", p: signoffElement })
+
+    setTimeout(async () => {
+        const initialDescriptionElement = createElement("p", { p: bottomElement, t: description })
+        const loadingTextElement = createElement("p", { p: bottomElement, t: LOADING_TEXT })
+
+        const signoffDataLoaded = await signoffData
+        console.log(signoffDataLoaded)
+        const { complete, date, signer, requestDate, decline } = signoffDataLoaded ?? {}
+
+        initialDescriptionElement.remove()
+        loadingTextElement.remove()
+
+        /* Status */
+
+        const boxEmpty = "check_box_outline_blank"
+        const boxPending = "pending_actions"
+        let statusIcon
+
+        if (signoffDataLoaded == null) {
+            statusIcon = boxEmpty
+        } else if (complete) {
+            statusIcon = "check_box"
+        } else if (requestDate) {
+            statusIcon = boxPending
+        } else if (decline) {
+            statusIcon = "disabled_by_default"
+        } else {
+            statusIcon = boxEmpty
+        }
+
+        statusElement.innerHTML = statusIcon
+
+        /* Completion Info */
+
+        if (signoffDataLoaded && complete) {
+            const completeInfoContainer = createElement("div", { p: bottomElement })
+            createElement("p", { p: completeInfoContainer, t: "by " + signer.fullName })
+            createElement("p", { p: completeInfoContainer, t: formatDate(date) })
+        }
+
+        createElement("p", { p: bottomElement, t: description })
+
+        if (signoffDataLoaded) {
+            if (!complete) {
+                if (requestDate) {
+                    const requestInfoContainer = createElement("div", { c: "horizontal-container", p: bottomElement })
+                    createElement("p", { p: requestInfoContainer, t: "Signoff requested" })
+                    createElement("button", {
+                        p: requestInfoContainer, t: "Cancel", onClick() {
+                            options.open = true
+                            delete signoffDataLoaded.requestDate
+                            signoffElement.replaceWith(_createSignoffElement(options))
+
+                            putRequest(`/users/${getUserId()}/signoffs/${awardId}/${id}/cancel-request`)
+                        }
+                    })
+                } else {
+                    let declineContainer
+
+                    if (decline) {
+                        const { date: declineDate, message: declineMessage, user: declineUser } = decline
+                        declineContainer = createElement("div", { p: bottomElement })
+
+                        createElement("h3", { p: declineContainer, t: "Request Declined" })
+                        createElement("p", { p: declineContainer, t: formatDate(declineDate) })
+                        createElement("p", { p: declineContainer, t: "by " + declineUser.fullName })
+
+                        if (declineMessage) {
+                            createElement("p", { p: declineContainer, t: `Reason: "${declineMessage}"` })
+                        }
+                    }
+
+                    const buttonContainer = createElement("div", { c: "horizontal-container", p: bottomElement })
+
+                    createElement("button", {
+                        p: buttonContainer, t: "Request", onClick() {
+                            options.open = true
+                            signoffDataLoaded.requestDate = true // indicate that there has been request made
+                            delete signoffDataLoaded.decline
+                            signoffElement.replaceWith(_createSignoffElement(options))
+
+                            putRequest(`/users/${getUserId()}/signoffs/${awardId}/${id}/request-signoff`)
+                        }
+                    })
+
+                    if (decline) {
+                        createElement("button", {
+                            p: buttonContainer, t: "Clear Decline", onClick(b) {
+                                b.remove()
+                                declineContainer.remove()
+                                statusElement.innerHTML = boxEmpty
+                                putRequest(`/users/${getUserId()}/signoffs/${awardId}/${id}/clear-decline`)
+                            }
+                        })
+                    }
+                }
+            }
+        } else {
+            createElement("p", { p: bottomElement, t: "<a class='signin-link'>Sign in</a> for more information." })
+        }
+    })
+
+    return signoffElement
+}
+
+function setAward(awardId) {
+    const awardName = getAwardName(awardId)
+    byId("award-title").innerHTML = awardName + " Award"
+    byId("award-info-title").innerHTML = awardName + " Info"
+    byId("award-description").innerHTML = getAwardDescription(awardId)
+
+    /* Sequel Shortcuts */
+
+    {
+        let baseAwardId = awardId
+        let sequelType
+
+        for (let s of ["Instructor", "Leader"]) {
+            if (awardId.endsWith(s)) {
+                baseAwardId = awardId.substring(0, awardId.length - s.length)
+                sequelType = s
+                break
+            }
+        }
+
+        const pathParts = location.pathname.split("/")
+        let pathRoot = ""
+
+        for (let i = 1; i < pathParts.length - 1; i++) { // start 1 -> skip blank
+            pathRoot += "/" + pathParts[i]
+        }
+
+        const kebabBaseAwardId = pascalToKebab(baseAwardId)
+
+        if (sequelType) {
+            createShortcut("Basic Award", "right", () => location.href = `${pathRoot}/${kebabBaseAwardId}`)
+        }
+        if (awardHasInstructor(baseAwardId) && sequelType !== "Instructor") {
+            createShortcut("Instructor Award", "right", () => location.href = `${pathRoot}/${kebabBaseAwardId}-instructor`)
+        }
+        if (awardHasLeader(baseAwardId) && sequelType !== "Leader") {
+            createShortcut("Leader Award", "right", () => location.href = `${pathRoot}/${kebabBaseAwardId}-leader`)
+        }
+    }
+
+    /* Signoffs */
+
+    const signoffs = getAwardSignoffs(awardId)
+
+    if (signoffs) {
+        const userId = getUserId()
+        let signoffsPromise
+
+        if (userId) {
+            signoffsPromise = new Promise(async r => {
+                const { signoffs } = await getRequest(`/users/${userId}/signoffs/${awardId}`)
+                r(signoffs)
+            })
+        } else {
+            signoffsPromise = new Promise(r => r(null))
+        }
+
+        const signoffsElement = byId("signoffs")
+
+        for (let signoff of signoffs) {
+            const { id } = signoff
+
+            const signoffPromise = new Promise(async r => {
+                const signoffs = await signoffsPromise
+                r(signoffs && (signoffs?.[id] ?? {}))
+            })
+
+            const signoffElement = _createSignoffElement({ awardId, signoffData: signoffPromise, signoffInfo: signoff })
+            signoffsElement.appendChild(signoffElement)
+        }
+
+        setVisible("signoffs-section")
+        createShortcut("Signoffs", "down", () => signoffsElement.scrollIntoView({ behavior: "smooth" }))
+    }
+
+    /* Status */
+
+    if (isLoggedIn()) {
+        const awardStatus = byId("award-status")
+        awardStatus.children[0].innerHTML = LOADING_TEXT
+        setVisible(awardStatus)
+
+        getRequest(`/users/${getUserId()}/awards`).then(res => {
+            const { awards } = res
+            const { complete, date, signer } = awards[awardId] ?? {}
+
+            awardStatus.children[0].innerHTML = (complete ? "Complete" : "Incomplete")
+            awardStatus.children[1].innerHTML = (complete ? "check_box" : "check_box_outline_blank")
+
+            if (complete) {
+                const awardStatusInfo = byId("award-status-info")
+                awardStatusInfo.children[0].innerHTML = formatDate(date)
+                awardStatusInfo.children[1].innerHTML = "by " + signer.fullName
+                setVisible(awardStatusInfo)
+            } else {
+                setVisible("request-container")
+            }
+        })
     }
 }
