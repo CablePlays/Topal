@@ -6,8 +6,20 @@ const middleware = require("../middleware")
 const router = express.Router()
 
 router.get("/", async (req, res) => { // get user award info
-    const { targetUserId } = req
+    const { permissions, targetUserId, userId } = req
     const awards = jsonDatabase.getUser(targetUserId).get(jsonDatabase.AWARDS_PATH) ?? {}
+
+    if (userId !== targetUserId && !permissions.manageAwards) { // remove data other than complete, date and signer
+        for (let awardId in awards) {
+            const award = awards[awardId]
+
+            for (let key in award) {
+                if (key !== "complete" && key !== "date" && key !== "signer") {
+                    delete award[key]
+                }
+            }
+        }
+    }
 
     await general.provideUserInfoToStatuses(awards)
     res.res(200, { awards })
