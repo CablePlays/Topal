@@ -11,7 +11,18 @@
     "users": {
         ":userId": {
             "awards": {
-                "GET": "Get user awards information"
+                "GET": "Get user awards information",
+                ":awardId": {
+                    "cancel-request": {
+                        "PUT": "Cancels the signoff request for a signoff"
+                    },
+                    "clear-decline": {
+                        "PUT": "Clear the decline message for a signoff"
+                    },
+                    "request-signoff": {
+                        "PUT": "Request signoff for a signoff"
+                    }
+                }
             },
             "signoffs": {
                 ":awardId": {

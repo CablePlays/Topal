@@ -75,9 +75,7 @@ awardSignoffRouter.put("/request-signoff", middleware.requireSelf, (req, res) =>
         return
     }
 
-    userData.delete(path + ".decline")
-    userData.set(path + ".requestDate", new Date())
-
+    userData.set(path, { requestDate: new Date() })
     res.res(204)
 })
 

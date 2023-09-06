@@ -22,7 +22,7 @@ function setSkillLevel(val) {
 }
 
 function appendInfo(elements) {
-    const infoElement = byId("info")
+    const infoElement = byId("award-info")
     createElement("div", { c: "line", p: infoElement })
 
     for (let element of elements) {
@@ -260,9 +260,9 @@ function setAward(awardId) {
 
     /* Signoffs */
 
-    const signoffs = getAwardSignoffs(awardId)
+    const awardSignoffs = getAwardSignoffs(awardId)
 
-    if (signoffs) {
+    if (awardSignoffs) {
         const userId = getUserId()
         let signoffsPromise
 
@@ -277,7 +277,7 @@ function setAward(awardId) {
 
         const signoffsElement = byId("signoffs")
 
-        for (let signoff of signoffs) {
+        for (let signoff of awardSignoffs) {
             const { id } = signoff
 
             const signoffPromise = new Promise(async r => {
@@ -300,9 +300,30 @@ function setAward(awardId) {
         awardStatus.children[0].innerHTML = LOADING_TEXT
         setVisible(awardStatus)
 
+        /* Request */
+
+        const requestContainer = byId("request-container")
+
+        requestContainer.children[0].addEventListener("click", () => {
+            setVisible(requestContainer, false)
+            setVisible("decline-container", false)
+            setVisible("requested-container")
+            putRequest(`/users/${getUserId()}/awards/${awardId}/request-signoff`)
+        })
+
+        /* Requseted */
+
+        const requestedContainer = byId("requested-container")
+
+        requestedContainer.children[1].addEventListener("click", () => {
+            setVisible(requestedContainer, false)
+            setVisible("request-container")
+            putRequest(`/users/${getUserId()}/awards/${awardId}/cancel-request`)
+        })
+
         getRequest(`/users/${getUserId()}/awards`).then(res => {
             const { awards } = res
-            const { complete, date, signer } = awards[awardId] ?? {}
+            const { complete, date, decline, requestDate, signer } = awards[awardId] ?? {}
 
             awardStatus.children[0].innerHTML = (complete ? "Complete" : "Incomplete")
             awardStatus.children[1].innerHTML = (complete ? "check_box" : "check_box_outline_blank")
@@ -312,8 +333,44 @@ function setAward(awardId) {
                 awardStatusInfo.children[0].innerHTML = formatDate(date)
                 awardStatusInfo.children[1].innerHTML = "by " + signer.fullName
                 setVisible(awardStatusInfo)
+            } else if (requestDate) {
+                setVisible(requestedContainer)
             } else {
-                setVisible("request-container")
+                setVisible(requestContainer)
+
+                /* Decline */
+
+                if (decline) {
+                    const { date: declineDate, message: declineMessage, user: declineUser } = decline
+
+                    const declineContainer = byId("decline-container")
+                    const elements = declineContainer.children[1].children
+                    elements[1].innerHTML = formatDate(declineDate)
+                    elements[2].innerHTML = "by " + declineUser.fullName
+
+                    if (declineMessage) {
+                        elements[3].innerHTML = `Reason: "${declineMessage}"`
+                    }
+
+                    let declineOpen = false
+
+                    declineContainer.addEventListener("click", () => {
+                        declineOpen = !declineOpen
+
+                        if (declineOpen) {
+                            declineContainer.classList.add("open")
+                        } else {
+                            declineContainer.classList.remove("open")
+                        }
+                    })
+
+                    elements[5].addEventListener("click", () => {
+                        declineContainer.remove()
+                        putRequest(`/users/${getUserId()}/awards/${awardId}/clear-decline`)
+                    })
+
+                    setVisible(declineContainer)
+                }
             }
         })
     }

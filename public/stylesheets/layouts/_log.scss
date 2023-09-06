@@ -146,7 +146,7 @@ $border-radius: 8px;
         }
 
         .required::after {
-            color: rgb(200, 0, 0);
+            color: $color-error;
             content: " *";
         }
 

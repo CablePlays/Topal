@@ -42,7 +42,7 @@ block script
 
     if (isLoggedIn()) {
       const totalDistance = new Promise(r => {
-        setTimeout(()=> r(70000), 1000)
+        setTimeout(() => r(70000), 1000)
       })
 
       const totalDistanceDisplay = createElement("p")

@@ -4,8 +4,6 @@
     &::before {
         content: $text;
         color: $color;
-        font-weight: 600;
-        margin-right: 10px;
     }
 }
 
@@ -13,6 +11,11 @@
     background-color: rgb(240, 240, 240);
     border-radius: 4px;
     padding: 20px;
+
+    &::before {
+        font-weight: 600;
+        margin-right: 10px;
+    }
 
     &.error {
         @include notice($color-error, "Error");

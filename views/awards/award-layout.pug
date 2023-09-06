@@ -22,7 +22,7 @@ block content
       block extra
 
     .col2
-      #info
+      #award-info
         h2#award-info-title Award Info Title
         .spacer.v10
         p#award-description
@@ -36,13 +36,29 @@ block content
           .material-icons
 
         #award-status-info.invisible(style="font-size: 14px")
-          p 19/12/2023
-          p by Derek Brown
+          p date
+          p by
 
         #request-container.invisible
           button Request Signoff
           .material-icons.info info
             p Once you think you have completed the award criteria, you can submit a request for it to be signed off.
+
+        #requested-container.invisible
+          p Signoff Requested
+          button Cancel
+        
+        #decline-container.invisible
+          .top
+            h3 Request Declined
+            .material-icons.dropdown expand_more
+          .bottom
+            .spacer.v10
+            p date
+            p by
+            p
+            .spacer.v10
+            button Clear Decline
 
         .line(style=`display: ${displays.loggedIn.true.block}`)
 
