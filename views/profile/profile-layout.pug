@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  script.
+    function getProfileUserId() {
+      return parseInt(location.pathname.split("/")[2])
+    }
+
+  .col1
+    .profile-details
+      img.profile-picture(src=profileUser.profilePicture)
+      p= profileUser.titleName
+    .line
+    block sidebar
+  .col2
+    block profile-content

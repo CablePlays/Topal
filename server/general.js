@@ -237,7 +237,7 @@ function isSignoff(awardId, signoffId) {
 
 /* Users */
 
-async function getUserInfo(userId) {
+async function getUserDetails(userId) {
     const record = await sqlDatabase.get(`SELECT * FROM users WHERE id = "${userId}"`)
     if (record == null) return {}
 
@@ -281,13 +281,13 @@ async function provideUserInfoToStatus(status) {
     const { decline, signer } = status
 
     if (signer != null && await sqlDatabase.isUser(signer)) {
-        status.signer = await getUserInfo(signer)
+        status.signer = await getUserDetails(signer)
     }
     if (decline != null) {
         const { user } = decline
 
         if (user != null && await sqlDatabase.isUser(user)) {
-            decline.user = await getUserInfo(user)
+            decline.user = await getUserDetails(user)
         }
     }
 }
@@ -342,5 +342,5 @@ module.exports = {
     forEachAndWait,
     provideUserInfoToStatus,
     provideUserInfoToStatuses,
-    getUserInfo
+    getUserDetails
 }

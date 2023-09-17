@@ -2,16 +2,17 @@ const express = require("express")
 const cookies = require("../server/cookies")
 const general = require("../server/general")
 const jsonDatabase = require("../server/json-database")
-const sqlDatabase = require("../server/sql-database")
 const middleware = require("./middleware")
 
 const awardsRouter = require("./awards")
+const profileRouter = require("./profile")
 
 const router = express.Router()
 
 /* Middleware */
 
-async function advancedRender(req, res, path, adminPage) {
+async function advancedRender(req, res, path, options) {
+    const { adminPage } = options ?? {}
     const loggedIn = cookies.isLoggedIn(req)
     const userId = cookies.getUserId(req)
     let permissions = {}
@@ -29,32 +30,34 @@ async function advancedRender(req, res, path, adminPage) {
         }
     }
 
-    const placeholders = {
-        displays: {
-            adminPage: {
-                true: generateDisplays(adminPage)
-            },
-            loggedIn: {
-                false: generateDisplays(!loggedIn),
-                true: generateDisplays(loggedIn)
-            },
-            permission: {
-                any: generateDisplays(general.hasAnyPermission(permissions))
-            }
+    const { placeholders } = res
+    const displays = {
+        adminPage: {
+            true: generateDisplays(adminPage)
         },
-        user: userId == null ? {} : await general.getUserInfo(userId)
+        loggedIn: {
+            false: generateDisplays(!loggedIn),
+            true: generateDisplays(loggedIn)
+        },
+        permission: {
+            any: generateDisplays(general.hasAnyPermission(permissions))
+        }
     }
 
     for (let permission of general.PERMISSIONS) {
-        placeholders.displays.permission[permission] = generateDisplays(permissions[permission])
+        displays.permission[permission] = generateDisplays(permissions[permission])
     }
+
+    placeholders.displays = displays
+    placeholders.user = userId ? await general.getUserDetails(userId) : {}
 
     res.render(path, placeholders)
 }
 
-router.use("/", (req, res, next) => { // provide advanced render
-    res.ren = (path, adminPage) => {
-        advancedRender(req, res, path, adminPage)
+router.use("/", (req, res, next) => { // provide advanced render & placeholders
+    res.placeholders = {}
+    res.ren = (path, options) => {
+        advancedRender(req, res, path, options)
     }
 
     next()
@@ -87,10 +90,6 @@ router.get("/login", (req, res) => {
     res.redirect("signin")
 })
 
-router.get("/profile/:userId", (req, res) => {
-    res.ren("errors/coming-soon")
-})
-
 router.get("/search", (req, res) => {
     res.ren("other/search")
 })
@@ -106,5 +105,6 @@ router.get("/signin", middleware.requireLoggedOut, (req, res) => {
 /* Routers */
 
 router.use("/awards", awardsRouter)
+router.use("/profile", profileRouter)
 
 module.exports = router

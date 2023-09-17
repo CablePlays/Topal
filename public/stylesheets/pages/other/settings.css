@@ -15,7 +15,7 @@ a:hover {
   text-decoration: underline;
 }
 
-.block-content-container {
+.content-block-container {
   min-height: 90vh;
 }
 
@@ -601,11 +601,13 @@ a:hover {
 
 footer {
   align-items: center;
+  background-color: white;
   box-shadow: 0px -4px 16px rgba(0, 0, 0, 0.15);
   display: flex;
   justify-content: center;
   padding: 16px;
   position: relative;
+  z-index: 100;
 }
 footer a,
 footer p {
@@ -827,7 +829,7 @@ footer .treverton-link {
   flex-direction: column;
   height: 0;
   overflow: hidden;
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 80px;
   transition: 0.25s;

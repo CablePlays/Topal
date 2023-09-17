@@ -41,6 +41,20 @@ function setVisible(element, visible) {
     }
 }
 
+function getGrade(email) {
+    const [a, b] = email
+    let matricYear
+
+    if (isNaN(parseInt(b))) {
+        matricYear = parseInt("2" + a)
+    } else {
+        matricYear = parseInt(a + b)
+    }
+
+    const currentYear = new Date().getFullYear()
+    return currentYear - matricYear - 1988
+}
+
 /* Create Element */
 
 function createElement(type, options) {

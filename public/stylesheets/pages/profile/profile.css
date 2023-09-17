@@ -1002,3 +1002,87 @@ footer .treverton-link {
   position: absolute;
   right: 20px;
 }
+
+img.profile-picture {
+  border-radius: 48px;
+  height: 96px;
+  width: 96px;
+}
+
+.col1 {
+  box-shadow: 5px 0 5px rgba(0, 0, 0, 0.2);
+  height: calc(100vh - 80px);
+  position: fixed;
+  width: 300px;
+}
+.col1 .line {
+  border-top: 2px solid rgb(50, 50, 50);
+  margin-left: 5%;
+  width: 90%;
+}
+.col1 .profile-details {
+  align-items: center;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+}
+.col1 .profile-details p {
+  font-size: 20px;
+  font-weight: 600;
+  width: -moz-min-content;
+  width: min-content;
+}
+
+.col2 {
+  margin-left: 300px;
+  padding: 16px;
+  width: calc(100% - 300px);
+}
+
+#awards-display {
+  border-spacing: 0 10px;
+  padding-left: 16px;
+  width: 100%;
+}
+#awards-display tr {
+  transition: 0.2s;
+}
+#awards-display tr:hover {
+  transform: scale(1.005);
+}
+#awards-display tr:nth-child(even) td {
+  background-color: rgb(210, 210, 210);
+}
+#awards-display tr:nth-child(odd) td {
+  background-color: rgb(230, 230, 230);
+}
+#awards-display tr td {
+  border: none;
+  height: 71px;
+  padding: 16px;
+}
+#awards-display tr td:first-child {
+  background-color: #EF7523;
+  border-radius: 8px 0 0 8px;
+  width: 400px;
+}
+#awards-display tr td:last-child {
+  border-radius: 0 8px 8px 0;
+}
+#awards-display tr td .material-icons {
+  color: black;
+}
+#awards-display tr td .row {
+  align-items: center;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  display: flex;
+}
+#awards-display tr .title {
+  font-weight: 700;
+}
+#awards-display tr .value {
+  font-weight: 200;
+}

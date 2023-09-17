@@ -1,0 +1,40 @@
+$profile-sidebar-width: 300px;
+
+img.profile-picture {
+    border-radius: 48px;
+    height: 96px;
+    width: 96px;
+}
+
+.col1 {
+    box-shadow: 5px 0 5px rgb(0, 0, 0, 0.2);
+    height: calc(100vh - $topbar-height);
+    position: fixed;
+    width: $profile-sidebar-width;
+
+    .line {
+        border-top: 2px solid rgb(50, 50, 50);
+        margin-left: 5%;
+        width: 90%;
+    }
+
+    .profile-details {
+        align-items: center;
+        column-gap: 20px;
+        display: flex;
+        justify-content: center;
+        padding: 16px;
+
+        p {
+            font-size: 20px;
+            font-weight: 600;
+            width: min-content;
+        }
+    }
+}
+
+.col2 {
+    margin-left: $profile-sidebar-width;
+    padding: 16px;
+    width: calc(100% - $profile-sidebar-width);
+}

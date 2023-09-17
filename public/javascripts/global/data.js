@@ -136,6 +136,19 @@ const _AWARDS = {
     }
 }
 
+/*
+    Returns a list of award IDs.
+*/
+function getAwards() {
+    const awards = [];
+
+    for (let award in _AWARDS) {
+        awards.push(award)
+    }
+
+    return awards
+}
+
 function getAwardName(awardId) {
     return _AWARDS[awardId].name
 }

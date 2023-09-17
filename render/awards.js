@@ -1,6 +1,6 @@
 const express = require("express")
-const fs = require("fs");
-const path = require("path");
+const fs = require("fs")
+const path = require("path")
 
 const router = express.Router()
 
@@ -32,4 +32,4 @@ router.get("/:awardType", (req, res, next) => {
     })
 })
 
-module.exports = router;
+module.exports = router
