@@ -23,7 +23,7 @@ block body
       input#search-input(type='text' placeholder='Search..')
 
     a.sign-in.signin-link(style=`display: ${displays.loggedIn.false.block}`) Sign In
-    #account-display.invisible(onclick=`location.href="/profiles/${user.id}"`)
+    #account-display.invisible(onclick=`location.href="/profile/${user.id}"`)
       script.
         if (isLoggedIn()) setVisible("account-display")
       img(src="/assets/backgrounds/awards/midmar-mile.jpg")

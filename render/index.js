@@ -87,6 +87,10 @@ router.get("/login", (req, res) => {
     res.redirect("signin")
 })
 
+router.get("/profile/:userId", (req, res) => {
+    res.ren("errors/coming-soon")
+})
+
 router.get("/search", (req, res) => {
     res.ren("other/search")
 })
