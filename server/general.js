@@ -242,7 +242,7 @@ async function getUserInfo(userId) {
     if (record == null) return {}
 
     const { email } = record
-    const { name, surname, title } = jsonDatabase.getUser(userId).get(jsonDatabase.SETTINGS_PATH)
+    const { name, surname, title, profilePicture } = jsonDatabase.getUser(userId).get(jsonDatabase.DETAILS_PATH)
 
     return {
         id: userId,
@@ -250,6 +250,7 @@ async function getUserInfo(userId) {
         name,
         surname,
         title,
+        profilePicture: profilePicture ?? "/assets/icons/default-profile-picture.jpg",
         fullName: (title ? title + " " : "") + `${name} ${surname}`, // Mr John Doe
         titleName: (title ? title : name) + " " + surname // John Doe / Mr Doe
     }

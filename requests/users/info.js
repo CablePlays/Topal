@@ -19,11 +19,11 @@ router.put("/", middleware.requireSelf, async (req, res) => {
 
     const userDatabase = jsonDatabase.getUser(targetUserId)
 
-    if (name && name.trim()) userDatabase.set(jsonDatabase.SETTINGS_PATH + ".name", name)
-    if (surname) userDatabase.set(jsonDatabase.SETTINGS_PATH + ".surname", surname)
+    if (name && name.trim()) userDatabase.set(jsonDatabase.DETAILS_PATH + ".name", name)
+    if (surname) userDatabase.set(jsonDatabase.DETAILS_PATH + ".surname", surname)
 
     if (title !== undefined) {
-        const path = jsonDatabase.SETTINGS_PATH + ".title"
+        const path = jsonDatabase.DETAILS_PATH + ".title"
 
         if (["Mr", "Ms", "Mrs", "Dr"].includes(title)) {
             userDatabase.set(path, title)

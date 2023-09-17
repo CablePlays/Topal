@@ -984,10 +984,10 @@ footer .treverton-link {
 }
 .topbar #account-display img {
   border-radius: 25px;
-  height: 45px;
+  height: 43px;
   -o-object-fit: cover;
      object-fit: cover;
-  width: 45px;
+  width: 43px;
 }
 .topbar #account-display .email {
   color: rgb(148, 148, 148);
@@ -1037,33 +1037,6 @@ footer .treverton-link {
 }
 #settings .setting:not(.highlightable) .edit {
   display: none;
-}
-#settings .setting.profile-picture-setting {
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-}
-#settings .setting.profile-picture-setting div {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  margin-left: 50px;
-  row-gap: 15px;
-  width: -moz-min-content;
-  width: min-content;
-}
-#settings .setting.profile-picture-setting div img {
-  border-radius: 62px;
-  height: 124px;
-  width: 124px;
-}
-#settings .setting.profile-picture-setting div p {
-  color: #0064ee;
-  cursor: pointer;
-  font-weight: 500;
-}
-#settings .setting.profile-picture-setting div p:hover {
-  text-decoration: underline;
 }
 #settings .setting#name-setting {
   display: flex;

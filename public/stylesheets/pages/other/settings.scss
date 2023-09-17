@@ -47,37 +47,6 @@ $settings-space-left: 50px;
             display: none;
         }
 
-        &.profile-picture-setting {
-            display: flex;
-            flex-direction: column;
-            row-gap: 10px;
-
-            div {
-                align-items: center;
-                display: flex;
-                flex-direction: column;
-                margin-left: 50px;
-                row-gap: 15px;
-                width: min-content;
-
-                img {
-                    border-radius: 62px;
-                    height: 124px;
-                    width: 124px;
-                }
-
-                p {
-                    color: $color-accent-400;
-                    cursor: pointer;
-                    font-weight: 500;
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
-            }
-        }
-
         &#name-setting {
             display: flex;
             flex-direction: column;

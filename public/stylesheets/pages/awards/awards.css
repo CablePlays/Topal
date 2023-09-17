@@ -984,10 +984,10 @@ footer .treverton-link {
 }
 .topbar #account-display img {
   border-radius: 25px;
-  height: 45px;
+  height: 43px;
   -o-object-fit: cover;
      object-fit: cover;
-  width: 45px;
+  width: 43px;
 }
 .topbar #account-display .email {
   color: rgb(148, 148, 148);

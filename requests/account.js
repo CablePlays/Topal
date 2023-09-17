@@ -24,7 +24,7 @@ router.put("/handle-login", async (req, res) => { // handle login token from Goo
         return
     }
 
-    const { email, given_name, family_name } = ticket.getPayload()
+    const { email, given_name, family_name, picture } = ticket.getPayload()
     const domain = email.split("@")[1]
 
     if (domain !== "treverton.co.za") {
@@ -48,14 +48,26 @@ router.put("/handle-login", async (req, res) => { // handle login token from Goo
             userDatabase.set(jsonDatabase.SESSION_TOKEN_PATH, sessionToken)
         }
     } else { // create account
-        sessionToken = uuidv4()
-
         await sqlDatabase.run(`INSERT INTO users (email) VALUES ("${email}")`)
         userId = (await sqlDatabase.get(`SELECT * FROM users WHERE email = "${email}"`)).id
+        sessionToken = uuidv4()
 
         const userDatabase = jsonDatabase.getUser(userId)
         userDatabase.set(jsonDatabase.SESSION_TOKEN_PATH, sessionToken)
-        userDatabase.set(jsonDatabase.SETTINGS_PATH, {name: given_name, surname: family_name})
+        userDatabase.set(jsonDatabase.DETAILS_PATH, { name: given_name, surname: family_name })
+    }
+
+    // save profile picture link
+    console.log(ticket.getPayload())
+    console.log(picture)
+
+    const userDatabase = jsonDatabase.getUser(userId)
+    const profilePicturePath = jsonDatabase.DETAILS_PATH + ".profilePicture"
+
+    if (picture) {
+        userDatabase.set(profilePicturePath, picture)
+    } else { // profile picture only visible within organisation
+        userDatabase.delete(profilePicturePath)
     }
 
     res.cookie(cookies.USER_COOKIE, userId)

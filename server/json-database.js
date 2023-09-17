@@ -10,9 +10,9 @@ const COMPACT = false
 // user
 const APPROVALS_PATH = "approvals"
 const AWARDS_PATH = "awards"
+const DETAILS_PATH = "details"
 const PERMISSIONS_PATH = "permissions"
-const SESSION_TOKEN_PATH = "sessionToken"
-const SETTINGS_PATH = "settings"
+const SESSION_TOKEN_PATH = DETAILS_PATH + ".sessionToken"
 const SIGNOFFS_PATH = "signoffs"
 
 // other
@@ -80,9 +80,9 @@ module.exports = {
     APPROVALS_PATH,
     AUDIT_LOG_RECORDS_PATH,
     AWARDS_PATH,
+    DETAILS_PATH,
     PERMISSIONS_PATH,
     SESSION_TOKEN_PATH,
-    SETTINGS_PATH,
     SIGNOFFS_PATH,
 
     getAuditLog,

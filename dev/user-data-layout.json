@@ -17,9 +17,15 @@
             }
         }
     },
-    "sessionToken": null,
     "awards": {
         "running": "REQUESTABLE_STATUS"
+    },
+    "details": {
+        "name": "name",
+        "surname": "surname",
+        "title": "title",
+        "profilePicture": "profile picture link",
+        "sessionToken": null
     },
     "permissions": {
         "manageAwards": false,
@@ -30,10 +36,5 @@
         "awardId": {
             "signoffId": "REQUESTABLE_STATUS"
         }
-    },
-    "settings": {
-        "name": "name",
-        "surname": "surname",
-        "title": "title"
     }
 }

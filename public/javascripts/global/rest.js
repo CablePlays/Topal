@@ -1,13 +1,17 @@
 const _REQUEST_PREFIX = "/requests"
 
-async function _sendRequest(method, path, json) {
+async function _sendRequest(method, path, body) {
     const reqParams = { method }
 
-    if (json != null) {
-        reqParams.headers = {
-            "Content-Type": "application/json"
+    if (body != null) {
+        if (body instanceof FormData) {
+            reqParams.body = body
+        } else { // assume regular object
+            reqParams.headers = {
+                "Content-Type": "application/json"
+            }
+            reqParams.body = JSON.stringify(body)
         }
-        reqParams.body = JSON.stringify(json)
     }
 
     console.info("Making " + method + " request to " + path)
@@ -30,18 +34,18 @@ async function _sendRequest(method, path, json) {
     return r
 }
 
-async function deleteRequest(path, json) {
-    return await _sendRequest("DELETE", path, json)
+async function deleteRequest(path, body) {
+    return await _sendRequest("DELETE", path, body)
 }
 
 async function getRequest(path) {
     return await _sendRequest("GET", path)
 }
 
-async function postRequest(path, json) {
-    return await _sendRequest("POST", path, json)
+async function postRequest(path, body) {
+    return await _sendRequest("POST", path, body)
 }
 
-async function putRequest(path, json) {
-    return await _sendRequest("PUT", path, json)
+async function putRequest(path, body) {
+    return await _sendRequest("PUT", path, body)
 }
