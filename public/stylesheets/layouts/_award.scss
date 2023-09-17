@@ -330,7 +330,7 @@ $signoff-breakpoint: 650px;
             grid-row: initial;
             padding: 16px 16px 16px 0;
             row-gap: 20px;
-            width: min-content;
+            width: 180px;
         }
 
         >div {
@@ -340,14 +340,14 @@ $signoff-breakpoint: 650px;
             width: 100%;
 
             p {
-                color: rgb(0, 100, 238);
+                color: $color-accent-400;
                 flex-basis: 100%;
                 margin-right: 5px;
                 text-decoration: underline;
             }
 
             &:hover p {
-                color: rgb(0, 160, 238);
+                color: $color-accent-300;
             }
 
             &:active p {

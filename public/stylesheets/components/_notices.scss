@@ -1,16 +1,18 @@
-@mixin notice($color, $text) {
-    border-left: 4px solid $color;
-
-    &::before {
-        content: $text;
-        color: $color;
-    }
-}
-
 .notice {
+    align-items: flex-start;
     background-color: rgb(240, 240, 240);
     border-radius: 4px;
+    column-gap: 10px;
+    display: flex;
     padding: 20px;
+
+    @mixin notice($color) {
+        border-left: 4px solid $color;
+
+        .material-icons.notice-type {
+            color: $color;
+        }
+    }
 
     &::before {
         font-weight: 600;
@@ -18,18 +20,24 @@
     }
 
     &.error {
-        @include notice($color-error, "Error");
+        @include notice($color-error);
     }
 
     &.info {
-        @include notice($color-info, "Info");
+        @include notice($color-info);
     }
 
     &.success {
-        @include notice($color-success, "Success");
+        @include notice($color-success);
     }
 
     &.warning {
-        @include notice($color-warning, "Warning");
+        @include notice($color-warning);
+    }
+
+    p {
+        align-items: center;
+        display: flex;
+        min-height: 24px;
     }
 }

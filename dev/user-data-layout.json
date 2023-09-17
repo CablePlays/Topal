@@ -2,24 +2,22 @@
     "statusTypes": {
         "STATUS": {
             "complete": false,
-            "date": "DATE",
-            "signer": "USER"
+            "date": "date",
+            "signer": "user ID"
         },
         "REQUESTABLE_STATUS": {
             "complete": false,
-            "date": "DATE",
-            "signer": "USER",
-            "requestDate": "DATE",
+            "date": "date",
+            "signer": "user ID",
+            "requestDate": "date",
             "decline": {
-                "date": "DATE",
-                "user": "USER",
+                "date": "date",
+                "user": "user ID",
                 "message": "Message content."
             }
         }
     },
-    "approvals": {
-        "approval": "STATUS"
-    },
+    "sessionToken": null,
     "awards": {
         "running": "REQUESTABLE_STATUS"
     },
@@ -32,5 +30,10 @@
         "awardId": {
             "signoffId": "REQUESTABLE_STATUS"
         }
+    },
+    "settings": {
+        "name": "name",
+        "surname": "surname",
+        "title": "title"
     }
 }

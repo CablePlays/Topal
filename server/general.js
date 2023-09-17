@@ -1,4 +1,5 @@
 const cookies = require("./cookies")
+const jsonDatabase = require("./json-database")
 const sqlDatabase = require("./sql-database")
 
 const RECENT_AWARDS_LIFETIME = 48 // hours
@@ -63,9 +64,7 @@ const LOG_TYPES = { // cannot be both sublog and singleton
     }
 }
 
-function camelToSnakeCase(camelCaseString) {
-    return camelCaseString.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`)
-}
+/* Data */
 
 function getLogsTable(logType) {
     return camelToSnakeCase(logType) + "_logs"
@@ -236,6 +235,26 @@ function isSignoff(awardId, signoffId) {
     return false
 }
 
+/* Users */
+
+async function getUserInfo(userId) {
+    const record = await sqlDatabase.get(`SELECT * FROM users WHERE id = "${userId}"`)
+    if (record == null) return {}
+
+    const { email } = record
+    const { name, surname, title } = jsonDatabase.getUser(userId).get(jsonDatabase.SETTINGS_PATH)
+
+    return {
+        id: userId,
+        email,
+        name,
+        surname,
+        title,
+        fullName: (title ? title + " " : "") + `${name} ${surname}`, // Mr John Doe
+        titleName: (title ? title : name) + " " + surname // John Doe / Mr Doe
+    }
+}
+
 function hasAnyPermission(permissions) {
     for (let permission of PERMISSIONS) {
         if (permissions[permission] === true) {
@@ -250,11 +269,40 @@ async function isPasswordValid(req) {
     const userId = cookies.getUserId(req)
     if (userId == null) return false
 
-    const clientPassword = cookies.getPassword(req)
-    if (clientPassword == null) return false
+    const clientSessionToken = cookies.getPassword(req)
+    if (clientSessionToken == null) return false
 
-    const password = await sqlDatabase.getPassword(userId)
-    return (clientPassword === password)
+    const sessionToken = jsonDatabase.getUser(userId).get(jsonDatabase.SESSION_TOKEN_PATH)
+    return (clientSessionToken === sessionToken)
+}
+
+async function provideUserInfoToStatus(status) {
+    const { decline, signer } = status
+
+    if (signer != null && await sqlDatabase.isUser(signer)) {
+        status.signer = await getUserInfo(signer)
+    }
+    if (decline != null) {
+        const { user } = decline
+
+        if (user != null && await sqlDatabase.isUser(user)) {
+            decline.user = await getUserInfo(user)
+        }
+    }
+}
+
+async function provideUserInfoToStatuses(statuses) {
+    const separatedStatuses = Object.getOwnPropertyNames(statuses)
+
+    await forEachAndWait(separatedStatuses, async status => {
+        await provideUserInfoToStatus(statuses[status])
+    })
+}
+
+/* Utility */
+
+function camelToSnakeCase(camelCaseString) {
+    return camelCaseString.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`)
 }
 
 /*
@@ -271,29 +319,6 @@ async function forEachAndWait(array, consumer) {
     return Promise.all(promises)
 }
 
-async function provideUserInfoToStatus(status) {
-    const { decline, signer } = status
-
-    if (signer != null && await sqlDatabase.isUser(signer)) {
-        status.signer = await sqlDatabase.getUserInfo(signer)
-    }
-    if (decline != null) {
-        const { user } = decline
-
-        if (user != null && await sqlDatabase.isUser(user)) {
-            decline.user = await sqlDatabase.getUserInfo(user)
-        }
-    }
-}
-
-async function provideUserInfoToStatuses(statuses) {
-    const separatedStatuses = Object.getOwnPropertyNames(statuses)
-
-    await forEachAndWait(separatedStatuses, async status => {
-        await provideUserInfoToStatus(statuses[status])
-    })
-}
-
 module.exports = {
     RECENT_AWARDS_LIFETIME,
     RECENT_AWARDS_MAX,
@@ -301,7 +326,6 @@ module.exports = {
 
     getLogsTable,
     getSublogsTable,
-
     isAward,
     isApproval,
     isLogType,
@@ -312,10 +336,10 @@ module.exports = {
     hasSublogs,
     isPermission,
     isSignoff,
-
     hasAnyPermission,
     isPasswordValid,
     forEachAndWait,
     provideUserInfoToStatus,
-    provideUserInfoToStatuses
+    provideUserInfoToStatuses,
+    getUserInfo
 }

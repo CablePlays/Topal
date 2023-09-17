@@ -6,12 +6,12 @@
 }
 
 a {
-  color: #0794bb;
+  color: #0064ee;
   cursor: pointer;
   text-decoration: none;
 }
 a:hover {
-  color: #0fb0dd;
+  color: #00a0ee;
   text-decoration: underline;
 }
 
@@ -97,8 +97,12 @@ a:hover {
 }
 
 .notice {
+  align-items: flex-start;
   background-color: rgb(240, 240, 240);
   border-radius: 4px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  display: flex;
   padding: 20px;
 }
 .notice::before {
@@ -108,30 +112,31 @@ a:hover {
 .notice.error {
   border-left: 4px solid rgb(231, 76, 60);
 }
-.notice.error::before {
-  content: "Error";
+.notice.error .material-icons.notice-type {
   color: rgb(231, 76, 60);
 }
 .notice.info {
   border-left: 4px solid rgb(52, 152, 219);
 }
-.notice.info::before {
-  content: "Info";
+.notice.info .material-icons.notice-type {
   color: rgb(52, 152, 219);
 }
 .notice.success {
   border-left: 4px solid rgb(0, 167, 74);
 }
-.notice.success::before {
-  content: "Success";
+.notice.success .material-icons.notice-type {
   color: rgb(0, 167, 74);
 }
 .notice.warning {
   border-left: 4px solid rgb(243, 156, 18);
 }
-.notice.warning::before {
-  content: "Warning";
+.notice.warning .material-icons.notice-type {
   color: rgb(243, 156, 18);
+}
+.notice p {
+  align-items: center;
+  display: flex;
+  min-height: 24px;
 }
 
 .slideshow {
@@ -470,8 +475,7 @@ a:hover {
     grid-row: initial;
     padding: 16px 16px 16px 0;
     row-gap: 20px;
-    width: -moz-min-content;
-    width: min-content;
+    width: 180px;
   }
 }
 .col-container .col3 > div {
@@ -481,13 +485,13 @@ a:hover {
   width: 100%;
 }
 .col-container .col3 > div p {
-  color: rgb(0, 100, 238);
+  color: #0064ee;
   flex-basis: 100%;
   margin-right: 5px;
   text-decoration: underline;
 }
 .col-container .col3 > div:hover p {
-  color: rgb(0, 160, 238);
+  color: #00a0ee;
 }
 .col-container .col3 > div:active p {
   color: #EF7523;
@@ -815,21 +819,6 @@ footer .treverton-link {
   outline: none;
 }
 
-.logs-login-required {
-  align-items: center;
-  border-radius: 16px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  height: 130px;
-  justify-content: center;
-  transition: background-color 0.15s;
-}
-.logs-login-required:hover {
-  background-color: rgb(240, 240, 240);
-  border: 2px dashed rgb(50, 50, 50);
-}
-
 #sidebar {
   background-color: white;
   border-bottom-left-radius: 100px;
@@ -982,11 +971,15 @@ footer .treverton-link {
   align-items: center;
   -moz-column-gap: 10px;
        column-gap: 10px;
+  cursor: pointer;
+  display: flex;
+}
+.topbar #account-display div {
   display: none;
 }
-@media screen and (min-width: 530px) {
-  .topbar #account-display {
-    display: flex;
+@media screen and (min-width: 470px) {
+  .topbar #account-display div {
+    display: block;
   }
 }
 .topbar #account-display img {

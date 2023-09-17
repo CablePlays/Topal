@@ -4,9 +4,9 @@ const general = require("./general")
 const sqlDatabase = require("./sql-database")
 
 const commands = {
-    permission: async (user, permission, has = true) => {
-        if (!await sqlDatabase.isUser(user)) {
-            console.warn(`There is no user with the ID ${user}!`)
+    permission: async (userId, permission, has = true) => {
+        if (!await sqlDatabase.isUser(userId)) {
+            console.warn(`There is no user with the ID ${userId}!`)
             return
         }
         if (!general.isPermission(permission)) {
@@ -17,7 +17,7 @@ const commands = {
             has = (has === "true")
         }
 
-        const db = jsonDatabase.getUser(user)
+        const db = jsonDatabase.getUser(userId)
         const path = jsonDatabase.PERMISSIONS_PATH + "." + permission
 
         if (has === true || has === "true") {
@@ -26,7 +26,7 @@ const commands = {
             db.delete(path)
         }
 
-        const { fullName } = await sqlDatabase.getUserInfo(user)
+        const { fullName } = await general.getUserInfo(userId)
         console.info(`${fullName} has ${has ? "been given" : "lost"} the permission ${permission}.`)
     }
 }

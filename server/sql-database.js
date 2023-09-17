@@ -74,11 +74,6 @@ async function getUserId(userEmail) {
     return record?.id
 }
 
-async function getPassword(userId) {
-    const record = await get(`SELECT * FROM users WHERE id = "${userId}"`)
-    return record?.password
-}
-
 async function getUsers() {
     const users = await all(`SELECT * FROM users`)
     const ids = []
@@ -90,18 +85,6 @@ async function getUsers() {
     return ids
 }
 
-async function getUserInfo(userId) {
-    const { email, name, surname } = await get(`SELECT * FROM users WHERE id = "${userId}"`) ?? {}
-
-    return {
-        id: userId,
-        email,
-        name,
-        surname,
-        fullName: name + " " + surname
-    }
-}
-
 /* Create Tables */
 
 useDatabase(db => {
@@ -111,7 +94,7 @@ useDatabase(db => {
 
     /* General */
 
-    c("users", "id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE NOT NULL, password TEXT NOT NULL, name TEXT NOT NULL, surname TEXT NOT NULL")
+    c("users", "id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE NOT NULL")
     c("recent_awards", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, award TEXT NOT NULL, date INTEGER NOT NULL")
 
     /* Logs */
@@ -144,7 +127,5 @@ module.exports = {
 
     isUser,
     getUserId,
-    getPassword,
-    getUsers,
-    getUserInfo
+    getUsers
 }

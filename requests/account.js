@@ -2,13 +2,14 @@ const express = require("express")
 const { v4: uuidv4 } = require("uuid")
 const { OAuth2Client } = require("google-auth-library")
 const cookies = require("../server/cookies")
+const jsonDatabase = require("../server/json-database")
 const sqlDatabase = require("../server/sql-database")
 
 const router = express.Router()
 
 const authClient = new OAuth2Client()
 
-router.put("/handle-login", async (req, res) => {
+router.put("/handle-login", async (req, res) => { // handle login token from Google
     const { token } = req.body
     let ticket
 
@@ -33,26 +34,32 @@ router.put("/handle-login", async (req, res) => {
 
     const record = await sqlDatabase.get(`SELECT * FROM users WHERE email = "${email}"`)
     let userId
-    let password
+    let sessionToken
 
     if (record) {
-        const { id, password: p } = record
+        const { id } = record
+        const userDatabase = jsonDatabase.getUser(id)
+
         userId = id
-        password = p
+        sessionToken = userDatabase.get(jsonDatabase.SESSION_TOKEN_PATH)
 
-        if (!password) {
-            password = uuidv4()
+        if (sessionToken == null) {
+            sessionToken = uuidv4()
+            userDatabase.set(jsonDatabase.SESSION_TOKEN_PATH, sessionToken)
         }
+    } else { // create account
+        sessionToken = uuidv4()
 
-        await sqlDatabase.run(`UPDATE users SET password = "${password}", name = "${given_name}", surname = "${family_name}" WHERE id = ${id}`)
-    } else {
-        password = uuidv4()
-        await sqlDatabase.run(`INSERT INTO users (email, password, name, surname) VALUES ("${email}", "${password}", "${given_name}", "${family_name}")`)
+        await sqlDatabase.run(`INSERT INTO users (email) VALUES ("${email}")`)
         userId = (await sqlDatabase.get(`SELECT * FROM users WHERE email = "${email}"`)).id
+
+        const userDatabase = jsonDatabase.getUser(userId)
+        userDatabase.set(jsonDatabase.SESSION_TOKEN_PATH, sessionToken)
+        userDatabase.set(jsonDatabase.SETTINGS_PATH, {name: given_name, surname: family_name})
     }
 
     res.cookie(cookies.USER_COOKIE, userId)
-    res.cookie(cookies.PASSWORD_COOKIE, password)
+    res.cookie(cookies.PASSWORD_COOKIE, sessionToken)
     res.res(204)
 })
 

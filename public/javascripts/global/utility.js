@@ -1,6 +1,9 @@
 const LOADING_TEXT = "Loading . . ."
 
 document.addEventListener("click", event => {
+
+    /* Handle Signin Link */
+
     if (event.target.classList.contains("signin-link")) {
         location.href = `/signin?redirect=${location.pathname}`
     }
@@ -42,7 +45,7 @@ function setVisible(element, visible) {
 
 function createElement(type, options) {
     const element = document.createElement(type)
-    const { c, onClick, consumer, p, t } = options ?? {}
+    const { c, onClick, consumer, p, r, t } = options ?? {}
 
     if (typeof c === "string") {
         element.classList.add(c)
@@ -53,6 +56,7 @@ function createElement(type, options) {
     }
     if (onClick) element.addEventListener("click", () => onClick(element))
     if (p) byId(p).appendChild(element)
+    if (r) byId(r).replaceWith(element)
     if (t) element.innerHTML = t
     if (consumer) consumer(element)
 
@@ -63,6 +67,20 @@ function createSpacer(space, options) {
     const e = createElement("div", options)
     e.classList.add("spacer")
     e.classList.add("v" + space)
+    return e
+}
+
+function createNotice(type, options) {
+    const { t } = options
+    delete options.t
+
+    const e = createElement("div", options)
+    e.classList.add("notice")
+    e.classList.add(type)
+
+    let icon = (type === "success") ? "check_circle" : type
+    createElement("div", { c: ["material-icons", "notice-type"], p: e, t: icon })
+    createElement("p", { p: e, t })
     return e
 }
 

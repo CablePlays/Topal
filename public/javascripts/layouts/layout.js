@@ -4,7 +4,7 @@ window.addEventListener("load", () => {
 
     byId("logout-button").addEventListener("click", () => {
         logOut()
-        location.reload()
+        location.href = "/signin"
     })
 
     /* Search */

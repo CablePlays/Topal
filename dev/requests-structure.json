@@ -1,4 +1,7 @@
 {
+    "account": {
+        "PUT": "Handle login token from Google"
+    },
     "logs": {
         ":logType": {
             "GET": "Get user logs & sublogs of type",
@@ -23,6 +26,10 @@
                         "PUT": "Request signoff for a signoff"
                     }
                 }
+            },
+            "info": {
+                "GET": "Get user information (name, surname, email, etc.)",
+                "PUT": "Edit user information"
             },
             "signoffs": {
                 ":awardId": {

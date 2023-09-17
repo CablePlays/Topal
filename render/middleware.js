@@ -6,7 +6,7 @@ function requireLoggedIn(req, res, next) {
     if (cookies.isLoggedIn(req)) {
         next()
     } else {
-        res.redirect("/account/signup")
+        res.redirect(`/signin?redirect=${req.path}`)
     }
 }
 

@@ -149,7 +149,7 @@ function _createSignoffElement(options) {
 
         if (signoffDataLoaded && complete) {
             const completeInfoContainer = createElement("div", { p: bottomElement })
-            createElement("p", { p: completeInfoContainer, t: "by " + signer.fullName })
+            createElement("p", { p: completeInfoContainer, t: "by " + signer.titleName })
             createElement("p", { p: completeInfoContainer, t: formatDate(date) })
         }
 
@@ -178,7 +178,7 @@ function _createSignoffElement(options) {
 
                         createElement("h3", { p: declineContainer, t: "Request Declined" })
                         createElement("p", { p: declineContainer, t: formatDate(declineDate) })
-                        createElement("p", { p: declineContainer, t: "by " + declineUser.fullName })
+                        createElement("p", { p: declineContainer, t: "by " + declineUser.titleName })
 
                         if (declineMessage) {
                             createElement("p", { p: declineContainer, t: `Reason: "${declineMessage}"` })
@@ -331,7 +331,7 @@ function setAward(awardId) {
             if (complete) {
                 const awardStatusInfo = byId("award-status-info")
                 awardStatusInfo.children[0].innerHTML = formatDate(date)
-                awardStatusInfo.children[1].innerHTML = "by " + signer.fullName
+                awardStatusInfo.children[1].innerHTML = "by " + signer.titleName
                 setVisible(awardStatusInfo)
             } else if (requestDate) {
                 setVisible(requestedContainer)
@@ -346,7 +346,7 @@ function setAward(awardId) {
                     const declineContainer = byId("decline-container")
                     const elements = declineContainer.children[1].children
                     elements[1].innerHTML = formatDate(declineDate)
-                    elements[2].innerHTML = "by " + declineUser.fullName
+                    elements[2].innerHTML = "by " + declineUser.titleName
 
                     if (declineMessage) {
                         elements[3].innerHTML = `Reason: "${declineMessage}"`

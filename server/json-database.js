@@ -11,6 +11,8 @@ const COMPACT = false
 const APPROVALS_PATH = "approvals"
 const AWARDS_PATH = "awards"
 const PERMISSIONS_PATH = "permissions"
+const SESSION_TOKEN_PATH = "sessionToken"
+const SETTINGS_PATH = "settings"
 const SIGNOFFS_PATH = "signoffs"
 
 // other
@@ -79,6 +81,8 @@ module.exports = {
     AUDIT_LOG_RECORDS_PATH,
     AWARDS_PATH,
     PERMISSIONS_PATH,
+    SESSION_TOKEN_PATH,
+    SETTINGS_PATH,
     SIGNOFFS_PATH,
 
     getAuditLog,

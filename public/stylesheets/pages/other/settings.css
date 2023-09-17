@@ -19,7 +19,7 @@ a:hover {
   min-height: 90vh;
 }
 
-.flex-center, .banner .top {
+.flex-center {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -1001,169 +1001,111 @@ footer .treverton-link {
   right: 20px;
 }
 
-.banner {
-  background-image: url("/assets/backgrounds/home.webp");
-  height: 980px;
-  position: relative;
-}
-.banner .top {
-  padding: 0 20px;
-}
-.banner .top h1 {
-  color: #EF7523;
-  margin-bottom: 16px;
-  font-size: 45px;
-  font-weight: 700;
-  margin-top: 150px;
-  text-align: center;
-  text-transform: uppercase;
-}
-.banner .top p {
-  color: #fff;
-  font-size: 16px;
-  font-weight: 400;
-  max-width: 880px;
-  text-align: center;
-}
-@media screen and (min-width: 450px) {
-  .banner .top h1 {
-    font-size: 60px;
-  }
-  .banner .top p {
-    font-size: 20px;
-  }
-}
-.banner .top .links {
+#settings {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px 32px;
-  justify-content: center;
-  margin-top: 32px;
+  flex-direction: column;
+  max-width: 800px;
+  padding: 0 16px;
 }
-.banner .top .links a {
-  align-items: center;
-  border-radius: 16px;
-  cursor: pointer;
-  display: flex;
-  font-size: 16px;
-  font-weight: 500;
-  justify-content: center;
-  height: 60px;
-  text-decoration: none;
-  width: 175px;
-}
-.banner .top .links .primary {
-  background-color: #EF7523;
-  border: none;
-  color: white;
-}
-.banner .top .links .primary:hover {
-  background-color: #f29354;
-}
-.banner .top .links .secondary {
-  background-color: rgba(0, 0, 0, 0);
-  border: 2px solid #EF7523;
-  color: #EF7523;
-}
-.banner .top .links .secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-.banner .slideshow {
-  background-color: rgba(255, 255, 255, 0.3);
-  bottom: 0;
-  color: white;
-  overflow: hidden;
-  position: absolute;
+#settings .line {
+  border-top: 2px solid rgb(220, 220, 220);
   width: 100%;
 }
-.banner .slideshow .card {
+#settings .setting {
+  padding: 20px 0;
+  padding-left: 50px;
+}
+#settings .setting p.title {
+  color: rgb(50, 50, 50);
+  font-weight: 400;
+}
+#settings .setting p.value {
+  font-weight: 600;
+}
+#settings .setting.highlightable {
+  cursor: pointer;
+  transition: 0.1s;
+}
+#settings .setting.highlightable .edit {
+  display: none;
+}
+#settings .setting.highlightable:hover {
+  background-color: rgb(245, 245, 245);
+}
+#settings .setting.highlightable:hover .edit {
+  display: block;
+}
+#settings .setting:not(.highlightable) .edit {
+  display: none;
+}
+#settings .setting.profile-picture-setting {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+#settings .setting.profile-picture-setting div {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  text-align: center;
-  width: 100%;
+  margin-left: 50px;
+  row-gap: 15px;
+  width: -moz-min-content;
+  width: min-content;
 }
-.banner .slideshow .card button {
-  background-color: white;
-  border: none;
-  border-radius: 16px;
-  color: black;
+#settings .setting.profile-picture-setting div img {
+  border-radius: 62px;
+  height: 124px;
+  width: 124px;
+}
+#settings .setting.profile-picture-setting div p {
+  color: #0064ee;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: 400;
-  height: 60px;
-  margin: 20px 0 40px 0;
-  width: 175px;
-}
-.banner .slideshow .card button:hover {
-  background-color: #dcdcdc;
-}
-.banner .slideshow .card h1 {
-  font-size: 38px;
-  font-weight: 300;
-  margin-top: 20px;
-}
-.banner .slideshow .card p {
-  font-size: 18px;
   font-weight: 500;
-  padding: 0 50px;
 }
-@media screen and (min-width: 400px) {
-  .banner .slideshow .card h1 {
-    font-size: 48px;
-  }
-  .banner .slideshow .card p {
-    font-size: 25px;
-  }
+#settings .setting.profile-picture-setting div p:hover {
+  text-decoration: underline;
 }
-@media screen and (min-width: 600px) {
-  .banner .slideshow .card h1 {
-    font-size: 64px;
-  }
-  .banner .slideshow .card p {
-    font-size: 30px;
-  }
+#settings .setting#name-setting {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 64px;
+  row-gap: 20px;
 }
-.banner .slideshow .card .date {
-  bottom: 18px;
-  color: rgb(200, 200, 200);
-  font-size: 20px;
-  font-weight: 600;
-  left: 18px;
-  position: absolute;
+#settings .setting#name-setting .row {
+  align-items: center;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
+  display: flex;
 }
-.banner .slideshow .next {
-  right: -40px;
+#settings .setting#name-setting .row .input-container {
+  align-items: center;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  display: flex;
 }
-.banner .slideshow .next img {
-  left: 5px;
+#settings .setting#name-setting .row .input-container input,
+#settings .setting#name-setting .row .input-container select {
+  border: 2px solid rgb(150, 150, 150);
+  border-radius: 4px;
 }
-.banner .slideshow .previous {
-  left: -40px;
+#settings .setting#name-setting .row .input-container input {
+  padding: 8px;
 }
-.banner .slideshow .previous img {
-  right: 5px;
+#settings .setting#name-setting .row .input-container select {
+  padding: 7px;
 }
-.banner .slideshow .next,
-.banner .slideshow .previous {
-  background-color: white;
-  border-radius: 20px;
+#settings .setting#name-setting .row .input-container .cancel {
   cursor: pointer;
-  height: 70px;
-  position: absolute;
-  top: 90px;
-  width: 70px;
-  z-index: 10;
 }
-.banner .slideshow .next:hover,
-.banner .slideshow .previous:hover {
-  background-color: #dcdcdc;
+#settings .setting#name-setting .row .input-container .save {
+  background-color: rgb(230, 230, 230);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 10px 16px;
+  transition: 0.25s background-color;
 }
-.banner .slideshow .next img,
-.banner .slideshow .previous img {
-  height: 26px;
-  position: absolute;
-  top: 24.5px;
-  width: 26px;
+#settings .setting#name-setting .row .input-container .save:hover {
+  background-color: rgb(210, 210, 210);
 }

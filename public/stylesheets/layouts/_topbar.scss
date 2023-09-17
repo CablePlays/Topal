@@ -1,4 +1,4 @@
-$account-display-breakpoint: 530px;
+$account-display-breakpoint: 470px;
 $links-breakpoint: 780px;
 $search-bar-breakpoint: 1050px;
 
@@ -115,10 +115,15 @@ $search-bar-breakpoint: 1050px;
     #account-display {
         align-items: center;
         column-gap: 10px;
-        display: none;
+        cursor: pointer;
+        display: flex;
 
-        @media screen and (min-width: $account-display-breakpoint) {
-            display: flex;
+        div {
+            display: none;
+
+            @media screen and (min-width: $account-display-breakpoint) {
+                display: block;
+            }
         }
 
         img {

@@ -42,7 +42,7 @@ async function advancedRender(req, res, path, adminPage) {
                 any: generateDisplays(general.hasAnyPermission(permissions))
             }
         },
-        userInfo: userId == null ? {} : await sqlDatabase.getUserInfo(userId)
+        user: userId == null ? {} : await general.getUserInfo(userId)
     }
 
     for (let permission of general.PERMISSIONS) {
@@ -91,7 +91,7 @@ router.get("/search", (req, res) => {
     res.ren("other/search")
 })
 
-router.get("/settings", (req, res) => {
+router.get("/settings", middleware.requireLoggedIn, (req, res) => {
     res.ren("other/settings")
 })
 
