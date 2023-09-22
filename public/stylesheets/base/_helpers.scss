@@ -1,7 +1,23 @@
-.flex-center {
+.center-rh {
+    display: flex;
+    justify-content: center;
+}
+
+.center-rv {
+    align-items: center;
+    display: flex;
+}
+
+.center-chv {
     align-items: center;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+}
+
+.center-rhv {
+    align-items: center;
+    display: flex;
     justify-content: center;
 }
 

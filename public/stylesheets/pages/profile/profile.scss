@@ -1,7 +1,11 @@
 @import "../../global";
 @import "./profile-layout";
 
-#awards-display {
+#windows .window:not(:first-child) {
+    display: none;
+}
+
+table#awards-display {
     border-spacing: 0 10px;
     padding-left: 16px;
     width: 100%;

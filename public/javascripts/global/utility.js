@@ -1,11 +1,36 @@
 const LOADING_TEXT = "Loading . . ."
 
 document.addEventListener("click", event => {
-
-    /* Handle Signin Link */
-
-    if (event.target.classList.contains("signin-link")) {
+    if (event.target.classList.contains("signin-link")) { // signin link
         location.href = `/signin?redirect=${location.pathname}`
+    }
+})
+
+window.addEventListener("load", () => {
+    for (let element of document.getElementsByClassName("joined-buttons")) { // joined buttons
+        const [buttonsContainer, underlineElement] = element.children
+        const buttons = buttonsContainer.children
+        let selectedButtonIndex = 0
+
+        for (let i = 0; i < buttons.length; i += 2) { // increment 2 -> skip joiners
+            const button = buttons[i]
+
+            function moveUnderline(buttonIndex) {
+                const t = Math.max(buttonIndex / 2 * (120 + 3) - 1, 0)
+                underlineElement.style.transform = `translateX(${t}px)`
+            }
+
+            button.addEventListener("click", () => {
+                selectedButtonIndex = i
+                moveUnderline(i)
+            })
+            button.addEventListener("mouseenter", () => {
+                // moveUnderline(i)
+            })
+            button.addEventListener("mouseleave", () => {
+                // moveUnderline(selectedButtonIndex)
+            })
+        }
     }
 })
 

@@ -19,10 +19,26 @@ a:hover {
   min-height: 90vh;
 }
 
-.flex-center, .banner .top {
+.center-rh {
+  display: flex;
+  justify-content: center;
+}
+
+.center-rv {
+  align-items: center;
+  display: flex;
+}
+
+.center-chv, .banner .top {
   align-items: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+
+.center-rhv {
+  align-items: center;
+  display: flex;
   justify-content: center;
 }
 
@@ -64,6 +80,42 @@ a:hover {
 
 .spacer.v80 {
   height: 80px;
+}
+
+.joined-buttons {
+  display: inline-block;
+}
+.joined-buttons .buttons {
+  display: flex;
+}
+.joined-buttons .buttons button {
+  background-color: rgb(100, 100, 100);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 16px;
+  width: 120px;
+}
+.joined-buttons .buttons button:first-child {
+  border-radius: 4px 0 0 4px;
+}
+.joined-buttons .buttons button:last-child {
+  border-radius: 0 4px 4px 0;
+}
+.joined-buttons .buttons button:hover {
+  background-color: rgb(110, 110, 110);
+}
+.joined-buttons .buttons .joiner {
+  border-right: 3px solid black;
+}
+.joined-buttons .underline {
+  background-color: #EF7523;
+  border-radius: 3px;
+  height: 3px;
+  margin-top: 3px;
+  transition: 0.2s;
+  width: 120px;
 }
 
 .hamburger-icon {
@@ -829,7 +881,7 @@ footer .treverton-link {
   flex-direction: column;
   height: 0;
   overflow: hidden;
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 80px;
   transition: 0.25s;
@@ -924,7 +976,7 @@ footer .treverton-link {
 }
 .topbar .search {
   align-items: center;
-  background-color: #EFEFEF;
+  background-color: rgb(240, 240, 240);
   border-radius: 8px;
   display: none;
   height: 49px;

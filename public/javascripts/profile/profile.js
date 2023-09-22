@@ -1,6 +1,25 @@
 window.addEventListener("load", () => {
     renderAwards()
+    setupProfileWindowButtons()
 })
+
+function setupProfileWindowButtons() {
+    const buttons = byId("profile-window-buttons").children
+
+    function setSelectedWindow(n) {
+        const windows = byId("windows").children
+
+        for (let windowElement of windows) {
+            windowElement.style.display = "none"
+        }
+
+        windows[n].style.display = "block"
+    }
+
+    for (let i = 0; i < buttons.length; i += 2) {
+        buttons[i].addEventListener("click", () => setSelectedWindow(i / 2))
+    }
+}
 
 async function renderAwards() {
     const awardsDisplay = byId("awards-display")

@@ -6,16 +6,20 @@ block assets
 
 block sidebar
   .spacer.v20
-  p.pl16 Content
+  .center-rh
+    .joined-buttons
+      #profile-window-buttons.buttons
+        button Awards
+        .joiner
+        button Stats
+      .underline
 
 block profile-content
-  h1 Stats
-  p Coming soon!
-
-  .spacer.v20
-
-  h1 Awards
-
-  .spacer.v20
-
-  table#awards-display
+  #windows
+    .window
+      h1 Awards
+      .spacer.v10
+      table#awards-display
+    .window
+      h1 Stats
+      p Coming soon!

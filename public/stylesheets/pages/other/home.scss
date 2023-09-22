@@ -8,7 +8,7 @@ $banner-breakpoint: 450px;
     position: relative;
 
     .top {
-        @extend .flex-center;
+        @extend .center-chv;
         padding: 0 20px;
 
         h1 {
