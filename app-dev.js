@@ -2,6 +2,7 @@ const createError = require("http-errors")
 const express = require("express")
 const cookieParser = require("cookie-parser")
 const general = require("./server/general")
+const sqlDatabase = require("./server/sql-database")
 const consoleCommands = require("./server/console-commands")
 const requestsRouter = require("./requests/index")
 const renderRouter = require("./render")
@@ -12,7 +13,7 @@ const REQUESTS_PATH = "/requests"
 
 const app = express()
 
-general.createDummyUsers()
+sqlDatabase.createTables().then(general.createDummyUsers)
 consoleCommands()
 
 // view engine setup
