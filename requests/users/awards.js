@@ -1,6 +1,7 @@
 const express = require("express")
 const general = require("../../server/general")
 const jsonDatabase = require("../../server/json-database")
+const sqlDatabase = require("../../server/sql-database")
 const middleware = require("../middleware")
 
 const router = express.Router()
@@ -23,6 +24,12 @@ router.get("/", async (req, res) => { // get user award info
 
     await general.provideUserInfoToStatuses(awards)
     res.res(200, { awards })
+})
+
+router.get("/running/distance", async (req, res) => { // get total distance run
+    const { targetUserId } = req
+    const { total } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM running_logs WHERE user = "${targetUserId}"`)
+    res.res(200, { distance: total ?? 0 })
 })
 
 const awardRouter = express.Router()

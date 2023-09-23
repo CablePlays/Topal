@@ -41,24 +41,21 @@ block script
     showLogs("running")
 
     if (isLoggedIn()) {
-      const totalDistance = new Promise(r => {
-        setTimeout(() => r(70000), 1000)
-      })
-
       const totalDistanceDisplay = createElement("p")
       totalDistanceDisplay.innerHTML = LOADING_TEXT
 
       const totalDistanceMeter = createElement("meter")
       totalDistanceMeter.max = 100000
 
-      totalDistance.then(d => {
-        totalDistanceDisplay.innerHTML = `${d / 1000}km / 100km`
-        totalDistanceMeter.value = d
-      })
-
       appendInfo([
-        createElement("h3", {t: "Total Distance"}),
+        createElement("h3", { t: "Total Distance" }),
         totalDistanceDisplay,
         totalDistanceMeter
       ])
+
+      getRequest(`/users/${getUserId()}/awards/running/distance`).then(res => {
+        const { distance } = res
+        totalDistanceDisplay.innerHTML = `${distance / 1000}km / 100km`
+        totalDistanceMeter.value = distance
+      })
     }

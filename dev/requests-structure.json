@@ -15,6 +15,11 @@
         ":userId": {
             "awards": {
                 "GET": "Get user awards information",
+                "running": {
+                    "distance": {
+                        "GET": "Get total distance run"
+                    }
+                },
                 ":awardId": {
                     "cancel-request": {
                         "PUT": "Cancels the signoff request for a signoff"
