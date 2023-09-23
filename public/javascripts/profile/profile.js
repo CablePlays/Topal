@@ -1,24 +1,23 @@
 window.addEventListener("load", () => {
     renderAwards()
-    setupProfileWindowButtons()
+    setInitialView()
 })
 
-function setupProfileWindowButtons() {
-    const buttons = byId("profile-window-buttons").children
+function setView(viewI) {
+    const viewsContainer = byId("views").children
 
-    function setSelectedWindow(n) {
-        const windows = byId("windows").children
-
-        for (let windowElement of windows) {
-            windowElement.style.display = "none"
-        }
-
-        windows[n].style.display = "block"
+    for (let viewElement of viewsContainer) {
+        viewElement.style.display = "none"
     }
 
-    for (let i = 0; i < buttons.length; i += 2) {
-        buttons[i].addEventListener("click", () => setSelectedWindow(i / 2))
-    }
+    viewsContainer[viewI].style.display = "block"
+    setParam("view", viewI === 0 ? null : viewI)
+}
+
+function setInitialView() {
+    const view = getParam("view") ?? 0
+    setView(parseInt(view))
+    byId("profile-view-buttons").setAttribute("selected", view)
 }
 
 async function renderAwards() {

@@ -82,13 +82,13 @@ a:hover {
   height: 80px;
 }
 
-.joined-buttons {
+joined-buttons {
   display: inline-block;
 }
-.joined-buttons .buttons {
+joined-buttons .buttons {
   display: flex;
 }
-.joined-buttons .buttons button {
+joined-buttons .buttons button {
   background-color: rgb(100, 100, 100);
   color: white;
   border: none;
@@ -97,19 +97,19 @@ a:hover {
   padding: 16px;
   width: 120px;
 }
-.joined-buttons .buttons button:first-child {
+joined-buttons .buttons button:first-child {
   border-radius: 4px 0 0 4px;
 }
-.joined-buttons .buttons button:last-child {
+joined-buttons .buttons button:last-child {
   border-radius: 0 4px 4px 0;
 }
-.joined-buttons .buttons button:hover {
+joined-buttons .buttons button:hover {
   background-color: rgb(110, 110, 110);
 }
-.joined-buttons .buttons .joiner {
+joined-buttons .buttons .joiner {
   border-right: 3px solid black;
 }
-.joined-buttons .underline {
+joined-buttons .underline {
   background-color: #EF7523;
   border-radius: 3px;
   height: 3px;

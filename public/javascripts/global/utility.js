@@ -6,33 +6,22 @@ document.addEventListener("click", event => {
     }
 })
 
-window.addEventListener("load", () => {
-    for (let element of document.getElementsByClassName("joined-buttons")) { // joined buttons
-        const [buttonsContainer, underlineElement] = element.children
-        const buttons = buttonsContainer.children
-        let selectedButtonIndex = 0
+function getParam(param) {
+    return new URLSearchParams(location.search).get(param)
+}
 
-        for (let i = 0; i < buttons.length; i += 2) { // increment 2 -> skip joiners
-            const button = buttons[i]
+function setParam(param, value) {
+    const url = new URL(location.href)
+    const { searchParams } = url
 
-            function moveUnderline(buttonIndex) {
-                const t = Math.max(buttonIndex / 2 * (120 + 3) - 1, 0)
-                underlineElement.style.transform = `translateX(${t}px)`
-            }
-
-            button.addEventListener("click", () => {
-                selectedButtonIndex = i
-                moveUnderline(i)
-            })
-            button.addEventListener("mouseenter", () => {
-                // moveUnderline(i)
-            })
-            button.addEventListener("mouseleave", () => {
-                // moveUnderline(selectedButtonIndex)
-            })
-        }
+    if (value == null) {
+        searchParams.delete(param)
+    } else {
+        searchParams.set(param, value)
     }
-})
+
+    window.history.replaceState({}, "", url.toString())
+}
 
 function byId(id) {
     return (typeof id === "string") ? document.getElementById(id) : id
@@ -187,3 +176,47 @@ function formatTime(time) {
     let format = `${hour}:${minute}${period}`
     return format
 }
+
+/* Custom Elements */
+
+class JoinedButtons extends HTMLElement {
+    static SELECTED_ATTRIBUTE = "selected"
+    constructor() { super() }
+
+    static get observedAttributes() {
+        return [JoinedButtons.SELECTED_ATTRIBUTE]
+    }
+
+    updateUnderlinePosition(n) {
+        const selected = this.getAttribute(JoinedButtons.SELECTED_ATTRIBUTE) ?? 0
+        const d = Math.max(selected * (120 + 3) - 2, 0)
+        this.underline.style.transform = `translateX(${d}px)`
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === JoinedButtons.SELECTED_ATTRIBUTE && this.underline) {
+            this.updateUnderlinePosition()
+        }
+    }
+
+    connectedCallback() {
+        setTimeout(() => {
+            const buttons = this.querySelectorAll("button")
+            this.innerHTML = null
+
+            const buttonsContainer = createElement("div", { c: "buttons", p: this })
+
+            for (let i = 0; i < buttons.length; i++) {
+                if (i > 0) createElement("div", { c: "joiner", p: buttonsContainer })
+                const button = buttons[i]
+                button.addEventListener("click", () => this.setAttribute(JoinedButtons.SELECTED_ATTRIBUTE, i))
+                buttonsContainer.appendChild(button)
+            }
+
+            this.underline = createElement("div", { c: "underline", p: this })
+            this.updateUnderlinePosition()
+        })
+    }
+}
+
+customElements.define("joined-buttons", JoinedButtons)
