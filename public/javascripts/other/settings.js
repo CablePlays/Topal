@@ -1,27 +1,6 @@
 window.addEventListener("load", () => {
     handleNameSetting()
-    byId("profile-picture-input").addEventListener("change", onProfilePictureSelect)
 })
-
-function onProfilePictureSelect(event) {
-    const selectedImage = event.target.files[0]
-    if (selectedImage == null) return
-
-    const formData = new FormData()
-    formData.append("image", selectedImage)
-    formData.append("letters", "abc")
-
-    // console.log(formData.get("letters"))
-
-    // putRequest(`/users/${getUserId()}/profile-picture`, formData)
-
-    fetch(`/requests/users/${getUserId()}/profile-picture`, {
-        method: 'PUT',
-        body: formData
-    }).then(res => {
-        console.log(res)
-    })
-}
 
 async function handleNameSetting() {
     const nameSetting = byId("name-setting")

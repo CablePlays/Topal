@@ -25,13 +25,6 @@
         object-position: 30% 50%;
     }
 
-    .logo {
-        cursor: pointer;
-        left: 20px;
-        position: absolute;
-        top: 20px;
-    }
-
     .col2 {
         align-items: center;
         display: flex;
@@ -65,5 +58,28 @@
                 font-size: 14px;
             }
         }
+    }
+
+    button.dummy-signin {
+        background-color: rgb(32, 33, 36);
+        border: none;
+        border-radius: 19px;
+        color: white;
+        cursor: pointer;
+        height: 38px;
+        padding: 8px;
+        transition: 0.25s;
+        width: 250px;
+
+        &:hover {
+            background-color: rgb(66, 68, 71);
+        }
+    }
+
+    .logo {
+        cursor: pointer;
+        left: 20px;
+        position: absolute;
+        top: 20px;
     }
 }

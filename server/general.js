@@ -273,7 +273,7 @@ async function isPasswordValid(req) {
     const clientSessionToken = cookies.getPassword(req)
     if (clientSessionToken == null) return false
 
-    const sessionToken = jsonDatabase.getUser(userId).get(jsonDatabase.SESSION_TOKEN_PATH)
+    const sessionToken = jsonDatabase.getUser(userId).get(jsonDatabase.DETAILS_PATH + ".sessionToken")
     return (clientSessionToken === sessionToken)
 }
 
@@ -298,6 +298,19 @@ async function provideUserInfoToStatuses(statuses) {
     await forEachAndWait(separatedStatuses, async status => {
         await provideUserInfoToStatus(statuses[status])
     })
+}
+
+function createDummyUsers() {
+    async function createDummy(userId, name, surname, title) {
+        if (!await sqlDatabase.get(`SELECT * FROM users WHERE id = ${userId}`)) {
+            sqlDatabase.run(`INSERT INTO users VALUES (${userId}, "dummy${userId}@treverton.co.za")`)
+            jsonDatabase.getUser(userId).set(jsonDatabase.DETAILS_PATH, { name, surname, title, sessionToken: `dummy${userId}` })
+        }
+    }
+
+    createDummy(1, "Astra", "Spero")
+    createDummy(2, "James", "Lotz")
+    createDummy(3, "John", "Doe", "Mr")
 }
 
 /* Utility */
@@ -325,6 +338,7 @@ module.exports = {
     RECENT_AWARDS_MAX,
     PERMISSIONS,
 
+    createDummyUsers,
     getLogsTable,
     getSublogsTable,
     isAward,

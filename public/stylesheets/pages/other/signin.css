@@ -1083,12 +1083,6 @@ footer .treverton-link {
   -o-object-position: 30% 50%;
      object-position: 30% 50%;
 }
-.main-container .logo {
-  cursor: pointer;
-  left: 20px;
-  position: absolute;
-  top: 20px;
-}
 .main-container .col2 {
   align-items: center;
   display: flex;
@@ -1117,4 +1111,24 @@ footer .treverton-link {
 .main-container .col2 .col2-center #info-text {
   color: rgb(100, 100, 100);
   font-size: 14px;
+}
+.main-container button.dummy-signin {
+  background-color: rgb(32, 33, 36);
+  border: none;
+  border-radius: 19px;
+  color: white;
+  cursor: pointer;
+  height: 38px;
+  padding: 8px;
+  transition: 0.25s;
+  width: 250px;
+}
+.main-container button.dummy-signin:hover {
+  background-color: rgb(66, 68, 71);
+}
+.main-container .logo {
+  cursor: pointer;
+  left: 20px;
+  position: absolute;
+  top: 20px;
 }

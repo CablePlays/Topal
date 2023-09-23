@@ -1,6 +1,7 @@
 const createError = require("http-errors")
 const express = require("express")
 const cookieParser = require("cookie-parser")
+const general = require("./server/general")
 const consoleCommands = require("./server/console-commands")
 const requestsRouter = require("./requests/index")
 const renderRouter = require("./render")
@@ -13,6 +14,7 @@ const REQUESTS_PATH = "/requests"
 
 const app = express()
 
+general.createDummyUsers()
 consoleCommands()
 
 // view engine setup

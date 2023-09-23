@@ -1,7 +1,7 @@
 extends ../head
 
 block body
-  script(async src="https://accounts.google.com/gsi/client")
+  script(src="https://accounts.google.com/gsi/client")
   script(src='/javascripts/other/signin.js')
   link(rel='stylesheet' href='/stylesheets/pages/other/signin.css')
 
@@ -18,6 +18,7 @@ block body
           Sign in to Topal to save your logs and signoffs.
           Your friends will also be able to find your profile and view your progress.
           When signing in, you must use a Treverton google account.
+          (The dummy signin can be used while the Google sign in does not work)
 
         .spacer.v20
 
@@ -41,3 +42,7 @@ block body
           data-logo_alignment="left"
           data-width="250"
         )
+
+        .spacer.v10
+
+        button.dummy-signin(onclick="dummySignin()") Dummy Signin

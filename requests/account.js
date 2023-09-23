@@ -39,13 +39,14 @@ router.put("/handle-login", async (req, res) => { // handle login token from Goo
     if (record) {
         const { id } = record
         const userDatabase = jsonDatabase.getUser(id)
+        const sessionTokenPath = jsonDatabase.DETAILS_PATH + ".sessionToken"
 
         userId = id
-        sessionToken = userDatabase.get(jsonDatabase.SESSION_TOKEN_PATH)
+        sessionToken = userDatabase.get(sessionTokenPath)
 
         if (sessionToken == null) {
             sessionToken = uuidv4()
-            userDatabase.set(jsonDatabase.SESSION_TOKEN_PATH, sessionToken)
+            userDatabase.set(sessionTokenPath, sessionToken)
         }
     } else { // create account
         await sqlDatabase.run(`INSERT INTO users (email) VALUES ("${email}")`)
@@ -53,14 +54,10 @@ router.put("/handle-login", async (req, res) => { // handle login token from Goo
         sessionToken = uuidv4()
 
         const userDatabase = jsonDatabase.getUser(userId)
-        userDatabase.set(jsonDatabase.SESSION_TOKEN_PATH, sessionToken)
-        userDatabase.set(jsonDatabase.DETAILS_PATH, { name: given_name, surname: family_name })
+        userDatabase.set(jsonDatabase.DETAILS_PATH, { name: given_name, surname: family_name, sessionToken  })
     }
 
     // save profile picture link
-    console.log(ticket.getPayload())
-    console.log(picture)
-
     const userDatabase = jsonDatabase.getUser(userId)
     const profilePicturePath = jsonDatabase.DETAILS_PATH + ".profilePicture"
 
