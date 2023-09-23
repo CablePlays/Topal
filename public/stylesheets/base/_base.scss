@@ -16,6 +16,18 @@ a {
     }
 }
 
+h1 {
+    font-family: Georgia;
+}
+
+h2 {
+    font-family: Calibri;
+
+    &.heading {
+        text-transform: uppercase;
+    }
+}
+
 .content-block-container {
     min-height: 90vh;
 }

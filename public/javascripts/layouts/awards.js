@@ -32,7 +32,7 @@ function appendInfo(elements) {
 
 function showPoints() {
     const points = new Promise(r => {
-        setTimeout(() => r(263), 1000)
+        setTimeout(() => r(263), 1000) // TODO: get points
     })
 
     const pointsDisplay = createElement("p", { t: LOADING_TEXT })
@@ -69,7 +69,7 @@ function showLogs(...logTypes) {
         const logTypeContainer = createElement("div", { p: logsSection })
 
         const name = getLogTypeName(logType) + " Logs"
-        const headingElement = createElement("h2", { c: "pl16", p: logTypeContainer, t: name })
+        const headingElement = createElement("h2", { c: ["heading", "pl16"], p: logTypeContainer, t: name })
 
         createSpacer("20", { p: logTypeContainer })
 

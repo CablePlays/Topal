@@ -15,6 +15,17 @@ a:hover {
   text-decoration: underline;
 }
 
+h1 {
+  font-family: Georgia;
+}
+
+h2 {
+  font-family: Calibri;
+}
+h2.heading {
+  text-transform: uppercase;
+}
+
 .content-block-container {
   min-height: 90vh;
 }
@@ -659,7 +670,7 @@ footer {
   justify-content: center;
   padding: 16px;
   position: relative;
-  z-index: 100;
+  z-index: 80;
 }
 footer a,
 footer p {
@@ -886,7 +897,7 @@ footer .treverton-link {
   top: 80px;
   transition: 0.25s;
   width: 0;
-  z-index: 50;
+  z-index: 90;
 }
 @media screen and (max-height: 360px) {
   #sidebar {
