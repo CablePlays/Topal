@@ -1,2 +1,1 @@
 Create custom element for notices?
-Make sign out keep user on same page
