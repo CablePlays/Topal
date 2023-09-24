@@ -7,10 +7,21 @@ block content
     }
 
   .col1
-    .profile-details
+    .spacer.v20
+    
+    .name-and-picture
       img.profile-picture(src=profileUser.profilePicture)
       p= profileUser.titleName
+
+    .spacer.v20
+
+    p.pl16= grade
+    p.email.pl16= profileUser.email
+
+    .spacer.v20
+
     .line
+
     block sidebar
 
   .col2

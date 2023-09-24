@@ -70,8 +70,13 @@ async function isUser(userId) {
 }
 
 async function getUserId(userEmail) {
-    const record = await get(`SELECT id FROM users WHERE email = "${userEmail}"`)
+    const record = await get(`SELECT * FROM users WHERE email = "${userEmail}"`)
     return record?.id
+}
+
+async function getEmail(userId) {
+    const record = await get(`SELECT * FROM users WHERE id = "${userId}"`)
+    return record?.email
 }
 
 async function getUsers() {
@@ -134,6 +139,7 @@ module.exports = {
 
     isUser,
     getUserId,
+    getEmail,
     getUsers,
     createTables
 }

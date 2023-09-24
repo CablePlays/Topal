@@ -12,18 +12,23 @@ img.profile-picture {
     position: fixed;
     width: $profile-sidebar-width;
 
+    .email {
+        color: rgb(100, 100, 100);
+        font-size: 14px;
+    }
+
     .line {
         border-top: 2px solid rgb(50, 50, 50);
         margin-left: 5%;
         width: 90%;
     }
 
-    .profile-details {
+    .name-and-picture {
         align-items: center;
         column-gap: 20px;
         display: flex;
         justify-content: center;
-        padding: 16px;
+        padding: 0 16px;
 
         p {
             font-size: 20px;

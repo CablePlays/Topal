@@ -1078,20 +1078,24 @@ img.profile-picture {
   position: fixed;
   width: 300px;
 }
+.col1 .email {
+  color: rgb(100, 100, 100);
+  font-size: 14px;
+}
 .col1 .line {
   border-top: 2px solid rgb(50, 50, 50);
   margin-left: 5%;
   width: 90%;
 }
-.col1 .profile-details {
+.col1 .name-and-picture {
   align-items: center;
   -moz-column-gap: 20px;
        column-gap: 20px;
   display: flex;
   justify-content: center;
-  padding: 16px;
+  padding: 0 16px;
 }
-.col1 .profile-details p {
+.col1 .name-and-picture p {
   font-size: 20px;
   font-weight: 600;
   width: -moz-min-content;
