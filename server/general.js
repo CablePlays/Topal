@@ -273,7 +273,8 @@ async function getUserDetails(userId) {
         title,
         profilePicture: profilePicture ?? "/assets/icons/default-profile-picture.jpg",
         fullName: (title ? title + " " : "") + `${name} ${surname}`, // e.g. Mr John Doe
-        titleName: (title ? title : name) + " " + surname // e.g. John Doe / Mr Doe
+        titleName: (title ? title : name) + " " + surname, // e.g. John Doe / Mr Doe
+        titleSurname: title ? title + " " + surname : name // e.g. John / Mr Doe
     }
 }
 

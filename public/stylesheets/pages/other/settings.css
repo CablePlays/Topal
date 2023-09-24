@@ -73,6 +73,11 @@ h2.heading {
   padding-left: 16px;
 }
 
+.plr16 {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
 .spacer.v10 {
   height: 10px;
 }

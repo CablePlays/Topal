@@ -1,11 +1,96 @@
 @import "../../global";
 @import "./profile-layout";
 
-$awards-display-breakpoint: 600px;
 $award-display-border-radius: 8px;
+$awards-display-breakpoint: 600px;
+$stats-cards-breakpoint: 600px;
 
-#views .view {
-    display: none;
+#views {
+    .view {
+        overflow: visible;
+        display: none;
+
+        &:nth-child(2) {
+            background-color: rgb(245, 255, 255);
+            overflow: hidden;
+
+            .center-cards {
+                display: flex;
+                justify-content: center;
+            }
+
+            .cards {
+                align-items: center;
+                aspect-ratio: 1 / 1;
+                background-color: $color-primary-400;
+                border-radius: 50%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                min-width: 1245px;
+                row-gap: 15px;
+
+                @media screen and (min-width: $stats-cards-breakpoint) {
+                    min-width: 700px;
+                }
+
+                .row {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+
+                    @media screen and (min-width: $stats-cards-breakpoint) {
+                        flex-direction: row;
+                    }
+
+                    .card {
+                        align-items: center;
+                        background-color: rgb(255, 255, 255);
+                        box-shadow: 0 0 16px rgba(123, 4, 179, 0.2);
+                        display: flex;
+                        flex-direction: column;
+                        height: 300px;
+                        padding: 16px;
+                        text-align: center;
+                        width: 260px;
+
+                        a {
+                            color: rgb(50, 50, 50);
+                            font-weight: 700;
+                            text-decoration: none;
+                            text-transform: uppercase;
+                            transition: 0.5s;
+
+                            &:hover {
+                                transform: translateY(-2px);
+
+                                .underline {
+                                    transform: translateY(2px);
+                                }
+                            }
+
+                            .underline {
+                                border-top: 3px solid $color-accent-300;
+                                top: 1px;
+                                position: relative;
+                                transition: 0.5s;
+                            }
+                        }
+
+                        .number {
+                            font-family: Georgia;
+                            font-size: 50px;
+                        }
+
+                        .type {
+                            font-size: 14px;
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 table#awards-display {

@@ -79,11 +79,11 @@ router.get("/", (req, res) => {
 })
 
 router.get("/leaderboard", (req, res) => {
-    res.ren("errors/coming-soon")
+    res.redirect("leaderboards")
 })
 
 router.get("/leaderboards", (req, res) => {
-    res.redirect("leaderboard")
+    res.ren("errors/coming-soon")
 })
 
 router.get("/login", (req, res) => {

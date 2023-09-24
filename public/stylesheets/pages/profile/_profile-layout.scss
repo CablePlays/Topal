@@ -51,6 +51,8 @@ $profile-sidebar-width: 300px;
 
 .col1 {
     box-shadow: 5px 0 5px rgb(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 10;
 
     @media screen and (min-width: $columns-breakpoint) {
         height: calc(100vh - $topbar-height);
