@@ -1,17 +1,32 @@
 @import "../../global";
 @import "./profile-layout";
 
+$awards-display-breakpoint: 600px;
+$award-display-border-radius: 8px;
+
 #views .view {
     display: none;
 }
 
 table#awards-display {
     border-spacing: 0 10px;
-    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
     width: 100%;
 
+    @media screen and (min-width: $awards-display-breakpoint) {
+        display: table;
+    }
+
     tr {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         transition: 0.2s;
+
+        @media screen and (min-width: $awards-display-breakpoint) {
+            display: table-row;
+        }
 
         &:hover {
             transform: scale(1.005);
@@ -27,17 +42,24 @@ table#awards-display {
 
         td {
             border: none;
+            display: flex;
+            flex-direction: column;
             height: 71px;
+            justify-content: center;
             padding: 16px;
 
             &:first-child {
                 background-color: $color-primary-400;
-                border-radius: 8px 0 0 8px;
-                width: 400px;
+                border-radius: $award-display-border-radius $award-display-border-radius 0 0;
+                grid-column: 1 / 4;
+            }
+
+            &:nth-child(2) {
+                border-radius: 0 0 0 $award-display-border-radius;
             }
 
             &:last-child {
-                border-radius: 0 8px 8px 0;
+                border-radius: 0 0 $award-display-border-radius 0;
             }
 
             .material-icons {
@@ -49,6 +71,23 @@ table#awards-display {
                 column-gap: 10px;
                 display: flex;
             }
+
+            @media screen and (min-width: $awards-display-breakpoint) {
+                display: table-cell;
+
+                &:first-child {
+                    border-radius: $award-display-border-radius 0 0 $award-display-border-radius;
+                    width: 350px;
+                }
+
+                &:nth-child(2) {
+                    border-radius: 0;
+                }
+
+                &:last-child {
+                    border-radius: 0 $award-display-border-radius $award-display-border-radius 0;
+                }
+            }
         }
 
         .title {
@@ -56,6 +95,7 @@ table#awards-display {
         }
 
         .value {
+            font-size: 14px;
             font-weight: 200;
         }
     }

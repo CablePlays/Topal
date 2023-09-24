@@ -1066,17 +1066,60 @@ footer .treverton-link {
   right: 20px;
 }
 
-img.profile-picture {
+#corner-details {
+  align-items: center;
+  border-bottom-left-radius: 8px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  display: flex;
+  min-width: 150px;
+  padding: 8px 20px 8px 8px;
+  position: fixed;
+  right: 0;
+  top: 80px;
+  transition: 0.15s;
+  z-index: 80;
+}
+@media screen and (min-width: 900px) {
+  #corner-details {
+    display: none;
+  }
+}
+#corner-details.scrolled {
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+#corner-details.scrolled img {
+  opacity: 1;
+}
+#corner-details.scrolled p {
+  color: rgb(0, 0, 0);
+}
+#corner-details img {
   border-radius: 48px;
-  height: 96px;
-  width: 96px;
+  height: 40px;
+  opacity: 0;
+  transition: 0.15s;
+  width: 40px;
+}
+#corner-details p {
+  color: rgba(0, 0, 0, 0);
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.15s;
+  width: -moz-min-content;
+  width: min-content;
 }
 
 .col1 {
   box-shadow: 5px 0 5px rgba(0, 0, 0, 0.2);
-  height: calc(100vh - 80px);
-  position: fixed;
-  width: 300px;
+}
+@media screen and (min-width: 900px) {
+  .col1 {
+    height: calc(100vh - 80px);
+    position: fixed;
+    width: 300px;
+  }
 }
 .col1 .email {
   color: rgb(100, 100, 100);
@@ -1094,6 +1137,12 @@ img.profile-picture {
   display: flex;
   justify-content: center;
   padding: 0 16px;
+  transition: 0.5s;
+}
+.col1 .name-and-picture img {
+  border-radius: 48px;
+  height: 96px;
+  width: 96px;
 }
 .col1 .name-and-picture p {
   font-size: 20px;
@@ -1102,10 +1151,11 @@ img.profile-picture {
   width: min-content;
 }
 
-.col2 {
-  margin-left: 300px;
-  padding: 16px;
-  width: calc(100% - 300px);
+@media screen and (min-width: 900px) {
+  .col2 {
+    margin-left: 300px;
+    width: calc(100% - 300px);
+  }
 }
 
 #views .view {
@@ -1114,11 +1164,25 @@ img.profile-picture {
 
 table#awards-display {
   border-spacing: 0 10px;
-  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
   width: 100%;
 }
+@media screen and (min-width: 600px) {
+  table#awards-display {
+    display: table;
+  }
+}
 table#awards-display tr {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   transition: 0.2s;
+}
+@media screen and (min-width: 600px) {
+  table#awards-display tr {
+    display: table-row;
+  }
 }
 table#awards-display tr:hover {
   transform: scale(1.005);
@@ -1131,16 +1195,22 @@ table#awards-display tr:nth-child(odd) td {
 }
 table#awards-display tr td {
   border: none;
+  display: flex;
+  flex-direction: column;
   height: 71px;
+  justify-content: center;
   padding: 16px;
 }
 table#awards-display tr td:first-child {
   background-color: #EF7523;
-  border-radius: 8px 0 0 8px;
-  width: 400px;
+  border-radius: 8px 8px 0 0;
+  grid-column: 1/4;
+}
+table#awards-display tr td:nth-child(2) {
+  border-radius: 0 0 0 8px;
 }
 table#awards-display tr td:last-child {
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 0 8px 0;
 }
 table#awards-display tr td .material-icons {
   color: black;
@@ -1151,9 +1221,25 @@ table#awards-display tr td .row {
        column-gap: 10px;
   display: flex;
 }
+@media screen and (min-width: 600px) {
+  table#awards-display tr td {
+    display: table-cell;
+  }
+  table#awards-display tr td:first-child {
+    border-radius: 8px 0 0 8px;
+    width: 350px;
+  }
+  table#awards-display tr td:nth-child(2) {
+    border-radius: 0;
+  }
+  table#awards-display tr td:last-child {
+    border-radius: 0 8px 8px 0;
+  }
+}
 table#awards-display tr .title {
   font-weight: 600;
 }
 table#awards-display tr .value {
+  font-size: 14px;
   font-weight: 200;
 }
