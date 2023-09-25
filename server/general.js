@@ -315,9 +315,9 @@ async function provideUserInfoToStatus(status) {
 }
 
 async function provideUserInfoToStatuses(statuses) {
-    const separatedStatuses = Object.getOwnPropertyNames(statuses)
+    const statusKeys = Object.getOwnPropertyNames(statuses)
 
-    await forEachAndWait(separatedStatuses, async status => {
+    await forEachAndWait(statusKeys, async status => {
         await provideUserInfoToStatus(statuses[status])
     })
 }

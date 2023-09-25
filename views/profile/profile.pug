@@ -25,17 +25,17 @@ block profile-content
         .cards
           .row
             .card
-              p.number 05
+              p.number= profilePlaceholders.stats.totalAwards0
               p.type Total awards.
               .spacer.v20
               p.description.
                 There are 12 awards in total that users can earn.
-                Of the 5 awards which Caleb has earned, 3 of them are base awards.
+                Of the #{profilePlaceholders.stats.totalAwards} award#{profilePlaceholders.stats.totalAwardsPlural} which #{profileUser.titleSurname} has earned, #{profilePlaceholders.stats.totalBaseAwards} of them are base awards.
               .spacer.v20
               a(href="/awards") Awards
                 .underline
             .card
-              p.number 23
+              p.number= profilePlaceholders.stats.opPoints
               p.type OP points earned.
               .spacer.v20
               p.description.
@@ -46,7 +46,7 @@ block profile-content
                 .underline
           .row
             .card
-              p.number 112
+              p.number= profilePlaceholders.stats.totalDistanceRun
               p.type km of distance run.
               .spacer.v20
               p.description.
@@ -56,7 +56,7 @@ block profile-content
               a(href="/awards/running") Running Award
                 .underline
             .card
-              p.number 06
+              p.number= profilePlaceholders.stats.totalPaddlingTrips
               p.type Paddling trips.
               .spacer.v20
               p.description.
