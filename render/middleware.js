@@ -24,7 +24,7 @@ function getPermissionMiddleware(permission) {
             const userId = cookies.getUserId(req)
             const permissions = jsonDatabase.getPermissions(userId)
 
-            if (permission === "any" && general.hasAnyPermission(permissions) || permissions[permission] === true) {
+            if (permissions[permission] === true) {
                 next()
                 return
             }

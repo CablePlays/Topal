@@ -1,17 +1,33 @@
+@mixin joined-button-style() {
+    background-color: rgb(100, 100, 100);
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 16px 0;
+
+    &:hover {
+        background-color: rgb(110, 110, 110);
+    }
+}
+
 joined-buttons {
     display: inline-block;
+    margin-left: 5%;
+    width: 90%;
 
     .buttons {
         display: flex;
 
+        a {
+            text-align: center;
+            text-decoration: none
+        }
+
+        a,
         button {
-            background-color: rgb(100, 100, 100);
-            color: white;
-            border: none;
+            @include joined-button-style();
             cursor: pointer;
-            font-weight: 500;
-            padding: 16px;
-            width: 120px;
 
             &:first-child {
                 border-radius: 4px 0 0 4px;
@@ -19,10 +35,6 @@ joined-buttons {
 
             &:last-child {
                 border-radius: 0 4px 4px 0;
-            }
-
-            &:hover {
-                background-color: rgb(110, 110, 110);
             }
         }
 
@@ -37,6 +49,5 @@ joined-buttons {
         height: 3px;
         margin-top: 3px;
         transition: 0.2s;
-        width: 120px;
     }
 }

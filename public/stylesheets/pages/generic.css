@@ -100,27 +100,37 @@ h2.heading {
 
 joined-buttons {
   display: inline-block;
+  margin-left: 5%;
+  width: 90%;
 }
 joined-buttons .buttons {
   display: flex;
 }
+joined-buttons .buttons a {
+  text-align: center;
+  text-decoration: none;
+}
+joined-buttons .buttons a,
 joined-buttons .buttons button {
   background-color: rgb(100, 100, 100);
-  color: white;
   border: none;
-  cursor: pointer;
+  color: white;
+  font-size: 14px;
   font-weight: 500;
-  padding: 16px;
-  width: 120px;
+  padding: 16px 0;
+  cursor: pointer;
 }
+joined-buttons .buttons a:hover,
+joined-buttons .buttons button:hover {
+  background-color: rgb(110, 110, 110);
+}
+joined-buttons .buttons a:first-child,
 joined-buttons .buttons button:first-child {
   border-radius: 4px 0 0 4px;
 }
+joined-buttons .buttons a:last-child,
 joined-buttons .buttons button:last-child {
   border-radius: 0 4px 4px 0;
-}
-joined-buttons .buttons button:hover {
-  background-color: rgb(110, 110, 110);
 }
 joined-buttons .buttons .joiner {
   border-right: 3px solid black;
@@ -131,7 +141,6 @@ joined-buttons .underline {
   height: 3px;
   margin-top: 3px;
   transition: 0.2s;
-  width: 120px;
 }
 
 .hamburger-icon {

@@ -1,1 +1,2 @@
 Create custom element for notices?
+Compress search banner image

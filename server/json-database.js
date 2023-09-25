@@ -72,6 +72,13 @@ function getPermissions(userId) {
         permissions.viewAuditLog = true
     }
 
+    for (let key in permissions) {
+        if (permissions[key]) {
+            permissions.any = true
+            break
+        }
+    }
+
     return permissions
 }
 

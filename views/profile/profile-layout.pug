@@ -23,6 +23,20 @@ block content
     p.pl16= grade
     p.email.pl16= profileUser.email
 
+    div(style=`display: ${displays.permission.manageAwards.block}`)
+      .spacer.v20
+
+      joined-buttons#profile-page-buttons
+        a(href=`/profile/${profileUser.id}`) Profile
+        a(href=`/profile/${profileUser.id}/admin`) Admin
+        a(href=`/profile/${profileUser.id}/requests`) Requests
+      script.
+        const profilePageButtons = byId("profile-page-buttons")
+
+        if (path.split("/")[3] === "admin") {
+          profilePageButtons.setAttribute("selected", 1)
+        }
+
     .spacer.v20
 
     .line

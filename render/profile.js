@@ -2,6 +2,7 @@ const express = require("express")
 const general = require("../server/general")
 const jsonDatabase = require("../server/json-database")
 const sqlDatabase = require("../server/sql-database")
+const middleware = require("./middleware")
 
 const router = express.Router()
 
@@ -73,6 +74,10 @@ userRouter.get("/", async (req, res) => {
     }
 
     res.ren("profile/profile")
+})
+
+userRouter.get("/admin", middleware.getPermissionMiddleware("manageAwards"), (req, res) => {
+    res.ren("profile/admin")
 })
 
 module.exports = router

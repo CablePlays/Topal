@@ -6,21 +6,22 @@ block assets
 
 block sidebar
   .spacer.v20
-  .center-rh
-    joined-buttons#profile-view-buttons
-      button(onclick="setView(0)") Awards
-      button(onclick="setView(1)") Stats
+  joined-buttons#profile-view-buttons
+    button(onclick="setView(0)") Awards
+    button(onclick="setView(1)") Stats
 
 block profile-content
   #views
     .view.p16
       h1 Awards
+
       .spacer.v10
+
       table#awards-display
 
     .view
       .spacer.v20
-      
+
       .center-cards
         .cards
           .row

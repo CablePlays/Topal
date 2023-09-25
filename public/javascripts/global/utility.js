@@ -92,7 +92,7 @@ function createNotice(type, options) {
     e.classList.add("notice")
     e.classList.add(type)
 
-    let icon = (type === "success") ? "check_circle" : type
+    const icon = (type === "success") ? "check_circle" : type
     createElement("div", { c: ["material-icons", "notice-type"], p: e, t: icon })
     createElement("p", { p: e, t })
     return e
@@ -173,10 +173,9 @@ class JoinedButtons extends HTMLElement {
         return [JoinedButtons.SELECTED_ATTRIBUTE]
     }
 
-    updateUnderlinePosition(n) {
+    updateUnderlinePosition() {
         const selected = this.getAttribute(JoinedButtons.SELECTED_ATTRIBUTE) ?? 0
-        const d = Math.max(selected * (120 + 3) - 2, 0)
-        this.underline.style.transform = `translateX(${d}px)`
+        this.underline.style.transform = `translateX(${selected * 100}%)`
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -187,19 +186,28 @@ class JoinedButtons extends HTMLElement {
 
     connectedCallback() {
         setTimeout(() => {
-            const buttons = this.querySelectorAll("button")
+            const buttons = this.querySelectorAll("a, button")
+            const buttonCount = buttons.length
+            this.buttonCount = buttonCount
+
             this.innerHTML = null
 
             const buttonsContainer = createElement("div", { c: "buttons", p: this })
 
-            for (let i = 0; i < buttons.length; i++) {
+            for (let i = 0; i < buttonCount; i++) {
                 if (i > 0) createElement("div", { c: "joiner", p: buttonsContainer })
                 const button = buttons[i]
-                button.addEventListener("click", () => this.setAttribute(JoinedButtons.SELECTED_ATTRIBUTE, i))
+                button.style.width = `calc(100% / ${buttonCount})`
+                button.addEventListener("click", e => {
+                    if (button.tagName !== "A" || !e.ctrlKey && !e.shiftKey) { // ensure not opening link in new place
+                        this.setAttribute(JoinedButtons.SELECTED_ATTRIBUTE, i)
+                    }
+                })
                 buttonsContainer.appendChild(button)
             }
 
             this.underline = createElement("div", { c: "underline", p: this })
+            this.underline.style = `width: ${100 / buttonCount}%`
             this.updateUnderlinePosition()
         })
     }
