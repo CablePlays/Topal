@@ -5,6 +5,7 @@ const sqlDatabase = require("./sql-database")
 const RECENT_AWARDS_LIFETIME = 48 // hours
 const RECENT_AWARDS_MAX = 10
 
+const DEFAULT_PROFILE_PICTURE_PATH = "/assets/other/default-profile-picture.jpg"
 const UNKNOWN_TEXT = "N/A"
 
 const APPROVALS = [
@@ -239,10 +240,7 @@ function isSignoff(awardId, signoffId) {
 
 /* Users */
 
-async function getGrade(userId) {
-    const email = await sqlDatabase.getEmail(userId)
-    if (email == null) return null
-
+function getGradeFromEmail(email) {
     const [a, b] = email
     if (isNaN(parseInt(a))) return null // does not begin with number
 
@@ -258,6 +256,11 @@ async function getGrade(userId) {
     return currentYear - matricYear - 1988
 }
 
+async function getGrade(userId) {
+    const email = await sqlDatabase.getEmail(userId)
+    return email && getGradeFromEmail(email)
+}
+
 async function getUserDetails(userId) {
     const record = await sqlDatabase.get(`SELECT * FROM users WHERE id = "${userId}"`)
     if (record == null) return {}
@@ -271,7 +274,7 @@ async function getUserDetails(userId) {
         name,
         surname,
         title,
-        profilePicture: profilePicture ?? "/assets/icons/default-profile-picture.jpg",
+        profilePicture: profilePicture ?? DEFAULT_PROFILE_PICTURE_PATH,
         fullName: (title ? title + " " : "") + `${name} ${surname}`, // e.g. Mr John Doe
         titleName: (title ? title : name) + " " + surname, // e.g. John Doe / Mr Doe
         titleSurname: title ? title + " " + surname : name // e.g. John / Mr Doe
@@ -359,6 +362,7 @@ module.exports = {
     RECENT_AWARDS_LIFETIME,
     RECENT_AWARDS_MAX,
     PERMISSIONS,
+    DEFAULT_PROFILE_PICTURE_PATH,
     UNKNOWN_TEXT,
 
     createDummyUsers,
@@ -380,5 +384,6 @@ module.exports = {
     provideUserInfoToStatus,
     provideUserInfoToStatuses,
     getUserDetails,
-    getGrade
+    getGrade,
+    getGradeFromEmail
 }

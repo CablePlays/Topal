@@ -1,0 +1,24 @@
+extends ../layout
+
+block assets
+  link(rel='stylesheet' href='/stylesheets/pages/other/search.css')
+  script(src='/javascripts/other/search.js')
+
+block content
+  .top-block
+    img.banner(src="/assets/backgrounds/search.jpg")
+    .content
+      p.title Search Users
+      p.description Use this search bar to search for your friends and find their profiles.
+      .search-bar
+        #search-bar-icon.material-icons search
+        input#search-bar-input(type="text" placeholder="Search")
+        script byId("search-bar-input").value = getParam("query")
+
+  p#loading-indicator.invisible
+
+  #results
+
+  #bottom-block.invisible
+    h2 Can't find who you're looking for?
+    p If you can't find the person you're looking for, you can try searching for their grade or email instead of their name.

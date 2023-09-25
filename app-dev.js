@@ -8,13 +8,12 @@ const requestsRouter = require("./requests/index")
 const renderRouter = require("./render")
 
 const PORT = 80
-const ARTIFICIAL_LATENCY = 1000
+const ARTIFICIAL_LATENCY = 0
 const REQUESTS_PATH = "/requests"
 
 const app = express()
 
 sqlDatabase.createTables().then(general.createDummyUsers)
-consoleCommands()
 
 // view engine setup
 app.set('views', 'views')
@@ -64,3 +63,4 @@ app.use((err, req, res, next) => { // handle render errors
 })
 
 app.listen(PORT)
+consoleCommands()

@@ -12,6 +12,9 @@
         }
     },
     "users": {
+        "/search": {
+            "GET": "Searches users with a query."
+        },
         ":userId": {
             "awards": {
                 "GET": "Get user awards information",

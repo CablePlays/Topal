@@ -16,7 +16,6 @@ const REQUESTS_PATH = "/requests"
 const app = express()
 
 sqlDatabase.createTables().then(general.createDummyUsers)
-consoleCommands()
 
 // view engine setup
 app.set('views', 'views')
@@ -66,7 +65,7 @@ https.createServer(options, app).listen(PORT_HTTPS, (req, res) => {
     console.info("Server started at port " + PORT_HTTPS)
 })
 
-if (false) {
+if (false) { // use once released
     const httpApp = express()
 
     httpApp.use("/", (req, res) => {
@@ -75,3 +74,5 @@ if (false) {
 
     httpApp.listen(PORT_HTTP)
 }
+
+consoleCommands()

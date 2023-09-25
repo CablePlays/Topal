@@ -11,7 +11,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: #00a0ee;
+  color: #1682b8;
   text-decoration: underline;
 }
 
@@ -559,7 +559,7 @@ joined-buttons .underline {
   text-decoration: underline;
 }
 .col-container .col3 > div:hover p {
-  color: #00a0ee;
+  color: #1682b8;
 }
 .col-container .col3 > div:active p {
   color: #EF7523;
@@ -1007,7 +1007,7 @@ footer .treverton-link {
 .topbar .search input {
   background: transparent;
   border: none;
-  color: #949494;
+  color: rgb(100, 100, 100);
   font-size: 16px;
   height: 100%;
   outline: none;
@@ -1015,7 +1015,7 @@ footer .treverton-link {
   width: 100%;
 }
 .topbar .search .vertical-line {
-  border-left: 2px solid #949494;
+  border-left: 2px solid rgb(148, 148, 148);
   height: 24px;
   margin-left: 16px;
 }

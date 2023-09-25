@@ -20,9 +20,7 @@ window.addEventListener("load", () => {
     }
 
     searchInput.addEventListener("keydown", e => {
-        if (e.key == "Enter") {
-            search()
-        }
+        if (e.key == "Enter") search()
     })
 
     byId("search-icon").addEventListener("click", search)
