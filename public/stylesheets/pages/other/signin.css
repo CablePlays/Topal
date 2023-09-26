@@ -98,6 +98,30 @@ h2.heading {
   height: 80px;
 }
 
+button.primary,
+button.secondary {
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+button.primary {
+  background-color: #EF7523;
+  border: none;
+  color: white;
+}
+button.primary:hover {
+  background-color: #f29354;
+}
+
+button.secondary {
+  background-color: transparent;
+  border: 2px solid #EF7523;
+  color: #EF7523;
+}
+button.secondary:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
 joined-buttons {
   display: inline-block;
   margin-left: 5%;
@@ -953,51 +977,67 @@ footer .treverton-link {
   align-items: center;
   background-color: white;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  -moz-column-gap: 20px;
-       column-gap: 20px;
   display: flex;
   justify-content: space-around;
-  padding: 0 78px 0 20px;
+  padding-right: 78px;
   position: fixed;
   width: 100%;
   z-index: 100;
 }
-.topbar .links {
-  align-items: center;
-  -moz-column-gap: 20px;
-       column-gap: 20px;
-  display: none;
-  height: 100%;
-  justify-content: flex-end;
-}
-@media screen and (min-width: 780px) {
-  .topbar .links {
-    display: flex;
+@media screen and (min-width: 1000px) {
+  .topbar {
+    padding-right: 32px;
   }
 }
-.topbar .links a {
+.topbar .account-display {
   align-items: center;
-  color: rgb(58, 58, 58);
-  display: flex;
-  font-size: 16px;
-  font-weight: 500;
-  height: 100%;
-  justify-content: center;
-  text-decoration: none;
-  width: 120px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
   cursor: pointer;
+  display: flex;
 }
-.topbar .links a:hover {
-  color: #EF7523;
+.topbar .account-display div {
+  display: none;
 }
-.topbar .links a.selected {
-  border-bottom: 5px solid #EF7523;
-  border-radius: 2px;
+@media screen and (min-width: 600px) {
+  .topbar .account-display div {
+    display: block;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .topbar .account-display div {
+    display: none;
+  }
+}
+@media screen and (min-width: 1350px) {
+  .topbar .account-display div {
+    display: block;
+  }
+}
+.topbar .account-display img {
+  border-radius: 25px;
+  height: 43px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 43px;
+}
+.topbar .account-display .email {
+  color: rgb(148, 148, 148);
+  font-size: 14px;
+}
+.topbar .account-display .name {
+  font-size: 16px;
 }
 .topbar .logo {
   cursor: pointer;
   height: 48px;
+  margin: 0 32px;
   width: 131px;
+}
+@media screen and (min-width: 1000px) {
+  .topbar .logo {
+    margin: 0 64px;
+  }
 }
 .topbar .search {
   align-items: center;
@@ -1005,10 +1045,11 @@ footer .treverton-link {
   border-radius: 8px;
   display: none;
   height: 49px;
+  margin-right: 32px;
   padding: 0 16px;
   width: 500px;
 }
-@media screen and (min-width: 1050px) {
+@media screen and (min-width: 1120px) {
   .topbar .search {
     display: flex;
   }
@@ -1038,7 +1079,7 @@ footer .treverton-link {
   color: #fff;
   cursor: pointer;
   font-size: 13px;
-  padding: 8px;
+  padding: 8px 16px;
   text-decoration: none;
   transition: background-color 0.1s;
   white-space: nowrap;
@@ -1046,38 +1087,54 @@ footer .treverton-link {
 .topbar .sign-in:hover {
   background-color: #f29354;
 }
-.topbar #account-display {
-  align-items: center;
-  -moz-column-gap: 10px;
-       column-gap: 10px;
-  cursor: pointer;
-  display: flex;
-}
-.topbar #account-display div {
-  display: none;
-}
-@media screen and (min-width: 470px) {
-  .topbar #account-display div {
-    display: block;
-  }
-}
-.topbar #account-display img {
-  border-radius: 25px;
-  height: 43px;
-  -o-object-fit: cover;
-     object-fit: cover;
-  width: 43px;
-}
-.topbar #account-display .email {
-  color: rgb(148, 148, 148);
-  font-size: 14px;
-}
-.topbar #account-display .name {
-  font-size: 16px;
-}
 .topbar #sidebar-icon {
   position: absolute;
   right: 20px;
+}
+@media screen and (min-width: 1000px) {
+  .topbar #sidebar-icon {
+    display: none;
+  }
+}
+.topbar #topbar-links {
+  -moz-column-gap: 40px;
+       column-gap: 40px;
+  display: none;
+  flex-grow: 0.25;
+  height: 100%;
+  justify-content: space-between;
+  margin-right: 64px;
+}
+@media screen and (min-width: 1000px) {
+  .topbar #topbar-links {
+    display: flex;
+  }
+}
+@media screen and (min-width: 1120px) {
+  .topbar #topbar-links .search-link {
+    display: none;
+  }
+}
+.topbar #topbar-links a {
+  align-items: center;
+  color: rgb(58, 58, 58);
+  display: flex;
+  font-size: 16px;
+  font-weight: 500;
+  justify-content: center;
+  max-width: 120px;
+  position: relative;
+  text-decoration: none;
+}
+.topbar #topbar-links a:hover {
+  color: #EF7523;
+}
+.topbar #topbar-links a.selected .underline {
+  border-radius: 2px;
+  border-top: 5px solid #EF7523;
+  bottom: 0;
+  position: absolute;
+  width: min(150%, 120px);
 }
 
 .main-container {

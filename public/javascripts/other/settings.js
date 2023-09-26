@@ -2,6 +2,11 @@ window.addEventListener("load", () => {
     handleNameSetting()
 })
 
+function logoutButtonClicked() {
+    logOut()
+    location.href = "/"
+}
+
 async function handleNameSetting() {
     const nameSetting = byId("name-setting")
     const [, nameDisplay, , editContainer] = nameSetting.children[0].children

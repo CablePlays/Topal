@@ -5,17 +5,39 @@ block body
 
   .topbar
     img.logo(src="/assets/logos/logo.svg" onclick="location.href='/'")
-    .links
-      a#home-tab(href='/') Home
-      a#awards-tab(href='/awards') Awards
+    #topbar-links
+      a(href='/') Home
+        .underline
+      a(href='/awards') Awards
+        .underline
+      a(href='/leaderboards') Leaderboards
+        .underline
+      a(href='/settings' style=`display: ${displays.loggedIn.true.flex}`) Settings
+        .underline
+      a(href=`/profile/${user.id}` style=`display: ${displays.loggedIn.true.flex}`) Profile
+        .underline
+      a.search-link(href=`/search`) Search
+        .underline
       script.
         const path = location.pathname
+        let selectedLink
 
         if (path === "/") {
-          byId("home-tab").classList.add("selected")
+          selectedLink = 0
         } else if (path === "/awards") {
-          byId("awards-tab").classList.add("selected")
+          selectedLink = 1
+        } else if (path === "/leaderboards") {
+          selectedLink = 2
+        } else if (path === "/settings") {
+          selectedLink = 3
+        } else if (path === "/search") {
+          selectedLink = 5
+        } else if (isLoggedIn()) {
+          const parts = path.split("/")
+          if (parts[1] === "profile" && parts[2] == #{user.id}) selectedLink = 4
         }
+
+        if (selectedLink != null) byId("topbar-links").children[selectedLink].classList.add("selected")
 
     .search
       #search-icon.material-icons search
@@ -23,7 +45,7 @@ block body
       input#search-input(type='text' placeholder='Search..')
 
     a.sign-in.signin-link(style=`display: ${displays.loggedIn.false.block}`) Sign In
-    #account-display(onclick=`location.href="/profile/${user.id}"` style=`display: ${displays.loggedIn.true.flex}`)
+    .account-display(onclick=`location.href="/profile/${user.id}"` style=`display: ${displays.loggedIn.true.flex}`)
       img(src=user.profilePicture)
       div
         p.name= user.fullName

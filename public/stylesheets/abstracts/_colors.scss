@@ -4,6 +4,10 @@ $color-primary-400: #EF7523;
 $color-accent-300: #1682b8;
 $color-accent-400: #0064ee;
 
+$color-button: $color-primary-400;
+$color-button-primary-hover: $color-primary-300;
+$color-button-secondary-hover: rgb(0, 0, 0, 0.05);
+
 $white-hover: #dcdcdc;
 
 $color-success: rgb(0, 167, 74);

@@ -49,7 +49,7 @@ async function advancedRender(req, res, path, options) {
     }
 
     placeholders.displays = displays
-    placeholders.user = userId ? await general.getUserDetails(userId) : {}
+    placeholders.user = userId ? await general.getUserDetails(userId) : { id: 0 }
 
     res.render(path, placeholders)
 }

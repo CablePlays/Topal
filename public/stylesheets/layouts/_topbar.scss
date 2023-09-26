@@ -1,6 +1,7 @@
-$account-display-breakpoint: 470px;
-$links-breakpoint: 780px;
-$search-bar-breakpoint: 1050px;
+$account-display-breakpoint-1: 600px;
+$account-display-breakpoint-2: 1350px;
+$links-breakpoint: 1000px;
+$search-bar-breakpoint: 1120px;
 
 .topbar,
 .topbar-spacer {
@@ -11,53 +12,65 @@ $search-bar-breakpoint: 1050px;
     align-items: center;
     background-color: white;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-    column-gap: 20px;
     display: flex;
     justify-content: space-around;
-    padding: 0 78px 0 20px;
+    padding-right: 78px;
     position: fixed;
     width: 100%;
     z-index: 100;
 
-    .links {
-        align-items: center;
-        column-gap: 20px;
-        display: none;
-        height: 100%;
-        justify-content: flex-end;
+    @media screen and (min-width: $links-breakpoint) {
+        padding-right: 32px;
+    }
 
-        @media screen and (min-width: $links-breakpoint) {
-            display: flex;
+    .account-display {
+        align-items: center;
+        column-gap: 10px;
+        cursor: pointer;
+        display: flex;
+
+        div {
+            display: none;
+
+            @media screen and (min-width: $account-display-breakpoint-1) {
+                display: block;
+            }
+
+            @media screen and (min-width: $links-breakpoint) {
+                display: none;
+            }
+
+            @media screen and (min-width: $account-display-breakpoint-2) {
+                display: block;
+            }
         }
 
-        a {
-            align-items: center;
-            color: rgb(58, 58, 58);
-            display: flex;
+        img {
+            border-radius: 25px;
+            height: 43px;
+            object-fit: cover;
+            width: 43px;
+        }
+
+        .email {
+            color: rgb(148, 148, 148);
+            font-size: 14px;
+        }
+
+        .name {
             font-size: 16px;
-            font-weight: 500;
-            height: 100%;
-            justify-content: center;
-            text-decoration: none;
-            width: 120px;
-
-            cursor: pointer;
-
-            &:hover {
-                color: $color-primary-400;
-            }
-
-            &.selected {
-                border-bottom: 5px solid $color-primary-400;
-                border-radius: 2px;
-            }
         }
     }
 
     .logo {
         cursor: pointer;
         height: 48px;
+        margin: 0 32px;
         width: 131px;
+
+        @media screen and (min-width: $links-breakpoint) {
+            margin: 0 64px;
+        }
     }
 
     .search {
@@ -66,6 +79,7 @@ $search-bar-breakpoint: 1050px;
         border-radius: 8px;
         display: none;
         height: 49px;
+        margin-right: 32px;
         padding: 0 16px;
         width: 500px;
 
@@ -102,7 +116,7 @@ $search-bar-breakpoint: 1050px;
         color: #fff;
         cursor: pointer;
         font-size: 13px;
-        padding: 8px;
+        padding: 8px 16px;
         text-decoration: none;
         transition: background-color 0.1s;
         white-space: nowrap;
@@ -112,39 +126,55 @@ $search-bar-breakpoint: 1050px;
         }
     }
 
-    #account-display {
-        align-items: center;
-        column-gap: 10px;
-        cursor: pointer;
-        display: flex;
-
-        div {
-            display: none;
-
-            @media screen and (min-width: $account-display-breakpoint) {
-                display: block;
-            }
-        }
-
-        img {
-            border-radius: 25px;
-            height: 43px;
-            object-fit: cover;
-            width: 43px;
-        }
-
-        .email {
-            color: rgb(148, 148, 148);
-            font-size: 14px;
-        }
-
-        .name {
-            font-size: 16px;
-        }
-    }
-
     #sidebar-icon {
         position: absolute;
         right: 20px;
+
+        @media screen and (min-width: $links-breakpoint) {
+            display: none;
+        }
+    }
+
+    #topbar-links {
+        column-gap: 40px;
+        display: none;
+        flex-grow: 0.25;
+        height: 100%;
+        justify-content: space-between;
+        margin-right: 64px;
+
+        @media screen and (min-width: $links-breakpoint) {
+            display: flex;
+        }
+
+        @media screen and (min-width: $search-bar-breakpoint) {
+            .search-link {
+                display: none;
+            }
+        }
+
+        a {
+            align-items: center;
+            color: rgb(58, 58, 58);
+            display: flex;
+            font-size: 16px;
+            font-weight: 500;
+            justify-content: center;
+            max-width: 120px;
+            position: relative;
+            text-decoration: none;
+
+            &:hover {
+                color: $color-primary-400;
+            }
+
+            &.selected .underline {
+                border-radius: 2px;
+                border-top: 5px solid $color-primary-400;
+                bottom: 0;
+                position: absolute;
+                width: min(150%, 120px);
+            }
+        }
     }
 }

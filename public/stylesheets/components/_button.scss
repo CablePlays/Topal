@@ -1,0 +1,25 @@
+button.primary,
+button.secondary {
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+button.primary {
+    background-color: $color-button;
+    border: none;
+    color: white;
+
+    &:hover {
+        background-color: $color-button-primary-hover;
+    }
+}
+
+button.secondary {
+    background-color: transparent;
+    border: 2px solid $color-button;
+    color: $color-button;
+
+    &:hover {
+        background-color: $color-button-secondary-hover;
+    }
+}

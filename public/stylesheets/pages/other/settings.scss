@@ -17,15 +17,6 @@ $settings-space-left: 50px;
         padding: 20px 0;
         padding-left: $settings-space-left;
 
-        p.title {
-            color: rgb(50, 50, 50);
-            font-weight: 400;
-        }
-
-        p.value {
-            font-weight: 600;
-        }
-
         &.highlightable {
             cursor: pointer;
             transition: 0.1s;
@@ -47,6 +38,26 @@ $settings-space-left: 50px;
             display: none;
         }
 
+        button {
+            cursor: pointer;
+            padding: 8px 16px;
+        }
+
+        p.title {
+            color: rgb(50, 50, 50);
+            font-weight: 400;
+        }
+
+        p.value {
+            font-weight: 600;
+        }
+
+        .row {
+            align-items: center;
+            column-gap: 15px;
+            display: flex;
+        }
+
         &#name-setting {
             display: flex;
             flex-direction: column;
@@ -54,45 +65,39 @@ $settings-space-left: 50px;
             min-height: 64px;
             row-gap: 20px;
 
-            .row {
+            .input-container {
                 align-items: center;
-                column-gap: 15px;
+                column-gap: 10px;
                 display: flex;
 
-                .input-container {
-                    align-items: center;
-                    column-gap: 10px;
-                    display: flex;
+                input,
+                select {
+                    border: 2px solid rgb(150, 150, 150);
+                    border-radius: 4px;
+                }
 
-                    input,
-                    select {
-                        border: 2px solid rgb(150, 150, 150);
-                        border-radius: 4px;
-                    }
+                input {
+                    padding: 8px;
+                }
 
-                    input {
-                        padding: 8px;
-                    }
+                select {
+                    padding: 7px;
+                }
 
-                    select {
-                        padding: 7px;
-                    }
+                .cancel {
+                    cursor: pointer;
+                }
 
-                    .cancel {
-                        cursor: pointer;
-                    }
+                .save {
+                    background-color: rgb(230, 230, 230);
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    padding: 10px 16px;
+                    transition: 0.25s background-color;
 
-                    .save {
-                        background-color: rgb(230, 230, 230);
-                        border: none;
-                        border-radius: 4px;
-                        cursor: pointer;
-                        padding: 10px 16px;
-                        transition: 0.25s background-color;
-
-                        &:hover {
-                            background-color: rgb(210, 210, 210);
-                        }
+                    &:hover {
+                        background-color: rgb(210, 210, 210);
                     }
                 }
             }
