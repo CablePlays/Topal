@@ -78,6 +78,10 @@ router.get("/", (req, res) => {
     res.ren("other/home")
 })
 
+router.get("/about", (req, res) => {
+    res.ren("other/about")
+})
+
 router.get("/leaderboard", (req, res) => {
     res.redirect("leaderboards")
 })

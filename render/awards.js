@@ -8,6 +8,18 @@ router.get("/", (req, res) => {
     res.ren("awards/awards")
 })
 
+router.get("/drakensberg", (req, res) => {
+    res.ren("awards/mountaineering/drakensberg")
+})
+
+router.get("/summit", (req, res) => {
+    res.ren("awards/mountaineering/summit")
+})
+
+router.get("/traverse", (req, res) => {
+    res.ren("awards/mountaineering/traverse")
+})
+
 router.get("/:awardType", (req, res, next) => {
     const sequelTypes = ["instructor", "leader"]
     const awardType = req.params.awardType

@@ -1,0 +1,18 @@
+extends ../award-layout
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/generic.css")
+
+block requirements
+  p TODO
+
+block script
+  script.
+    setAward("summit")
+    createShortcut("Drakensberg Award", "right", () => location.href = "/awards/drakensberg")
+    createShortcut("Traverse Award", "right", () => location.href = "/awards/traverse")
+    createShortcut("Mountaineering Instructor Award", "right", () => location.href = "/awards/mountaineering-instructor")
+    createShortcut("Mountaineering Leader Award", "right", () => location.href = "/awards/mountaineering-leader")
+    setDifficulty(1)
+    setSkillLevel(1)
+    showLogs("mountaineering")

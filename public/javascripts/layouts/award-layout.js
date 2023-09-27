@@ -247,7 +247,7 @@ function setAward(awardId) {
 
         const kebabBaseAwardId = pascalToKebab(baseAwardId)
 
-        if (sequelType) {
+        if (sequelType && isAward(baseAwardId)) {
             createShortcut("Basic Award", "right", () => location.href = `${pathRoot}/${kebabBaseAwardId}`)
         }
         if (awardHasInstructor(baseAwardId) && sequelType !== "Instructor") {

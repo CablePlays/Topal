@@ -161,6 +161,10 @@ function getAwardSignoffs(awardId) {
     return _AWARDS[awardId].signoffs
 }
 
+function isAward(awardId) {
+    return _AWARDS[awardId] != null
+}
+
 function awardHasInstructor(awardId) {
     return _AWARDS[awardId + "Instructor"] != null
 }

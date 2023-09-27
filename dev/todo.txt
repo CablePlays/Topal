@@ -1,2 +1,12 @@
-Create custom element for notices?
 Compress search banner image
+
+> Each Award Needs:
+
+Name
+Description
+Requirements
+Difficulty rating
+Skill level rating
+Authorised staff
+Signoffs
+Logs
