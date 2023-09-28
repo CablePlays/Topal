@@ -1,14 +1,16 @@
-extends ../award-layout
-
-block assets
-  link(rel="stylesheet" href="/stylesheets/pages/generic.css")
+extends ./midmar-mile-layout
 
 block requirements
-  p TODO
+  ol.spacious
+    li Swim the Midmar Mile at least twice in a time of under 50 minutes.
+    li Have shown great discipline in training.
+    li Have a clearly logged training record.
+    li Assist the TIC in organising training sessions.
+    li Be willing to assist in the administration and logistics of planning, organising the event as well as food, money and transport.
+    li Must be seen to actively promote the Midmar Mile at Treverton.
 
-block script
+block s
   script.
     setAward("midmarMileInstructor")
     setDifficulty(2)
     setSkillLevel(1)
-    showLogs("midmarMile")

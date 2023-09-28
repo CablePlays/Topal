@@ -26,6 +26,12 @@ router.get("/", async (req, res) => { // get user award info
     res.res(200, { awards })
 })
 
+router.get("/midmarMile/trainingDistance", async (req, res) => { // get total training distance
+    const { targetUserId } = req
+    const { total } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM midmar_mile_training_logs WHERE user = "${targetUserId}"`)
+    res.res(200, { distance: total ?? 0 })
+})
+
 router.get("/running/distance", async (req, res) => { // get total distance run
     const { targetUserId } = req
     const { total } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM running_logs WHERE user = "${targetUserId}"`)

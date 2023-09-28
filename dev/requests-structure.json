@@ -18,6 +18,11 @@
         ":userId": {
             "awards": {
                 "GET": "Get user awards information",
+                "midmarMile": {
+                    "trainingDistance": {
+                        "GET": "Get total training distance"
+                    }
+                },
                 "running": {
                     "distance": {
                         "GET": "Get total distance run"

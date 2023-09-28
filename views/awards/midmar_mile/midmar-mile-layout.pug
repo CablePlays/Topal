@@ -1,0 +1,25 @@
+extends ../award-layout
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/generic.css")
+
+block script
+  block s
+
+  script.
+    showLogs("midmarMileTraining")
+
+    if (isLoggedIn()) {
+      const trainingDistanceDisplay = createElement("p")
+      trainingDistanceDisplay.innerHTML = LOADING_TEXT
+
+      appendInfo([
+        createElement("h3", { t: "Training Distance" }),
+        trainingDistanceDisplay
+      ])
+
+      getRequest(`/users/${getUserId()}/awards/midmarMile/trainingDistance`).then(res => {
+        const { distance } = res
+        trainingDistanceDisplay.innerHTML = `${distance}m`
+      })
+    }

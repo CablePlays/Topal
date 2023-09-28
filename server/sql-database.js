@@ -109,13 +109,13 @@ function createTables() { // returns promise
         /* Logs */
 
         c("endurance_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, discipline TEXT NOT NULL, distance INTEGER NOT NULL, time INTEGER NOT NULL, description TEXT")
-        c("midmar_mile_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, distance INTEGER NOT NULL, time INTEGER NOT NULL, comments TEXT")
+        c("midmar_mile_training_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, distance INTEGER NOT NULL, time INTEGER NOT NULL, description TEXT")
         c("mountaineering_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, start_date TEXT NOT NULL, area TEXT NOT NULL, days INTEGER NOT NULL, distance INTEGER NOT NULL, altitude_gained INTEGER NOT NULL, party_size INTEGER NOT NULL, shelter TEXT NOT NULL, trail INTEGER NOT NULL, leader INTEGER NOT NULL, majority_above_2000m INTEGER NOT NULL, route TEXT, weather TEXT, situations TEXT")
         c("running_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, distance INTEGER NOT NULL, time INTEGER NOT NULL, description TEXT")
         c("service_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, service TEXT NOT NULL, time INTEGER NOT NULL, description TEXT, signer INTEGER")
 
         // kayaking
-        c("flat_water_paddling_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT, training TEXT, boat TEXT, time INTEGER, distance TEXT, place TEXT, comments TEXT")
+        c("flat_water_paddling_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT, training TEXT, boat TEXT, time INTEGER, distance TEXT, place TEXT, description TEXT")
         c("river_trip_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT, put_in TEXT, take_out TEXT, time INTEGER, distance INTEGER, party_size INTEGER, river TEXT, water_level TEXT, boat TEXT, signer INTEGER")
 
         // rock climbing
@@ -125,8 +125,8 @@ function createTables() { // returns promise
 
         // solitaire
         c("solitaire_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, location TEXT NOT NULL, others_involved TEXT NOT NULL, supervisors TEXT NOT NULL, items TEXT NOT NULL, experience TEXT NOT NULL")
-        c("solitaire_instructor_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, location TEXT NOT NULL, groupSupervised TEXT NOT NULL, comments TEXT NOT NULL")
-        c("solitaire_leader_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, location TEXT NOT NULL, groupSupervised TEXT NOT NULL, comments TEXT NOT NULL")
+        c("solitaire_instructor_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, location TEXT NOT NULL, groupSupervised TEXT NOT NULL, description TEXT NOT NULL")
+        c("solitaire_leader_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, location TEXT NOT NULL, groupSupervised TEXT NOT NULL, description TEXT NOT NULL")
     })
 
     return Promise.all(tasks)

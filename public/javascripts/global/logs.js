@@ -79,6 +79,61 @@ const _LOG_TYPES = {
             }
         ]
     },
+    midmarMileTraining: {
+        signable: false,
+        items: [
+            {
+                name: "Date",
+                display: {
+                    type: "date"
+                },
+                input: {
+                    attribute: "date",
+                    type: "date"
+                }
+            },
+            {
+                name: "Distance",
+                display: {
+                    type: "text",
+                    value: log => log.distance + "m"
+                },
+                input: {
+                    attribute: "distance",
+                    type: "slider",
+                    slider: {
+                        min: 100,
+                        max: 10000,
+                        step: 25,
+                        value: 1600,
+                        display: v => v + "m"
+                    }
+                }
+            },
+            {
+                name: "Time",
+                display: {
+                    type: "text",
+                    value: log => formatDuration(log.time)
+                },
+                input: {
+                    attribute: "time",
+                    type: "duration"
+                }
+            },
+            {
+                name: "Description",
+                display: {
+                    type: "text",
+                    value: "description"
+                },
+                input: {
+                    attribute: "description",
+                    type: "textLong"
+                }
+            }
+        ]
+    },
     rockClimbing: {
         signable: false,
         items: [

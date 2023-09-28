@@ -1,14 +1,27 @@
-extends ../award-layout
-
-block assets
-  link(rel="stylesheet" href="/stylesheets/pages/generic.css")
+extends ./midmar-mile-layout
 
 block requirements
-  p TODO
+  ol.spacious
+    li Pass a swimming fitness test set by the TIC (two time trials of eight lengths of the dam in under 60 minutes).
+    li You are prepared to train and keep a training logbook.
+    li Finish the Midmar Mile event within the official cut-off time (i.e. 1 hour).
 
-block script
+  .spacer.v20
+
+  .notice(data-type="warning").
+    It is possible to receive an Aquelle Midmar Mile Award and not be granted the Treverton Midmar Mile Award.
+    This depends upon the successful completion of training.
+
+  .spacer.v20
+
+  .notice(data-type="info")
+    ul
+      li Treverton pool is 25m (square)
+      li Treverton dam is 210m end to end
+      li A mile is approximately 1600m
+
+block s
   script.
     setAward("midmarMile")
     setDifficulty(1)
     setSkillLevel(1)
-    showLogs("midmarMile")

@@ -38,7 +38,7 @@ const PERMISSIONS = [
 const LOG_TYPES = { // cannot be both sublog and singleton
     endurance: {},
     flatWaterPaddling: {},
-    midmarMile: {},
+    midmarMileTraining: {},
     mountaineering: {},
     riverTrip: {
         signable: true

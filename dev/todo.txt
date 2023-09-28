@@ -6,7 +6,6 @@ Recent awards on home page (make display accurate date)
 > Awards
 
 Kayaking
-Midmar Mile
 Drakensberg
 Summit
 Traverse
@@ -26,3 +25,12 @@ Skill level rating
 Authorised staff
 Signoffs
 Logs
+
+> Profile Page Stats
+
+Total awards
+Total first-level awards
+OP points
+Running distance
+Paddling trips
+Midmar mile training distance

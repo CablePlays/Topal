@@ -87,12 +87,10 @@ const _AWARDS = {
         description: "TODO"
     },
     midmarMileInstructor: {
-        name: "Midmar Mile Instructor",
-        description: "TODO"
+        name: "Midmar Mile Instructor"
     },
     midmarMileLeader: {
-        name: "Midmar Mile Leader",
-        description: "TODO"
+        name: "Midmar Mile Leader"
     },
     mountaineeringInstructor: {
         name: "Mountaineering Instructor",
