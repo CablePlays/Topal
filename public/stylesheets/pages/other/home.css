@@ -26,6 +26,11 @@ h2.heading {
   text-transform: uppercase;
 }
 
+ol.spacious > li:not(:first-child),
+ul.spacious > li:not(:first-child) {
+  margin-top: 20px;
+}
+
 .content-block-container {
   min-height: 90vh;
 }
@@ -319,9 +324,6 @@ joined-buttons .underline {
   .col-container .col1 {
     padding-top: initial;
   }
-}
-.col-container .col1 li:not(:first-child) {
-  margin-top: 20px;
 }
 .col-container .col1 ol,
 .col-container .col1 ul {
