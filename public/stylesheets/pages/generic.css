@@ -386,7 +386,7 @@ joined-buttons .underline {
 }
 .col-container .col2 #award-info .line {
   border-top: 2px solid black;
-  margin: 20px 0 20px 5%;
+  margin: 20px auto;
   width: 90%;
 }
 .col-container .col2 #award-info .rating {

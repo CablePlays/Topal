@@ -104,15 +104,13 @@ const _AWARDS = {
     },
     polarBear: {
         name: "Polar Bear",
-        description: "TODO"
+        description: "Created by Mr Neil Solomon and based on similar awards around the world, the Polar Bear challenge is a daring one which involves jumping into the school dam early morning once a week."
     },
     polarBearInstructor: {
-        name: "Polar Bear Instructor",
-        description: "TODO"
+        name: "Polar Bear Instructor"
     },
     polarBearLeader: {
-        name: "Polar Bear Leader",
-        description: "TODO"
+        name: "Polar Bear Leader"
     },
     rockClimbing: {
         name: "Rock Climbing",
