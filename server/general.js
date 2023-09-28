@@ -281,16 +281,6 @@ async function getUserDetails(userId) {
     }
 }
 
-function hasAnyPermission(permissions) {
-    for (let permission of PERMISSIONS) {
-        if (permissions[permission] === true) {
-            return true
-        }
-    }
-
-    return false
-}
-
 async function isPasswordValid(req) {
     const userId = cookies.getUserId(req)
     if (userId == null) return false
@@ -378,7 +368,6 @@ module.exports = {
     hasSublogs,
     isPermission,
     isSignoff,
-    hasAnyPermission,
     isPasswordValid,
     forEachAndWait,
     provideUserInfoToStatus,

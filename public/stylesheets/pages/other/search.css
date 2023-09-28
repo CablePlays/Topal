@@ -1049,7 +1049,7 @@ footer .treverton-link {
   padding: 0 16px;
   width: 500px;
 }
-@media screen and (min-width: 1120px) {
+@media screen and (min-width: 1220px) {
   .topbar .search {
     display: flex;
   }
@@ -1103,14 +1103,14 @@ footer .treverton-link {
   flex-grow: 0.25;
   height: 100%;
   justify-content: space-between;
-  margin-right: 64px;
+  margin-right: 48px;
 }
 @media screen and (min-width: 1000px) {
   .topbar #topbar-links {
     display: flex;
   }
 }
-@media screen and (min-width: 1120px) {
+@media screen and (min-width: 1220px) {
   .topbar #topbar-links .search-link {
     display: none;
   }

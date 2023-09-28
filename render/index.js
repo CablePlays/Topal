@@ -31,6 +31,7 @@ async function advancedRender(req, res, path, options) {
     }
 
     const { placeholders } = res
+
     const displays = {
         adminPage: {
             true: generateDisplays(adminPage)
@@ -40,7 +41,7 @@ async function advancedRender(req, res, path, options) {
             true: generateDisplays(loggedIn)
         },
         permission: {
-            any: generateDisplays(general.hasAnyPermission(permissions))
+            any: generateDisplays(permissions.any)
         }
     }
 

@@ -4,7 +4,7 @@ function getPermissionMiddleware(permission) {
     return (req, res, next) => {
         const { permissions } = req
 
-        if (permission === "any" && general.hasAnyPermission(permissions) || permissions[permission] === true) {
+        if (permissions[permission] === true) {
             next()
         } else {
             res.res(403)

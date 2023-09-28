@@ -18,6 +18,8 @@ block body
         .underline
       a.search-link(href=`/search`) Search
         .underline
+      a(href=`/admin` style=`display: ${displays.permission.any.flex}`) Admin
+        .underline
       script.
         const path = location.pathname
         let selectedLink

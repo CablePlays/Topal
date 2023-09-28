@@ -1,4 +1,7 @@
 Compress search banner image
+Milestones on profile page (half colors, colors, honors)
+Page which displays logs of all user awards in order of date
+Recent awards on home page (make display accurate date)
 
 > Each Award Needs:
 
