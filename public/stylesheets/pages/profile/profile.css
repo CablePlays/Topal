@@ -312,7 +312,7 @@ joined-buttons .underline {
   display: flex;
   flex-direction: column;
   max-width: 1000px;
-  padding: 20px 0;
+  padding: 20px 16px;
   row-gap: 20px;
 }
 @media screen and (min-width: 620px) and (max-width: 899.9px) {
@@ -320,19 +320,12 @@ joined-buttons .underline {
     padding-top: initial;
   }
 }
-.col-container .col1 > * {
-  padding: 0 16px;
-  text-align: justify;
+.col-container .col1 li:not(:first-child) {
+  margin-top: 20px;
 }
-.col-container .col1 .requirements ol,
-.col-container .col1 .requirements ul {
+.col-container .col1 ol,
+.col-container .col1 ul {
   margin-left: 20px;
-}
-.col-container .col1 .requirements > ol,
-.col-container .col1 .requirements > ul {
-  display: flex;
-  flex-direction: column;
-  row-gap: 20px;
 }
 .col-container .col2 {
   grid-row: 2/3;

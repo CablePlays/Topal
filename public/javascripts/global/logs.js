@@ -1,4 +1,84 @@
 const _LOG_TYPES = {
+    endurance: {
+        signable: false,
+        items: [
+            {
+                name: "Date",
+                display: {
+                    type: "date"
+                },
+                input: {
+                    attribute: "date",
+                    type: "date"
+                }
+            },
+            {
+                name: "Discipline",
+                display: {
+                    type: "text",
+                    value: "discipline",
+                    map: {
+                        running: "Running",
+                        mountainBiking: "Mountain Biking",
+                        multiSport: "Multisport / Adventure Racing",
+                        canoeing: "Canoeing",
+                        horseRiding: "Endurance Horse Riding"
+                    }
+                },
+                input: {
+                    attribute: "discipline",
+                    type: "select",
+                    options: [
+                        ["running", "Running"],
+                        ["mountainBiking", "Mountain Biking"],
+                        ["multisport", "Multisport / Adventure Racing"],
+                        ["canoeing", "Canoeing"],
+                        ["horseRiding", "Endurance Horse Riding"]
+                    ]
+                }
+            },
+            {
+                name: "Distance",
+                display: {
+                    type: "text",
+                    value: v => (v.distance / 1000) + "km"
+                },
+                input: {
+                    attribute: "distance",
+                    type: "slider",
+                    slider: {
+                        min: 3000,
+                        max: 100000,
+                        step: 100,
+                        value: 10000,
+                        display: n => (n / 1000) + "km"
+                    }
+                }
+            },
+            {
+                name: "Time",
+                display: {
+                    type: "text",
+                    value: v => formatDuration(v.time)
+                },
+                input: {
+                    attribute: "time",
+                    type: "duration"
+                }
+            },
+            {
+                name: "Description",
+                display: {
+                    type: "text",
+                    value: "description"
+                },
+                input: {
+                    attribute: "description",
+                    type: "textLong"
+                }
+            }
+        ]
+    },
     rockClimbing: {
         signable: false,
         items: [
@@ -188,8 +268,8 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
 
     const { items } = _LOG_TYPES[logType]
 
-    let idPromiseR
-    const idPromise = new Promise(r => idPromiseR = r)
+    let idPromiseResolve
+    const idPromise = new Promise(r => idPromiseResolve = r)
 
     for (let item of items) {
         const { name, display } = item
@@ -225,11 +305,12 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
                 break
             }
             case "text": {
-                const { value } = display
+                const { map, value } = display
                 let displayValue
 
-                if (typeof value === "string") {
+                if (typeof value === "string") { // attribute
                     displayValue = log[value]
+                    if (map) displayValue = map[displayValue]
                 } else {
                     displayValue = value(log)
                 }
@@ -241,10 +322,10 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
     }
 
     if (viewOnly) {
-        idPromiseR(log.id)
+        idPromiseResolve(log.id)
     } else {
         function loadOptions(logId) {
-            idPromiseR(logId)
+            idPromiseResolve(logId)
             const bottomBar = createElement("div", { c: "bottom-bar", p: displaySectionElement })
 
             createElement("div", {
@@ -302,6 +383,7 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
     Types:
         date
         duration
+        select
         slider
         textLong
         textShort
@@ -396,6 +478,33 @@ function _createInputSection(options) {
                     return (total > 0) ? total : null
                 }
 
+                break
+            }
+            case "select": {
+                const { options } = input
+
+                createSpacer(20, { p: itemElement })
+                const selectElement = createElement("select", { p: itemElement })
+
+                // show select
+                createElement("option", {
+                    p: selectElement, t: "select...", consumer: e => {
+                        e.setAttribute("hidden", "")
+                        e.value = "initial"
+                    }
+                })
+
+                for (let option of options) {
+                    const [optionId, optionName] = option
+                    createElement("option", { p: selectElement, t: optionName }).value = optionId
+                }
+
+                valueSupplier = () => {
+                    const value = selectElement.value
+                    return value == "initial" ? null : value
+                }
+
+                if (initialValue) selectElement.value = initialValue
                 break
             }
             case "slider": {

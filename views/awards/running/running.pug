@@ -3,13 +3,19 @@ extends ../award-layout
 block assets
   link(rel="stylesheet" href="/stylesheets/pages/generic.css")
 
+block style
+  style.
+    table.distances {
+      border-spacing: 50px 0;
+    }
+
 block requirements
   ol
     li Complete a total of 100km of competetive road/trail running in less than two years.
     li
       p To make sure that you achieve your true potential, you are required to do the following:
       .spacer.v20
-      table
+      table.distances
         tr
           th Race Distance
           th Minimum Weekly Training

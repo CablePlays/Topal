@@ -1,3 +1,6 @@
+/*
+    If description is excluded then uses description from first-level award.
+*/
 const _AWARDS = {
     drakensberg: {
         name: "Drakensberg",
@@ -5,15 +8,50 @@ const _AWARDS = {
     },
     endurance: {
         name: "Endurance",
-        description: "TODO"
+        description: "The Endurance Award recognizes achievement in road/trail running, adventure racing, competing in a multisport race, triathlon, mountain bike races, horse riding and canoeing."
     },
     enduranceInstructor: {
         name: "Endurance Instructor",
-        description: "TODO"
+        signoffs: [
+            {
+                id: "achievedTwice",
+                name: "Achieved Twice",
+                description: "Achieved both awards twice in two years."
+            }, 
+            {
+                id: "read",
+                name: "Reading",
+                description: "Read a book on training and you are knowledgeable in training methods for one category of races."
+            }, 
+            {
+                id: "instruction",
+                name: "Instruction",
+                description: "Practical ability to instruct a novice in basic training in running, MTB or AR. You have spent time doing so."
+            }, 
+            {
+                id: "whoseWho",
+                name: "Whose Who",
+                description: "Familiarity with <i>Whose Who</i> in current endurance sport (from reading running magazines, internet, TV)."
+            }, 
+            {
+                id: "firstAid",
+                name: "First Aid Training",
+                description: "You have first aid training or your familiarity with endurance problems and their treatment satisfies the TIC."
+            }, 
+            {
+                id: "attitude",
+                name: "Healthy Mental Attitude",
+                description: "Exhibits a healthy mental attitude toward the sport and toward others."
+            }, 
+            {
+                id: "voluntaryService",
+                name: "Voluntary Service",
+                description: "You have performed voluntary service (either at Treverton or elsewhere) in administration and organizational roles - a minimum of organizing three events."
+            }
+        ]
     },
     enduranceLeader: {
-        name: "Endurance Leader",
-        description: "TODO"
+        name: "Endurance Leader"
     },
     kayaking: {
         name: "Kayaking",
@@ -154,7 +192,11 @@ function getAwardName(awardId) {
 }
 
 function getAwardDescription(awardId) {
-    return _AWARDS[awardId].description
+    const description = _AWARDS[awardId].description
+    if (description) return description
+
+    const baseAward = awardId.replace("Instructor", "").replace("Leader", "")
+    return getAwardDescription(baseAward)
 }
 
 function getAwardSignoffs(awardId) {

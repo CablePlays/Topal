@@ -3,6 +3,20 @@ Milestones on profile page (half colors, colors, honors)
 Page which displays logs of all user awards in order of date
 Recent awards on home page (make display accurate date)
 
+> Awards
+
+Kayaking
+Midmar Mile
+Drakensberg
+Summit
+Traverse
+Mountaineering Instructor/Leader
+Polar Bear
+Rock Climbing
+Service
+Solitaire
+Venture
+
 > Each Award Needs:
 
 Name

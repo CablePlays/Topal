@@ -3,11 +3,39 @@ extends ../award-layout
 block assets
   link(rel="stylesheet" href="/stylesheets/pages/generic.css")
 
+block style
+  style.
+    .discipline {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
 block requirements
-  p TODO
+  ol
+    li Must have proven ability as an Endurance Instructor, having assisted the TIC with organising at least 12 endurance events.
+    li You must have <b>completed</b>:
+      .spacer.v20
+      ul
+        li
+          p.discipline Running
+          p At least 250km of additional official road runs (i.e. this excludes the mileage counting towards the Running Award).
+        li
+          p.discipline Mountain Biking
+          p At least 1000km of additional official mountain bike rides.
+        li
+          p.discipline Multisport Avents
+          p At least 30 multisport events
+        li
+          p.discipline Canoeing
+          p At least 10 grade one races
+        li
+          p.discipline Swimming
+          p At least 20 open water swims
+    li You must have fulfilled the requirements of an instructor to the full and have noticeably added to the adventure sports spirit of Treverton.
 
 block script
   script.
     setAward("enduranceLeader")
     setDifficulty(4)
     setSkillLevel(3)
+    showLogs("endurance")

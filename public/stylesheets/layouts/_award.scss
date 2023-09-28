@@ -88,31 +88,20 @@ $signoff-breakpoint: 650px;
         display: flex;
         flex-direction: column;
         max-width: 1000px;
-        padding: 20px 0;
+        padding: 20px 16px;
         row-gap: 20px;
 
         @media screen and (min-width: $columns-breakpoint-a) and (max-width: calc($columns-breakpoint-b - 0.1px)) {
             padding-top: initial;
         }
 
-        >* {
-            padding: 0 16px;
-            text-align: justify;
+        li:not(:first-child) {
+            margin-top: 20px;
         }
 
-        .requirements {
-
-            ol,
-            ul {
-                margin-left: 20px;
-            }
-
-            >ol,
-            >ul {
-                display: flex;
-                flex-direction: column;
-                row-gap: 20px;
-            }
+        ol,
+        ul {
+            margin-left: 20px;
         }
     }
 

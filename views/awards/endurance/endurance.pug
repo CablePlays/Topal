@@ -3,11 +3,60 @@ extends ../award-layout
 block assets
   link(rel="stylesheet" href="/stylesheets/pages/generic.css")
 
+block style
+  style.
+    .discipline {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
 block requirements
-  p TODO
+  p Complete <b>ONE</b> of the following disciplines:
+
+  .spacer.v20
+
+  ul
+    li
+      p.discipline Running
+      p Junior (under 16 years old) four 15 km events completed
+      p Senior (over 16 years old) three half-marathons (21km) or five 15 km events.
+    li
+      p.discipline Mountain Biking
+      p Sub-Junior (U14): 8 x 20 km races
+      p Junior (U15 & U16) & Youth (U17 & U18): 5 x half marathons/classics (40 - 60km)
+    li
+      p.discipline Multisport or Adventure Racing
+      p 5 x Individual multisport events or adventure races
+    li
+      p.discipline Canoeing
+      p 3x Grade One River Race in either a K1 or K2
+      .spacer.v10
+      .notice(data-type="warning") A prerequisite of this is to hold all necessary proficiencies and qualifications (contact TIC for further details).
+    li
+      p.discipline Endurance Horse Riding
+      p 5 x 40km -60km endurance rides; 3 x 120km (or further) endurance rides
+
+  .spacer.v20
+
+  .notice(data-type="info")
+    div
+      p Age categories
+      .spacer.v10
+      ul
+        li Sub-junior: Under 14
+        li Junior: Under 16
+        li Youth: Under 18
+  
+  .spacer.v20
+
+  select
+    option A
+    option B
+    option C
 
 block script
   script.
     setAward("endurance")
     setDifficulty(3)
     setSkillLevel(2)
+    showLogs("endurance")

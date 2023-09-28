@@ -124,114 +124,16 @@ function isPermission(permission) {
 }
 
 function isSignoff(awardId, signoffId) {
-    if (["signoffA", "signoffB", "signoffC"].includes(signoffId)) { // TODO: remove
-        return true
-    }
     switch (awardId) {
-        case "drakensberg":
-            return [
-                "cooker",
-                "backBack",
-                "ecologicalAwareness",
-                "pitchTent"
-            ].includes(signoffId)
         case "enduranceInstructor":
             return [
-                'bothAwardsTwice',
-                'firstAid',
-                'instruct',
-                'mentalAttitude',
-                'organisingEvents',
-                'readBook',
-                'who'
-            ].includes(signoffId)
-        case "kayaking":
-            return [
-                'circuits',
-                'mooiRiver',
-                'noviceKayakingTest',
-                'riverSafetyTest',
-                'safetyChecks',
-                'theoryTest',
-                'timeTrial'
-            ].includes(signoffId)
-        case "kayakingInstructor":
-            return [
+                "achievedTwice",
                 "attitude",
                 "firstAid",
-                "instruct",
-                "knowledge",
-                "monitor",
-                "mooiRiver",
-                "rescue",
-                "skill"
-            ].includes(signoffId)
-        case "mountaineeringInstructor":
-            return [
-                "firstAid",
-                "handling",
-                "history",
-                "logs",
-                "rescueProcedues",
-                "ropeWork"
-            ].includes(signoffId)
-        case "rockClimbing": {
-            const valid = [
-                ["knots", 4],
-                ["harness", 7],
-                ["belaying", 11],
-                ["wallLeadClimb", 3],
-                ["abseiling", 3],
-                ["finalTests", 3]
-            ]
-
-            for (let a of valid) {
-                for (let i = 1; i <= a[1]; i++) {
-                    if (signoffId === a[0] + i) {
-                        return true
-                    }
-                }
-            }
-
-            return false
-        }
-        case "rockClimbingInstructor":
-            return [
-                "ascendRope",
-                "attitude",
-                "belays",
-                "bookReviews",
-                "climbingGrade",
-                "devices",
-                "equipment",
-                "firstAid",
-                "knots",
-                "leadClimbsSport",
-                "leadClimbsTrad",
-                "logs",
-                "protection",
-                "rescueTechniques",
-                "traverse"
-            ].includes(signoffId)
-        case "rockClimbingLeader":
-            return [
-                "abseiling",
-                "descriptions",
-                "experience",
-                "hoist",
-                "logs",
-                "tangles"
-            ].includes(signoffId)
-        case "summit":
-            return [
-                "mapReading",
-                "preparedness",
-                "routeFinding"
-            ].includes(signoffId)
-        case "traverse":
-            return [
-                "hikePlan",
-                "summary"
+                "instruction",
+                "read",
+                "voluntaryService",
+                "whoseWho"
             ].includes(signoffId)
     }
 
