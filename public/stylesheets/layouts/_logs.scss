@@ -153,6 +153,18 @@ $border-radius: 8px;
         .items {
             width: 100%;
 
+            .boolean {
+                div {
+                    margin-top: 10px;
+                }
+
+                input {
+                    height: 20px;
+                    margin-right: 10px;
+                    width: 20px;
+                }
+            }
+
             .date input {
                 border: 2px solid $border-color;
                 border-radius: $border-radius;
@@ -186,6 +198,14 @@ $border-radius: 8px;
                 }
             }
 
+            .select select {
+                border: 2px solid black;
+                border-radius: 8px;
+                margin-top: 10px;
+                outline: none;
+                padding: 8px;
+            }
+
             .slider {
                 min-width: 100%;
 
@@ -200,19 +220,19 @@ $border-radius: 8px;
             }
 
             .text-long {
-                min-width: 100%;
+                min-width: 600px;
 
                 textarea {
                     border: 2px solid $border-color;
                     border-radius: $border-radius;
                     min-height: 50px;
+                    outline: none;
                     padding: 8px;
                     resize: vertical;
                     width: 100%;
 
                     &:focus {
                         box-shadow: 0 0 3px 0 rgb(0, 0, 0, 0.5);
-                        outline: none;
                     }
                 }
             }
@@ -221,12 +241,12 @@ $border-radius: 8px;
                 border: 2px solid $border-color;
                 border-radius: $border-radius;
                 height: 30px;
+                outline: none;
                 padding: 4px;
                 width: 100%;
 
                 &:focus {
                     box-shadow: 0 0 3px 0 rgb(0, 0, 0, 0.5);
-                    outline: none;
                 }
             }
         }

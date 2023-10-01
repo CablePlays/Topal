@@ -11,7 +11,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: #1682b8;
+  color: #219ad6;
   text-decoration: underline;
 }
 
@@ -389,6 +389,40 @@ joined-buttons .underline {
   margin: 20px auto;
   width: 90%;
 }
+.col-container .col2 #award-info .link-group {
+  align-items: center;
+  display: flex;
+}
+.col-container .col2 #award-info .link-group:hover .material-icons.emerge {
+  display: initial;
+}
+.col-container .col2 #award-info .link-group h3 {
+  margin-right: 10px;
+}
+.col-container .col2 #award-info .link-group .material-icons {
+  cursor: pointer;
+  margin-right: 3px;
+}
+.col-container .col2 #award-info .link-group .material-icons.emerge {
+  display: none;
+}
+.col-container .col2 #award-info .link-input-container {
+  align-items: center;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+  display: flex;
+  margin-top: 5px;
+}
+.col-container .col2 #award-info .link-input-container input {
+  border: 2px solid rgb(50, 50, 50);
+  border-radius: 4px;
+  outline: none;
+  padding: 4px;
+  width: 100%;
+}
+.col-container .col2 #award-info .link-input-container .material-icons {
+  cursor: pointer;
+}
 .col-container .col2 #award-info .rating {
   display: flex;
   -moz-column-gap: 2px;
@@ -587,7 +621,7 @@ joined-buttons .underline {
   text-decoration: underline;
 }
 .col-container .col3 > div:hover p {
-  color: #1682b8;
+  color: #219ad6;
 }
 .col-container .col3 > div:active p {
   color: #EF7523;
@@ -851,6 +885,14 @@ footer .treverton-link {
 .logs .input .items {
   width: 100%;
 }
+.logs .input .items .boolean div {
+  margin-top: 10px;
+}
+.logs .input .items .boolean input {
+  height: 20px;
+  margin-right: 10px;
+  width: 20px;
+}
 .logs .input .items .date input {
   border: 2px solid rgb(50, 50, 50);
   border-radius: 8px;
@@ -878,6 +920,13 @@ footer .treverton-link {
 .logs .input .items .duration .input-container input:focus {
   outline: none;
 }
+.logs .input .items .select select {
+  border: 2px solid black;
+  border-radius: 8px;
+  margin-top: 10px;
+  outline: none;
+  padding: 8px;
+}
 .logs .input .items .slider {
   min-width: 100%;
 }
@@ -891,30 +940,30 @@ footer .treverton-link {
   width: 100%;
 }
 .logs .input .items .text-long {
-  min-width: 100%;
+  min-width: 600px;
 }
 .logs .input .items .text-long textarea {
   border: 2px solid rgb(50, 50, 50);
   border-radius: 8px;
   min-height: 50px;
+  outline: none;
   padding: 8px;
   resize: vertical;
   width: 100%;
 }
 .logs .input .items .text-long textarea:focus {
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
-  outline: none;
 }
 .logs .input .items .text-short input {
   border: 2px solid rgb(50, 50, 50);
   border-radius: 8px;
   height: 30px;
+  outline: none;
   padding: 4px;
   width: 100%;
 }
 .logs .input .items .text-short input:focus {
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
-  outline: none;
 }
 
 #sidebar {
@@ -1289,7 +1338,7 @@ footer .treverton-link {
   transform: translateY(2px);
 }
 #views .view:nth-child(2) .cards .row .card a .underline {
-  border-top: 3px solid #1682b8;
+  border-top: 3px solid #219ad6;
   top: 1px;
   position: relative;
   transition: 0.5s;

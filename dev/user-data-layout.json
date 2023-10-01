@@ -27,6 +27,11 @@
         "profilePicture": "profile picture link",
         "sessionToken": null
     },
+    "links": {
+        "traverse": {
+            "summary": "url"
+        }
+    },
     "permissions": {
         "manageAwards": false,
         "managePermissions": false,

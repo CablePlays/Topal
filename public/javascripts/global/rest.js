@@ -15,23 +15,23 @@ async function _sendRequest(method, path, body) {
     }
 
     console.info("Making " + method + " request to " + path)
-    const res = await fetch(_REQUEST_PREFIX + path, reqParams)
+    const fetchResponse = await fetch(_REQUEST_PREFIX + path, reqParams)
 
-    const r = {
-        ok: res.ok,
-        status: res.status
+    const returning = {
+        ok: fetchResponse.ok,
+        status: fetchResponse.status
     }
 
-    if (res.headers.get("content-type")?.includes("application/json")) {
-        const j = await res.json()
-        Object.assign(r, j)
+    if (fetchResponse.headers.get("content-type")?.includes("application/json")) {
+        const json = await fetchResponse.json()
+        Object.assign(returning, json) // add all keys & values to returning
 
-        if (!res.ok) {
-            console.warn(j.error)
+        if (!fetchResponse.ok) {
+            console.warn(json.error)
         }
     }
 
-    return r
+    return returning
 }
 
 async function deleteRequest(path, body) {

@@ -31,7 +31,7 @@ async function renderAwards() {
         // status
         const statusTd = createElement("td", { p: tr })
         const statusTdRow = createElement("div", { c: "row", p: statusTd })
-        const loadingElement = createElement("span", { c: "material-icons", p: statusTd, t: "hourglass_empty" })
+        const loadingElement = createElement("span", { c: "material-icons", p: statusTd, t: LOADING_ICON_TEXT })
 
         // date
         const dateTd = createElement("td", { p: tr })

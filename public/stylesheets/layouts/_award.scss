@@ -161,6 +161,47 @@ $signoff-breakpoint: 650px;
                 width: 90%;
             }
 
+            .link-group {
+                align-items: center;
+                display: flex;
+
+                &:hover .material-icons.emerge {
+                    display: initial;
+                }
+
+                h3 {
+                    margin-right: 10px;
+                }
+
+                .material-icons {
+                    cursor: pointer;
+                    margin-right: 3px;
+
+                    &.emerge {
+                        display: none;
+                    }
+                }
+            }
+
+            .link-input-container {
+                align-items: center;
+                column-gap: 5px;
+                display: flex;
+                margin-top: 5px;
+
+                input {
+                    border: 2px solid rgb(50, 50, 50);
+                    border-radius: 4px;
+                    outline: none;
+                    padding: 4px;
+                    width: 100%;
+                }
+
+                .material-icons {
+                    cursor: pointer;
+                }
+            }
+
             .rating {
                 display: flex;
                 column-gap: 2px;

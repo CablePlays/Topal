@@ -1,6 +1,5 @@
 const _LOG_TYPES = {
     endurance: {
-        signable: false,
         items: [
             {
                 name: "Date",
@@ -80,7 +79,6 @@ const _LOG_TYPES = {
         ]
     },
     midmarMileTraining: {
-        signable: false,
         items: [
             {
                 name: "Date",
@@ -134,8 +132,196 @@ const _LOG_TYPES = {
             }
         ]
     },
+    mountaineering: {
+        items: [
+            {
+                name: "Start Date",
+                display: {
+                    type: "date",
+                    attribute: "start_date"
+                },
+                input: {
+                    attribute: "start_date",
+                    type: "date"
+                }
+            },
+            {
+                name: "Area",
+                display: {
+                    type: "text",
+                    value: "area"
+                },
+                input: {
+                    attribute: "area",
+                    type: "textShort"
+                }
+            },
+            {
+                name: "Number of Days",
+                display: {
+                    type: "text",
+                    value: log => log.days + " day" + (log.days === 1 ? "" : "s")
+                },
+                input: {
+                    attribute: "days",
+                    type: "slider",
+                    slider: {
+                        min: 1,
+                        max: 30,
+                        value: 5,
+                        display: v => v + " day" + (v === 1 ? "" : "s")
+                    }
+                }
+            },
+            {
+                name: "Hike Distance",
+                display: {
+                    type: "text",
+                    value: log => (log.distance / 1000) + "km",
+                },
+                input: {
+                    attribute: "distance",
+                    type: "slider",
+                    slider: {
+                        min: 3000,
+                        max: 220000,
+                        step: 1000,
+                        value: 10000,
+                        display: v => (v / 1000) + "km"
+                    }
+                }
+            },
+            {
+                name: "Elevation Gain",
+                display: {
+                    type: "text",
+                    value: log => log.elevation_gain + "m"
+                },
+                input: {
+                    attribute: "elevation_gain",
+                    type: "slider",
+                    slider: {
+                        min: 10,
+                        max: 10000,
+                        step: 10,
+                        value: 1000,
+                        display: v => v + "m"
+                    }
+                }
+            },
+            {
+                name: "Number in Party",
+                display: {
+                    type: "text",
+                    value: log => log.party_size + " " + (log.party_size == 1 ? "person" : "people")
+                },
+                input: {
+                    attribute: "party_size",
+                    type: "slider",
+                    slider: {
+                        min: 1,
+                        max: 20,
+                        value: 5,
+                        display: v => v + " " + (v == 1 ? "person" : "people")
+                    }
+                }
+            },
+            {
+                name: "Shelter Type",
+                display: {
+                    type: "text",
+                    value: "shelter",
+                    map: {
+                        tent: "Tent",
+                        hut: "Hut",
+                        cave: "Cave",
+                        bivi: "Bivi",
+                        combination: "Combination",
+                        other: "Other"
+                    }
+                },
+                input: {
+                    attribute: "shelter",
+                    type: "select",
+                    options: [
+                        ["tent", "Tent"],
+                        ["hut", "Hut"],
+                        ["cave", "Cave"],
+                        ["bivi", "Bivi"],
+                        ["combination", "Combination"],
+                        ["other", "Other"]
+                    ]
+                }
+            },
+            {
+                name: "Was the majority of the hike on a trail or path?",
+                display: {
+                    type: "boolean",
+                    attribute: "trail"
+                },
+                input: {
+                    attribute: "trail",
+                    type: "boolean"
+                }
+            },
+            {
+                name: "Were you the leader of the group?",
+                display: {
+                    type: "boolean",
+                    attribute: "leader"
+                },
+                input: {
+                    attribute: "leader",
+                    type: "boolean"
+                }
+            },
+            {
+                name: "Was the majority of the hike above 2000m?",
+                display: {
+                    type: "boolean",
+                    attribute: "majority_above_2000m"
+                },
+                input: {
+                    attribute: "majority_above_2000m",
+                    type: "boolean"
+                }
+            },
+            {
+                name: "Route",
+                display: {
+                    type: "text",
+                    value: "route"
+                },
+                input: {
+                    attribute: "route",
+                    type: "textLong"
+                }
+            },
+            {
+                name: "Weather Conditions",
+                display: {
+                    type: "text",
+                    value: "weather"
+                },
+                input: {
+                    attribute: "weather",
+                    type: "textLong"
+                }
+            },
+            {
+                name: "Situations Dealt With",
+                display: {
+                    type: "text",
+                    value: "situations"
+                },
+                input: {
+                    attribute: "situations",
+                    type: "textLong"
+                }
+            }
+        ]
+    },
     rockClimbing: {
-        signable: false,
         items: [
             {
                 name: "Date",
@@ -196,7 +382,6 @@ const _LOG_TYPES = {
         ]
     },
     rockClimbingClimbs: {
-        signable: false,
         items: [
             {
                 name: "Route Name",
@@ -251,7 +436,6 @@ const _LOG_TYPES = {
         ]
     },
     running: {
-        signable: false,
         items: [
             {
                 name: "Date",
@@ -313,6 +497,7 @@ function getLogTypeName(logType) {
 
 /*
     Types
+        boolean
         date
         sublogs
         text
@@ -334,6 +519,12 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
         createElement("h3", { p: itemElement, t: name })
 
         switch (type) {
+            case "boolean": {
+                const { attribute } = display
+                const displayValue = log[attribute]
+                createElement("p", { p: itemElement, t: displayValue === 0 ? "No" : "Yes" })
+                break
+            }
             case "date": {
                 const { attribute = "date" } = display
                 const displayValue = formatDate(log[attribute])
@@ -436,6 +627,7 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
 
 /*
     Types:
+        boolean
         date
         duration
         select
@@ -465,6 +657,22 @@ function _createInputSection(options) {
         let valueSupplier // null indicates no value provided
 
         switch (type) {
+            case "boolean": {
+                itemElement.classList.add("boolean")
+
+                const inputContainer = createElement("div", { c: "center-rv", p: itemElement })
+                const checkboxInput = createElement("input", { p: inputContainer })
+                checkboxInput.type = "checkbox"
+
+                const textElement = createElement("p", { p: inputContainer })
+                checkboxInput.addEventListener("input", () => textElement.innerHTML = checkboxInput.checked ? "Yes" : "No")
+
+                checkboxInput.checked = initialValue === 1 ? true : false
+                textElement.innerHTML = initialValue === 1 ? "Yes" : "No"
+
+                valueSupplier = () => checkboxInput.checked
+                break
+            }
             case "date": {
                 itemElement.classList.add("date")
                 createSpacer(10, { p: itemElement })
@@ -537,8 +745,8 @@ function _createInputSection(options) {
             }
             case "select": {
                 const { options } = input
+                itemElement.classList.add("select")
 
-                createSpacer(20, { p: itemElement })
                 const selectElement = createElement("select", { p: itemElement })
 
                 // show select
@@ -577,7 +785,7 @@ function _createInputSection(options) {
 
                 if (display) {
                     const displayElement = createElement("p", { p: itemElement })
-                    const updateDisplayText = () => displayElement.innerHTML = display(sliderElement.value)
+                    const updateDisplayText = () => displayElement.innerHTML = display(parseFloat(sliderElement.value))
 
                     updateDisplayText()
                     sliderElement.addEventListener("input", updateDisplayText)
@@ -656,8 +864,13 @@ function _createInputSection(options) {
                     viewOnly: false,
                     post: () => {
                         return new Promise((r, re) => {
-                            postRequest(`/logs/${logType}`, { log, id: logId, parentLogId })
-                                .then(() => r(logId)).catch(err => re(err))
+                            postRequest(`/logs/${logType}`, { log, id: logId, parentLogId }).then(json => {
+                                if (json.ok) {
+                                    r(logId)
+                                } else {
+                                    re()
+                                }
+                            })
                         })
                     }
                 })
@@ -673,8 +886,13 @@ function _createInputSection(options) {
                     viewOnly: false,
                     post: () => {
                         return new Promise((r, re) => {
-                            postRequest(`/logs/${logType}`, { log, parentLogId })
-                                .then(json => r(json.id)).catch(err => re(err))
+                            postRequest(`/logs/${logType}`, { log, parentLogId }).then(json => {
+                                if (json.ok) {
+                                    r(json.id)
+                                } else {
+                                    re()
+                                }
+                            })
                         })
                     }
                 })

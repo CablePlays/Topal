@@ -42,7 +42,15 @@
             },
             "info": {
                 "GET": "Get user information (name, surname, email, etc.)",
-                "PUT": "Edit user information"
+                "PUT": "Set user information"
+            },
+            "links": {
+                "GET": "Get user links",
+                ":awardId": {
+                    "linkId": {
+                        "PUT": "Set/delete user link"
+                    }
+                }
             },
             "signoffs": {
                 ":awardId": {

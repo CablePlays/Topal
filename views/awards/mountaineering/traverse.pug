@@ -4,7 +4,45 @@ block assets
   link(rel="stylesheet" href="/stylesheets/pages/generic.css")
 
 block requirements
-  p TODO
+  ol.spacious
+    li You must have the Summit Award.
+    li Have logged a total of six nights hiking in the Berg, and an additional trip including a 700m ascent or two lower Berg trips.
+    li.
+      Create a summary of facts about at least three mountain accidents, their causes,
+      the rescue action taken and possible preventative measures which could have been taken.
+    li Develop the ability to prepare a detailed hike plan proven by presentation of one such plans (adventure trip plan).
+
+  .spacer.v20
+
+  .notice(data-type="info") Add the links to your summary and hike plan in the info block.
+
+block extra
+  h2.heading Hike Plan Template
+  p Brief details of the same sort that will be entered in the Mountain Rescue Register should be included as well as alternative routes.
+
+  .spacer.v20
+
+  h3 General:
+  .spacer.v10
+  ul
+    li Area
+    li Dates
+    li Leader(s)
+    li Group
+
+  .spacer.v20
+
+  h3 For Each Day:
+  .spacer.v10
+  ul
+    li Route
+    li Estimated time of departure
+    li Estimated time of arrival
+    li Alternative route
+
+  .spacer.v20
+
+  .notice(data-type="success") A planned hike is a successful one.
 
 block script
   script.
@@ -13,6 +51,7 @@ block script
     createShortcut("Summit Award", "right", () => location.href = "/awards/summit")
     createShortcut("Mountaineering Instructor Award", "right", () => location.href = "/awards/mountaineering-instructor")
     createShortcut("Mountaineering Leader Award", "right", () => location.href = "/awards/mountaineering-leader")
+    showLinks()
     setDifficulty(3)
     setSkillLevel(3)
     showLogs("mountaineering")

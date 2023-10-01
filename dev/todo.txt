@@ -2,14 +2,11 @@ Compress search banner image
 Milestones on profile page (half colors, colors, honors)
 Page which displays logs of all user awards in order of date
 Recent awards on home page (make display accurate date)
+Feature which allows students to signoff as agreement to responsibilities of an award
 
 > Awards
 
 Kayaking
-Drakensberg
-Summit
-Traverse
-Mountaineering Instructor/Leader
 Rock Climbing
 Service
 Solitaire
@@ -34,3 +31,10 @@ OP points
 Running distance
 Paddling trips
 Midmar mile training distance
+
+> Variety Award Idea
+
+One hour of service
+Zipline
+Sleep outside one night
+Get to koppie

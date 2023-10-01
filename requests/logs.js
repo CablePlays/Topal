@@ -102,20 +102,10 @@ typeRouter.post("/", async (req, res) => { // create log
             res.res(403, "not_own")
             return
         }
-        if (general.isSingleton(logType)
-            && await sqlDatabase.get(`SELECT * FROM ${table} WHERE parent = ${parentLogId}`)) { // check singleton
-            res.res(409, "existing_singleton")
-            return
-        }
         if (replaceId != null) { // own already verified -> delete
             await sqlDatabase.run(`DELETE FROM ${table} WHERE id = ${replaceId}`)
         }
     } else {
-        if (general.isSingleton(logType)
-            && await sqlDatabase.get(`SELECT * FROM ${table} WHERE userId = ${userId}`)) { // check singleton
-            res.res(409, "existing_singleton")
-            return
-        }
         if (replaceId != null) { // verify own
             const record = await sqlDatabase.get(`SELECT * FROM ${table} WHERE id = ${replaceId}`)
 

@@ -5,13 +5,13 @@ const middleware = require("../middleware")
 
 const router = express.Router()
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res) => { // get user info
     const { targetUserId } = req
     const userInfo = await general.getUserDetails(targetUserId)
     res.res(200, { info: userInfo })
 })
 
-router.put("/", middleware.requireSelf, async (req, res) => {
+router.put("/", middleware.requireSelf, async (req, res) => { // set user info
     const { body, targetUserId } = req
     let { name, surname, title } = body
     name = name?.trim()

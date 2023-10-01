@@ -2,6 +2,8 @@ const _BASIC_LINK_ID = "basic-link"
 const _INSTRUCTOR_LINK_ID = "instructor-link"
 const _LEADER_LINK_ID = "leader-link"
 
+let _awardId
+
 function _setRating(ratingId, val) {
     const ratingElement = byId(ratingId)
     const children = ratingElement.childNodes
@@ -47,6 +49,98 @@ function showPoints() {
     ])
 }
 
+function showLinks() {
+    if (!isLoggedIn()) return
+
+    function createLinkDisplay(linkId, linkName, link) {
+        const container = createElement("div", { c: "link-group" })
+        createElement("h3", { p: container, t: linkName })
+
+        const icons = []
+
+        function showInput() {
+            icons.forEach(icon => icon.remove())
+
+            const inputContainer = createElement("div", { c: "link-input-container" })
+            container.insertAdjacentElement("afterend", inputContainer)
+
+            const urlInput = createElement("input", { p: inputContainer })
+            urlInput.type = "url"
+
+            const doneElement = createElement("div", {
+                c: "material-icons", p: inputContainer, t: "done", onClick: () => {
+                    const url = urlInput.value
+
+                    if (isValidUrl(url)) {
+                        inputContainer.remove()
+                        container.replaceWith(createLinkDisplay(linkId, linkName, url))
+                        putRequest(`/users/${getUserId()}/links/${_awardId}/${linkId}`, { link: url })
+                    }
+                }
+            })
+            doneElement.style.display = "none"
+
+            urlInput.addEventListener("input", () => {
+                doneElement.style.display = isValidUrl(urlInput.value) ? "block" : "none"
+            })
+        }
+
+        function handleLoadedLink(l) {
+            if (l == null) {
+                icons.push(createElement("div", {
+                    c: "material-icons", p: container, t: "add_circle", onClick: showInput
+                }))
+            } else {
+                icons.push(createElement("div", {
+                    c: "material-icons", p: container, t: "open_in_new", onClick: () => window.open(l, "_blank")
+                }))
+                icons.push(createElement("div", {
+                    c: ["emerge", "material-icons"], p: container, t: "edit", onClick: showInput
+                }))
+                icons.push(createElement("div", {
+                    c: ["emerge", "material-icons"], p: container, t: "delete", onClick: () => {
+                        container.replaceWith(createLinkDisplay(linkId, linkName, null))
+                        putRequest(`/users/${getUserId()}/links/${_awardId}/${linkId}`)
+                    }
+                }))
+            }
+        }
+
+        if (link instanceof Promise) {
+            const loadingElement = createElement("div", { c: "material-icons", p: container, t: LOADING_ICON_TEXT })
+            link.then(l => {
+                loadingElement.remove()
+                handleLoadedLink(l)
+            })
+        } else {
+            handleLoadedLink(link)
+        }
+
+        return container
+    }
+
+    const links = getAwardLinks(_awardId)
+    const appending = []
+    const userLinksPromise = new Promise(async r => {
+        const res = await getRequest(`/users/${getUserId()}/links`)
+        r(res.links[_awardId] ?? {})
+    })
+
+    for (let i = 0; i < links.length; i++) {
+        const { id, name } = links[i]
+        const linkPromise = new Promise(async r => {
+            const awardLinks = await userLinksPromise
+            r(awardLinks[id])
+        })
+
+        if (i > 0) appending.push(createSpacer(10))
+        const linkDisplayElement = createLinkDisplay(id, name, linkPromise)
+        appending.push(linkDisplayElement)
+    }
+
+    appendInfo(appending)
+}
+
 function createShortcut(text, arrowType, onClick) {
     const linksElement = byId("award-links")
     const container = createElement("div", { p: linksElement, onClick })
@@ -71,7 +165,7 @@ function showLogs(...logTypes) {
         const name = getLogTypeName(logType) + " Logs"
         const headingElement = createElement("h2", { c: ["heading", "pl16"], p: logTypeContainer, t: name })
 
-        createSpacer("20", { p: logTypeContainer })
+        createSpacer(20, { p: logTypeContainer })
 
         const logDisplay = createLogDisplay({ logType, viewOnly: false })
         logTypeContainer.appendChild(logDisplay)
@@ -107,7 +201,7 @@ function _createSignoffElement(options) {
     /* Top */
 
     const topElement = createElement("div", { c: "top", p: signoffElement })
-    const statusElement = createElement("div", { c: ["material-icons", "status"], p: topElement, t: "hourglass_empty" })
+    const statusElement = createElement("div", { c: ["material-icons", "status"], p: topElement, t: LOADING_ICON_TEXT })
     createElement("h3", { p: topElement, t: name })
     createElement("div", { c: ["dropdown", "material-icons"], p: topElement, t: "expand_more" })
 
@@ -219,6 +313,8 @@ function _createSignoffElement(options) {
 }
 
 function setAward(awardId) {
+    _awardId = awardId
+
     const awardName = getAwardName(awardId)
     byId("award-title").innerHTML = awardName + " Award"
     byId("award-info-title").innerHTML = awardName + " Info"

@@ -1,10 +1,8 @@
-const general = require("../server/general")
-
-function getPermissionMiddleware(permission) {
+function getPermissionMiddleware(permission, orSelf) {
     return (req, res, next) => {
-        const { permissions } = req
+        const { permissions, targetUserId, userId } = req
 
-        if (permissions[permission] === true) {
+        if (permissions[permission] === true || orSelf && targetUserId === userId) {
             next()
         } else {
             res.res(403)

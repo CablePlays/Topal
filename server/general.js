@@ -8,34 +8,49 @@ const RECENT_AWARDS_MAX = 10
 const DEFAULT_PROFILE_PICTURE_PATH = "/assets/other/default-profile-picture.jpg"
 const UNKNOWN_TEXT = "N/A"
 
-const APPROVALS = [
-    "rockClimbingBelayer",
-    "ventureProposal"
-]
+const AWARDS = {
+    drakensberg: {
+        signoffs: ["backPack", "cooker", "ecologicalAwareness", "tent"]
+    },
+    endurance: {},
+    enduranceInstructor: {
+        name: "Endurance Instructor",
+        signoffs: ["achievedTwice", "attitude", "firstAid", "instruction", "read", "voluntaryService", "whoseWho"]
+    },
+    enduranceLeader: {},
+    kayaking: {},
+    kayakingInstructor: {},
+    kayakingLeader: {},
+    midmarMile: {},
+    midmarMileInstructor: {},
+    midmarMileLeader: {},
+    mountaineeringInstructor: {},
+    mountaineeringLeader: {},
+    polarBear: {},
+    polarBearInstructor: {},
+    polarBearLeader: {},
+    rockClimbing: {},
+    rockClimbingInstructor: {},
+    rockClimbingLeader: {},
+    running: {},
+    service: {},
+    serviceInstructor: {},
+    serviceLeader: {},
+    solitaire: {},
+    solitaireInstructor: {},
+    solitaireLeader: {},
+    summit: {
+        signoffs: ["hikingPreparedness", "mapReading", "routeFinding"]
+    },
+    traverse: {
+        links: ["hikePlan", "summary"],
+        signoffs: ["hikePlan", "summary"]
+    },
+    venture: {},
+    ventureLeader: {}
+}
 
-const AWARDS = [
-    "drakensberg",
-    "endurance", "enduranceInstructor", "enduranceLeader",
-    "kayaking", "kayakingInstructor", "kayakingLeader",
-    "midmarMile", "midmarMileInstructor", "midmarMileLeader",
-    "mountaineeringInstructor", "mountaineeringLeader",
-    "polarBear", "polarBearInstructor", "polarBearLeader",
-    "rockClimbing", "rockClimbingInstructor", "rockClimbingLeader",
-    "running",
-    "service", "serviceInstructor", "serviceLeader",
-    "solitaire", "solitaireInstructor", "solitaireLeader",
-    "summit",
-    "traverse",
-    "venture", "ventureInstructor"
-]
-
-const PERMISSIONS = [
-    "manageAwards",
-    "managePermissions",
-    "viewAuditLog"
-]
-
-const LOG_TYPES = { // cannot be both sublog and singleton
+const LOG_TYPES = {
     endurance: {},
     flatWaterPaddling: {},
     midmarMileTraining: {},
@@ -56,16 +71,16 @@ const LOG_TYPES = { // cannot be both sublog and singleton
     service: {
         signable: true
     },
-    solitaire: {
-        singleton: true
-    },
-    solitaireInstructor: {
-        singleton: true
-    },
-    solitaireLeader: {
-        singleton: true
-    }
+    solitaire: {},
+    solitaireInstructor: {},
+    solitaireLeader: {}
 }
+
+const PERMISSIONS = [
+    "manageAwards",
+    "managePermissions",
+    "viewAuditLog"
+]
 
 /* Data */
 
@@ -77,12 +92,16 @@ function getSublogsTable(logType) {
     return camelToSnakeCase(logType) + "_sublogs"
 }
 
-function isAward(id) {
-    return AWARDS.includes(id)
+function isAward(awardId) {
+    return AWARDS[awardId] != null
 }
 
-function isApproval(id) {
-    return APPROVALS.includes(id)
+function isLink(awardId, linkId) {
+    return AWARDS[awardId].links?.includes(linkId)
+}
+
+function isSignoff(awardId, signoffId) {
+    return AWARDS[awardId].signoffs?.includes(signoffId)
 }
 
 function isLogType(logType) {
@@ -111,33 +130,12 @@ function isSignable(logType) {
     return LOG_TYPES[logType].signable === true
 }
 
-function isSingleton(logType) {
-    return LOG_TYPES[logType].singleton === true
-}
-
 function hasSublogs(logType) {
     return LOG_TYPES[logType].sublogs === true
 }
 
 function isPermission(permission) {
     return PERMISSIONS.includes(permission)
-}
-
-function isSignoff(awardId, signoffId) {
-    switch (awardId) {
-        case "enduranceInstructor":
-            return [
-                "achievedTwice",
-                "attitude",
-                "firstAid",
-                "instruction",
-                "read",
-                "voluntaryService",
-                "whoseWho"
-            ].includes(signoffId)
-    }
-
-    return false
 }
 
 /* Users */
@@ -261,14 +259,13 @@ module.exports = {
     getLogsTable,
     getSublogsTable,
     isAward,
-    isApproval,
     isLogType,
     getParentLogType,
     getChildrenLogTypes,
     isSignable,
-    isSingleton,
     hasSublogs,
     isPermission,
+    isLink,
     isSignoff,
     isPasswordValid,
     forEachAndWait,

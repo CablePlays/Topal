@@ -5,6 +5,7 @@ const sqlDatabase = require("../../server/sql-database")
 
 const awardsRouter = require("./awards")
 const infoRouter = require("./info")
+const linksRouter = require("./links")
 const signoffsRouter = require("./signoffs")
 
 const router = express.Router()
@@ -103,6 +104,7 @@ router.use("/:targetUserId", async (req, res, next) => { // verify target user
 
 targetUserRouter.use("/awards", awardsRouter)
 targetUserRouter.use("/info", infoRouter)
+targetUserRouter.use("/links", linksRouter)
 targetUserRouter.use("/signoffs", signoffsRouter)
 
 module.exports = router

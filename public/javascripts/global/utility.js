@@ -1,4 +1,5 @@
 const LOADING_TEXT = "Loading . . ."
+const LOADING_ICON_TEXT = "hourglass_empty"
 
 document.addEventListener("click", event => {
     if (event.target.classList.contains("signin-link")) { // signin link
@@ -21,6 +22,15 @@ function setParam(param, value) {
     }
 
     window.history.replaceState({}, "", url.toString())
+}
+
+function isValidUrl(url) {
+    try {
+        new URL(url)
+        return true
+    } catch (error) {
+        return false
+    }
 }
 
 function byId(id) {
