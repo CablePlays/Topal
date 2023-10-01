@@ -3,6 +3,7 @@ Milestones on profile page (half colors, colors, honors)
 Page which displays logs of all user awards in order of date
 Recent awards on home page (make display accurate date)
 Feature which allows students to signoff as agreement to responsibilities of an award
+Update footer to include credits, etc.
 
 > Awards
 

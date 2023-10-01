@@ -1,7 +1,8 @@
 $info-block-width: 280px;
 $columns-breakpoint-a: 620px;
 $columns-breakpoint-b: 900px;
-$signoff-breakpoint: 650px;
+$signoff-breakpoint-a: 900px;
+$signoff-breakpoint-b: 1400px;
 
 @mixin openableContainer() {
     border-radius: 4px;
@@ -406,8 +407,12 @@ $signoff-breakpoint: 650px;
     grid-template-columns: 1fr;
     padding: 0 16px;
 
-    @media screen and (min-width: $signoff-breakpoint) {
+    @media screen and (min-width: $signoff-breakpoint-a) {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (min-width: $signoff-breakpoint-b) {
+        grid-template-columns: repeat(3, 1fr);
     }
 
     h3 {

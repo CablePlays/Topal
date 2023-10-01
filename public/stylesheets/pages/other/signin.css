@@ -649,9 +649,14 @@ joined-buttons .underline {
   grid-template-columns: 1fr;
   padding: 0 16px;
 }
-@media screen and (min-width: 650px) {
+@media screen and (min-width: 900px) {
   #signoffs {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (min-width: 1400px) {
+  #signoffs {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 #signoffs h3 {

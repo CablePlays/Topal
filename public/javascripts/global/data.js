@@ -174,7 +174,179 @@ const _AWARDS = {
     },
     rockClimbing: {
         name: "Rock Climbing",
-        description: "TODO"
+        description: "TODO",
+        signoffs: [
+            {
+                id: "threadedFigureEight",
+                name: "Knots - Threaded Figure Of Eight",
+                description: "Threaded figure of eight, tied off."
+            },
+            {
+                id: "figureEightBight",
+                name: "Knots - Figure Of Eight on Bight",
+                description: "Figure of eight on a bight."
+            },
+            {
+                id: "tapeKnot",
+                name: "Knots - Tape Knot",
+                description: "You can tie a tape knot."
+            },
+            {
+                id: "doubleFishermansKnot",
+                name: "Knots - Double Fisherman's Knot",
+                description: "You can tie a double fisherman's knot."
+            },
+            {
+                id: "harnessTypes",
+                name: "Harness - Types",
+                description: "You know the purpose and use of all harness types."
+            },
+            {
+                id: "straps",
+                name: "Harness - Strap Doubling Back",
+                description: "Doubling back of straps."
+            },
+            {
+                id: "belayPoints",
+                name: "Harness - Tie-in/Belay Points",
+                description: "Knowledge of appropriate tie-in/belay points."
+            },
+            {
+                id: "calls",
+                name: "Calls",
+                description: "You know the relevant calls (belayer, climber, slack/tight rope)."
+            },
+            {
+                id: "ropeUsage",
+                name: "Rope Usage",
+                description: "Rope usage - 9mm, 11mm; static, dynamic"
+            },
+            {
+                id: "ropeCoiling",
+                name: "Rope Coiling"
+            },
+            {
+                id: "ropeCare",
+                name: "Rope Care",
+                description: "Rope care (sun, sand, abrasion)"
+            },
+            {
+                id: "belayingAtc",
+                name: "Belaying - ATC"
+            },
+            {
+                id: "belayingFigureEight",
+                name: "Belaying - Figure Of Eight",
+                description: "Figure of eight (11mm & 9mm ropes)"
+            },
+            {
+                id: "grigri",
+                name: "Belaying - Grigri"
+            },
+            {
+                id: "belayingLeadClimber",
+                name: "Belaying Lead Climber"
+            },
+            {
+                id: "fall",
+                name: "Falling",
+                description: "Arrest and hold a fall correctly."
+            },
+            {
+                id: "safetyChecks",
+                name: "Safety Checks",
+                description: "Safety checks (knot, harness, karabiner locked, helmet)."
+            },
+            {
+                id: "spottingTechnique",
+                name: "Spotting Technique",
+                description: "Demonstrate the ability of spotting technique (inside or outside wall)."
+            },
+            {
+                id: "neilSolomonClimbs",
+                name: "Neil Solomon Wall Climbs",
+                description: "Two climbs on Neil Solomon wall (one on each side)."
+            },
+            {
+                id: "insideWallClimbs",
+                name: "Inside Wall Climbs",
+                description: "Two different climbs on the inside wall (excluding overhangs)."
+            },
+            {
+                id: "lowTraverse",
+                name: "Low Traverse",
+                description: "Must be done on the external wall (record your time)."
+            },
+            {
+                id: "chimneying",
+                name: "Chimneying",
+                description: "Must be done on the external wall."
+            },
+            {
+                id: "chilmneyMantelshelf",
+                name: "Chimney Mantelshelf",
+                description: "Must be done on the external wall."
+            },
+            {
+                id: "cracks",
+                name: "Cracks",
+                description: "Must be done on the external wall (use only concrete)."
+            },
+            {
+                id: "layback",
+                name: "Layback",
+                description: "Can be done on either wall (3 metres only)."
+            },
+            {
+                id: "overhangExternal",
+                name: "Overhang - External Wall"
+            },
+            {
+                id: "overhangInternal",
+                name: "Overhang - Internal Wall",
+                description: "Overhang on the internal wall (set at second notch or steeper, or roof)."
+            },
+            {
+                id: "quickdraws",
+                name: "Leading - Placing Quickdraws"
+            },
+            {
+                id: "clipping",
+                name: "Leading - Clipping"
+            },
+            {
+                id: "chains",
+                name: "Leading - Lowering Off Chains"
+            },
+            {
+                id: "abseilingFigureEight",
+                name: "Abseiling - Figure Of Eight"
+            },
+            {
+                id: "abseilingAtc",
+                name: "Abseiling - ATC"
+            },
+            {
+                id: "stance",
+                name: "Abseiling - Stance",
+                description: "Position you should take when abseiling."
+            },
+            {
+                id: "theoryTest",
+                name: "Theory Test",
+                description: "The test is based on <i>Reach Beyond</i>."
+            },
+            {
+                id: "finalAbseil",
+                name: "Final Test - One Abseil",
+                description: "This abseil is to be done on real rock."
+            },
+            {
+                id: "finalClimbs",
+                name: "Final Test - Two Climbs",
+                description: "These climbs are to be done on real rock."
+            }
+        ]
     },
     rockClimbingInstructor: {
         name: "Rock Climbing Instructor",
