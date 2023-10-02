@@ -528,6 +528,7 @@ footer .treverton-link {
   border: 2px solid rgb(50, 50, 50);
   border-radius: 8px;
   height: 30px;
+  max-width: 300px;
   outline: none;
   padding: 4px;
   width: 100%;

@@ -6,9 +6,16 @@ Feature which allows students to signoff as agreement to responsibilities of an 
 Look into expanding links system to allow for other types of values (e.g. rock climbing times)
 Update footer to include credits, etc.
 
+> Query
+
+Award descriptions
+TICs for each award
+"TIC" or "MIC"
+Should students be able to sign off agreeing to responsibilities of an award
+Do students have to provide small info items like rock climbing times
+
 > Awards
 
-Kayaking
 Venture
 
 > Each Award Needs:

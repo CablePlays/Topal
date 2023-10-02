@@ -115,12 +115,12 @@ function createTables() { // returns promise
         c("service_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, service TEXT NOT NULL, time INTEGER NOT NULL, description TEXT, signer INTEGER")
 
         // kayaking
-        c("flat_water_paddling_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT, training TEXT, boat TEXT, time INTEGER, distance TEXT, place TEXT, description TEXT")
-        c("river_trip_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT, put_in TEXT, take_out TEXT, time INTEGER, distance INTEGER, party_size INTEGER, river TEXT, water_level TEXT, boat TEXT, signer INTEGER")
+        c("flat_water_paddling_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, training TEXT NOT NULL, boat TEXT NOT NULL, time INTEGER NOT NULL, distance TEXT NOT NULL, place TEXT NOT NULL, description TEXT NOT NULL")
+        c("river_trip_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, put_in TEXT NOT NULL, take_out TEXT NOT NULL, time INTEGER NOT NULL, distance INTEGER NOT NULL, party_size INTEGER NOT NULL, river TEXT NOT NULL, water_level TEXT NOT NULL, boat TEXT NOT NULL, signer INTEGER")
 
         // rock climbing
-        c("rock_climbing_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, area TEXT, party_size INTEGER, weather TEXT")
-        c("rock_climbing_climbs_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, parent INTEGER NOT NULL, route_name TEXT, method TEXT, grade TEXT, pitches INTEGER")
+        c("rock_climbing_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, area TEXT NOT NULL, party_size INTEGER NOT NULL, weather TEXT NOT NULL")
+        c("rock_climbing_climbs_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, parent INTEGER NOT NULL, route_name TEXT NOT NULL, method TEXT NOT NULL, grade TEXT NOT NULL, pitches INTEGER NOT NULL")
         c("rock_climbing_instruction_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, duration INTEGER NOT NULL, climbers INTEGER NOT NULL, location TEXT NOT NULL, signer INTEGER")
 
         // solitaire

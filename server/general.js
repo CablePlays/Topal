@@ -18,8 +18,29 @@ const AWARDS = {
         signoffs: ["achievedTwice", "attitude", "firstAid", "instruction", "read", "voluntaryService", "whoseWho"]
     },
     enduranceLeader: {},
-    kayaking: {},
-    kayakingInstructor: {},
+    kayaking: {
+        signoffs: [
+            "timeTrials",
+            "slalomCircuits",
+            "noviceKayakingTest",
+            "checks",
+            "riverStretch",
+            "theoryTest",
+            "safetyTest"
+        ]
+    },
+    kayakingInstructor: {
+        signoffs: [
+            "riverStretches",
+            "instructing",
+            "attitude",
+            "skill",
+            "book",
+            "equipmentMonitor",
+            "rescue",
+            "firstAid"
+        ]
+    },
     kayakingLeader: {},
     midmarMile: {},
     midmarMileInstructor: {},

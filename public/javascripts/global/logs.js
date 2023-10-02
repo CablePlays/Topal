@@ -78,6 +78,100 @@ const _LOG_TYPES = {
             }
         ]
     },
+    flatWaterPaddling: {
+        items: [
+            {
+                name: "Date",
+                display: {
+                    type: "date"
+                },
+                input: {
+                    attribute: "date",
+                    type: "date"
+                }
+            },
+            {
+                name: "Training",
+                display: {
+                    type: "text",
+                    value: "training"
+                },
+                input: {
+                    attribute: "training",
+                    description: "e.g. Time Trial, Slalom, etc.",
+                    type: "textShort"
+                }
+            },
+            {
+                name: "Boat",
+                display: {
+                    type: "text",
+                    value: "boat",
+                    map: {
+                        kayak: "Kayak",
+                        k1: "K1",
+                        k2: "K2",
+                        other: "Other"
+                    }
+                },
+                input: {
+                    attribute: "boat",
+                    type: "select",
+                    options: [
+                        ["kayak", "Kayak"],
+                        ["k1", "K1"],
+                        ["k2", "K2"],
+                        ["other", "Other"]
+                    ]
+                }
+            },
+            {
+                name: "Time",
+                display: {
+                    type: "text",
+                    value: log => formatDuration(log.time, false)
+                },
+                input: {
+                    attribute: "time",
+                    type: "duration"
+                }
+            },
+            {
+                name: "Distance",
+                display: {
+                    type: "text",
+                    value: "distance"
+                },
+                input: {
+                    attribute: "distance",
+                    description: "e.g. 3km, 5x fig 8's, etc.",
+                    type: "textShort"
+                }
+            },
+            {
+                name: "Place",
+                display: {
+                    type: "text",
+                    value: "place"
+                },
+                input: {
+                    attribute: "place",
+                    type: "textShort"
+                }
+            },
+            {
+                name: "Comments",
+                display: {
+                    type: "text",
+                    value: "description"
+                },
+                input: {
+                    attribute: "description",
+                    type: "textLong"
+                }
+            }
+        ]
+    },
     midmarMileTraining: {
         items: [
             {
@@ -317,6 +411,123 @@ const _LOG_TYPES = {
                 input: {
                     attribute: "situations",
                     type: "textLong"
+                }
+            }
+        ]
+    },
+    riverTrip: {
+        signable: true,
+        items: [
+            {
+                name: "Date",
+                display: {
+                    type: "date"
+                },
+                input: {
+                    attribute: "date",
+                    type: "date"
+                }
+            },
+            {
+                name: "Put In",
+                display: {
+                    type: "text",
+                    value: log => formatTime(log.put_in)
+                },
+                input: {
+                    attribute: "put_in",
+                    type: "time"
+                }
+            },
+            {
+                name: "Take Out",
+                display: {
+                    type: "text",
+                    value: log => formatTime(log.take_out)
+                },
+                input: {
+                    attribute: "take_out",
+                    type: "time"
+                }
+            },
+            {
+                name: "Hours On River",
+                display: {
+                    type: "text",
+                    value: log => formatDuration(log.time)
+                },
+                input: {
+                    attribute: "time",
+                    type: "duration"
+                }
+            },
+            {
+                name: "Distance On River",
+                display: {
+                    type: "text",
+                    value: log => (log.distance / 1000) + "km"
+                },
+                input: {
+                    attribute: "distance",
+                    type: "slider",
+                    slider: {
+                        min: 1000,
+                        max: 100000,
+                        step: 500,
+                        value: 10000,
+                        display: v => (v / 1000) + "km"
+                    }
+                }
+            },
+            {
+                name: "Number In Party",
+                display: {
+                    type: "text",
+                    value: log => log.party_size + " " + (log.party_size == 1 ? "person" : "people")
+                },
+                input: {
+                    attribute: "party_size",
+                    type: "slider",
+                    slider: {
+                        min: 1,
+                        max: 20,
+                        value: 10,
+                        display: v => v + " " + (v === 1 ? "person" : "people")
+                    }
+                }
+            },
+            {
+                name: "River",
+                display: {
+                    type: "text",
+                    value: "river"
+                },
+                input: {
+                    attribute: "river",
+                    type: "textShort"
+                }
+            },
+            {
+                name: "Water Level",
+                display: {
+                    type: "text",
+                    value: "water_level"
+                },
+                input: {
+                    attribute: "water_level",
+                    type: "textShort"
+                }
+            },
+            {
+                name: "Boat(s)",
+                display: {
+                    type: "text",
+                    value: "boat"
+                },
+                input: {
+                    attribute: "boat",
+                    description: "e.g. Kayak, Croc, K1, K2, etc.",
+                    type: "textShort"
                 }
             }
         ]
@@ -873,6 +1084,7 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
         slider
         textLong
         textShort
+        time
 */
 function _createInputSection(options) {
     const { edit, createLogElement, initialValues, logId, logsContainer, logType, parentLogId } = options ?? {} // edit, logId || createLogElement, logsContainer
@@ -887,11 +1099,12 @@ function _createInputSection(options) {
         const { name, input } = item
         if (!input) continue // item does not support input
 
-        const { attribute, type } = input
+        const { attribute, description, type } = input
         const initialValue = initialValues?.[attribute] ?? null
 
         const itemElement = createElement("div", { c: "item", p: itemsContainer })
         const headingElement = createElement("h3", { p: itemElement, t: name })
+        if (description) createElement("p", { p: itemElement, t: description })
 
         let valueSupplier // null indicates no value provided
 
@@ -1053,6 +1266,21 @@ function _createInputSection(options) {
 
                 const inputElement = createElement("input", { p: itemElement })
                 inputElement.type = "text"
+                inputElement.value = initialValue
+
+                valueSupplier = () => {
+                    const val = inputElement.value
+                    return (val === "") ? null : val
+                }
+
+                break
+            }
+            case "time": {
+                itemElement.classList.add("time")
+                createSpacer(10, { p: itemElement })
+
+                const inputElement = createElement("input", { p: itemElement })
+                inputElement.type = "time"
                 inputElement.value = initialValue
 
                 valueSupplier = () => {

@@ -528,6 +528,7 @@ footer .treverton-link {
   border: 2px solid rgb(50, 50, 50);
   border-radius: 8px;
   height: 30px;
+  max-width: 300px;
   outline: none;
   padding: 4px;
   width: 100%;
@@ -784,6 +785,9 @@ footer .treverton-link {
   .col-container .col1 {
     padding-top: initial;
   }
+}
+.col-container .col1 .option-indicator {
+  font-weight: 600;
 }
 .col-container .col2 {
   grid-row: 2/3;

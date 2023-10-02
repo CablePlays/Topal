@@ -79,11 +79,90 @@ const _AWARDS = {
     },
     kayaking: {
         name: "Kayaking",
-        description: "TODO"
+        description: "TODO",
+        signoffs: [
+            {
+                id: "timeTrials",
+                name: "Time Trials",
+                description: "See requirements."
+            },
+            {
+                id: "slalomCircuits",
+                name: "Slalom Circuits",
+                description: "Five sessions of six (30) figure of 8 slalom circuits (kayak). Log these in the Flat Water Paddling Logs."
+            },
+            {
+                id: "noviceKayakingTest",
+                name: "Novice Kayaking Test",
+                description: "Pass the practical Novice Kayaking Test (see requirements)."
+            },
+            {
+                id: "checks",
+                name: "Safety & Equipment Checks",
+                description: "Perform safety and equipment checks."
+            },
+            {
+                id: "riverStretch",
+                name: "River Stretch",
+                description: "Do one stretch of a river in a kayak over at least 10km. This section is to be determined by the TIC."
+            },
+            {
+                id: "theoryTest",
+                name: "Theory Test",
+                description: "Pass the oral or written theory test based on the <i>Kayaking Canoeing</i> chapter in <i>Reach Beyond</i> (e.g. parts of the boat and paddle as well as other terms, river trip preparation and safety)."
+            },
+            {
+                id: "safetyTest",
+                name: "River Safety Test",
+                description: "Pass the basic river safety test which includes water proficiency (swim a minimum of 50m with floatation device) and using a throw line."
+            }
+        ]
     },
     kayakingInstructor: {
         name: "Kayaking Instructor",
-        description: "TODO"
+        description: "TODO",
+        signoffs: [
+            {
+                id: "riverStretches",
+                name: "River Stretches",
+                description: "Completed a minimum of six stretches of rivers of 3km or more (medium to high water levels)."
+            },
+            {
+                id: "instructing",
+                name: "Instructing",
+                description: "Have shown practical ability to instruct under supervision."
+            },
+            {
+                id: "attitude",
+                name: "Correct Attitude",
+                description: "Have shown correct attitude."
+            },
+            {
+                id: "skill",
+                name: "Skill",
+                description: "Have developed a high degree of skill."
+            },
+            {
+                id: "book",
+                name: "Kayaking Book",
+                description: "Have read at least one book on kayaking/canoeing and be able to show a breadth of knowledge to the TIC in conversation as well as in your instruction of others."
+            },
+            {
+                id: "equipmentMonitor",
+                name: "Equipment Monitor",
+                description: "Spend time acting as a duty equipment monitor in and around the boat shed."
+            },
+            {
+                id: "rescue",
+                name: "Rescue Ability",
+                description: "Have demonstrated practical ability to rescue someone in the river - X-rescue, H-rescue & self-rescue."
+            },
+            {
+                id: "firstAid",
+                name: "First Aid",
+                description: "Valid wilderness first aid and CPR training (level 3)."
+            }
+        ]
     },
     kayakingLeader: {
         name: "Kayaking Leader",
@@ -112,7 +191,7 @@ const _AWARDS = {
             {
                 id: "firstAid",
                 name: "First Aid",
-                description: "Valid wilderness first aid and CPR (level 3)."
+                description: "Valid wilderness first aid and CPR training (level 3)."
             },
             {
                 id: "leading",
@@ -369,7 +448,7 @@ const _AWARDS = {
             {
                 id: "firstAid",
                 name: "First Aid",
-                description: "Valid wilderness first aid and CPR (level 3)."
+                description: "Valid wilderness first aid and CPR training (level 3)."
             },
             {
                 id: "rescueTechniques",
