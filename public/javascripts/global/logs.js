@@ -543,6 +543,61 @@ const _LOG_TYPES = {
             }
         ]
     },
+    service: {
+        signable: true,
+        items: [
+            {
+                name: "Date",
+                display: {
+                    type: "date"
+                },
+                input: {
+                    attribute: "date",
+                    type: "date"
+                }
+            },
+            {
+                name: "Service",
+                display: {
+                    type: "text",
+                    value: "service"
+                },
+                input: {
+                    attribute: "service",
+                    type: "textShort"
+                }
+            },
+            {
+                name: "Hours",
+                display: {
+                    type: "text",
+                    value: log => formatDuration(log.time, false)
+                },
+                input: {
+                    attribute: "time",
+                    type: "slider",
+                    slider: {
+                        min: 30 * 60,
+                        max: 48 * 60 * 60,
+                        value: 2 * 60 * 60,
+                        step: 30 * 60,
+                        display: v => formatDuration(v, false)
+                    }
+                }
+            },
+            {
+                name: "Details",
+                display: {
+                    type: "text",
+                    value: "description"
+                },
+                input: {
+                    attribute: "description",
+                    type: "textLong"
+                }
+            }
+        ]
+    },
     solitaire: {
         items: [
             {

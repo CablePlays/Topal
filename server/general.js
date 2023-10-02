@@ -69,8 +69,35 @@ const AWARDS = {
             "finalClimbs"
         ]
     },
-    rockClimbingInstructor: {},
-    rockClimbingLeader: {},
+    rockClimbingInstructor: {
+        signoffs: [
+            "bookReviews",
+            "knots",
+            "maintenance",
+            "belays",
+            "usage",
+            "firstAid",
+            "rescueTechniques",
+            "logs",
+            "attitude",
+            "grade",
+            "leadClimbsSport",
+            "leadClimbsTrad",
+            "lowTraverse",
+            "protection",
+            "ascendRope"
+        ]
+    },
+    rockClimbingLeader: {
+        signoffs: [
+            "experience",
+            "supervisedInstruction",
+            "routeBooks",
+            "hoist",
+            "jams",
+            "abseiling"
+        ]
+    },
     running: {},
     service: {},
     serviceInstructor: {},

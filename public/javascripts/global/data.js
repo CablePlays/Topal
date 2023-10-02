@@ -79,24 +79,7 @@ const _AWARDS = {
     },
     kayaking: {
         name: "Kayaking",
-        description: "TODO",
-        signoffs: [
-            {
-                id: "signoffA",
-                name: "Signoff A",
-                description: "This is a description of signoff A."
-            },
-            {
-                id: "signoffB",
-                name: "Signoff B",
-                description: "This is a description of signoff B."
-            },
-            {
-                id: "signoffC",
-                name: "Signoff C",
-                description: "This is a description of signoff C."
-            }
-        ]
+        description: "TODO"
     },
     kayakingInstructor: {
         name: "Kayaking Instructor",
@@ -139,7 +122,7 @@ const _AWARDS = {
             {
                 id: "rescues",
                 name: "Rescue Procedures",
-                description: "You are knowledgeable of rescue procedures (attach summaries of previous rescues)."
+                description: "You are knowledgeable of rescue procedures (add links to summaries of previous rescues in the info block)."
             },
             {
                 id: "history",
@@ -356,12 +339,12 @@ const _AWARDS = {
                 id: "bookReviews",
                 name: "Book Reviews"
             }
-        ],  
+        ],
         signoffs: [
             {
                 id: "bookReviews",
                 name: "Book Reviews",
-                description: "Two book reviews on technical climbing. Attach the link to your reviews in the info block."
+                description: "Two book reviews on technical climbing. Add the link to your reviews in the info block."
             },
             {
                 id: "knots",
@@ -438,6 +421,12 @@ const _AWARDS = {
     rockClimbingLeader: {
         name: "Rock Climbing Leader",
         description: "TODO",
+        links: [
+            {
+                id: "motivation",
+                name: "Motivation"
+            }
+        ],
         signoffs: [
             {
                 id: "experience",
