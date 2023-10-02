@@ -638,9 +638,6 @@ const _PERMISSIONS = {
     },
     managePermissions: {
         name: "Manage Permissions"
-    },
-    viewAuditLog: {
-        name: "View Audit Log"
     }
 }
 

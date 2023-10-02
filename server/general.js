@@ -166,8 +166,7 @@ const LOG_TYPES = {
 
 const PERMISSIONS = [
     "manageAwards",
-    "managePermissions",
-    "viewAuditLog"
+    "managePermissions"
 ]
 
 /* Data */

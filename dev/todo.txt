@@ -5,7 +5,6 @@ Update footer to include credits, etc.
 > Pages
 
 Profile admin (for staff viewing student logs & signing off)
-Permissions
 Honors requirements
 List of all awards given to users
 
