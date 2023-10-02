@@ -3,11 +3,13 @@
 */
 
 const MOUNTAINEERING_DESCRIPTION = "Spend time hiking in mountainous areas and natural places. There are five hiking awards that you learner can achieve."
+const MOUNTAINEERING_AUTHORISED_STAFF = ["Mr Brown", "Mr Townsend"]
 
 const _AWARDS = {
     drakensberg: {
         name: "Drakensberg",
         description: MOUNTAINEERING_DESCRIPTION,
+        authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
         signoffs: [
             {
                 id: "tent",
@@ -80,6 +82,7 @@ const _AWARDS = {
     kayaking: {
         name: "Kayaking",
         description: "Travel down rivers on kayaks and other boats and develop skills which let you face technical waters.",
+        authorisedStaff: ["Mr Brown"],
         signoffs: [
             {
                 id: "timeTrials",
@@ -168,7 +171,8 @@ const _AWARDS = {
     },
     midmarMile: {
         name: "Midmar Mile",
-        description: "Take part in the Midmar Mile after training to make your times faster and faster."
+        description: "Take part in the Midmar Mile after training to make your times faster and faster.",
+        authorisedStaff: ["Mr Ndhlovu"]
     },
     midmarMileInstructor: {
         name: "Midmar Mile Instructor"
@@ -179,6 +183,7 @@ const _AWARDS = {
     mountaineeringInstructor: {
         name: "Mountaineering Instructor",
         description: MOUNTAINEERING_DESCRIPTION,
+        authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
         links: [
             {
                 id: "previousRescues",
@@ -220,11 +225,13 @@ const _AWARDS = {
     },
     mountaineeringLeader: {
         name: "Mountaineering Leader",
-        description: MOUNTAINEERING_DESCRIPTION
+        description: MOUNTAINEERING_DESCRIPTION,
+        authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
     },
     polarBear: {
         name: "Polar Bear",
-        description: "Created by Mr Neil Solomon and based on similar awards around the world, the Polar Bear challenge is a daring one which involves jumping into the school dam in the early morning once a week."
+        description: "Created by Mr Neil Solomon and based on similar awards around the world, the Polar Bear challenge is a daring one which involves jumping into the school dam in the early morning once a week.",
+        authorisedStaff: ["Mr Townsend"]
     },
     polarBearInstructor: {
         name: "Polar Bear Instructor"
@@ -235,6 +242,7 @@ const _AWARDS = {
     rockClimbing: {
         name: "Rock Climbing",
         description: "Learn to use various devices and techniques to climb rock faces.",
+        authorisedStaff: ["Mr Brown"],
         signoffs: [
             {
                 id: "threadedFigureEight",
@@ -541,7 +549,8 @@ const _AWARDS = {
     },
     service: {
         name: "Service",
-        description: "Give time and energy through serving others and build an awareness of others' needs."
+        description: "Give time and energy through serving others and build an awareness of others' needs.",
+        authorisedStaff: ["Mr Nowlan"],
     },
     serviceInstructor: {
         name: "Service Instructor"
@@ -551,7 +560,8 @@ const _AWARDS = {
     },
     solitaire: {
         name: "Solitaire",
-        description: "Learn to be alone in God's beautiful creation while making construcive use of your time."
+        description: "Learn to be alone in God's beautiful creation while making construcive use of your time.",
+        authorisedStaff: ["Ms Oosthuizen"]
     },
     solitaireInstructor: {
         name: "Solitaire Instructor"
@@ -562,6 +572,7 @@ const _AWARDS = {
     summit: {
         name: "Summit",
         description: MOUNTAINEERING_DESCRIPTION,
+        authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
         signoffs: [
             {
                 id: "hikingPreparedness",
@@ -583,6 +594,7 @@ const _AWARDS = {
     traverse: {
         name: "Traverse",
         description: MOUNTAINEERING_DESCRIPTION,
+        authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
         links: [
             {
                 id: "summary",
@@ -633,11 +645,19 @@ function getAwardName(awardId) {
 }
 
 function getAwardDescription(awardId) {
-    const description = _AWARDS[awardId].description
+    const { description } = _AWARDS[awardId]
     if (description) return description
 
-    const baseAward = awardId.replace("Instructor", "").replace("Leader", "")
+    const baseAward = getFirstLevelAward(awardId)
     return getAwardDescription(baseAward)
+}
+
+function getAwardAuthorisedStaff(awardId) {
+    const { authorisedStaff } = _AWARDS[awardId]
+    if (authorisedStaff) return authorisedStaff
+
+    const baseAward = getFirstLevelAward(awardId)
+    return (baseAward === awardId) ? null : getAwardAuthorisedStaff(baseAward)
 }
 
 function getAwardLinks(awardId) {
@@ -650,6 +670,10 @@ function getAwardSignoffs(awardId) {
 
 function isAward(awardId) {
     return _AWARDS[awardId] != null
+}
+
+function getFirstLevelAward(awardId) {
+    return awardId.replace("Instructor", "").replace("Leader", "")
 }
 
 function awardHasInstructor(awardId) {

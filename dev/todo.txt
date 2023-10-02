@@ -1,10 +1,13 @@
-Authorized staff for awards
 Finish signable log system
-Milestones on profile page (half colors, colors, honors)
-Page which displays logs of all user awards in order of date
 Recent awards on home page (make display accurate date)
 Update footer to include credits, etc.
-Honors requirements page
+
+> Pages
+
+Profile admin (for staff viewing student logs & signing off)
+Permissions
+Honors requirements
+List of all awards given to users
 
 > Profile Page Stats
 
@@ -14,6 +17,8 @@ OP points
 Running distance
 Paddling trips
 Midmar mile training distance
+
+Milestones
 
 > Variety Award Idea
 

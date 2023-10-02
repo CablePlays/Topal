@@ -458,6 +458,16 @@ function _displayStatus(awardId) {
     })
 }
 
+function _showAuthorisedStaff(awardId) {
+    const authorisedStaff = getAwardAuthorisedStaff(awardId)
+
+    if (authorisedStaff) {
+        const authorisedStaffElement = createElement("p", { t: "MIC's: " + authorisedStaff.join(", ") })
+        authorisedStaffElement.style["font-size"] = "14px"
+        appendInfo([authorisedStaffElement])
+    }
+}
+
 function setAward(awardId) {
     const awardName = getAwardName(awardId)
     byId("award-title").innerHTML = awardName + " Award"
@@ -471,4 +481,5 @@ function setAward(awardId) {
 
     _createSequelShortcuts(awardId)
     _generateSignoffs(awardId)
+    _showAuthorisedStaff(awardId)
 }
