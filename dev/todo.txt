@@ -1,34 +1,10 @@
+Authorized staff for awards
 Finish signable log system
 Milestones on profile page (half colors, colors, honors)
 Page which displays logs of all user awards in order of date
 Recent awards on home page (make display accurate date)
-Feature which allows students to signoff as agreement to responsibilities of an award
-Look into expanding links system to allow for other types of values (e.g. rock climbing times)
 Update footer to include credits, etc.
 Honors requirements page
-
-> Query
-
-Award descriptions
-TICs for each award
-"TIC" or "MIC"
-Should students be able to sign off agreeing to responsibilities of an award
-Do students have to provide small info items like rock climbing times
-
-> Awards
-
-Venture
-
-> Each Award Needs:
-
-Name
-Description
-Requirements
-Difficulty rating
-Skill level rating
-Authorised staff
-Signoffs
-Logs
 
 > Profile Page Stats
 

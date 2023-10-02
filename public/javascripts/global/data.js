@@ -2,12 +2,12 @@
     If description is excluded then uses description from first-level award.
 */
 
-const _MOUNTAINEERING_DESCRIPTION = "Spend time hiking in mountainous areas or natural places. There are five hiking awards that you learner can achieve."
+const MOUNTAINEERING_DESCRIPTION = "Spend time hiking in mountainous areas or natural places. There are five hiking awards that you learner can achieve."
 
 const _AWARDS = {
     drakensberg: {
         name: "Drakensberg",
-        description: _MOUNTAINEERING_DESCRIPTION,
+        description: MOUNTAINEERING_DESCRIPTION,
         signoffs: [
             {
                 id: "tent",
@@ -60,7 +60,7 @@ const _AWARDS = {
             {
                 id: "firstAid",
                 name: "First Aid Training",
-                description: "You have first aid training or your familiarity with endurance problems and their treatment satisfies the TIC."
+                description: "You have first aid training or your familiarity with endurance problems and their treatment satisfies the MIC."
             },
             {
                 id: "attitude",
@@ -79,7 +79,7 @@ const _AWARDS = {
     },
     kayaking: {
         name: "Kayaking",
-        description: "TODO",
+        description: "Travel down rivers on kayaks and other boats and develop skills which let you face technical waters.",
         signoffs: [
             {
                 id: "timeTrials",
@@ -104,7 +104,7 @@ const _AWARDS = {
             {
                 id: "riverStretch",
                 name: "River Stretch",
-                description: "Do one stretch of a river in a kayak over at least 10km. This section is to be determined by the TIC."
+                description: "Do one stretch of a river in a kayak over at least 10km. This section is to be determined by the MIC."
             },
             {
                 id: "theoryTest",
@@ -120,7 +120,6 @@ const _AWARDS = {
     },
     kayakingInstructor: {
         name: "Kayaking Instructor",
-        description: "TODO",
         signoffs: [
             {
                 id: "riverStretches",
@@ -145,7 +144,7 @@ const _AWARDS = {
             {
                 id: "book",
                 name: "Kayaking Book",
-                description: "Have read at least one book on kayaking/canoeing and be able to show a breadth of knowledge to the TIC in conversation as well as in your instruction of others."
+                description: "Have read at least one book on kayaking/canoeing and be able to show a breadth of knowledge to the MIC in conversation as well as in your instruction of others."
             },
             {
                 id: "equipmentMonitor",
@@ -165,12 +164,11 @@ const _AWARDS = {
         ]
     },
     kayakingLeader: {
-        name: "Kayaking Leader",
-        description: "TODO"
+        name: "Kayaking Leader"
     },
     midmarMile: {
         name: "Midmar Mile",
-        description: "TODO"
+        description: "Take part in the Midmar Mile after training to make your times faster and faster."
     },
     midmarMileInstructor: {
         name: "Midmar Mile Instructor"
@@ -180,7 +178,7 @@ const _AWARDS = {
     },
     mountaineeringInstructor: {
         name: "Mountaineering Instructor",
-        description: _MOUNTAINEERING_DESCRIPTION,
+        description: MOUNTAINEERING_DESCRIPTION,
         links: [
             {
                 id: "previousRescues",
@@ -222,11 +220,11 @@ const _AWARDS = {
     },
     mountaineeringLeader: {
         name: "Mountaineering Leader",
-        description: _MOUNTAINEERING_DESCRIPTION
+        description: MOUNTAINEERING_DESCRIPTION
     },
     polarBear: {
         name: "Polar Bear",
-        description: "Created by Mr Neil Solomon and based on similar awards around the world, the Polar Bear challenge is a daring one which involves jumping into the school dam early morning once a week."
+        description: "Created by Mr Neil Solomon and based on similar awards around the world, the Polar Bear challenge is a daring one which involves jumping into the school dam in the early morning once a week."
     },
     polarBearInstructor: {
         name: "Polar Bear Instructor"
@@ -236,7 +234,7 @@ const _AWARDS = {
     },
     rockClimbing: {
         name: "Rock Climbing",
-        description: "TODO",
+        description: "Learn to use various devices and techniques to climb rock faces.",
         signoffs: [
             {
                 id: "threadedFigureEight",
@@ -412,7 +410,6 @@ const _AWARDS = {
     },
     rockClimbingInstructor: {
         name: "Rock Climbing Instructor",
-        description: "TODO",
         links: [
             {
                 id: "bookReviews",
@@ -499,7 +496,6 @@ const _AWARDS = {
     },
     rockClimbingLeader: {
         name: "Rock Climbing Leader",
-        description: "TODO",
         links: [
             {
                 id: "motivation",
@@ -541,35 +537,31 @@ const _AWARDS = {
     },
     running: {
         name: "Running",
-        description: "Spend time on the trails and accumulate 100km of distance to earn this award. Every time you go for a run, log it so that your total distance increases. Once you've reached 100km, you will receive this award."
+        description: "Spend time on the trails and accumulate 100km of distance to earn this award. Log your runs to increase your total distance."
     },
     service: {
         name: "Service",
-        description: "TODO"
+        description: "Give time and energy through serving others and build an awareness of others' needs."
     },
     serviceInstructor: {
-        name: "Service Instructor",
-        description: "TODO"
+        name: "Service Instructor"
     },
     serviceLeader: {
-        name: "Service Leader",
-        description: "TODO"
+        name: "Service Leader"
     },
     solitaire: {
         name: "Solitaire",
-        description: "TODO"
+        description: "Learn to be alone in God's beautiful creation while making construcive use of your time."
     },
     solitaireInstructor: {
-        name: "Solitaire Instructor",
-        description: "TODO"
+        name: "Solitaire Instructor"
     },
     solitaireLeader: {
-        name: "Solitaire Leader",
-        description: "TODO"
+        name: "Solitaire Leader"
     },
     summit: {
         name: "Summit",
-        description: _MOUNTAINEERING_DESCRIPTION,
+        description: MOUNTAINEERING_DESCRIPTION,
         signoffs: [
             {
                 id: "hikingPreparedness",
@@ -590,7 +582,7 @@ const _AWARDS = {
     },
     traverse: {
         name: "Traverse",
-        description: _MOUNTAINEERING_DESCRIPTION,
+        description: MOUNTAINEERING_DESCRIPTION,
         links: [
             {
                 id: "summary",
@@ -616,7 +608,7 @@ const _AWARDS = {
     },
     venture: {
         name: "Venture",
-        description: "TODO",
+        description: "Develop the skills needed to think up, plan and lead a trip of adventure.",
         signoffs: [
             {
                 id: "proposalApproved",
@@ -625,8 +617,7 @@ const _AWARDS = {
         ]
     },
     ventureLeader: {
-        name: "Venture Leader",
-        description: "TODO"
+        name: "Venture Leader"
     }
 }
 
