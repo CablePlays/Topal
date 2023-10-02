@@ -4,6 +4,7 @@ const general = require("../server/general")
 const jsonDatabase = require("../server/json-database")
 const middleware = require("./middleware")
 
+const adminRouter = require("./admin")
 const awardsRouter = require("./awards")
 const profileRouter = require("./profile")
 
@@ -48,7 +49,7 @@ async function advancedRender(req, res, path, options) {
     }
 
     placeholders.displays = displays
-    placeholders.user = userId ? await general.getUserDetails(userId) : { id: 0 }
+    placeholders.user = userId ? await general.getUserInfo(userId) : { id: 0 }
 
     res.render(path, placeholders)
 }
@@ -107,6 +108,7 @@ router.get("/signin", middleware.requireLoggedOut, (req, res) => {
     res.ren("other/signin")
 })
 
+router.use("/admin", adminRouter)
 router.use("/awards", awardsRouter)
 router.use("/profile", profileRouter)
 

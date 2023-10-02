@@ -165,7 +165,8 @@ $border-radius: 8px;
                 }
             }
 
-            .date input {
+            .date input,
+            .time input {
                 border: 2px solid $border-color;
                 border-radius: $border-radius;
                 padding: 8px;

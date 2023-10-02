@@ -752,3 +752,97 @@ footer .treverton-link {
   position: absolute;
   width: min(150%, 120px);
 }
+
+#add-user {
+  align-items: center;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  transition: background-color 0.15s;
+}
+#add-user:hover {
+  background-color: rgb(240, 240, 240);
+  border: 2px dashed rgb(50, 50, 50);
+}
+#add-user .add-icon {
+  align-items: center;
+  background-color: rgb(210, 210, 210);
+  border-radius: 25px;
+  display: flex;
+  font-size: 50px;
+  height: 50px;
+  justify-content: center;
+  width: 50px;
+}
+
+#add-user-input input {
+  border: 2px solid rgb(50, 50, 50);
+  border-radius: 4px;
+  max-width: 500px;
+  outline: none;
+  padding: 8px;
+  width: 100%;
+}
+#add-user-input p.info {
+  font-size: 14px;
+}
+#add-user-input .row {
+  align-items: center;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  display: flex;
+}
+#add-user-input .row #add-button {
+  cursor: pointer;
+}
+
+#users {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+#users .user {
+  align-items: center;
+  border-radius: 4px;
+  display: flex;
+  padding: 8px;
+}
+#users .user:nth-child(odd) {
+  background-color: rgb(210, 210, 210);
+}
+#users .user:nth-child(even) {
+  background-color: rgb(230, 230, 230);
+}
+#users .user img {
+  border-radius: 30px;
+  height: 60px;
+  margin-right: 10px;
+  width: 60px;
+}
+#users .user input {
+  min-height: 20px;
+  min-width: 20px;
+}
+#users .user .email {
+  font-size: 12px;
+}
+#users .user .permissions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px 20px;
+  margin-left: 20px;
+  font-size: 14px;
+  width: 100%;
+}
+#users .user .permissions > div {
+  align-items: center;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  display: flex;
+}

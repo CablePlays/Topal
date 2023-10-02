@@ -1,3 +1,13 @@
+@mixin alternating-background($color-odd, $color-even) {
+    &:nth-child(odd) {
+        background-color: $color-odd;
+    }
+
+    &:nth-child(even) {
+        background-color: $color-even;
+    }
+}
+
 @mixin hover-grow() {
     transition: transform 0.2s;
 

@@ -35,7 +35,7 @@
         @include notice($color-warning);
     }
 
-    p {
+    .text-container {
         align-items: center;
         display: flex;
         min-height: 24px;

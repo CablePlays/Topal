@@ -14,7 +14,7 @@ router.use("/:userId", async (req, res, next) => { // verify user ID
     if (await sqlDatabase.isUser(profileUserId)) {
         req.targetUserId = parseInt(profileUserId)
         const { placeholders } = res
-        placeholders.profileUser = await general.getUserDetails(profileUserId)
+        placeholders.profileUser = await general.getUserInfo(profileUserId)
 
         // grade
         let grade = await general.getGrade(profileUserId)

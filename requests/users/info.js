@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.get("/", async (req, res) => { // get user info
     const { targetUserId } = req
-    const userInfo = await general.getUserDetails(targetUserId)
+    const userInfo = await general.getUserInfo(targetUserId)
     res.res(200, { info: userInfo })
 })
 
@@ -32,7 +32,7 @@ router.put("/", middleware.requireSelf, async (req, res) => { // set user info
         }
     }
 
-    const userInfo = await general.getUserDetails(targetUserId)
+    const userInfo = await general.getUserInfo(targetUserId)
     res.res(200, { info: userInfo })
 })
 

@@ -2,13 +2,53 @@ const express = require("express")
 const general = require("../../server/general")
 const jsonDatabase = require("../../server/json-database")
 const sqlDatabase = require("../../server/sql-database")
+const middleware = require("../middleware")
 
 const awardsRouter = require("./awards")
 const infoRouter = require("./info")
 const linksRouter = require("./links")
+const permissionsRouter = require("./permissions")
 const signoffsRouter = require("./signoffs")
 
 const router = express.Router()
+
+router.get("/permissions", middleware.getPermissionMiddleware("managePermissions"), async (req, res) => { // get users with permissions & their permissions
+    const users = await sqlDatabase.getUsers()
+    const permissionUsers = []
+    const asyncTasks = []
+
+    for (let userId of users) {
+        const permissions = jsonDatabase.getPermissions(userId, true)
+
+        if (permissions.any) {
+            const promise = general.getUserInfo(userId)
+            const obj = { permissions }
+
+            asyncTasks.push(promise)
+            promise.then(val => obj.info = val)
+            permissionUsers.push(obj)
+        }
+    }
+
+    await Promise.all(asyncTasks)
+    res.res(200, { users: permissionUsers })
+})
+
+router.get("/permissions/user", middleware.getPermissionMiddleware("managePermissions"), async (req, res) => { // get user permissions
+    const { email } = req.query
+    console.log(email)
+    const userId = await sqlDatabase.getUserId(email)
+    console.log(userId)
+
+    if (userId == null) {
+        res.res(400, "invalid_user")
+        return
+    }
+
+    const info = await general.getUserInfo(userId)
+    const permissions = jsonDatabase.getPermissions(userId)
+    res.res(200, { info, permissions })
+})
 
 router.get("/search", async (req, res) => { // search users using query
     const { query } = req
@@ -72,7 +112,7 @@ router.get("/search", async (req, res) => { // search users using query
         const userId = resultUserIds[i]
 
         asyncTasks.push(new Promise(async r => {
-            const { email, profilePicture, titleName } = await general.getUserDetails(userId)
+            const { email, profilePicture, titleName } = await general.getUserInfo(userId)
 
             results[i] = {
                 id: userId,
@@ -105,6 +145,7 @@ router.use("/:targetUserId", async (req, res, next) => { // verify target user
 targetUserRouter.use("/awards", awardsRouter)
 targetUserRouter.use("/info", infoRouter)
 targetUserRouter.use("/links", linksRouter)
+targetUserRouter.use("/permissions", permissionsRouter)
 targetUserRouter.use("/signoffs", signoffsRouter)
 
 module.exports = router

@@ -1,10 +1,9 @@
-/*
-    If description is excluded then uses description from first-level award.
-*/
-
 const MOUNTAINEERING_DESCRIPTION = "Spend time hiking in mountainous areas and natural places. There are five hiking awards that you learner can achieve."
 const MOUNTAINEERING_AUTHORISED_STAFF = ["Mr Brown", "Mr Townsend"]
 
+/*
+    If description is excluded then uses description from first-level award.
+*/
 const _AWARDS = {
     drakensberg: {
         name: "Drakensberg",
@@ -633,6 +632,18 @@ const _AWARDS = {
     }
 }
 
+const _PERMISSIONS = {
+    manageAwards: {
+        name: "Manage Awards"
+    },
+    managePermissions: {
+        name: "Manage Permissions"
+    },
+    viewAuditLog: {
+        name: "View Audit Log"
+    }
+}
+
 /*
     Returns a list of award IDs.
 */
@@ -682,4 +693,12 @@ function awardHasInstructor(awardId) {
 
 function awardHasLeader(awardId) {
     return _AWARDS[awardId + "Leader"] != null
+}
+
+function getPermissions() {
+    return Object.getOwnPropertyNames(_PERMISSIONS)
+}
+
+function getPermissionName(permissionId) {
+    return _PERMISSIONS[permissionId].name
 }

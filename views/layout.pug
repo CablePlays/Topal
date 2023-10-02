@@ -34,6 +34,8 @@ block body
           selectedLink = 3
         } else if (path === "/search") {
           selectedLink = 5
+        } else if (path === "/admin") {
+          selectedLink = 6
         } else if (isLoggedIn()) {
           const parts = path.split("/")
           if (parts[1] === "profile" && parts[2] == #{user.id}) selectedLink = 4
@@ -67,7 +69,7 @@ block body
     a(href="/search") Search
     a(href="/settings") Settings
     a(href=`/profile/${user.id}` style=`display: ${displays.loggedIn.true.block}`) Profile
-    //- a Admin
+    a(href=`/admin` style=`display: ${displays.permission.any.flex}`) Admin
     a.signin-link(style=`display: ${displays.loggedIn.false.block}`) Sign In
     button#logout-button(style=`display: ${displays.loggedIn.true.block}`) Sign Out
 

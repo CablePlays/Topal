@@ -222,8 +222,8 @@ function hasSublogs(logType) {
     return LOG_TYPES[logType].sublogs === true
 }
 
-function isPermission(permission) {
-    return PERMISSIONS.includes(permission)
+function isPermission(permissionId) {
+    return PERMISSIONS.includes(permissionId)
 }
 
 /* Users */
@@ -249,7 +249,7 @@ async function getGrade(userId) {
     return email && getGradeFromEmail(email)
 }
 
-async function getUserDetails(userId) {
+async function getUserInfo(userId) {
     const record = await sqlDatabase.get(`SELECT * FROM users WHERE id = "${userId}"`)
     if (record == null) return {}
 
@@ -284,13 +284,13 @@ async function provideUserInfoToStatus(status) {
     const { decline, signer } = status
 
     if (signer != null && await sqlDatabase.isUser(signer)) {
-        status.signer = await getUserDetails(signer)
+        status.signer = await getUserInfo(signer)
     }
     if (decline != null) {
         const { user } = decline
 
         if (user != null && await sqlDatabase.isUser(user)) {
-            decline.user = await getUserDetails(user)
+            decline.user = await getUserInfo(user)
         }
     }
 }
@@ -359,7 +359,7 @@ module.exports = {
     forEachAndWait,
     provideUserInfoToStatus,
     provideUserInfoToStatuses,
-    getUserDetails,
+    getUserInfo,
     getGrade,
     getGradeFromEmail
 }

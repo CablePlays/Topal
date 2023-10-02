@@ -12,7 +12,13 @@
         }
     },
     "users": {
-        "/search": {
+        "permissions": {
+            "GET": "Gets all users with permissions and their permissions",
+            "user": {
+                 "GET": "Get user permissions from email"
+            }
+        },
+        "search": {
             "GET": "Searches users with a query."
         },
         ":userId": {
@@ -51,6 +57,9 @@
                         "PUT": "Set/delete user link"
                     }
                 }
+            },
+            "permissions": {
+                "PUT": "Set user permissions"
             },
             "signoffs": {
                 ":awardId": {

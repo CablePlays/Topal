@@ -1,0 +1,17 @@
+extends ../layout
+
+block assets
+  link(rel='stylesheet' href='/stylesheets/pages/generic.css')
+
+block content
+  div.p16
+    h1 Admin Portal
+    p.limit-width Only users with permissions (usually staff) can view this page.
+
+    div(style=`display: ${displays.permission.managePermissions.block}`)
+      .spacer.v20
+      h2.heading Permissions Page
+      p.limit-width.
+        This page allows staff to manage the permissions of other users.
+        The <i>Manage Permissions</i> permission is required to view this page.
+      a(href="/admin/permissions") Go

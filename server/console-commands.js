@@ -26,7 +26,7 @@ const commands = {
             db.delete(path)
         }
 
-        const { fullName } = await general.getUserDetails(userId)
+        const { fullName } = await general.getUserInfo(userId)
         console.info(`${fullName} has ${has ? "been given" : "lost"} the permission ${permission}.`)
     }
 }

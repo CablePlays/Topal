@@ -65,10 +65,10 @@ function auditLogRecord(record) {
 
 /* Get Permissions */
 
-function getPermissions(userId) {
+function getPermissions(userId, raw) {
     const permissions = getUser(userId).get(PERMISSIONS_PATH) ?? {}
 
-    if (permissions.managePermissions === true) {
+    if (!raw && permissions.managePermissions === true) {
         permissions.manageAwards = true
         permissions.viewAuditLog = true
     }

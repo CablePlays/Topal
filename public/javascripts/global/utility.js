@@ -104,7 +104,8 @@ function createNotice(type, options) {
 
     const icon = (type === "success") ? "check_circle" : type
     createElement("div", { c: ["material-icons", "notice-type"], p: e, t: icon })
-    createElement("p", { p: e, t })
+    const textContainer = createElement("div", { c: "text-container", p: e }) // to prevent no spaces between inline elements
+    createElement("p", { p: textContainer, t })
     return e
 }
 
