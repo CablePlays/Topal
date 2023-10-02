@@ -30,6 +30,8 @@ h2 {
 
 ol,
 ul {
+    margin-left: 20px;
+
     &.spacious {
         >li:not(:first-child) {
             margin-top: 20px;

@@ -4,10 +4,6 @@ const path = require("path")
 
 const router = express.Router()
 
-router.get("/", (req, res) => {
-    res.ren("awards/awards")
-})
-
 router.get("/drakensberg", (req, res) => {
     res.ren("awards/mountaineering/drakensberg")
 })

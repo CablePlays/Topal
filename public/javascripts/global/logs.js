@@ -531,7 +531,123 @@ const _LOG_TYPES = {
                 }
             },
             {
-                name: "Description",
+                name: "Comments / Race Category",
+                display: {
+                    type: "text",
+                    value: "description"
+                },
+                input: {
+                    attribute: "description",
+                    type: "textLong"
+                }
+            }
+        ]
+    },
+    solitaire: {
+        items: [
+            {
+                name: "Date",
+                display: {
+                    type: "date"
+                },
+                input: {
+                    attribute: "date",
+                    type: "date"
+                }
+            },
+            {
+                name: "Location",
+                display: {
+                    type: "text",
+                    value: "location"
+                },
+                input: {
+                    attribute: "location",
+                    type: "textShort"
+                }
+            },
+            {
+                name: "Others Involved",
+                display: {
+                    type: "text",
+                    value: "others_involved"
+                },
+                input: {
+                    attribute: "others_involved",
+                    type: "textShort"
+                }
+            },
+            {
+                name: "Supervisors",
+                display: {
+                    type: "text",
+                    value: "supervisors"
+                },
+                input: {
+                    attribute: "supervisors",
+                    type: "textShort"
+                }
+            },
+            {
+                name: "What I Took With Me",
+                display: {
+                    type: "text",
+                    value: "items"
+                },
+                input: {
+                    attribute: "items",
+                    type: "textShort"
+                }
+            },
+            {
+                name: "The Experience Described In One Paragraph",
+                display: {
+                    type: "text",
+                    value: "experience"
+                },
+                input: {
+                    attribute: "experience",
+                    type: "textLong"
+                }
+            }
+        ]
+    },
+    solitaireInstructor: {
+        items: [
+            {
+                name: "Date",
+                display: {
+                    type: "date"
+                },
+                input: {
+                    attribute: "date",
+                    type: "date"
+                }
+            },
+            {
+                name: "Location",
+                display: {
+                    type: "text",
+                    value: "location"
+                },
+                input: {
+                    attribute: "location",
+                    type: "textShort"
+                }
+            },
+            {
+                name: "Group Supervised",
+                display: {
+                    type: "text",
+                    value: "group_supervised"
+                },
+                input: {
+                    attribute: "group_supervised",
+                    type: "textShort"
+                }
+            },
+            {
+                name: "Comments & Problems Overcome",
                 display: {
                     type: "text",
                     value: "description"
@@ -920,7 +1036,7 @@ function _createInputSection(options) {
             }
 
             if (missing) {
-                infoElement.innerHTML = "You are missing required fields!"
+                infoElement.innerHTML = "You are missing some things!"
                 return
             }
             if (edit) {

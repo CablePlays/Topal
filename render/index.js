@@ -9,8 +9,6 @@ const profileRouter = require("./profile")
 
 const router = express.Router()
 
-/* Middleware */
-
 async function advancedRender(req, res, path, options) {
     const { adminPage } = options ?? {}
     const loggedIn = cookies.isLoggedIn(req)
@@ -73,14 +71,16 @@ router.use("/", async (req, res, next) => { // verify login
     }
 })
 
-/* Get */
-
 router.get("/", (req, res) => {
     res.ren("other/home")
 })
 
 router.get("/about", (req, res) => {
     res.ren("other/about")
+})
+
+router.get("/awards", (req, res) => {
+    res.ren("other/awards")
 })
 
 router.get("/leaderboard", (req, res) => {
@@ -106,8 +106,6 @@ router.get("/settings", middleware.requireLoggedIn, (req, res) => {
 router.get("/signin", middleware.requireLoggedOut, (req, res) => {
     res.ren("other/signin")
 })
-
-/* Routers */
 
 router.use("/awards", awardsRouter)
 router.use("/profile", profileRouter)

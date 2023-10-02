@@ -1,4 +1,3 @@
-@import "../../global";
 @import "./profile-layout";
 
 $award-display-border-radius: 8px;
@@ -105,16 +104,13 @@ table#awards-display {
     }
 
     tr {
+        @include hover-grow();
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         transition: 0.2s;
 
         @media screen and (min-width: $awards-display-breakpoint) {
             display: table-row;
-        }
-
-        &:hover {
-            transform: scale(1.005);
         }
 
         &:nth-child(even) td {

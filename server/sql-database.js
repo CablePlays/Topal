@@ -125,8 +125,7 @@ function createTables() { // returns promise
 
         // solitaire
         c("solitaire_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, location TEXT NOT NULL, others_involved TEXT NOT NULL, supervisors TEXT NOT NULL, items TEXT NOT NULL, experience TEXT NOT NULL")
-        c("solitaire_instructor_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, location TEXT NOT NULL, groupSupervised TEXT NOT NULL, description TEXT NOT NULL")
-        c("solitaire_leader_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, location TEXT NOT NULL, groupSupervised TEXT NOT NULL, description TEXT NOT NULL")
+        c("solitaire_instructor_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, location TEXT NOT NULL, group_supervised TEXT NOT NULL, description TEXT NOT NULL")
     })
 
     return Promise.all(tasks)

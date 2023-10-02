@@ -1,0 +1,33 @@
+@import "../award-layout";
+
+.questions {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+
+    @media screen and (min-width: 950px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (min-width: 1200px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    >div {
+        @include hover-grow();
+        background-color: rgb(230, 230, 230);
+        border-radius: 8px;
+        padding: 16px;
+        transition: 0.2s;
+
+        &:hover {
+            transform: scale(1.005)
+        }
+    }
+
+    .letter-items {
+        display: grid;
+        gap: 10px 40px;
+        grid-template-columns: repeat(3, max-content);
+    }
+}
