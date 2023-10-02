@@ -47,12 +47,11 @@ block extra
 
 block script
   script.
-    setAward("traverse")
     createShortcut("Drakensberg Award", "right", () => location.href = "/awards/drakensberg")
     createShortcut("Summit Award", "right", () => location.href = "/awards/summit")
-    createShortcut("Mountaineering Instructor Award", "right", () => location.href = "/awards/mountaineering-instructor")
-    createShortcut("Mountaineering Leader Award", "right", () => location.href = "/awards/mountaineering-leader")
-    showLinks()
+    createShortcut("Instructor Award", "right", () => location.href = "/awards/mountaineering-instructor")
+    createShortcut("Leader Award", "right", () => location.href = "/awards/mountaineering-leader")
+    setAward("traverse")
     setDifficulty(3)
     setSkillLevel(3)
     showLogs("mountaineering")

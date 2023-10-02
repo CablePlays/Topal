@@ -2,7 +2,7 @@
     If description is excluded then uses description from first-level award.
 */
 
-const MOUNTAINEERING_DESCRIPTION = "Spend time hiking in mountainous areas or natural places. There are five hiking awards that you learner can achieve."
+const MOUNTAINEERING_DESCRIPTION = "Spend time hiking in mountainous areas and natural places. There are five hiking awards that you learner can achieve."
 
 const _AWARDS = {
     drakensberg: {

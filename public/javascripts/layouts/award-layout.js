@@ -2,8 +2,6 @@ const _BASIC_LINK_ID = "basic-link"
 const _INSTRUCTOR_LINK_ID = "instructor-link"
 const _LEADER_LINK_ID = "leader-link"
 
-let _awardId
-
 function _setRating(ratingId, val) {
     const ratingElement = byId(ratingId)
     const children = ratingElement.childNodes
@@ -47,98 +45,6 @@ function showPoints() {
         createElement("h3", { t: "Points" }),
         pointsDisplay
     ])
-}
-
-function showLinks() {
-    if (!isLoggedIn()) return
-
-    function createLinkDisplay(linkId, linkName, link) {
-        const container = createElement("div", { c: "link-group" })
-        createElement("h3", { p: container, t: linkName })
-
-        const icons = []
-
-        function showInput() {
-            icons.forEach(icon => icon.remove())
-
-            const inputContainer = createElement("div", { c: "link-input-container" })
-            container.insertAdjacentElement("afterend", inputContainer)
-
-            const urlInput = createElement("input", { p: inputContainer })
-            urlInput.type = "url"
-
-            const doneElement = createElement("div", {
-                c: "material-icons", p: inputContainer, t: "done", onClick: () => {
-                    const url = urlInput.value
-
-                    if (isValidUrl(url)) {
-                        inputContainer.remove()
-                        container.replaceWith(createLinkDisplay(linkId, linkName, url))
-                        putRequest(`/users/${getUserId()}/links/${_awardId}/${linkId}`, { link: url })
-                    }
-                }
-            })
-            doneElement.style.display = "none"
-
-            urlInput.addEventListener("input", () => {
-                doneElement.style.display = isValidUrl(urlInput.value) ? "block" : "none"
-            })
-        }
-
-        function handleLoadedLink(l) {
-            if (l == null) {
-                icons.push(createElement("div", {
-                    c: "material-icons", p: container, t: "add_circle", onClick: showInput
-                }))
-            } else {
-                icons.push(createElement("div", {
-                    c: "material-icons", p: container, t: "open_in_new", onClick: () => window.open(l, "_blank")
-                }))
-                icons.push(createElement("div", {
-                    c: ["emerge", "material-icons"], p: container, t: "edit", onClick: showInput
-                }))
-                icons.push(createElement("div", {
-                    c: ["emerge", "material-icons"], p: container, t: "delete", onClick: () => {
-                        container.replaceWith(createLinkDisplay(linkId, linkName, null))
-                        putRequest(`/users/${getUserId()}/links/${_awardId}/${linkId}`)
-                    }
-                }))
-            }
-        }
-
-        if (link instanceof Promise) {
-            const loadingElement = createElement("div", { c: "material-icons", p: container, t: LOADING_ICON_TEXT })
-            link.then(l => {
-                loadingElement.remove()
-                handleLoadedLink(l)
-            })
-        } else {
-            handleLoadedLink(link)
-        }
-
-        return container
-    }
-
-    const links = getAwardLinks(_awardId)
-    const appending = []
-    const userLinksPromise = new Promise(async r => {
-        const res = await getRequest(`/users/${getUserId()}/links`)
-        r(res.links[_awardId] ?? {})
-    })
-
-    for (let i = 0; i < links.length; i++) {
-        const { id, name } = links[i]
-        const linkPromise = new Promise(async r => {
-            const awardLinks = await userLinksPromise
-            r(awardLinks[id])
-        })
-
-        if (i > 0) appending.push(createSpacer(10))
-        const linkDisplayElement = createLinkDisplay(id, name, linkPromise)
-        appending.push(linkDisplayElement)
-    }
-
-    appendInfo(appending)
 }
 
 function createShortcut(text, arrowType, onClick) {
@@ -313,50 +219,131 @@ function _createSignoffElement(options) {
     return signoffElement
 }
 
-function setAward(awardId) {
-    _awardId = awardId
+function _showLinks(awardId) {
+    const links = getAwardLinks(awardId)
+    if (links == null) return
 
-    const awardName = getAwardName(awardId)
-    byId("award-title").innerHTML = awardName + " Award"
-    byId("award-info-title").innerHTML = awardName + " Info"
-    byId("award-description").innerHTML = getAwardDescription(awardId)
+    function createLinkDisplay(linkId, linkName, link) {
+        const container = createElement("div", { c: "link-group" })
+        createElement("h3", { p: container, t: linkName })
 
-    /* Sequel Shortcuts */
+        const icons = []
 
-    {
-        let baseAwardId = awardId
-        let sequelType
+        function showInput() {
+            icons.forEach(icon => icon.remove())
 
-        for (let s of ["Instructor", "Leader"]) {
-            if (awardId.endsWith(s)) {
-                baseAwardId = awardId.substring(0, awardId.length - s.length)
-                sequelType = s
-                break
+            const inputContainer = createElement("div", { c: "link-input-container" })
+            container.insertAdjacentElement("afterend", inputContainer)
+
+            const urlInput = createElement("input", { p: inputContainer })
+            urlInput.type = "url"
+
+            const doneElement = createElement("div", {
+                c: "material-icons", p: inputContainer, t: "done", onClick: () => {
+                    const url = urlInput.value
+
+                    if (isValidUrl(url)) {
+                        inputContainer.remove()
+                        container.replaceWith(createLinkDisplay(linkId, linkName, url))
+                        putRequest(`/users/${getUserId()}/links/${awardId}/${linkId}`, { link: url })
+                    }
+                }
+            })
+            doneElement.style.display = "none"
+
+            urlInput.addEventListener("input", () => {
+                doneElement.style.display = isValidUrl(urlInput.value) ? "block" : "none"
+            })
+        }
+
+        function handleLoadedLink(l) {
+            if (l == null) {
+                icons.push(createElement("div", {
+                    c: "material-icons", p: container, t: "add_circle", onClick: showInput
+                }))
+            } else {
+                icons.push(createElement("div", {
+                    c: "material-icons", p: container, t: "open_in_new", onClick: () => window.open(l, "_blank")
+                }))
+                icons.push(createElement("div", {
+                    c: ["emerge", "material-icons"], p: container, t: "edit", onClick: showInput
+                }))
+                icons.push(createElement("div", {
+                    c: ["emerge", "material-icons"], p: container, t: "delete", onClick: () => {
+                        container.replaceWith(createLinkDisplay(linkId, linkName, null))
+                        putRequest(`/users/${getUserId()}/links/${awardId}/${linkId}`)
+                    }
+                }))
             }
         }
 
-        const pathParts = location.pathname.split("/")
-        let pathRoot = ""
-
-        for (let i = 1; i < pathParts.length - 1; i++) { // start 1 -> skip blank
-            pathRoot += "/" + pathParts[i]
+        if (link instanceof Promise) {
+            const loadingElement = createElement("div", { c: "material-icons", p: container, t: LOADING_ICON_TEXT })
+            link.then(l => {
+                loadingElement.remove()
+                handleLoadedLink(l)
+            })
+        } else {
+            handleLoadedLink(link)
         }
 
-        const kebabBaseAwardId = pascalToKebab(baseAwardId)
+        return container
+    }
 
-        if (sequelType && isAward(baseAwardId)) {
-            createShortcut("Basic Award", "right", () => location.href = `${pathRoot}/${kebabBaseAwardId}`)
-        }
-        if (awardHasInstructor(baseAwardId) && sequelType !== "Instructor") {
-            createShortcut("Instructor Award", "right", () => location.href = `${pathRoot}/${kebabBaseAwardId}-instructor`)
-        }
-        if (awardHasLeader(baseAwardId) && sequelType !== "Leader") {
-            createShortcut("Leader Award", "right", () => location.href = `${pathRoot}/${kebabBaseAwardId}-leader`)
+    const appending = []
+    const userLinksPromise = new Promise(async r => {
+        const res = await getRequest(`/users/${getUserId()}/links`)
+        r(res.links[awardId] ?? {})
+    })
+
+    for (let i = 0; i < links.length; i++) {
+        const { id, name } = links[i]
+        const linkPromise = new Promise(async r => {
+            const awardLinks = await userLinksPromise
+            r(awardLinks[id])
+        })
+
+        if (i > 0) appending.push(createSpacer(10))
+        const linkDisplayElement = createLinkDisplay(id, name, linkPromise)
+        appending.push(linkDisplayElement)
+    }
+
+    appendInfo(appending)
+}
+
+function _createSequelShortcuts(awardId) {
+    let baseAwardId = awardId
+    let sequelType
+
+    for (let s of ["Instructor", "Leader"]) {
+        if (awardId.endsWith(s)) {
+            baseAwardId = awardId.substring(0, awardId.length - s.length)
+            sequelType = s
+            break
         }
     }
 
-    /* Signoffs */
+    const pathParts = location.pathname.split("/")
+    let pathRoot = ""
 
+    for (let i = 1; i < pathParts.length - 1; i++) { // start 1 -> skip blank
+        pathRoot += "/" + pathParts[i]
+    }
+
+    const kebabBaseAwardId = pascalToKebab(baseAwardId)
+
+    if (sequelType && isAward(baseAwardId)) {
+        createShortcut("Basic Award", "right", () => location.href = `${pathRoot}/${kebabBaseAwardId}`)
+    }
+    if (awardHasInstructor(baseAwardId) && sequelType !== "Instructor") {
+        createShortcut("Instructor Award", "right", () => location.href = `${pathRoot}/${kebabBaseAwardId}-instructor`)
+    }
+    if (awardHasLeader(baseAwardId) && sequelType !== "Leader") {
+        createShortcut("Leader Award", "right", () => location.href = `${pathRoot}/${kebabBaseAwardId}-leader`)
+    }
+}
+
+function _generateSignoffs(awardId) {
     const awardSignoffs = getAwardSignoffs(awardId)
 
     if (awardSignoffs) {
@@ -389,86 +376,99 @@ function setAward(awardId) {
         setVisible("signoffs-section")
         createShortcut("Signoffs", "down", () => signoffsElement.scrollIntoView({ behavior: "smooth" }))
     }
+}
 
-    /* Status */
+function _displayStatus(awardId) {
+    const awardStatus = byId("award-status")
+    awardStatus.children[0].innerHTML = LOADING_TEXT
+    setVisible(awardStatus)
+
+    /* Request */
+
+    const requestContainer = byId("request-container")
+
+    requestContainer.children[0].addEventListener("click", () => {
+        setVisible(requestContainer, false)
+        setVisible("decline-container", false)
+        setVisible("requested-container")
+        putRequest(`/users/${getUserId()}/awards/${awardId}/request-signoff`)
+    })
+
+    /* Requseted */
+
+    const requestedContainer = byId("requested-container")
+
+    requestedContainer.children[1].addEventListener("click", () => {
+        setVisible(requestedContainer, false)
+        setVisible("request-container")
+        putRequest(`/users/${getUserId()}/awards/${awardId}/cancel-request`)
+    })
+
+    getRequest(`/users/${getUserId()}/awards`).then(res => {
+        const { awards } = res
+        const { complete, date, decline, requestDate, signer } = awards[awardId] ?? {}
+
+        awardStatus.children[0].innerHTML = (complete ? "Complete" : "Incomplete")
+        awardStatus.children[1].innerHTML = (complete ? "check_box" : "check_box_outline_blank")
+
+        if (complete) {
+            const awardStatusInfo = byId("award-status-info")
+            awardStatusInfo.children[0].innerHTML = formatDate(date)
+            awardStatusInfo.children[1].innerHTML = "by " + signer.titleName
+            setVisible(awardStatusInfo)
+        } else if (requestDate) {
+            setVisible(requestedContainer)
+        } else {
+            setVisible(requestContainer)
+
+            /* Decline */
+
+            if (decline) {
+                const { date: declineDate, message: declineMessage, user: declineUser } = decline
+
+                const declineContainer = byId("decline-container")
+                const elements = declineContainer.children[1].children
+                elements[1].innerHTML = formatDate(declineDate)
+                elements[2].innerHTML = "by " + declineUser.titleName
+
+                if (declineMessage) {
+                    elements[3].innerHTML = `Reason: "${declineMessage}"`
+                }
+
+                let declineOpen = false
+
+                declineContainer.addEventListener("click", () => {
+                    declineOpen = !declineOpen
+
+                    if (declineOpen) {
+                        declineContainer.classList.add("open")
+                    } else {
+                        declineContainer.classList.remove("open")
+                    }
+                })
+
+                elements[5].addEventListener("click", () => {
+                    declineContainer.remove()
+                    putRequest(`/users/${getUserId()}/awards/${awardId}/clear-decline`)
+                })
+
+                setVisible(declineContainer)
+            }
+        }
+    })
+}
+
+function setAward(awardId) {
+    const awardName = getAwardName(awardId)
+    byId("award-title").innerHTML = awardName + " Award"
+    byId("award-info-title").innerHTML = awardName + " Info"
+    byId("award-description").innerHTML = getAwardDescription(awardId)
 
     if (isLoggedIn()) {
-        const awardStatus = byId("award-status")
-        awardStatus.children[0].innerHTML = LOADING_TEXT
-        setVisible(awardStatus)
-
-        /* Request */
-
-        const requestContainer = byId("request-container")
-
-        requestContainer.children[0].addEventListener("click", () => {
-            setVisible(requestContainer, false)
-            setVisible("decline-container", false)
-            setVisible("requested-container")
-            putRequest(`/users/${getUserId()}/awards/${awardId}/request-signoff`)
-        })
-
-        /* Requseted */
-
-        const requestedContainer = byId("requested-container")
-
-        requestedContainer.children[1].addEventListener("click", () => {
-            setVisible(requestedContainer, false)
-            setVisible("request-container")
-            putRequest(`/users/${getUserId()}/awards/${awardId}/cancel-request`)
-        })
-
-        getRequest(`/users/${getUserId()}/awards`).then(res => {
-            const { awards } = res
-            const { complete, date, decline, requestDate, signer } = awards[awardId] ?? {}
-
-            awardStatus.children[0].innerHTML = (complete ? "Complete" : "Incomplete")
-            awardStatus.children[1].innerHTML = (complete ? "check_box" : "check_box_outline_blank")
-
-            if (complete) {
-                const awardStatusInfo = byId("award-status-info")
-                awardStatusInfo.children[0].innerHTML = formatDate(date)
-                awardStatusInfo.children[1].innerHTML = "by " + signer.titleName
-                setVisible(awardStatusInfo)
-            } else if (requestDate) {
-                setVisible(requestedContainer)
-            } else {
-                setVisible(requestContainer)
-
-                /* Decline */
-
-                if (decline) {
-                    const { date: declineDate, message: declineMessage, user: declineUser } = decline
-
-                    const declineContainer = byId("decline-container")
-                    const elements = declineContainer.children[1].children
-                    elements[1].innerHTML = formatDate(declineDate)
-                    elements[2].innerHTML = "by " + declineUser.titleName
-
-                    if (declineMessage) {
-                        elements[3].innerHTML = `Reason: "${declineMessage}"`
-                    }
-
-                    let declineOpen = false
-
-                    declineContainer.addEventListener("click", () => {
-                        declineOpen = !declineOpen
-
-                        if (declineOpen) {
-                            declineContainer.classList.add("open")
-                        } else {
-                            declineContainer.classList.remove("open")
-                        }
-                    })
-
-                    elements[5].addEventListener("click", () => {
-                        declineContainer.remove()
-                        putRequest(`/users/${getUserId()}/awards/${awardId}/clear-decline`)
-                    })
-
-                    setVisible(declineContainer)
-                }
-            }
-        })
+        _displayStatus(awardId)
+        _showLinks(awardId)
     }
+
+    _createSequelShortcuts(awardId)
+    _generateSignoffs(awardId)
 }

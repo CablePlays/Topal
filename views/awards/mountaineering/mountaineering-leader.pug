@@ -22,10 +22,10 @@ block requirements
 
 block script
   script.
-    setAward("mountaineeringLeader")
     createShortcut("Drakensberg Award", "right", () => location.href = "/awards/drakensberg")
     createShortcut("Summit Award", "right", () => location.href = "/awards/summit")
     createShortcut("Traverse Award", "right", () => location.href = "/awards/traverse")
+    setAward("mountaineeringLeader")
     setDifficulty(3)
     setSkillLevel(4)
     showLogs("mountaineering")
