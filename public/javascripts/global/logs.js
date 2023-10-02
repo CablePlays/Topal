@@ -160,7 +160,7 @@ const _LOG_TYPES = {
                 name: "Number of Days",
                 display: {
                     type: "text",
-                    value: log => log.days + " day" + (log.days === 1 ? "" : "s")
+                    value: log => log.days + " day" + (log.days == 1 ? "" : "s")
                 },
                 input: {
                     attribute: "days",
@@ -435,6 +435,60 @@ const _LOG_TYPES = {
             }
         ]
     },
+    rockClimbingInstruction: {
+        signable: true,
+        items: [
+            {
+                name: "Date",
+                display: {
+                    type: "date"
+                },
+                input: {
+                    attribute: "date",
+                    type: "date"
+                }
+            },
+            {
+                name: "Duration",
+                display: {
+                    type: "text",
+                    value: log => formatDuration(log.duration)
+                },
+                input: {
+                    attribute: "duration",
+                    type: "duration"
+                }
+            },
+            {
+                name: "Number Of Climbers",
+                display: {
+                    type: "text",
+                    value: log => log.climbers + " climber" + (log.climbers == 1 ? "" : "s")
+                },
+                input: {
+                    attribute: "climbers",
+                    type: "slider",
+                    slider: {
+                        min: 1,
+                        max: 4,
+                        value: 1,
+                        display: v => v + " climber" + (v === 1 ? "" : "s")
+                    }
+                }
+            },
+            {
+                name: "Location",
+                display: {
+                    type: "text",
+                    value: "location"
+                },
+                input: {
+                    attribute: "location",
+                    type: "textShort"
+                }
+            }
+        ]
+    },
     running: {
         items: [
             {
@@ -506,7 +560,7 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
     const displaySectionElement = createElement("div", { c: ["log", "display"] })
     const itemsContainer = createElement("div", { c: "items", p: displaySectionElement })
 
-    const { items } = _LOG_TYPES[logType]
+    const { items, signable } = _LOG_TYPES[logType]
 
     let idPromiseResolve
     const idPromise = new Promise(r => idPromiseResolve = r)
@@ -564,6 +618,20 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
                 createElement("p", { p: itemElement, t: displayValue })
                 break
             }
+        }
+    }
+
+    if (signable) {
+        const signElement = createElement("div", { c: "item", p: itemsContainer })
+
+        if (viewOnly) { // can sign
+            if (!log.signer) { // not signed
+                createElement("h3", { p: signElement, t: "Sign" })
+                createElement("button", { p: signElement, t: "Sign Off" })
+            }
+        } else {
+            createElement("h3", { p: signElement, t: "Signed" })
+            createElement("p", { p: signElement, t: log.signer ? "Yes" : "No" })
         }
     }
 

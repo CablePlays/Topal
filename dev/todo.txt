@@ -1,14 +1,14 @@
-Compress search banner image
+Finish signable log system
 Milestones on profile page (half colors, colors, honors)
 Page which displays logs of all user awards in order of date
 Recent awards on home page (make display accurate date)
 Feature which allows students to signoff as agreement to responsibilities of an award
+Look into expanding links system to allow for other types of values (e.g. rock climbing times)
 Update footer to include credits, etc.
 
 > Awards
 
 Kayaking
-Rock Climbing
 Service
 Solitaire
 Venture

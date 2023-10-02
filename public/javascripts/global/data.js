@@ -128,8 +128,8 @@ const _AWARDS = {
         signoffs: [
             {
                 id: "firstAid",
-                name: "Wilderness First Aid",
-                description: "You have a valid wilderness first aid and CPR certification."
+                name: "First Aid",
+                description: "Valid wilderness first aid and CPR (level 3)."
             },
             {
                 id: "leading",
@@ -350,11 +350,126 @@ const _AWARDS = {
     },
     rockClimbingInstructor: {
         name: "Rock Climbing Instructor",
-        description: "TODO"
+        description: "TODO",
+        links: [
+            {
+                id: "bookReviews",
+                name: "Book Reviews"
+            }
+        ],  
+        signoffs: [
+            {
+                id: "bookReviews",
+                name: "Book Reviews",
+                description: "Two book reviews on technical climbing. Attach the link to your reviews in the info block."
+            },
+            {
+                id: "knots",
+                name: "Knots",
+                description: "Demonstrate the use and ability of tying the following knots: MR8, clove hitch, Italian hitch, butterfly knot."
+            },
+            {
+                id: "maintenance",
+                name: "Maintenance & Care",
+                description: "Maintenance and care of equipment."
+            },
+            {
+                id: "belays",
+                name: "Belays",
+                description: "Set up at least three different belays at different locations, with anchors."
+            },
+            {
+                id: "usage",
+                name: "Correct Usage",
+                description: "Demonstrate the correct and safe use of the following devices: chocks, nuts, wedges, friends and any other protection device(s)."
+            },
+            {
+                id: "firstAid",
+                name: "First Aid",
+                description: "Valid wilderness first aid and CPR (level 3)."
+            },
+            {
+                id: "rescueTechniques",
+                name: "Rescue Techniques",
+                description: "Solve problems by performing a lower and demonstrate the ability to get into and out of a system (using direct and indirect belay systems)."
+            },
+            {
+                id: "logs",
+                name: "Logs",
+                description: "Maintenance of a clear log of climbs and instruction time."
+            },
+            {
+                id: "attitude",
+                name: "Correct Attitude",
+                description: "Responsibility, ability, helpfulness."
+            },
+            {
+                id: "grade",
+                name: "Climbing Grade",
+                description: "Practical climbing grade 16+ with sport climbing (minimum of 10 different climbs at two different locations)."
+            },
+            {
+                id: "leadClimbsSport",
+                name: "Lead Climbs (Sport)",
+                description: "Protected lead climbs on rock placing protection (Sport) (at least 10 different climbs)"
+            },
+            {
+                id: "leadClimbsTrad",
+                name: "Lead Climbs (Trad)",
+                description: "Protected lead climbs on rock placing protection (Trad) (at least 3 different climbs)"
+            },
+            {
+                id: "lowTraverse",
+                name: "Low Traverse",
+                description: "Low traverse on outside wall in less 45 seconds (record time)."
+            },
+            {
+                id: "protection",
+                name: "Climbs Protection",
+                description: "Practical protection of climbs and setting up of multiple belays (e.g. set up and use top-top rope systems and bottom-top rope systems with anchors)."
+            },
+            {
+                id: "ascendRope",
+                name: "Ascend Rope",
+                description: "Demonstrate the ability to ascend a rope by using prussic."
+            }
+        ]
     },
     rockClimbingLeader: {
         name: "Rock Climbing Leader",
-        description: "TODO"
+        description: "TODO",
+        signoffs: [
+            {
+                id: "experience",
+                name: "Experience & Attitude",
+                description: "You have considerable experience in instructing and lead climbing, and show an attitude of service towards rock climbing and Outdoor Pursuits in general."
+            },
+            {
+                id: "supervisedInstruction",
+                name: "Instruction & Climbs",
+                description: "At least 25 hours of <b>supervised</b> instruction and a minimum of 30 climbs must be logged."
+            },
+            {
+                id: "routeBooks",
+                name: "Route Book Descriptions",
+                description: "Demonstrate the ability to read and interpret route book descriptions."
+            },
+            {
+                id: "hoist",
+                name: "Hoists",
+                description: "Demonstrate an assisted and unassisted hoist."
+            },
+            {
+                id: "jams",
+                name: "Jams, Tangles & Pendulums",
+                description: "Demonstrate the ability to handle jams, tangles and pendulums."
+            },
+            {
+                id: "abseiling",
+                name: "Abseiling",
+                description: "Demonstrate ability to set-up a releasable abseil and supervise a group abseiling."
+            }
+        ]
     },
     running: {
         name: "Running",

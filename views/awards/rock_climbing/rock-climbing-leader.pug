@@ -3,12 +3,24 @@ extends ../award-layout
 block assets
   link(rel="stylesheet" href="/stylesheets/pages/generic.css")
 
+block top
+  div
+    p.
+      To award experience, achievement and leadership in Rock Climbing.
+      A Rock Climbing Leader is someone who leads by example and who has a depth of knowledge and love for rock climbing.
+      An appreciation of wilderness and a real care for the environment is an important attribute of such a leader.
+    
+    .spacer.v20
+
+    .notice(data-type="success") Leaders will be fully competent to take a group climbing without staff supervision provided they meet the following requirements.
+
 block requirements
-  p TODO
+  ol.spacious
+    li Have all the necessary signoffs.
 
 block script
   script.
     setAward("rockClimbingLeader")
     setDifficulty(4)
     setSkillLevel(4)
-    showLogs("rockClimbingInstruction")
+    showLogs("rockClimbingInstruction", "rockClimbing")

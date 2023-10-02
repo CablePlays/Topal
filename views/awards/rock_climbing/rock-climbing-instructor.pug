@@ -3,12 +3,32 @@ extends ../award-layout
 block assets
   link(rel="stylesheet" href="/stylesheets/pages/generic.css")
 
+block top
+  p.
+    A full Rock Climbing Instructor will need to transfer his or her knowledge to real rock face conditions.
+    The theory test will include everything in the rock climbing section of <i>Reach Beyond</i> and additional knowledge
+    acquired from further reading - source of much of the instructor's knowledge.
+
 block requirements
-  p TODO
+  ol.spacious
+    li Have all the necessary signoffs.
+
+block extra
+  div
+    h2.heading Book Review Template
+
+    .spacer.v20
+
+    ol
+      li Author(s)
+      li Title
+      li Review of book (cover, contents, characters, techniques, setting, etc.)
+      li What I learned as a climber from reading this book
 
 block script
   script.
     setAward("rockClimbingInstructor")
+    showLinks()
     setDifficulty(4)
     setSkillLevel(4)
-    showLogs("rockClimbingInstruction")
+    showLogs("rockClimbingInstruction", "rockClimbing")
