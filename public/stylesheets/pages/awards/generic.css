@@ -758,6 +758,35 @@ footer .treverton-link {
   row-gap: 40px;
 }
 
+.cards {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+}
+@media screen and (min-width: 950px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (min-width: 1200px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.cards > div {
+  transition: transform 0.2s;
+  border: 2px dashed rgb(50, 50, 50);
+  border-radius: 8px;
+  padding: 16px;
+  transition: 0.2s;
+}
+.cards > div:hover {
+  transform: scale(1.005);
+}
+.cards > div:hover {
+  transform: scale(1.005);
+}
+
 .col-container {
   display: grid;
   grid-template-columns: 1fr;

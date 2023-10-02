@@ -158,6 +158,7 @@ function createShortcut(text, arrowType, onClick) {
 
 function showLogs(...logTypes) {
     const logsSection = byId("logs-section")
+    setVisible(logsSection)
 
     for (let logType of logTypes) {
         const logTypeContainer = createElement("div", { p: logsSection })

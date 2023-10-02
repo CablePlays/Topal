@@ -5,6 +5,7 @@ Recent awards on home page (make display accurate date)
 Feature which allows students to signoff as agreement to responsibilities of an award
 Look into expanding links system to allow for other types of values (e.g. rock climbing times)
 Update footer to include credits, etc.
+Honors requirements page
 
 > Query
 

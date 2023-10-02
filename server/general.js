@@ -133,7 +133,9 @@ const AWARDS = {
         links: ["hikePlan", "summary"],
         signoffs: ["hikePlan", "summary"]
     },
-    venture: {},
+    venture: {
+        signoffs: ["proposalApproved"]
+    },
     ventureLeader: {}
 }
 

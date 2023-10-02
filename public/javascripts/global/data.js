@@ -616,7 +616,13 @@ const _AWARDS = {
     },
     venture: {
         name: "Venture",
-        description: "TODO"
+        description: "TODO",
+        signoffs: [
+            {
+                id: "proposalApproved",
+                name: "Venture Award Proposal Approved"
+            }
+        ]
     },
     ventureLeader: {
         name: "Venture Leader",

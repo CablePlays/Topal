@@ -1,7 +1,15 @@
 extends ../award-layout
 
 block assets
-  link(rel="stylesheet" href="/stylesheets/pages/awards/solitaire/solitaire.css")
+  link(rel="stylesheet" href="/stylesheets/pages/awards/generic.css")
+
+block style
+  style.
+    .letter-items {
+      display: grid;
+      gap: 10px 40px;
+      grid-template-columns: repeat(3, max-content);
+    }
 
 block top
   div
@@ -64,7 +72,7 @@ block extra
       li Watch
       li Reading material (except a Bible)
       li Cell phone, iPod/MP3 player or any other distraction
-  
+
 block out
   div.plr16
     h2.heading Solitaire Questionnaire
@@ -72,10 +80,10 @@ block out
       Make use of this opportunity to the best of your ability.
       Do not be tempted to cheat as you only cheat yourself in the end.
       Here are some questions to help you focus on things other than hunger or boredom.
-    
+
     .spacer.v20
 
-    .questions
+    .cards
       div
         h3 Family
         .spacer.v20
