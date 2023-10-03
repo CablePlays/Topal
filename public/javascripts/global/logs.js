@@ -1421,7 +1421,9 @@ function createLogDisplay(options) {
 
     if (parentLogId && sublogs) { // requires no loading
         if (sublogs.length === 0) {
-            createElement("p", { p: logDisplayElement, t: NONE_TEXT })
+            if (viewOnly) {
+                createElement("p", { p: logDisplayElement, t: NONE_TEXT })
+            }
         } else {
             for (let log of sublogs.reverse()) {
                 const logElement = _createDisplaySection({ log, logType, parentLogId, viewOnly })
@@ -1440,12 +1442,13 @@ function createLogDisplay(options) {
 
         promise.then(res => {
             const { logs } = res
+            loadingElement.remove()
 
             if (logs.length === 0) {
-                loadingElement.replaceWith(createElement("p", { t: NONE_TEXT }))
+                if (viewOnly) {
+                    createElement("p", { p: logDisplayElement, t: NONE_TEXT })
+                }
             } else {
-                loadingElement.remove()
-
                 for (let log of logs.reverse()) {
                     const logElement = _createDisplaySection({ logType, log, viewOnly })
                     logDisplayElement.appendChild(logElement)
