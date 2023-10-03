@@ -30,23 +30,6 @@ function appendInfo(elements) {
     }
 }
 
-function showPoints() {
-    const points = new Promise(r => {
-        setTimeout(() => r(263), 1000) // TODO: get points
-    })
-
-    const pointsDisplay = createElement("p", { t: LOADING_TEXT })
-
-    points.then(val => {
-        pointsDisplay.innerHTML = val + " point" + (val === 1 ? "" : "s")
-    })
-
-    appendInfo([
-        createElement("h3", { t: "Points" }),
-        pointsDisplay
-    ])
-}
-
 function createShortcut(text, arrowType, onClick) {
     const linksElement = byId("award-links")
     const container = createElement("div", { p: linksElement, onClick })
@@ -60,25 +43,6 @@ function createShortcut(text, arrowType, onClick) {
 
     createElement("p", { p: container, t: text })
     createElement("div", { c: "material-icons", p: container, t: icon })
-}
-
-function showLogs(...logTypes) {
-    const logsSection = byId("logs-section")
-    setVisible(logsSection)
-
-    for (let logType of logTypes) {
-        const logTypeContainer = createElement("div", { p: logsSection })
-
-        const name = getLogTypeName(logType) + " Logs"
-        const headingElement = createElement("h2", { c: ["heading", "pl16"], p: logTypeContainer, t: name })
-
-        createSpacer(20, { p: logTypeContainer })
-
-        const logDisplay = createLogDisplay({ logType, viewOnly: false })
-        logTypeContainer.appendChild(logDisplay)
-
-        createShortcut(name, "down", () => headingElement.scrollIntoView({ behavior: "smooth" }))
-    }
 }
 
 function _createSignoffElement(options) {
@@ -343,6 +307,16 @@ function _createSequelShortcuts(awardId) {
     }
 }
 
+function _showAuthorisedStaff(awardId) {
+    const authorisedStaff = getAwardAuthorisedStaff(awardId)
+
+    if (authorisedStaff) {
+        const authorisedStaffElement = createElement("p", { t: "MIC's: " + authorisedStaff.join(", ") })
+        authorisedStaffElement.style["font-size"] = "14px"
+        appendInfo([authorisedStaffElement])
+    }
+}
+
 function _generateSignoffs(awardId) {
     const awardSignoffs = getAwardSignoffs(awardId)
 
@@ -448,7 +422,7 @@ function _displayStatus(awardId) {
                 })
 
                 elements[5].addEventListener("click", () => {
-                    declineContainer.remove()
+                    setVisible(declineContainer, false)
                     putRequest(`/users/${getUserId()}/awards/${awardId}/clear-decline`)
                 })
 
@@ -458,13 +432,25 @@ function _displayStatus(awardId) {
     })
 }
 
-function _showAuthorisedStaff(awardId) {
-    const authorisedStaff = getAwardAuthorisedStaff(awardId)
+function _showLogs(awardId) {
+    const logTypes = getAwardLogTypes(awardId)
+    if (logTypes == null) return
 
-    if (authorisedStaff) {
-        const authorisedStaffElement = createElement("p", { t: "MIC's: " + authorisedStaff.join(", ") })
-        authorisedStaffElement.style["font-size"] = "14px"
-        appendInfo([authorisedStaffElement])
+    const logsSection = byId("logs-section")
+    setVisible(logsSection)
+
+    for (let logType of logTypes) {
+        const logTypeContainer = createElement("div", { p: logsSection })
+
+        const name = getLogTypeName(logType) + " Logs"
+        const headingElement = createElement("h2", { c: ["heading", "pl16"], p: logTypeContainer, t: name })
+
+        createSpacer(20, { p: logTypeContainer })
+
+        const logDisplay = createLogDisplay({ logType, viewOnly: false })
+        logTypeContainer.appendChild(logDisplay)
+
+        createShortcut(name, "down", () => headingElement.scrollIntoView({ behavior: "smooth" }))
     }
 }
 
@@ -480,6 +466,7 @@ function setAward(awardId) {
     }
 
     _createSequelShortcuts(awardId)
-    _generateSignoffs(awardId)
     _showAuthorisedStaff(awardId)
+    _generateSignoffs(awardId)
+    _showLogs(awardId)
 }

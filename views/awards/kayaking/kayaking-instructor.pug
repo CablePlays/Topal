@@ -1,4 +1,7 @@
-extends ./kayaking-layout
+extends ../award-layout
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/awards/generic.css")
 
 block requirements
   ol.spacious
@@ -18,7 +21,7 @@ block extra
       li Maintenance of the kayaking inventory as a duty monitor at the boat shed.
       li Develop your own skills as a kayaker and thus to teach by example.
 
-block s
+block script
   script.
     setAward("kayakingInstructor")
     setDifficulty(1)

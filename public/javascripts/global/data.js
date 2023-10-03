@@ -9,6 +9,7 @@ const _AWARDS = {
         name: "Drakensberg",
         description: MOUNTAINEERING_DESCRIPTION,
         authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
+        logTypes: ["mountaineering"],
         signoffs: [
             {
                 id: "tent",
@@ -33,10 +34,12 @@ const _AWARDS = {
     },
     endurance: {
         name: "Endurance",
-        description: "The Endurance Award recognizes achievement in road/trail running, adventure racing, competing in a multisport race, triathlon, mountain bike races, horse riding and canoeing."
+        description: "The Endurance Award recognizes achievement in road/trail running, adventure racing, competing in a multisport race, triathlon, mountain bike races, horse riding and canoeing.",
+        logTypes: ["endurance"]
     },
     enduranceInstructor: {
         name: "Endurance Instructor",
+        logTypes: ["endurance"],
         signoffs: [
             {
                 id: "achievedTwice",
@@ -76,12 +79,14 @@ const _AWARDS = {
         ]
     },
     enduranceLeader: {
-        name: "Endurance Leader"
+        name: "Endurance Leader",
+        logTypes: ["endurance"]
     },
     kayaking: {
         name: "Kayaking",
         description: "Travel down rivers on kayaks and other boats and develop skills which let you face technical waters.",
         authorisedStaff: ["Mr Brown"],
+        logTypes: ["flatWaterPaddling", "riverTrip"],
         signoffs: [
             {
                 id: "timeTrials",
@@ -122,6 +127,7 @@ const _AWARDS = {
     },
     kayakingInstructor: {
         name: "Kayaking Instructor",
+        logTypes: ["flatWaterPaddling", "riverTrip"],
         signoffs: [
             {
                 id: "riverStretches",
@@ -166,23 +172,28 @@ const _AWARDS = {
         ]
     },
     kayakingLeader: {
-        name: "Kayaking Leader"
+        name: "Kayaking Leader",
+        logTypes: ["flatWaterPaddling", "riverTrip"]
     },
     midmarMile: {
         name: "Midmar Mile",
         description: "Take part in the Midmar Mile after training to make your times faster and faster.",
-        authorisedStaff: ["Mr Ndhlovu"]
+        authorisedStaff: ["Mr Ndhlovu"],
+        logTypes: ["midmarMileTraining"]
     },
     midmarMileInstructor: {
-        name: "Midmar Mile Instructor"
+        name: "Midmar Mile Instructor",
+        logTypes: ["midmarMileTraining"]
     },
     midmarMileLeader: {
-        name: "Midmar Mile Leader"
+        name: "Midmar Mile Leader",
+        logTypes: ["midmarMileTraining"]
     },
     mountaineeringInstructor: {
         name: "Mountaineering Instructor",
         description: MOUNTAINEERING_DESCRIPTION,
         authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
+        logTypes: ["mountaineering"],
         links: [
             {
                 id: "previousRescues",
@@ -226,6 +237,7 @@ const _AWARDS = {
         name: "Mountaineering Leader",
         description: MOUNTAINEERING_DESCRIPTION,
         authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
+        logTypes: ["mountaineering"],
     },
     polarBear: {
         name: "Polar Bear",
@@ -242,6 +254,7 @@ const _AWARDS = {
         name: "Rock Climbing",
         description: "Learn to use various devices and techniques to climb rock faces.",
         authorisedStaff: ["Mr Brown"],
+        logTypes: ["rockClimbing"],
         signoffs: [
             {
                 id: "threadedFigureEight",
@@ -286,7 +299,7 @@ const _AWARDS = {
             {
                 id: "ropeUsage",
                 name: "Rope Usage",
-                description: "Rope usage - 9mm, 11mm; static, dynamic"
+                description: "Rope usage - 9mm, 11mm; static, dynamic."
             },
             {
                 id: "ropeCoiling",
@@ -295,7 +308,7 @@ const _AWARDS = {
             {
                 id: "ropeCare",
                 name: "Rope Care",
-                description: "Rope care (sun, sand, abrasion)"
+                description: "Rope care (sun, sand, abrasion)."
             },
             {
                 id: "belayingAtc",
@@ -304,7 +317,7 @@ const _AWARDS = {
             {
                 id: "belayingFigureEight",
                 name: "Belaying - Figure Of Eight",
-                description: "Figure of eight (11mm & 9mm ropes)"
+                description: "Figure of eight (11mm & 9mm ropes)."
             },
             {
                 id: "grigri",
@@ -417,6 +430,7 @@ const _AWARDS = {
     },
     rockClimbingInstructor: {
         name: "Rock Climbing Instructor",
+        logTypes: ["rockClimbingInstruction", "rockClimbing"],
         links: [
             {
                 id: "bookReviews",
@@ -503,6 +517,7 @@ const _AWARDS = {
     },
     rockClimbingLeader: {
         name: "Rock Climbing Leader",
+        logTypes: ["rockClimbingInstruction", "rockClimbing"],
         links: [
             {
                 id: "motivation",
@@ -544,34 +559,42 @@ const _AWARDS = {
     },
     running: {
         name: "Running",
-        description: "Spend time on the trails and accumulate 100km of distance to earn this award. Log your runs to increase your total distance."
+        description: "Spend time on the trails and accumulate 100km of distance to earn this award. Log your runs to increase your total distance.",
+        logTypes: ["running"]
     },
     service: {
         name: "Service",
         description: "Give time and energy through serving others and build an awareness of others' needs.",
         authorisedStaff: ["Mr Nowlan"],
+        logTypes: ["service"]
     },
     serviceInstructor: {
-        name: "Service Instructor"
+        name: "Service Instructor",
+        logTypes: ["service"]
     },
     serviceLeader: {
-        name: "Service Leader"
+        name: "Service Leader",
+        logTypes: ["service"]
     },
     solitaire: {
         name: "Solitaire",
         description: "Learn to be alone in God's beautiful creation while making construcive use of your time.",
-        authorisedStaff: ["Ms Oosthuizen"]
+        authorisedStaff: ["Ms Oosthuizen"],
+        logTypes: ["solitaire"]
     },
     solitaireInstructor: {
-        name: "Solitaire Instructor"
+        name: "Solitaire Instructor",
+        logTypes: ["solitaireInstruction"]
     },
     solitaireLeader: {
-        name: "Solitaire Leader"
+        name: "Solitaire Leader",
+        logTypes: ["solitaireInstruction"]
     },
     summit: {
         name: "Summit",
         description: MOUNTAINEERING_DESCRIPTION,
         authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
+        logTypes: ["mountaineering"],
         signoffs: [
             {
                 id: "hikingPreparedness",
@@ -594,6 +617,7 @@ const _AWARDS = {
         name: "Traverse",
         description: MOUNTAINEERING_DESCRIPTION,
         authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
+        logTypes: ["mountaineering"],
         links: [
             {
                 id: "summary",
@@ -666,6 +690,10 @@ function getAwardAuthorisedStaff(awardId) {
 
     const baseAward = getFirstLevelAward(awardId)
     return (baseAward === awardId) ? null : getAwardAuthorisedStaff(baseAward)
+}
+
+function getAwardLogTypes(awardId) {
+    return _AWARDS[awardId].logTypes
 }
 
 function getAwardLinks(awardId) {

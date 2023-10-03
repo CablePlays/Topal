@@ -429,6 +429,11 @@ footer .treverton-link {
 .logs .display .items .sublogs {
   min-width: 100%;
 }
+.logs .display .items .sign button {
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 4px 8px;
+}
 .logs .input {
   align-items: center;
   display: flex;

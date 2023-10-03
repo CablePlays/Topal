@@ -18,8 +18,8 @@ function loadStatus() {
         r(awards[getCurrentAwardId()] ?? {})
     })
 
-    statusElement.appendChild(createStatus(awardsPromise, async () => {
-        const { award } = await putRequest(`/users/${getProfileUserId()}/awards/${getCurrentAwardId()}`, { complete: true })
+    statusElement.appendChild(createStatus(awardsPromise, "Award", async complete => {
+        const { award } = await putRequest(`/users/${getProfileUserId()}/awards/${getCurrentAwardId()}`, { complete })
         return award
     }, async message => {
         await putRequest(`/users/${getProfileUserId()}/awards/${getCurrentAwardId()}/decline-request`, { message })
@@ -66,8 +66,12 @@ function loadSignoffs() {
     const signoffsElement = byId("signoffs")
     const signoffsPromise = getRequest(`/users/${getProfileUserId()}/signoffs/${getCurrentAwardId()}`)
 
-    for (let signoff of signoffs) {
-        const { id, name, description } = signoff
+    for (let i = 0; i < signoffs.length; i++) {
+        if (i > 0) {
+            createElement("div", { c: "subline", p: signoffsElement })
+        }
+
+        const { id, name, description } = signoffs[i]
 
         const signoffElement = createElement("div", { p: signoffsElement })
         createElement("h3", { p: signoffElement, t: name })
@@ -79,8 +83,8 @@ function loadSignoffs() {
             r(signoffs[id] ?? {})
         })
 
-        const status = createStatus(signoffPromise, async () => {
-            const { signoff } = await putRequest(`/users/${getProfileUserId()}/signoffs/${getCurrentAwardId()}/${id}`, { complete: true })
+        const status = createStatus(signoffPromise, "Signoff", async complete => {
+            const { signoff } = await putRequest(`/users/${getProfileUserId()}/signoffs/${getCurrentAwardId()}/${id}`, { complete })
             return signoff
         }, async message => {
             await putRequest(`/users/${getProfileUserId()}/signoffs/${getCurrentAwardId()}/${id}/decline-request`, { message })
@@ -93,10 +97,25 @@ function loadSignoffs() {
 }
 
 function loadLogs() {
-    // TODO
+    const logTypes = getAwardLogTypes(getCurrentAwardId())
+    if (logTypes == null) return
+
+    const logsContainer = byId("logs-container")
+    setVisible(logsContainer)
+
+    for (let i = 0; i < logTypes.length; i++) {
+        if (i > 0) createElement("div", { c: "subline", p: logsContainer })
+
+        const logType = logTypes[i]
+        createElement("h3", { p: logsContainer, t: getLogTypeName(logType) + " Logs" })
+        createSpacer(20, { p: logsContainer })
+
+        const logDisplay = createLogDisplay({ logType: logType, viewOnly: true })
+        logsContainer.appendChild(logDisplay)
+    }
 }
 
-function createStatus(statusDetails, onRequestAccept, onRequestDecline) {
+function createStatus(statusDetails, displayType, setComplete, onRequestDecline) {
     const statusElement = createElement("div", { c: "status" })
 
     const indicatorContainer = createElement("div", { p: statusElement })
@@ -124,47 +143,54 @@ function createStatus(statusDetails, onRequestAccept, onRequestDecline) {
             indicatorIconElement.innerHTML = "check_box_outline_blank"
             dateElement.innerHTML = MISSING_TEXT
             signerElement.innerHTML = MISSING_TEXT
+        }
+        if (requestDate) {
+            const requestContainer = createElement("div", { c: "request-container", p: statusElement })
+            createElement("h3", { p: requestContainer, t: "Requested" })
+            createElement("p", { p: requestContainer, t: formatDate(requestDate) })
 
-            if (requestDate) {
-                const requestContainer = createElement("div", { p: statusElement })
-                createElement("h3", { p: requestContainer, t: "Requested" })
-                createElement("p", { p: requestContainer, t: formatDate(requestDate) })
+            const bottomContainer = createElement("div", { c: "row", p: requestContainer })
+            createElement("button", { // accept button
+                c: "primary", p: bottomContainer, t: "Accept", onClick: async () => {
+                    bottomContainer.innerHTML = LOADING_TEXT
+                    const newStatusDetails = await setComplete(true)
+                    statusElement.replaceWith(createStatus(newStatusDetails, displayType, setComplete, onRequestDecline))
+                }
+            })
+            createElement("button", { // decline button
+                c: "secondary", p: bottomContainer, t: "Decline", onClick: () => {
+                    bottomContainer.innerHTML = null
 
-                const bottomContainer = createElement("div", { c: "row", p: requestContainer })
-                createElement("button", { // accept button
-                    c: "primary", p: bottomContainer, t: "Accept", onClick: async () => {
-                        bottomContainer.innerHTML = LOADING_TEXT
-                        const newStatusDetails = await onRequestAccept()
-                        statusElement.replaceWith(createStatus(newStatusDetails))
-                    }
-                })
-                createElement("button", { // decline button
-                    c: "secondary", p: bottomContainer, t: "Decline", onClick: () => {
-                        bottomContainer.innerHTML = null
+                    const declineInfoElement = createElement("p", {
+                        c: "decline-info", p: bottomContainer, t: "Tell the user why you're declining the request (optional)."
+                    })
+                    bottomContainer.insertAdjacentElement("beforebegin", declineInfoElement)
 
-                        const declineInfoElement = createElement("p", {
-                            c: "decline-info", p: bottomContainer, t: "Tell the user why you're declining the request (optional)."
-                        })
-                        bottomContainer.insertAdjacentElement("beforebegin", declineInfoElement)
+                    const declineMessageInputElement = createElement("input", { p: bottomContainer })
+                    declineMessageInputElement.type = "text"
 
-                        const declineMessageInputElement = createElement("input", { p: bottomContainer })
-                        declineMessageInputElement.type = "text"
+                    createElement("button", { // confirm decline button
+                        c: "secondary", p: bottomContainer, t: "Decline", onClick: async () => {
+                            declineInfoElement.remove()
+                            bottomContainer.innerHTML = LOADING_TEXT
 
-                        createElement("button", { // confirm decline button
-                            c: "secondary", p: bottomContainer, t: "Decline", onClick: async () => {
-                                declineInfoElement.remove()
-                                bottomContainer.innerHTML = LOADING_TEXT
+                            let message = declineMessageInputElement.value.trim()
+                            if (message.length === 0) message = null
+                            await onRequestDecline(message)
 
-                                let message = declineMessageInputElement.value.trim()
-                                if (message.length === 0) message = null
-                                await onRequestDecline(message)
-
-                                requestContainer.remove()
-                            }
-                        })
-                    }
-                })
-            }
+                            requestContainer.remove()
+                        }
+                    })
+                }
+            })
+        } else {
+            const toggleButtonElement = createElement("button", {
+                c: "primary toggle-button", p: statusElement, t: (complete ? "Revoke" : "Grant") + " " + displayType, onClick: async () => {
+                    toggleButtonElement.replaceWith(createElement("p", { t: LOADING_TEXT }))
+                    const newStatusDetails = await setComplete(!complete)
+                    statusElement.replaceWith(createStatus(newStatusDetails, displayType, setComplete, onRequestDecline))
+                }
+            })
         }
     }
 

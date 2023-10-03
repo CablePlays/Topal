@@ -7,7 +7,10 @@
             "GET": "Get user logs & sublogs of type",
             "POST": "Create new log or sublog",
             ":logId": {
-                "DELETE": "Delete log or sublog"
+                "DELETE": "Delete log or sublog",
+                "sign": {
+                    "PUT": "Set log signed off status"
+                }
             }
         }
     },
@@ -15,7 +18,7 @@
         "permissions": {
             "GET": "Gets all users with permissions and their permissions",
             "user": {
-                 "GET": "Get user permissions from email"
+                "GET": "Get user permissions from email"
             }
         },
         "search": {

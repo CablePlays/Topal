@@ -161,7 +161,7 @@ const LOG_TYPES = {
         signable: true
     },
     solitaire: {},
-    solitaireInstructor: {}
+    solitaireInstruction: {}
 }
 
 const PERMISSIONS = [

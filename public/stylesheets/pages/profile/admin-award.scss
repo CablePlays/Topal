@@ -2,11 +2,18 @@
 
 .line {
     border-top: 2px solid black;
-    margin: 20px auto;
+    margin: 30px auto;
     width: 98%;
 }
 
+.subline {
+    border-top: 2px solid rgb(100, 100, 100);
+    margin: 20px auto;
+    width: 90%;
+}
+
 .status {
+    align-items: center;
     display: flex;
     flex-wrap: wrap;
     gap: 10px 40px;
@@ -17,7 +24,13 @@
         display: flex;
     }
 
-    >:nth-child(4) {
+    >:not(:first-child) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .request-container {
         >:nth-child(2) {
             font-size: 14px;
         }
@@ -44,10 +57,9 @@
         }
     }
 
-    >:not(:first-child) {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+    .toggle-button {
+        cursor: pointer;
+        padding: 8px;
     }
 }
 

@@ -113,6 +113,12 @@ $border-radius: 8px;
         .sublogs {
             min-width: 100%;
         }
+
+        .sign button {
+            cursor: pointer;
+            margin-top: 10px;
+            padding: 4px 8px;
+        }
     }
 
     .input {

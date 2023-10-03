@@ -1,6 +1,7 @@
 const express = require("express")
 const general = require("../server/general")
 const sqlDatabase = require("../server/sql-database")
+const middleware = require("./middleware")
 
 const router = express.Router()
 
@@ -219,6 +220,26 @@ logIdRouter.delete("/", async (req, res) => { // delete log
     await sqlDatabase.run(`DELETE FROM ${logsTable} WHERE id = ${logId}`)
 
     await deleteDescendantLogs(logType, logId)
+    res.res(204)
+})
+
+logIdRouter.put("/sign", middleware.getPermissionMiddleware("manageAwards"), async (req, res) => { // set log signed off status
+    const { body, logId, logType, userId } = req
+    const { signed } = body
+
+    if (!general.isSignable(logType)) {
+        res.res(400, "not_signable")
+        return
+    }
+
+    const table = general.getLogsTable(logType)
+
+    if (signed === true) {
+        sqlDatabase.run(`UPDATE ${table} SET signer = ${userId} WHERE id = ${logId}`)
+    } else {
+        sqlDatabase.run(`UPDATE ${table} SET signer = null WHERE id = ${logId}`)
+    }
+
     res.res(204)
 })
 

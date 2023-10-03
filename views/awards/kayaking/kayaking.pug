@@ -1,4 +1,7 @@
-extends ./kayaking-layout
+extends ../award-layout
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/awards/generic.css")
 
 block requirements
   ol.spacious
@@ -21,7 +24,7 @@ block requirements
         li Capsize (with spraydeck)
     li Have the other necessary signoffs.
 
-block s
+block script
   script.
     setAward("kayaking")
     setDifficulty(2)

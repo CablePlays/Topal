@@ -429,6 +429,11 @@ footer .treverton-link {
 .logs .display .items .sublogs {
   min-width: 100%;
 }
+.logs .display .items .sign button {
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 4px 8px;
+}
 .logs .input {
   align-items: center;
   display: flex;
@@ -856,11 +861,18 @@ footer .treverton-link {
 
 .line {
   border-top: 2px solid black;
-  margin: 20px auto;
+  margin: 30px auto;
   width: 98%;
 }
 
+.subline {
+  border-top: 2px solid rgb(100, 100, 100);
+  margin: 20px auto;
+  width: 90%;
+}
+
 .status {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 10px 40px;
@@ -871,31 +883,35 @@ footer .treverton-link {
        column-gap: 10px;
   display: flex;
 }
-.status > :nth-child(4) > :nth-child(2) {
+.status > :not(:first-child) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.status .request-container > :nth-child(2) {
   font-size: 14px;
 }
-.status > :nth-child(4) .decline-info {
+.status .request-container .decline-info {
   font-size: 12px;
   margin-top: 10px;
   width: 200px;
 }
-.status > :nth-child(4) .row {
+.status .request-container .row {
   -moz-column-gap: 5px;
        column-gap: 5px;
   display: flex;
   margin-top: 10px;
 }
-.status > :nth-child(4) .row button {
+.status .request-container .row button {
   cursor: pointer;
   padding: 4px 8px;
 }
-.status > :nth-child(4) .row input {
+.status .request-container .row input {
   padding: 4px;
 }
-.status > :not(:first-child) {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.status .toggle-button {
+  cursor: pointer;
+  padding: 8px;
 }
 
 #links {

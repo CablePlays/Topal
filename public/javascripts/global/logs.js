@@ -878,7 +878,7 @@ const _LOG_TYPES = {
             }
         ]
     },
-    solitaireInstructor: {
+    solitaireInstruction: {
         items: [
             {
                 name: "Date",
@@ -1004,16 +1004,31 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
     }
 
     if (signable) {
-        const signElement = createElement("div", { c: "item", p: itemsContainer })
+        const signItemElement = createElement("div", { c: "item sign", p: itemsContainer })
 
         if (viewOnly) { // can sign
-            if (!log.signer) { // not signed
-                createElement("h3", { p: signElement, t: "Sign" })
-                createElement("button", { p: signElement, t: "Sign Off" })
-            }
+            let signed = log.signer != null
+
+            const titleElement = createElement("h3", { p: signItemElement, t: "Signed" })
+            const updateTitleText = () => titleElement.innerHTML = signed ? "Signed" : "Sign"
+            updateTitleText()
+
+            idPromise.then(id => {
+                const buttonElement = createElement("button", {
+                    c: "primary", p: signItemElement, t: "Remove Sign", onClick: () => {
+                        signed = !signed
+                        updateTitleText()
+                        updateButtonText()
+                        putRequest(`/logs/${logType}/${id}/sign`, { signed })
+                    }
+                })
+
+                const updateButtonText = () => buttonElement.innerHTML = signed ? "Remove Sign" : "Sign Off"
+                updateButtonText()
+            })
         } else {
-            createElement("h3", { p: signElement, t: "Signed" })
-            createElement("p", { p: signElement, t: log.signer ? "Yes" : "No" })
+            createElement("h3", { p: signItemElement, t: "Signed" })
+            createElement("p", { p: signItemElement, t: log.signer ? "Yes" : "No" })
         }
     }
 
@@ -1373,7 +1388,6 @@ function _createInputSection(options) {
 }
 
 function createLogDisplay(options) {
-    options ??= {}
     const { logType, parentLogId, sublogs, viewOnly } = options
     let { userId } = options
 
@@ -1406,9 +1420,13 @@ function createLogDisplay(options) {
     }
 
     if (parentLogId && sublogs) { // requires no loading
-        for (let log of sublogs.reverse()) {
-            const logElement = _createDisplaySection({ log, logType, parentLogId, viewOnly })
-            logDisplayElement.appendChild(logElement)
+        if (sublogs.length === 0) {
+            createElement("p", { p: logDisplayElement, t: NONE_TEXT })
+        } else {
+            for (let log of sublogs.reverse()) {
+                const logElement = _createDisplaySection({ log, logType, parentLogId, viewOnly })
+                logDisplayElement.appendChild(logElement)
+            }
         }
     } else {
         const loadingElement = createElement("p", { c: "loading-text", p: logDisplayElement, t: LOADING_TEXT })
@@ -1422,11 +1440,16 @@ function createLogDisplay(options) {
 
         promise.then(res => {
             const { logs } = res
-            loadingElement.remove()
 
-            for (let log of logs.reverse()) {
-                const logElement = _createDisplaySection({ logType, log, viewOnly })
-                logDisplayElement.appendChild(logElement)
+            if (logs.length === 0) {
+                loadingElement.replaceWith(createElement("p", { t: NONE_TEXT }))
+            } else {
+                loadingElement.remove()
+
+                for (let log of logs.reverse()) {
+                    const logElement = _createDisplaySection({ logType, log, viewOnly })
+                    logDisplayElement.appendChild(logElement)
+                }
             }
         })
     }
