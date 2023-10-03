@@ -9,7 +9,7 @@ const renderRouter = require("./render")
 const https = require("https")
 const fs = require("fs")
 
-const PORT_HTTPS = 90 // 443
+const PORT_HTTPS = 443
 const PORT_HTTP = 80
 const REQUESTS_PATH = "/requests"
 
