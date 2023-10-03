@@ -838,6 +838,11 @@ footer .treverton-link {
   color: white;
   position: absolute;
 }
+.banner .slideshow .slide.info {
+  font-size: 20px;
+  padding: 0 50px;
+  text-align: center;
+}
 .banner .slideshow .slide.loading {
   height: 200px;
   font-size: 20px;
@@ -853,7 +858,6 @@ footer .treverton-link {
   display: flex;
   flex-direction: column;
   position: relative;
-  text-align: center;
 }
 .banner .slideshow .slide.recent button {
   background-color: white;
@@ -872,11 +876,13 @@ footer .treverton-link {
   font-size: 38px;
   font-weight: 300;
   margin-top: 20px;
+  text-align: center;
 }
 .banner .slideshow .slide.recent .info {
   font-size: 18px;
   font-weight: 500;
   padding: 0 50px;
+  text-align: center;
 }
 @media screen and (min-width: 400px) {
   .banner .slideshow .slide.recent h1 {

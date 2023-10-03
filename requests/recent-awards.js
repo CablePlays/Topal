@@ -12,7 +12,6 @@ router.get("/", async (req, res) => {
     for (let i = recentAwards.length - 1; i >= 0; i--) { // check expired
         const { date } = recentAwards[i]
         const hoursDifference = Math.floor((now - new Date(date).getTime()) / 3600000)
-        console.log(hoursDifference)
 
         if (hoursDifference > general.RECENT_AWARDS_LIFETIME) {
             recentAwards.splice(i, 1)

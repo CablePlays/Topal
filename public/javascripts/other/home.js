@@ -1,4 +1,4 @@
-function createCard(awardId, user, date) {
+function createSlide(awardId, user, date) {
     const card = createElement("div", { c: "recent" })
 
     createElement("h1", { p: card, t: "Recent Awards" })
@@ -14,24 +14,29 @@ function createCard(awardId, user, date) {
 }
 
 async function setupSlideshow() {
-    const cardsPromise = new Promise(async r => {
+    const slidesPromise = new Promise(async r => {
         const { recentAwards } = await getRequest("/recent-awards")
-        const cards = []
+        const slides = []
 
         if (recentAwards.length === 0) {
             const noneSlide = createElement("div", { c: "center-chv none" })
             createElement("h1", { p: noneSlide, t: "No Recent Awards" })
             createElement("p", { p: noneSlide, t: "Recent awards will show up here." })
-            cards.push(noneSlide)
+            slides.push(noneSlide)
         } else {
             for (let recentAward of recentAwards) {
                 const { award: awardId, date, user } = recentAward
-                const card = createCard(awardId, user, date)
-                cards.push(card)
+                const slide = createSlide(awardId, user, date)
+                slides.push(slide)
             }
         }
+        if (recentAwards.length <= 2) {
+            const infoSlide = createElement("div", { c: "center-rhv info" })
+            createElement("p", { p: infoSlide, t: "You will be displayed here when you earn an award." })
+            slides.push(infoSlide)
+        }
 
-        r(cards)
+        r(slides)
     })
 
     // loading slide
@@ -48,7 +53,7 @@ async function setupSlideshow() {
     next.classList.add("next")
     createElement("img", { p: next }).src = "/assets/icons/chevron_right.svg"
 
-    const slideshow = createSlideshow(cardsPromise, 5000, {
+    const slideshow = createSlideshow(slidesPromise, 5000, {
         arrows: { previous, next },
         loadingSlide
     })
