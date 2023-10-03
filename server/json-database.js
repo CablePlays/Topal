@@ -3,9 +3,10 @@ const path = require("path")
 const fsdb = require("file-system-db")
 
 const DIRECTORY = "./database"
-const AUDIT_LOG_DIRECTORY = DIRECTORY + "/audit-log"
-const USER_DIRECTORY = DIRECTORY + "/user_data"
-const COMPACT = false
+const SINGLETON_DIRECTORY = path.join(DIRECTORY, "/singleton.json")
+const USER_DIRECTORY = path.join(DIRECTORY, "/user_data")
+const USER_FILE_PREFIX = "user"
+let compact = true
 
 // user
 const APPROVALS_PATH = "approvals"
@@ -15,18 +16,25 @@ const LINKS_PATH = "links"
 const PERMISSIONS_PATH = "permissions"
 const SIGNOFFS_PATH = "signoffs"
 
-// other
-const AUDIT_LOG_RECORDS_PATH = "records"
+// singleton
+const RECENT_AWARDS_PATH = "recentAwards"
 
 /* Get File */
 
-function getAuditLog() {
-    return new fsdb(AUDIT_LOG_DIRECTORY, COMPACT)
+function getSingleton() {
+    return new fsdb(SINGLETON_DIRECTORY, compact)
+}
+
+function get(path) {
+    return getSingleton().get(path)
+}
+
+function set(path, value) {
+    getSingleton().set(path, value)
 }
 
 function getUser(userId) {
-    const path = `${USER_DIRECTORY}/user${userId}`
-    return new fsdb(path, COMPACT)
+    return new fsdb(path.join(USER_DIRECTORY, USER_FILE_PREFIX + userId), compact)
 }
 
 async function forEachUser(consumer) {
@@ -37,8 +45,8 @@ async function forEachUser(consumer) {
             const promises = []
 
             for (let fileName of files) {
-                const userId = parseInt(fileName.substring("user".length, fileName.length - ".json".length))
-                const db = new fsdb(path.join(USER_DIRECTORY, fileName), COMPACT)
+                const userId = parseInt(fileName.substring(USER_FILE_PREFIX.length, fileName.length - ".json".length))
+                const db = new fsdb(path.join(USER_DIRECTORY, fileName), compact)
                 const promise = consumer(userId, db)
 
                 if (promise instanceof Promise) {
@@ -53,14 +61,6 @@ async function forEachUser(consumer) {
 
         r()
     }))
-}
-
-/* Audit Log */
-
-function auditLogRecord(record) {
-    record.date = new Date()
-    console.info("Creating audit log record: " + record.type)
-    getAuditLog().push(AUDIT_LOG_RECORDS_PATH, record)
 }
 
 /* Get Permissions */
@@ -85,16 +85,16 @@ function getPermissions(userId, raw) {
 
 module.exports = {
     APPROVALS_PATH,
-    AUDIT_LOG_RECORDS_PATH,
     AWARDS_PATH,
     DETAILS_PATH,
     LINKS_PATH,
     PERMISSIONS_PATH,
     SIGNOFFS_PATH,
+    RECENT_AWARDS_PATH,
 
-    getAuditLog,
+    setCompact: c => compact = c,
     getUser,
     forEachUser,
-    auditLogRecord,
-    getPermissions
+    getPermissions,
+    get, set
 }

@@ -1,5 +1,4 @@
 Update logo
-Recent awards on home page (make display accurate date)
 Update footer to include credits, etc.
 Icon to go to top of page
 Make search also search awards

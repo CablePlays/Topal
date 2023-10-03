@@ -85,74 +85,82 @@ $banner-breakpoint: 450px;
         background-color: rgb(255, 255, 255, 0.3);
         bottom: 0;
         color: white;
-        overflow: hidden;
         position: absolute;
-        width: 100%;
 
-        .card {
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            text-align: center;
-            width: 100%;
-
-            button {
-                background-color: white;
-                border: none;
-                border-radius: 16px;
-                color: black;
-                cursor: pointer;
-                font-size: 16px;
-                font-weight: 400;
-                height: 60px;
-                margin: 20px 0 40px 0;
-                width: 175px;
-
-                &:hover {
-                    background-color: $white-hover;
-                }
-            }
-
-            h1 {
-                font-size: 38px;
-                font-weight: 300;
-                margin-top: 20px;
-            }
-
-            p {
-                font-size: 18px;
-                font-weight: 500;
-                padding: 0 50px;
-            }
-
-            @media screen and (min-width: 400px) {
-                h1 {
-                    font-size: 48px;
-                }
-
-                p {
-                    font-size: 25px;
-                }
-            }
-
-            @media screen and (min-width: 600px) {
-                h1 {
-                    font-size: 64px;
-                }
-
-                p {
-                    font-size: 30px;
-                }
-            }
-
-            .date {
-                bottom: 18px;
-                color: rgb(200, 200, 200);
+        .slide {
+            &.loading {
+                height: 200px;
                 font-size: 20px;
-                font-weight: 600;
-                left: 18px;
-                position: absolute;
+            }
+
+            &.none {
+                height: 250px;
+                row-gap: 10px;
+                padding: 0 50px;
+                text-align: center;
+            }
+
+            &.recent {
+                align-items: center;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                text-align: center;
+
+                button {
+                    background-color: white;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 16px;
+                    font-weight: 500;
+                    margin: 20px 0 40px 0;
+                    padding: 16px 48px;
+
+                    &:hover {
+                        background-color: $white-hover;
+                    }
+                }
+
+                h1 {
+                    font-size: 38px;
+                    font-weight: 300;
+                    margin-top: 20px;
+                }
+
+                .info {
+                    font-size: 18px;
+                    font-weight: 500;
+                    padding: 0 50px;
+                }
+
+                @media screen and (min-width: 400px) {
+                    h1 {
+                        font-size: 48px;
+                    }
+
+                    .info {
+                        font-size: 25px;
+                    }
+                }
+
+                @media screen and (min-width: 600px) {
+                    h1 {
+                        font-size: 64px;
+                    }
+
+                    .info {
+                        font-size: 30px;
+                    }
+                }
+
+                .date {
+                    bottom: 16px;
+                    color: rgb(200, 200, 200);
+                    font-size: 14px;
+                    left: 16px;
+                    position: absolute;
+                }
             }
         }
 
@@ -179,7 +187,8 @@ $banner-breakpoint: 450px;
             cursor: pointer;
             height: 70px;
             position: absolute;
-            top: 90px;
+            top: 50%;
+            transform: translateY(-50%);
             width: 70px;
             z-index: 10;
 

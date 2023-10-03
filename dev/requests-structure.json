@@ -14,6 +14,9 @@
             }
         }
     },
+    "recent-awards": {
+        "GET": "Get recent awards"
+    },
     "users": {
         "permissions": {
             "GET": "Gets all users with permissions and their permissions",

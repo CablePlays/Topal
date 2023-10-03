@@ -1,19 +1,15 @@
 .slideshow {
     overflow: hidden;
+    width: 100%;
 
-    .card-container {
+    .slide-container {
         display: flex;
         flex-direction: row;
         height: 100%;
-        transition: 0.5s;
-        width: fit-content;
+        transition: transform 0.5s;
 
-        .card {
-            display: flex;
-            flex-direction: row;
-            height: 100%;
-            transition: 0.5s;
-            width: fit-content;
+        .slide {
+            min-width: 100%;
         }
     }
 

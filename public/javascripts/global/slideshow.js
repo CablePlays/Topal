@@ -1,86 +1,73 @@
-function createSlideshow(providedCards, period, options) {
-    const instant = Array.isArray(providedCards) // false > assume promise
-    const { arrows, handleArrows, loadingCard } = options ?? {}
+function createSlideshow(slidesPromise, period, options) {
+    const requiresLoading = slidesPromise instanceof Promise
+    const { arrows, loadingSlide } = options ?? {}
+    const slideClass = "slide"
 
     /* Slideshow */
 
-    const slideshow = document.createElement("div")
-    slideshow.classList.add("slideshow")
+    const slideshow = createElement("div", { c: "slideshow" })
+    const slideContainer = createElement("div", { c: "slide-container", p: slideshow })
 
-    if (!instant) {
-        slideshow.appendChild(loadingCard)
+    if (requiresLoading) {
+        loadingSlide.classList.add(slideClass)
+        slideContainer.appendChild(loadingSlide)
     }
 
     /* Load */
 
     new Promise(async r => {
-        if (instant) {
-            r(providedCards)
-        } else {
-            r(await providedCards)
+        r(await slidesPromise)
+    }).then(slides => {
+        if (slides.length === 0) {
+            throw new Error("No slides provided for slideshow")
         }
-    }).then(cards => {
+
         const indicators = []
         let current = 0
         let resolve = () => { }
 
-        if (!instant) {
-            loadingCard.remove()
+        if (requiresLoading) {
+            loadingSlide.remove()
         }
 
-        const cardContainer = document.createElement("div")
-        cardContainer.classList.add("card-container")
-
-        const indicatorContainer = document.createElement("div")
-        indicatorContainer.classList.add("indicator-container")
-
-        const update = (indicator, resize) => {
+        const update = indicator => {
             const width = slideshow.clientWidth
 
             if (indicator) {
                 indicators.forEach(indicator => indicator.classList.remove("selected"))
                 indicators[current].classList.add("selected")
             }
-            if (resize) {
-                cards.forEach(card => card.style.width = width + "px")
-            }
 
-            cardContainer.style.transform = `translate(-${current * width}px)`
+            slideContainer.style.transform = `translate(-${current * width}px)`
         }
 
-        window.addEventListener("resize", () => update(false, true))
+        window.addEventListener("resize", () => update(false))
 
-        /* Cards */
+        /* Slides */
 
-        cards.forEach(card => {
-            card.classList.add("card")
-            cardContainer.appendChild(card)
+        slides.forEach(slide => {
+            slide.classList.add(slideClass)
+            slideContainer.appendChild(slide)
         })
 
         /* Indicators */
 
-        for (let i = 0; i < cards.length; i++) {
-            const indicator = document.createElement("div")
-            indicator.classList.add("indicator")
-            indicatorContainer.appendChild(indicator)
-            indicators.push(indicator)
+        const indicatorContainer = createElement("div", { c: "indicator-container", p: slideshow })
 
-            indicator.addEventListener("click", () => resolve(i))
+        for (let i = 0; i < slides.length; i++) {
+            const indicator = createElement("div", { c: "indicator", p: indicatorContainer, onClick: () => resolve(i) })
+            indicators.push(indicator)
         }
 
-        /* Add */
-
-        update(true, true)
-        slideshow.appendChild(cardContainer)
-        slideshow.appendChild(indicatorContainer)
+        update(true)
 
         /* Cycle */
 
         const goPrevious = () => {
-            resolve(current === 0 ? cards.length - 1 : current - 1)
+            resolve(current === 0 ? slides.length - 1 : current - 1)
         }
 
-        const getNext = () => (current === cards.length - 1) ? 0 : current + 1
+        const getNext = () => (current === slides.length - 1) ? 0 : current + 1
 
         const goNext = () => {
             resolve(getNext())
@@ -88,21 +75,16 @@ function createSlideshow(providedCards, period, options) {
 
         /* Arrows */
 
-        if (arrows === true) {
-            // previous
-            const previous = document.createElement("div")
-            previous.classList.add("previous")
-            previous.addEventListener("click", goPrevious)
-            slideshow.appendChild(previous)
+        if (arrows) {
+            const { next, previous } = arrows
 
-            // next
-            const next = document.createElement("div")
-            next.classList.add("next")
-            next.addEventListener("click", goNext)
-            slideshow.appendChild(next)
-
-            if (handleArrows) {
-                handleArrows(previous, next)
+            if (next) {
+                next.addEventListener("click", goNext)
+                slideshow.appendChild(next)
+            }
+            if (previous) {
+                previous.addEventListener("click", goPrevious)
+                slideshow.appendChild(previous)
             }
         }
 
@@ -115,7 +97,7 @@ function createSlideshow(providedCards, period, options) {
                     setTimeout(() => r(getNext()), period)
                 })
 
-                update(true, false)
+                update(true)
             }
         })
     })

@@ -5,6 +5,7 @@ const jsonDatabase = require("../server/json-database")
 
 const accountRouter = require("./account")
 const logsRouter = require("./logs")
+const recentAwardsRouter = require("./recent-awards")
 const usersRouter = require("./users")
 
 const router = express.Router()
@@ -41,8 +42,9 @@ router.use("/", async (req, res, next) => { // provide user information
 
 /* Routers */
 
-router.use('/account', accountRouter)
-router.use('/logs', logsRouter)
-router.use('/users', usersRouter)
+router.use("/account", accountRouter)
+router.use("/logs", logsRouter)
+router.use("/recent-awards", recentAwardsRouter)
+router.use("/users", usersRouter)
 
 module.exports = router

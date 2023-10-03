@@ -3,7 +3,7 @@ const jsonDatabase = require("./json-database")
 const sqlDatabase = require("./sql-database")
 
 const RECENT_AWARDS_LIFETIME = 48 // hours
-const RECENT_AWARDS_MAX = 10
+const RECENT_AWARDS_MAX = 2
 
 const DEFAULT_PROFILE_PICTURE_PATH = "/assets/other/default-profile-picture.jpg"
 const UNKNOWN_TEXT = "N/A"

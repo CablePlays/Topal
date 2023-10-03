@@ -39,6 +39,13 @@ ul.spacious > li:not(:first-child) {
   min-height: 90vh;
 }
 
+.center-chv, .banner .top {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .center-rh {
   display: flex;
   justify-content: center;
@@ -47,13 +54,6 @@ ul.spacious > li:not(:first-child) {
 .center-rv {
   align-items: center;
   display: flex;
-}
-
-.center-chv, .banner .top {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .center-rhv {
@@ -263,22 +263,16 @@ joined-buttons .underline {
 
 .slideshow {
   overflow: hidden;
+  width: 100%;
 }
-.slideshow .card-container {
+.slideshow .slide-container {
   display: flex;
   flex-direction: row;
   height: 100%;
-  transition: 0.5s;
-  width: -moz-fit-content;
-  width: fit-content;
+  transition: transform 0.5s;
 }
-.slideshow .card-container .card {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  transition: 0.5s;
-  width: -moz-fit-content;
-  width: fit-content;
+.slideshow .slide-container .slide {
+  min-width: 100%;
 }
 .slideshow .indicator-container {
   align-items: center;
@@ -836,65 +830,69 @@ footer .treverton-link {
   background-color: rgba(255, 255, 255, 0.3);
   bottom: 0;
   color: white;
-  overflow: hidden;
   position: absolute;
-  width: 100%;
 }
-.banner .slideshow .card {
+.banner .slideshow .slide.loading {
+  height: 200px;
+  font-size: 20px;
+}
+.banner .slideshow .slide.none {
+  height: 250px;
+  row-gap: 10px;
+  padding: 0 50px;
+  text-align: center;
+}
+.banner .slideshow .slide.recent {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  position: relative;
   text-align: center;
-  width: 100%;
 }
-.banner .slideshow .card button {
+.banner .slideshow .slide.recent button {
   background-color: white;
   border: none;
-  border-radius: 16px;
-  color: black;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  font-weight: 400;
-  height: 60px;
+  font-weight: 500;
   margin: 20px 0 40px 0;
-  width: 175px;
+  padding: 16px 48px;
 }
-.banner .slideshow .card button:hover {
+.banner .slideshow .slide.recent button:hover {
   background-color: #dcdcdc;
 }
-.banner .slideshow .card h1 {
+.banner .slideshow .slide.recent h1 {
   font-size: 38px;
   font-weight: 300;
   margin-top: 20px;
 }
-.banner .slideshow .card p {
+.banner .slideshow .slide.recent .info {
   font-size: 18px;
   font-weight: 500;
   padding: 0 50px;
 }
 @media screen and (min-width: 400px) {
-  .banner .slideshow .card h1 {
+  .banner .slideshow .slide.recent h1 {
     font-size: 48px;
   }
-  .banner .slideshow .card p {
+  .banner .slideshow .slide.recent .info {
     font-size: 25px;
   }
 }
 @media screen and (min-width: 600px) {
-  .banner .slideshow .card h1 {
+  .banner .slideshow .slide.recent h1 {
     font-size: 64px;
   }
-  .banner .slideshow .card p {
+  .banner .slideshow .slide.recent .info {
     font-size: 30px;
   }
 }
-.banner .slideshow .card .date {
-  bottom: 18px;
+.banner .slideshow .slide.recent .date {
+  bottom: 16px;
   color: rgb(200, 200, 200);
-  font-size: 20px;
-  font-weight: 600;
-  left: 18px;
+  font-size: 14px;
+  left: 16px;
   position: absolute;
 }
 .banner .slideshow .next {
@@ -916,7 +914,8 @@ footer .treverton-link {
   cursor: pointer;
   height: 70px;
   position: absolute;
-  top: 90px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 70px;
   z-index: 10;
 }
