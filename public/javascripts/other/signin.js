@@ -1,8 +1,3 @@
-function redirect() {
-    const params = new URLSearchParams(location.search)
-    location.href = params.get("redirect") ?? "/"
-}
-
 async function handleLogin(val) {
     const { credential } = val
 
@@ -15,14 +10,8 @@ async function handleLogin(val) {
 
     if (ok) {
         infoText.innerHTML = "Signed in."
-        redirect()
+        location.href = getParam("redirect") ?? "/"
     } else {
         infoText.innerHTML = "Something went wrong. Please try again later."
     }
-}
-
-function dummySignin() {
-    document.cookie = "user_id=3";
-    document.cookie = "session_token=dummy3";
-    redirect()
 }
