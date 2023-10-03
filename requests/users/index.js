@@ -36,9 +36,7 @@ router.get("/permissions", middleware.getPermissionMiddleware("managePermissions
 
 router.get("/permissions/user", middleware.getPermissionMiddleware("managePermissions"), async (req, res) => { // get user permissions
     const { email } = req.query
-    console.log(email)
     const userId = await sqlDatabase.getUserId(email)
-    console.log(userId)
 
     if (userId == null) {
         res.res(400, "invalid_user")

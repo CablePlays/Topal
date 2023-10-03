@@ -303,16 +303,16 @@ async function provideUserInfoToStatuses(statuses) {
 }
 
 function createDummyUsers() {
-    async function createDummy(userId, name, surname, title) {
+    async function createDummy(userId, sessionToken, name, surname, title) {
         if (!await sqlDatabase.get(`SELECT * FROM users WHERE id = ${userId}`)) {
             sqlDatabase.run(`INSERT INTO users VALUES (${userId}, "dummy${userId}@treverton.co.za")`)
-            jsonDatabase.getUser(userId).set(jsonDatabase.DETAILS_PATH, { name, surname, title, sessionToken: `dummy${userId}` })
+            jsonDatabase.getUser(userId).set(jsonDatabase.DETAILS_PATH, { name, surname, title, sessionToken })
         }
     }
 
-    createDummy(1, "Astra", "Spero")
-    createDummy(2, "James", "Lotz")
-    createDummy(3, "John", "Doe", "Mr")
+    createDummy(1, "Jfijwelafeowifiew", "Astra", "Spero")
+    createDummy(2, "pavpewfuHoweNJA", "James", "Lotz")
+    createDummy(3, "LapifweOEOvuOAA", "John", "Doe", "Mr")
 }
 
 /* Utility */

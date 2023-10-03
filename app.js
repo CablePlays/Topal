@@ -9,8 +9,8 @@ const renderRouter = require("./render")
 const https = require("https")
 const fs = require("fs")
 
-const PORT_HTTPS = 90; // 443
-const PORT_HTTP = 80;
+const PORT_HTTPS = 90 // 443
+const PORT_HTTP = 80
 const REQUESTS_PATH = "/requests"
 
 const app = express()
@@ -65,14 +65,11 @@ https.createServer(options, app).listen(PORT_HTTPS, (req, res) => {
     console.info("Server started at port " + PORT_HTTPS)
 })
 
-if (false) { // use once released
-    const httpApp = express()
+const httpApp = express()
 
-    httpApp.use("/", (req, res) => {
-        res.redirect(`https://${req.headers.host}${req.url}`)
-    });
+httpApp.use("/", (req, res) => {
+    res.redirect(`https://${req.headers.host}${req.url}`)
+});
 
-    httpApp.listen(PORT_HTTP)
-}
-
+httpApp.listen(PORT_HTTP)
 consoleCommands()
