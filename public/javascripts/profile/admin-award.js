@@ -112,7 +112,7 @@ function loadLogs() {
         createElement("h3", { p: logsContainer, t: getLogTypeName(logType) + " Logs" })
         createSpacer(20, { p: logsContainer })
 
-        const logDisplay = createLogDisplay({ logType: logType, viewOnly: true })
+        const logDisplay = createLogDisplay({ logType: logType, userId: getProfileUserId(), viewOnly: true })
         logsContainer.appendChild(logDisplay)
     }
 }
