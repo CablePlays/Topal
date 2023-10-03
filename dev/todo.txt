@@ -3,10 +3,14 @@ Update footer to include credits, etc.
 Icon to go to top of page
 Make search also search awards
 
+> Query
+
+Using "the need for a logbook" section?
+
 > Pages
 
 About
-Honors requirements
+Honours requirements
 List of all awards given to users
 
 > Profile Page Stats

@@ -76,10 +76,6 @@ router.get("/", (req, res) => {
     res.ren("other/home")
 })
 
-router.get("/about", (req, res) => {
-    res.ren("other/about")
-})
-
 router.get("/awards", (req, res) => {
     res.ren("other/awards")
 })

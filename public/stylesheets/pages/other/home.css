@@ -91,6 +91,11 @@ ul.spacious > li:not(:first-child) {
   padding-right: 16px;
 }
 
+.plr32 {
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
 .spacer.v10 {
   height: 10px;
 }
@@ -828,6 +833,7 @@ footer .treverton-link {
 }
 .banner .slideshow {
   background-color: rgba(255, 255, 255, 0.3);
+  border-bottom: 2px solid black;
   bottom: 0;
   color: white;
   position: absolute;
@@ -929,4 +935,9 @@ footer .treverton-link {
   position: absolute;
   top: 24.5px;
   width: 26px;
+}
+
+.text-content {
+  line-height: 1.6;
+  margin: 0 auto;
 }

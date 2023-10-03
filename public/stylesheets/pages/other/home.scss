@@ -83,6 +83,7 @@ $banner-breakpoint: 450px;
 
     .slideshow {
         background-color: rgb(255, 255, 255, 0.3);
+        border-bottom: 2px solid black;
         bottom: 0;
         color: white;
         position: absolute;
@@ -204,4 +205,9 @@ $banner-breakpoint: 450px;
             }
         }
     }
+}
+
+.text-content {
+    line-height: 1.6;
+    margin: 0 auto;
 }
