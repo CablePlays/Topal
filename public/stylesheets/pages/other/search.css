@@ -613,7 +613,7 @@ footer .treverton-link {
   width: 100%;
   z-index: 100;
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1050px) {
   .topbar {
     padding-right: 32px;
   }
@@ -633,7 +633,7 @@ footer .treverton-link {
     display: block;
   }
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1050px) {
   .topbar .account-display div {
     display: none;
   }
@@ -663,7 +663,7 @@ footer .treverton-link {
   margin: 0 32px;
   width: 131px;
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1050px) {
   .topbar .logo {
     margin: 0 64px;
   }
@@ -720,7 +720,7 @@ footer .treverton-link {
   position: absolute;
   right: 20px;
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1050px) {
   .topbar #sidebar-icon {
     display: none;
   }
@@ -734,7 +734,7 @@ footer .treverton-link {
   justify-content: space-between;
   margin-right: 48px;
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1050px) {
   .topbar #topbar-links {
     display: flex;
   }

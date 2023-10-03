@@ -68,7 +68,7 @@ function loadSignoffs() {
 
     for (let i = 0; i < signoffs.length; i++) {
         if (i > 0) {
-            createElement("div", { c: "subline", p: signoffsElement })
+            createElement("div", { c: "subruler", p: signoffsElement })
         }
 
         const { id, name, description } = signoffs[i]
@@ -104,7 +104,9 @@ function loadLogs() {
     setVisible(logsContainer)
 
     for (let i = 0; i < logTypes.length; i++) {
-        if (i > 0) createElement("div", { c: "subline", p: logsContainer })
+        if (i > 0) {
+            createElement("div", { c: "subruler", p: logsContainer })
+        }
 
         const logType = logTypes[i]
         createElement("h3", { p: logsContainer, t: getLogTypeName(logType) + " Logs" })
