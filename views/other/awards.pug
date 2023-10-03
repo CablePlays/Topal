@@ -106,15 +106,21 @@ block content
 
 block script
   script.
-    function setCardInfo(card, name, description) {
+    function setupCard(card, awardId, name, description) {
       const infoContainer = card.children[1].children
       infoContainer[0].innerHTML = name
       infoContainer[1].innerHTML = description
+
+      card.addEventListener("click", e => {
+        if (e.target.nodeName !== "A") {
+          location.href = `/awards/${pascalToKebab(awardId)}`
+        }
+      })
     }
 
     for (let card of byId("cards-container").children) {
       const awardId = card.getAttribute("data-award")
-      if (awardId) setCardInfo(card, getAwardName(awardId), getAwardDescription(awardId))
+      if (awardId) setupCard(card, awardId, getAwardName(awardId), getAwardDescription(awardId))
     }
 
-    setCardInfo(byId("mountaineering-card"), "Mountaineering", MOUNTAINEERING_DESCRIPTION)
+    setupCard(byId("mountaineering-card"), "drakensberg", "Mountaineering", MOUNTAINEERING_DESCRIPTION)

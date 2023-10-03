@@ -20,8 +20,10 @@ $link-change-width: 550px;
     }
 
     .card {
+        @include hover-grow();
         box-shadow: 0 0 8px rgb(0, 0, 0, 0.5);
         border-radius: $card-border-radius;
+        cursor: pointer;
         display: flex;
         flex-direction: column;
 
