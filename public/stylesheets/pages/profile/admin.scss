@@ -1,1 +1,24 @@
 @import "./profile-layout";
+
+#cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    a {
+        @include alternating-background(rgb(210, 210, 210), rgb(230, 230, 230));
+        @include hover-grow();
+        border-radius: 8px;
+        color: black;
+        cursor: pointer;
+        font-weight: 500;
+        padding: 16px;
+        text-decoration: none;
+        width: 300px;
+        flex-grow: 1;
+
+        &:hover {
+            @include alternating-background(rgb(220, 220, 220), rgb(240, 240, 240));
+        }
+    }
+}

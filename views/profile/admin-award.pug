@@ -1,0 +1,38 @@
+extends ./profile-layout
+
+block assets
+  link(rel='stylesheet' href='/stylesheets/pages/profile/admin-award.css')
+  script(src='/javascripts/profile/admin-award.js')
+
+block sidebar
+  .spacer.v20
+  h2.plr16 TODO
+
+block profile-content
+  .p16
+    h1#award-name
+
+    .line
+
+    h2.heading Status
+    #status
+
+    #links-container.invisible
+      .line
+      h2.heading Links
+      .spacer.v10
+      #links
+
+    #signoffs-container.invisible
+      .line
+      h2.heading Signoffs
+      .spacer.v20
+      #signoffs
+
+    #logs-container.invisible
+      .line
+      h2.heading Logs
+      .spacer.v20
+      #logs
+
+    .line

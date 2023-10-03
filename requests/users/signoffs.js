@@ -51,6 +51,35 @@ awardRouter.use("/:signoffId", (req, res, next) => { // verify signoff
     }
 }, awardSignoffRouter)
 
+awardSignoffRouter.put("/", middleware.getPermissionMiddleware("manageAwards"), async (req, res) => { // set user signoff completion
+    const { awardId, body, signoffId, targetUserId, userId } = req
+    const { complete } = body
+
+    const userDb = jsonDatabase.getUser(targetUserId)
+    const path = jsonDatabase.SIGNOFFS_PATH + "." + awardId + "." + signoffId
+
+    if (complete === true) {
+        if (userDb.get(path + ".complete")) {
+            res.res(409, "already_complete")
+            return
+        }
+
+        userDb.set(path, {
+            complete: true,
+            date: new Date(),
+            signer: userId
+        })
+    } else {
+        userDb.delete(path + ".complete")
+        userDb.delete(path + ".date")
+        userDb.delete(path + ".signer")
+    }
+
+    const signoffData = userDb.get(path)
+    await general.provideUserInfoToStatus(signoffData)
+    res.res(200, { signoff: signoffData })
+})
+
 awardSignoffRouter.put("/cancel-request", middleware.requireSelf, (req, res) => { // cancel signoff request
     const { awardId, signoffId, targetUserId } = req
     jsonDatabase.getUser(targetUserId).delete(`${jsonDatabase.SIGNOFFS_PATH}.${awardId}.${signoffId}.requestDate`)
@@ -60,6 +89,29 @@ awardSignoffRouter.put("/cancel-request", middleware.requireSelf, (req, res) => 
 awardSignoffRouter.put("/clear-decline", middleware.requireSelf, (req, res) => { // clear decline
     const { awardId, signoffId, targetUserId } = req
     jsonDatabase.getUser(targetUserId).delete(`${jsonDatabase.SIGNOFFS_PATH}.${awardId}.${signoffId}.decline`)
+    res.res(204)
+})
+
+awardSignoffRouter.put("/decline-request", middleware.getPermissionMiddleware("manageAwards"), (req, res) => { // decline signoff request
+    const { awardId, body, signoffId, targetUserId, userId } = req
+    const { message } = body
+
+    const userDb = jsonDatabase.getUser(targetUserId)
+    const path = jsonDatabase.SIGNOFFS_PATH + "." + awardId + "." + signoffId
+
+    if (userDb.get(path + ".complete")) {
+        res.res(409, "already_complete")
+        return
+    }
+
+    const decline = {
+        date: new Date(),
+        user: userId
+    }
+    
+    if (message) decline.message = message
+    userDb.set(path, { decline })
+
     res.res(204)
 })
 

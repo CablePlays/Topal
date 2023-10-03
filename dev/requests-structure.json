@@ -35,11 +35,15 @@
                     }
                 },
                 ":awardId": {
+                    "PUT": "Set user award completion",
                     "cancel-request": {
                         "PUT": "Cancels the signoff request for a signoff"
                     },
                     "clear-decline": {
                         "PUT": "Clear the decline message for a signoff"
+                    },
+                    "decline-request": {
+                        "PUT": "Decline user signoff request"
                     },
                     "request-signoff": {
                         "PUT": "Request signoff for a signoff"
@@ -53,7 +57,7 @@
             "links": {
                 "GET": "Get user links",
                 ":awardId": {
-                    "linkId": {
+                    ":linkId": {
                         "PUT": "Set/delete user link"
                     }
                 }
@@ -63,13 +67,17 @@
             },
             "signoffs": {
                 ":awardId": {
-                    "GET": "Get user signoffs of award",
+                    "GET": "Get user signoffs for award",
                     ":signoffId": {
+                        "PUT": "Set user signoff completion",
                         "cancel-request": {
                             "PUT": "Cancels the signoff request for a signoff"
                         },
                         "clear-decline": {
                             "PUT": "Clear the decline message for a signoff"
+                        },
+                        "decline-request": {
+                            "PUT": "Decline user signoff request"
                         },
                         "request-signoff": {
                             "PUT": "Request signoff for a signoff"

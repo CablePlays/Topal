@@ -3,6 +3,12 @@ extends ../layout
 block assets
   link(rel='stylesheet' href='/stylesheets/pages/generic.css')
 
+block style
+  style.
+    a.link {
+      padding: 4px 16px;
+    }
+
 block content
   div.p16
     h1 Admin Portal
@@ -14,4 +20,5 @@ block content
       p.limit-width.
         This page allows staff to manage the permissions of other users.
         The <i>Manage Permissions</i> permission is required to view this page.
-      a(href="/admin/permissions") Go
+      .spacer.v10
+      a.link.secondary(href="/admin/permissions") Go

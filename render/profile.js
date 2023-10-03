@@ -80,4 +80,18 @@ userRouter.get("/admin", middleware.getPermissionMiddleware("manageAwards"), (re
     res.ren("profile/admin")
 })
 
+userRouter.get("/admin/:awardId", middleware.getPermissionMiddleware("manageAwards"), (req, res) => {
+    const { awardId } = req.params
+
+    if (general.isAward(general.kebabToCamel(awardId))) {
+        res.ren("profile/admin-award")
+    } else {
+        res.ren("errors/not-found")
+    }
+})
+
+userRouter.get("/requests", middleware.getPermissionMiddleware("manageAwards"), (req, res) => {
+    res.ren("profile/requests")
+})
+
 module.exports = router

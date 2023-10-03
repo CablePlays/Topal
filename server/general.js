@@ -172,11 +172,11 @@ const PERMISSIONS = [
 /* Data */
 
 function getLogsTable(logType) {
-    return camelToSnakeCase(logType) + "_logs"
+    return pascalToSnake(logType) + "_logs"
 }
 
 function getSublogsTable(logType) {
-    return camelToSnakeCase(logType) + "_sublogs"
+    return pascalToSnake(logType) + "_sublogs"
 }
 
 function isAward(awardId) {
@@ -317,7 +317,11 @@ function createDummyUsers() {
 
 /* Utility */
 
-function camelToSnakeCase(camelCaseString) {
+function kebabToCamel(kebabCaseStr) { // kebab-case camelCase
+    return kebabCaseStr.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase())
+}
+
+function pascalToSnake(camelCaseString) { // PascalCase snake_case
     return camelCaseString.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`)
 }
 
@@ -360,5 +364,6 @@ module.exports = {
     provideUserInfoToStatuses,
     getUserInfo,
     getGrade,
-    getGradeFromEmail
+    getGradeFromEmail,
+    kebabToCamel
 }

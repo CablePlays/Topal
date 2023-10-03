@@ -111,26 +111,34 @@ ul.spacious > li:not(:first-child) {
   height: 80px;
 }
 
+a.primary,
 button.primary,
+a.secondary,
 button.secondary {
   border-radius: 4px;
-  font-weight: 500;
+  display: inline-block;
+  font-weight: 600;
+  text-decoration: none;
 }
 
+a.primary,
 button.primary {
   background-color: #EF7523;
-  border: none;
+  border: 2px solid transparent;
   color: white;
 }
+a.primary:hover,
 button.primary:hover {
   background-color: #f29354;
 }
 
+a.secondary,
 button.secondary {
   background-color: transparent;
   border: 2px solid #EF7523;
   color: #EF7523;
 }
+a.secondary:hover,
 button.secondary:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
@@ -738,7 +746,6 @@ footer .treverton-link {
   font-size: 16px;
   font-weight: 500;
   justify-content: center;
-  max-width: 120px;
   position: relative;
   text-decoration: none;
 }
@@ -845,4 +852,36 @@ footer .treverton-link {
     margin-left: 300px;
     width: calc(100% - 300px);
   }
+}
+
+#cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+#cards a {
+  transition: transform 0.2s;
+  border-radius: 8px;
+  color: black;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 16px;
+  text-decoration: none;
+  width: 300px;
+  flex-grow: 1;
+}
+#cards a:nth-child(odd) {
+  background-color: rgb(210, 210, 210);
+}
+#cards a:nth-child(even) {
+  background-color: rgb(230, 230, 230);
+}
+#cards a:hover {
+  transform: scale(1.005);
+}
+#cards a:hover:nth-child(odd) {
+  background-color: rgb(220, 220, 220);
+}
+#cards a:hover:nth-child(even) {
+  background-color: rgb(240, 240, 240);
 }

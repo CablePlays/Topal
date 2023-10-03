@@ -1,12 +1,17 @@
+a.primary,
 button.primary,
+a.secondary,
 button.secondary {
     border-radius: 4px;
-    font-weight: 500;
+    display: inline-block;
+    font-weight: 600;
+    text-decoration: none;
 }
 
+a.primary,
 button.primary {
     background-color: $color-button;
-    border: none;
+    border: 2px solid transparent;
     color: white;
 
     &:hover {
@@ -14,6 +19,7 @@ button.primary {
     }
 }
 
+a.secondary,
 button.secondary {
     background-color: transparent;
     border: 2px solid $color-button;

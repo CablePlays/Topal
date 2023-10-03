@@ -760,80 +760,156 @@ footer .treverton-link {
   width: min(150%, 120px);
 }
 
-.main-container {
+#corner-details {
+  align-items: center;
+  border-bottom-left-radius: 8px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
   display: flex;
-  flex-direction: column;
-  height: 100vh;
-  height: 100dvh;
+  min-width: 150px;
+  padding: 8px 20px 8px 8px;
+  position: fixed;
+  right: 0;
+  top: 80px;
+  transition: 0.15s;
+  z-index: 80;
 }
-@media screen and (orientation: landscape) {
-  .main-container {
-    flex-direction: row;
+@media screen and (min-width: 900px) {
+  #corner-details {
+    display: none;
   }
 }
-.main-container .col1,
-.main-container .col2 {
-  height: 50%;
+#corner-details.scrolled {
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.2);
 }
-@media screen and (orientation: landscape) {
-  .main-container .col1,
-  .main-container .col2 {
-    height: 100%;
-    width: 50%;
-  }
+#corner-details.scrolled img {
+  opacity: 1;
 }
-.main-container .col1 {
-  -o-object-fit: cover;
-     object-fit: cover;
-  -o-object-position: 30% 50%;
-     object-position: 30% 50%;
+#corner-details.scrolled p {
+  color: rgb(0, 0, 0);
 }
-.main-container .col2 {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  padding: 32px;
+#corner-details img {
+  border-radius: 48px;
+  height: 40px;
+  opacity: 0;
+  transition: 0.15s;
+  width: 40px;
 }
-.main-container .col2 .col2-center {
-  align-items: center;
-  bottom: 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+#corner-details p {
+  color: rgba(0, 0, 0, 0);
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.15s;
+  width: -moz-min-content;
+  width: min-content;
+}
+
+.col1 {
+  box-shadow: 5px 0 5px rgba(0, 0, 0, 0.2);
   position: relative;
-  width: min(400px, 100%);
+  z-index: 10;
 }
-.main-container .col2 .col2-center h1 {
-  color: #EF7523;
+@media screen and (min-width: 900px) {
+  .col1 {
+    height: calc(100vh - 80px);
+    position: fixed;
+    width: 300px;
+  }
 }
-.main-container .col2 .col2-center p {
-  text-align: center;
-}
-.main-container .col2 .col2-center .description {
-  color: rgb(150, 150, 150);
-  font-size: 12px;
-}
-.main-container .col2 .col2-center #info-text {
+.col1 .email {
   color: rgb(100, 100, 100);
   font-size: 14px;
 }
-.main-container button.dummy-signin {
-  background-color: rgb(32, 33, 36);
-  border: none;
-  border-radius: 19px;
-  color: white;
-  cursor: pointer;
-  height: 38px;
-  padding: 8px;
-  transition: 0.25s;
-  width: 250px;
+.col1 .line {
+  border-top: 2px solid rgb(50, 50, 50);
+  margin-left: 5%;
+  width: 90%;
 }
-.main-container button.dummy-signin:hover {
-  background-color: rgb(66, 68, 71);
+.col1 .name-and-picture {
+  align-items: center;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  transition: 0.5s;
 }
-.main-container .logo {
+.col1 .name-and-picture img {
+  border-radius: 48px;
+  height: 96px;
+  width: 96px;
+}
+.col1 .name-and-picture p {
+  font-size: 20px;
+  font-weight: 600;
+  width: -moz-min-content;
+  width: min-content;
+}
+
+@media screen and (min-width: 900px) {
+  .col2 {
+    margin-left: 300px;
+    width: calc(100% - 300px);
+  }
+}
+
+.line {
+  border-top: 2px solid black;
+  margin: 20px auto;
+  width: 98%;
+}
+
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 40px;
+}
+.status > :first-child {
+  align-items: center;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  display: flex;
+}
+.status > :nth-child(4) > :nth-child(2) {
+  font-size: 14px;
+}
+.status > :nth-child(4) .decline-info {
+  font-size: 12px;
+  margin-top: 10px;
+  width: 200px;
+}
+.status > :nth-child(4) .row {
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+  display: flex;
+  margin-top: 10px;
+}
+.status > :nth-child(4) .row button {
   cursor: pointer;
-  left: 20px;
-  position: absolute;
-  top: 20px;
+  padding: 4px 8px;
+}
+.status > :nth-child(4) .row input {
+  padding: 4px;
+}
+.status > :not(:first-child) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#links {
+  align-items: center;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, max-content);
+}
+#links .link-icon {
+  cursor: pointer;
+}
+
+#signoffs {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
 }

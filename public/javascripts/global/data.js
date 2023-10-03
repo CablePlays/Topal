@@ -680,6 +680,10 @@ function isAward(awardId) {
     return _AWARDS[awardId] != null
 }
 
+function isFirstLevelAward(awardId) {
+    return isAward(awardId) && getFirstLevelAward(awardId) === awardId
+}
+
 function getFirstLevelAward(awardId) {
     return awardId.replace("Instructor", "").replace("Leader", "")
 }

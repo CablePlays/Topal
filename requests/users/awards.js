@@ -51,6 +51,35 @@ router.use("/:awardId", (req, res, next) => {
     }
 }, awardRouter)
 
+awardRouter.put("/", middleware.getPermissionMiddleware("manageAwards"), async (req, res) => { // set user award completion
+    const { awardId, body, targetUserId, userId } = req
+    const { complete } = body
+
+    const userDb = jsonDatabase.getUser(targetUserId)
+    const path = jsonDatabase.AWARDS_PATH + "." + awardId
+
+    if (complete === true) {
+        if (userDb.get(path + ".complete")) {
+            res.res(409, "already_complete")
+            return
+        }
+
+        userDb.set(path, {
+            complete: true,
+            date: new Date(),
+            signer: userId
+        })
+    } else {
+        userDb.delete(path + ".complete")
+        userDb.delete(path + ".date")
+        userDb.delete(path + ".signer")
+    }
+
+    const awardData = userDb.get(path)
+    await general.provideUserInfoToStatus(awardData)
+    res.res(200, { award: awardData })
+})
+
 awardRouter.put("/cancel-request", middleware.requireSelf, (req, res) => { // cancel signoff request
     const { awardId, targetUserId } = req
     jsonDatabase.getUser(targetUserId).delete(`${jsonDatabase.AWARDS_PATH}.${awardId}.requestDate`)
@@ -60,6 +89,29 @@ awardRouter.put("/cancel-request", middleware.requireSelf, (req, res) => { // ca
 awardRouter.put("/clear-decline", middleware.requireSelf, (req, res) => { // clear decline
     const { awardId, targetUserId } = req
     jsonDatabase.getUser(targetUserId).delete(`${jsonDatabase.AWARDS_PATH}.${awardId}.decline`)
+    res.res(204)
+})
+
+awardRouter.put("/decline-request", middleware.getPermissionMiddleware("manageAwards"), (req, res) => { // decline signoff request
+    const { awardId, body, targetUserId, userId } = req
+    const { message } = body
+
+    const userDb = jsonDatabase.getUser(targetUserId)
+    const path = jsonDatabase.AWARDS_PATH + "." + awardId
+
+    if (userDb.get(path + ".complete")) {
+        res.res(409, "already_complete")
+        return
+    }
+
+    const decline = {
+        date: new Date(),
+        user: userId
+    }
+
+    if (message) decline.message = message
+    userDb.set(path, { decline })
+
     res.res(204)
 })
 

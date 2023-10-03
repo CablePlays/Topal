@@ -1,5 +1,6 @@
 const LOADING_TEXT = "Loading . . ."
 const LOADING_ICON_TEXT = "hourglass_empty"
+const MISSING_TEXT = "N/A"
 
 document.addEventListener("click", event => {
     if (event.target.classList.contains("signin-link")) { // signin link
@@ -72,8 +73,12 @@ function createElement(type, options) {
     const { c, onClick, consumer, p, r, t } = options ?? {}
 
     if (typeof c === "string") {
-        element.classList.add(c)
-    } else if (c) {
+        const parts = c.split(" ")
+
+        for (let clazz of parts) {
+            element.classList.add(clazz)
+        }
+    } else if (c) { // deprecated (use of array)
         for (let clazz of c) {
             element.classList.add(clazz)
         }
@@ -111,11 +116,15 @@ function createNotice(type, options) {
 
 /* Formatting */
 
-function pascalToCapitalized(s) {
+function kebabToCamel(kebabCaseStr) { // kebab-case camelCase
+    return kebabCaseStr.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase())
+}
+
+function pascalToCapitalized(s) { // PascalCase
     return s.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, str => str.toUpperCase())
 }
 
-function pascalToKebab(s) {
+function pascalToKebab(s) { // PascalCase kebab-case
     return s.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 }
 
