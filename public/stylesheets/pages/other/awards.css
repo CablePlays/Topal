@@ -829,6 +829,7 @@ footer .treverton-link {
 #cards-container .card .info .links a {
   background-color: #EF7523;
   border-radius: 4px;
+  box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.15);
   color: white;
   font-size: 12px;
   min-width: 150px;
