@@ -1,5 +1,7 @@
 @import "./profile-layout";
 
+$button-shadow: -4px 4px 16px rgb(0, 0, 0, 0.15);
+
 .ruler {
     border-top: 2px solid black;
     margin: 30px auto;
@@ -49,6 +51,14 @@
             button {
                 cursor: pointer;
                 padding: 4px 8px;
+
+                &.primary {
+                    box-shadow: $button-shadow;
+                }
+
+                &.secondary {
+                    text-shadow: $button-shadow;
+                }
             }
 
             input {
@@ -58,6 +68,7 @@
     }
 
     .toggle-button {
+        box-shadow: $button-shadow;
         cursor: pointer;
         padding: 8px;
     }

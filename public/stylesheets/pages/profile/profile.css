@@ -817,6 +817,7 @@ footer .treverton-link {
 
 .col1 {
   box-shadow: 5px 0 5px rgba(0, 0, 0, 0.2);
+  padding-bottom: 20px;
   position: relative;
   z-index: 10;
 }
