@@ -85,9 +85,11 @@ block content
           span
 
     #award-links.col3
-      div(onclick="window.location.href='/awards'")
+      div
         p Awards
         .material-icons chevron_right
+      script.
+        byId("award-links").children[0].addEventListener("click", openLinkOnClick("/awards"))
 
   .bottom-content
     block out

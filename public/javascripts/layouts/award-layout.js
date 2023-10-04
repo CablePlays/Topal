@@ -31,6 +31,8 @@ function appendInfo(elements) {
 }
 
 function createShortcut(text, arrowType, onClick) {
+    if (typeof onClick === "string") onClick = openLinkOnClick(onClick)
+
     const linksElement = byId("award-links")
     const container = createElement("div", { p: linksElement, onClick })
     let icon
@@ -297,13 +299,13 @@ function _createSequelShortcuts(awardId) {
     const kebabBaseAwardId = pascalToKebab(baseAwardId)
 
     if (sequelType && isAward(baseAwardId)) {
-        createShortcut("Basic Award", "right", () => location.href = `${pathRoot}/${kebabBaseAwardId}`)
+        createShortcut("Basic Award", "right", `${pathRoot}/${kebabBaseAwardId}`)
     }
     if (awardHasInstructor(baseAwardId) && sequelType !== "Instructor") {
-        createShortcut("Instructor Award", "right", () => location.href = `${pathRoot}/${kebabBaseAwardId}-instructor`)
+        createShortcut("Instructor Award", "right", `${pathRoot}/${kebabBaseAwardId}-instructor`)
     }
     if (awardHasLeader(baseAwardId) && sequelType !== "Leader") {
-        createShortcut("Leader Award", "right", () => location.href = `${pathRoot}/${kebabBaseAwardId}-leader`)
+        createShortcut("Leader Award", "right", `${pathRoot}/${kebabBaseAwardId}-leader`)
     }
 }
 

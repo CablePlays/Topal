@@ -913,16 +913,16 @@ footer .treverton-link {
   padding: 4px 8px;
 }
 .status .request-container .row button.primary {
-  box-shadow: -4px 4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.1);
 }
 .status .request-container .row button.secondary {
-  text-shadow: -4px 4px 16px rgba(0, 0, 0, 0.15);
+  text-shadow: -4px 4px 8px rgba(0, 0, 0, 0.1);
 }
 .status .request-container .row input {
   padding: 4px;
 }
 .status .toggle-button {
-  box-shadow: -4px 4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   padding: 8px;
 }
