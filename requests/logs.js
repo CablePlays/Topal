@@ -30,7 +30,7 @@ router.use("/:logType", (req, res, next) => { // verify log type
     }
 }, typeRouter)
 
-typeRouter.get("/", async (req, res) => {
+typeRouter.get("/", async (req, res) => { // get logs
     const { logType, permissions, userId } = req
     const { parentLogId, targetUserId } = req.query
 

@@ -258,6 +258,7 @@ async function getUserInfo(userId) {
     return {
         id: userId,
         email,
+        grade: getGradeFromEmail(email),
         name,
         surname,
         title,

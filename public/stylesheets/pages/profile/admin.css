@@ -91,6 +91,12 @@ ul.spacious > li:not(:first-child) {
   padding-right: 16px;
 }
 
+.plrt16 {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 16px;
+}
+
 .plr32 {
   padding-left: 32px;
   padding-right: 32px;
@@ -865,27 +871,41 @@ footer .treverton-link {
 }
 #cards a {
   transition: transform 0.2s;
+  align-items: center;
   border-radius: 8px;
   color: black;
   cursor: pointer;
+  display: flex;
   font-weight: 500;
+  height: 50px;
+  justify-content: space-between;
   padding: 16px;
   text-decoration: none;
   width: 300px;
   flex-grow: 1;
 }
 #cards a:nth-child(odd) {
-  background-color: rgb(210, 210, 210);
+  background-color: rgb(230, 230, 230);
 }
 #cards a:nth-child(even) {
-  background-color: rgb(230, 230, 230);
+  background-color: rgb(210, 210, 210);
+}
+#cards a:hover:nth-child(odd) {
+  background-color: rgb(240, 240, 240);
+}
+#cards a:hover:nth-child(even) {
+  background-color: rgb(220, 220, 220);
 }
 #cards a:hover {
   transform: scale(1.005);
 }
-#cards a:hover:nth-child(odd) {
-  background-color: rgb(220, 220, 220);
-}
-#cards a:hover:nth-child(even) {
-  background-color: rgb(240, 240, 240);
+#cards a .request-count {
+  align-items: center;
+  border: 2px solid rgb(231, 76, 60);
+  border-radius: 10px;
+  color: rgb(231, 76, 60);
+  display: flex;
+  height: 20px;
+  justify-content: center;
+  width: 20px;
 }

@@ -1,0 +1,57 @@
+@import "../../global";
+
+#requests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    .request {
+        @include alternating-background-gray();
+        @include hover-grow();
+        align-items: center;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        padding: 16px;
+        min-height: 230px;
+        text-align: center;
+        max-width: 400px;
+        min-width: 170px;
+        width: min-content;
+
+        img {
+            box-shadow: 0 0 8px rgb(0, 0, 0, 0.2);
+            border-radius: 43px;
+            height: 86px;
+            width: 86px;
+        }
+
+        .grade {
+            font-size: 14px;
+        }
+
+        .name {
+            margin-top: 10px;
+        }
+
+        .types {
+            display: grid;
+            grid-template-columns: 1fr 20px 1fr min-content;
+            font-size: 12px;
+            gap: 0 10px;
+            margin-top: 20px;
+
+            p:not(.number) {
+                width: max-content;
+            }
+
+            .number {
+                color: $color-accent-400;
+                font-weight: 600;
+                text-align: left;
+            }
+        }
+    }
+}

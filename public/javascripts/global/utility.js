@@ -67,6 +67,22 @@ function setVisible(element, visible) {
     }
 }
 
+function openLinkOnClick(url) {
+    return e => {
+        const targetNode = e.target.nodeName
+
+        if (targetNode !== "A" && targetNode !== "BUTTON") {
+            if (e.ctrlKey) {
+                window.open(url, "_blank")
+            } else if (e.shiftKey) {
+                window.open(url, "_new")
+            } else {
+                window.location.href = url
+            }
+        }
+    }
+}
+
 /* Create Element */
 
 function createElement(type, options) {
@@ -84,7 +100,7 @@ function createElement(type, options) {
             element.classList.add(clazz)
         }
     }
-    if (onClick) element.addEventListener("click", () => onClick(element))
+    if (onClick) element.addEventListener("click", e => onClick(e, element))
     if (p) byId(p).appendChild(element)
     if (r) byId(r).replaceWith(element)
     if (t) element.innerHTML = t

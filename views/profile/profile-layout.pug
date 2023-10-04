@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-  script(src='/javascripts/layouts/profile-layout.js')
+  script(src="/javascripts/layouts/profile-layout.js")
   script.
     function getProfileUserId() {
       return parseInt(location.pathname.split("/")[2])
@@ -29,7 +29,6 @@ block content
       joined-buttons#profile-page-buttons
         a(href=`/profile/${profileUser.id}`) Profile
         a(href=`/profile/${profileUser.id}/admin`) Admin
-        a(href=`/profile/${profileUser.id}/requests`) Requests
       script.
         const profilePageButtons = byId("profile-page-buttons")
         const page = path.split("/")[3]

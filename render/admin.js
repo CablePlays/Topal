@@ -11,4 +11,8 @@ router.get("/permissions", middleware.getPermissionMiddleware("managePermissions
     res.ren("admin/permissions")
 })
 
+router.get("/requests", middleware.getPermissionMiddleware("manageAwards"), (req, res) => {
+    res.ren("admin/requests")
+})
+
 module.exports = router

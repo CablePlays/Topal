@@ -24,6 +24,9 @@
                 "GET": "Get user permissions from email"
             }
         },
+        "requests": {
+            "GET": "Get number of signoff requests for each user"
+        },
         "search": {
             "GET": "Searches users with a query."
         },

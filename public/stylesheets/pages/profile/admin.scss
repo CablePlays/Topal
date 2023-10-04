@@ -6,19 +6,30 @@
     gap: 10px;
 
     a {
-        @include alternating-background(rgb(210, 210, 210), rgb(230, 230, 230));
+        @include alternating-background-gray();
         @include hover-grow();
+        align-items: center;
         border-radius: 8px;
         color: black;
         cursor: pointer;
+        display: flex;
         font-weight: 500;
+        height: 50px;
+        justify-content: space-between;
         padding: 16px;
         text-decoration: none;
         width: 300px;
         flex-grow: 1;
 
-        &:hover {
-            @include alternating-background(rgb(220, 220, 220), rgb(240, 240, 240));
+        .request-count {
+            align-items: center;
+            border: 2px solid $color-error;
+            border-radius: 10px;
+            color: $color-error;
+            display: flex;
+            height: 20px;
+            justify-content: center;
+            width: 20px;
         }
     }
 }

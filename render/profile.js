@@ -90,8 +90,4 @@ userRouter.get("/admin/:awardId", middleware.getPermissionMiddleware("manageAwar
     }
 })
 
-userRouter.get("/requests", middleware.getPermissionMiddleware("manageAwards"), (req, res) => {
-    res.ren("profile/requests")
-})
-
 module.exports = router

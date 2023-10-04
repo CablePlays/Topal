@@ -1,7 +1,7 @@
 extends ../layout
 
 block assets
-  link(rel='stylesheet' href='/stylesheets/pages/generic.css')
+  link(rel="stylesheet" href="/stylesheets/pages/generic.css")
 
 block style
   style.
@@ -28,7 +28,7 @@ block content
         All requests made by users for their awards and signoffs to be signed off.
         The <i>Manage Awards</i> permission is required to view this page.
       .spacer.v10
-      p Coming soon!
+      a.link.secondary(href="/admin/requests") Go
 
     div(style=`display: ${displays.permission.managePermissions.block}`)
       .spacer.v20

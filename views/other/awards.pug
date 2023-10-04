@@ -110,12 +110,7 @@ block script
       const infoContainer = card.children[1].children
       infoContainer[0].innerHTML = name
       infoContainer[1].innerHTML = description
-
-      card.addEventListener("click", e => {
-        if (e.target.nodeName !== "A") {
-          location.href = `/awards/${pascalToKebab(awardId)}`
-        }
-      })
+      card.addEventListener("click", openLinkOnClick(`/awards/${pascalToKebab(awardId)}`))
     }
 
     for (let card of byId("cards-container").children) {

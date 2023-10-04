@@ -48,6 +48,61 @@ router.get("/permissions/user", middleware.getPermissionMiddleware("managePermis
     res.res(200, { info, permissions })
 })
 
+router.get("/requests", middleware.getPermissionMiddleware("manageAwards"), async (req, res) => { // get number of signoff requests for each user
+    const users = {}
+    const asyncTasks = []
+
+    await jsonDatabase.forEachUser((userId, db) => {
+        const requests = {}
+        let include = false
+        const awards = db.get(jsonDatabase.AWARDS_PATH) ?? {}
+
+        for (let awardId in awards) {
+            const award = awards[awardId]
+
+            if (award.requestDate) {
+                include = true
+                requests[awardId] = 1
+            }
+        }
+
+        const signoffs = db.get(jsonDatabase.SIGNOFFS_PATH) ?? {}
+
+        for (let awardId in signoffs) {
+            const award = signoffs[awardId]
+
+            for (let signoffId in award) {
+                const signoff = award[signoffId]
+
+                if (signoff.requestDate) {
+                    include = true
+
+                    if (requests[awardId] == null) {
+                        requests[awardId] = 1
+                    } else {
+                        requests[awardId]++
+                    }
+                }
+            }
+        }
+
+        if (include) {
+            const user = {
+                requests
+            }
+
+            const promise = general.getUserInfo(userId)
+            asyncTasks.push(promise)
+            promise.then(info => user.info = info)
+
+            users[userId] = user
+        }
+    })
+
+    await Promise.all(asyncTasks)
+    res.res(200, { users })
+})
+
 router.get("/search", async (req, res) => { // search users using query
     const { query } = req
     const searchQuery = query.query?.toLowerCase()

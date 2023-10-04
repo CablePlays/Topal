@@ -1,17 +1,17 @@
 extends ./profile-layout
 
 block assets
-  link(rel='stylesheet' href='/stylesheets/pages/profile/admin-award.css')
-  script(src='/javascripts/profile/admin-award.js')
+  link(rel="stylesheet" href="/stylesheets/pages/profile/admin-award.css")
+  script(src="/javascripts/profile/admin-award.js")
 
 block sidebar
   .spacer.v20
   h2.plr16 TODO
 
 block profile-content
-  .p16
-    h1#award-name
+  h1#award-name.plrt16
 
+  div(style="padding: 0 32px")
     .ruler
 
     h2.heading Status
@@ -20,7 +20,7 @@ block profile-content
     #links-container.invisible
       .ruler
       h2.heading Links
-      .spacer.v10
+      .spacer.v20
       #links
 
     #signoffs-container.invisible

@@ -42,7 +42,7 @@ async function forEachUser(consumer) {
         if (error) {
             console.error(error)
         } else {
-            const promises = []
+            const asyncTasks = []
 
             for (let fileName of files) {
                 const userId = parseInt(fileName.substring(USER_FILE_PREFIX.length, fileName.length - ".json".length))
@@ -50,12 +50,12 @@ async function forEachUser(consumer) {
                 const promise = consumer(userId, db)
 
                 if (promise instanceof Promise) {
-                    promises.push(promise)
+                    asyncTasks.push(promise)
                 }
             }
 
-            if (promises.length > 0) {
-                await Promise.all(promises)
+            if (asyncTasks.length > 0) {
+                await Promise.all(asyncTasks)
             }
         }
 

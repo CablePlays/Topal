@@ -21,6 +21,7 @@ OP points
 Running distance
 Paddling trips
 Midmar mile training distance
+Bars indicating progress of half colors, colors and honours
 
 Milestones
 

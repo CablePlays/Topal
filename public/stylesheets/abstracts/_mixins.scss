@@ -8,6 +8,14 @@
     }
 }
 
+@mixin alternating-background-gray() {
+    @include alternating-background(rgb(230, 230, 230), rgb(210, 210, 210));
+
+    &:hover {
+        @include alternating-background(rgb(240, 240, 240), rgb(220, 220, 220));
+    }
+}
+
 @mixin hover-grow() {
     transition: transform 0.2s;
 
