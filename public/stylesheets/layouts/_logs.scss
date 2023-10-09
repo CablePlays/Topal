@@ -227,7 +227,7 @@ $border-radius: 8px;
             }
 
             .text-long {
-                min-width: 600px;
+                min-width: min(600px, 100%);
 
                 textarea {
                     border: 2px solid $border-color;

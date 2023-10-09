@@ -4,7 +4,7 @@ const jsonDatabase = require("../server/json-database")
 
 const router = express.Router()
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res) => { // get recent awards
     const recentAwards = jsonDatabase.get(jsonDatabase.RECENT_AWARDS_PATH) ?? []
     const now = new Date().getTime()
     let update = false

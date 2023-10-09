@@ -1,11 +1,13 @@
 extends ../layout
 
 block assets
-  link(rel="stylesheet" href='/stylesheets/pages/other/settings.css')
-  script(src='/javascripts/other/settings.js')
+  link(rel="stylesheet" href="/stylesheets/pages/other/settings.css")
+  script(src="/javascripts/other/settings.js")
 
 block content
-  h1.p16 Settings
+  h1.plrt16 Settings
+
+  .spacer.v20
 
   #settings
     .line
@@ -37,3 +39,7 @@ block content
         button.secondary(onclick="logoutButtonClicked()") Log out
 
     .line
+
+    .spacer.v20
+
+    .notice(data-type="info") Your profile picture updates to your Google profile picture every time you log in.

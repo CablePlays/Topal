@@ -529,7 +529,7 @@ footer .treverton-link {
   width: 100%;
 }
 .logs .input .items .text-long {
-  min-width: 600px;
+  min-width: min(600px, 100%);
 }
 .logs .input .items .text-long textarea {
   border: 2px solid rgb(50, 50, 50);
