@@ -3,12 +3,12 @@ $account-display-breakpoint-2: 1350px;
 $links-breakpoint: 1050px;
 $search-bar-breakpoint: 1220px;
 
-.topbar,
-.topbar-spacer {
-    height: $topbar-height;
+header,
+.header-spacer {
+    height: $header-height;
 }
 
-.topbar {
+header {
     align-items: center;
     background-color: white;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
@@ -21,45 +21,6 @@ $search-bar-breakpoint: 1220px;
 
     @media screen and (min-width: $links-breakpoint) {
         padding-right: 32px;
-    }
-
-    .account-display {
-        align-items: center;
-        column-gap: 10px;
-        cursor: pointer;
-        display: flex;
-
-        div {
-            display: none;
-
-            @media screen and (min-width: $account-display-breakpoint-1) {
-                display: block;
-            }
-
-            @media screen and (min-width: $links-breakpoint) {
-                display: none;
-            }
-
-            @media screen and (min-width: $account-display-breakpoint-2) {
-                display: block;
-            }
-        }
-
-        img {
-            border-radius: 25px;
-            height: 43px;
-            object-fit: cover;
-            width: 43px;
-        }
-
-        .email {
-            color: rgb(148, 148, 148);
-            font-size: 14px;
-        }
-
-        .name {
-            font-size: 16px;
-        }
     }
 
     .logo {
@@ -126,16 +87,46 @@ $search-bar-breakpoint: 1220px;
         }
     }
 
-    #sidebar-icon {
-        position: absolute;
-        right: 20px;
+    #account-display {
+        align-items: center;
+        column-gap: 10px;
+        cursor: pointer;
+        display: flex;
 
-        @media screen and (min-width: $links-breakpoint) {
+        div {
             display: none;
+
+            @media screen and (min-width: $account-display-breakpoint-1) {
+                display: block;
+            }
+
+            @media screen and (min-width: $links-breakpoint) {
+                display: none;
+            }
+
+            @media screen and (min-width: $account-display-breakpoint-2) {
+                display: block;
+            }
+        }
+
+        img {
+            border-radius: 25px;
+            height: 43px;
+            object-fit: cover;
+            width: 43px;
+        }
+
+        .email {
+            color: rgb(148, 148, 148);
+            font-size: 14px;
+        }
+
+        .name {
+            font-size: 16px;
         }
     }
 
-    #topbar-links {
+    #header-links {
         column-gap: 40px;
         display: none;
         flex-grow: 0.25;
@@ -174,6 +165,15 @@ $search-bar-breakpoint: 1220px;
                 position: absolute;
                 width: min(150%, 120px);
             }
+        }
+    }
+
+    #sidebar-icon {
+        position: absolute;
+        right: 20px;
+
+        @media screen and (min-width: $links-breakpoint) {
+            display: none;
         }
     }
 }

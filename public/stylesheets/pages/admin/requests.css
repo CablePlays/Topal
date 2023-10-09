@@ -313,11 +313,10 @@ joined-buttons .underline {
 }
 
 footer {
-  align-items: center;
   background-color: white;
   box-shadow: 0px -4px 16px rgba(0, 0, 0, 0.15);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   padding: 16px;
   position: relative;
   z-index: 80;
@@ -325,14 +324,181 @@ footer {
 footer a,
 footer p {
   color: black !important;
-  display: inline;
-  font-size: 16px;
   text-decoration: none !important;
+}
+footer .thanks :first-child {
+  font-size: 12px;
 }
 footer .treverton-link {
   font-weight: 800;
-  left: 16px;
+}
+
+header,
+.header-spacer {
+  height: 80px;
+}
+
+header {
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: space-around;
+  padding-right: 78px;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+@media screen and (min-width: 1050px) {
+  header {
+    padding-right: 32px;
+  }
+}
+header .logo {
+  cursor: pointer;
+  height: 48px;
+  margin: 0 32px;
+  width: 131px;
+}
+@media screen and (min-width: 1050px) {
+  header .logo {
+    margin: 0 64px;
+  }
+}
+header .search {
+  align-items: center;
+  background-color: rgb(240, 240, 240);
+  border-radius: 8px;
+  display: none;
+  height: 49px;
+  margin-right: 32px;
+  padding: 0 16px;
+  width: 500px;
+}
+@media screen and (min-width: 1220px) {
+  header .search {
+    display: flex;
+  }
+}
+header .search input {
+  background: transparent;
+  border: none;
+  color: rgb(100, 100, 100);
+  font-size: 16px;
+  height: 100%;
+  outline: none;
+  text-indent: 16px;
+  width: 100%;
+}
+header .search .vertical-line {
+  border-left: 2px solid rgb(148, 148, 148);
+  height: 24px;
+  margin-left: 16px;
+}
+header .search #search-icon {
+  cursor: pointer;
+}
+header .sign-in {
+  background-color: #EF7523;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.1s;
+  white-space: nowrap;
+}
+header .sign-in:hover {
+  background-color: #f29354;
+}
+header #account-display {
+  align-items: center;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  cursor: pointer;
+  display: flex;
+}
+header #account-display div {
+  display: none;
+}
+@media screen and (min-width: 600px) {
+  header #account-display div {
+    display: block;
+  }
+}
+@media screen and (min-width: 1050px) {
+  header #account-display div {
+    display: none;
+  }
+}
+@media screen and (min-width: 1350px) {
+  header #account-display div {
+    display: block;
+  }
+}
+header #account-display img {
+  border-radius: 25px;
+  height: 43px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 43px;
+}
+header #account-display .email {
+  color: rgb(148, 148, 148);
+  font-size: 14px;
+}
+header #account-display .name {
+  font-size: 16px;
+}
+header #header-links {
+  -moz-column-gap: 40px;
+       column-gap: 40px;
+  display: none;
+  flex-grow: 0.25;
+  height: 100%;
+  justify-content: space-between;
+  margin-right: 48px;
+}
+@media screen and (min-width: 1050px) {
+  header #header-links {
+    display: flex;
+  }
+}
+@media screen and (min-width: 1220px) {
+  header #header-links .search-link {
+    display: none;
+  }
+}
+header #header-links a {
+  align-items: center;
+  color: rgb(58, 58, 58);
+  display: flex;
+  font-size: 16px;
+  font-weight: 500;
+  justify-content: center;
+  position: relative;
+  text-decoration: none;
+}
+header #header-links a:hover {
+  color: #EF7523;
+}
+header #header-links a.selected .underline {
+  border-radius: 2px;
+  border-top: 5px solid #EF7523;
+  bottom: 0;
   position: absolute;
+  width: min(150%, 120px);
+}
+header #sidebar-icon {
+  position: absolute;
+  right: 20px;
+}
+@media screen and (min-width: 1050px) {
+  header #sidebar-icon {
+    display: none;
+  }
 }
 
 .logs {
@@ -600,174 +766,6 @@ footer .treverton-link {
 #sidebar button:hover {
   background-color: rgb(240, 240, 240);
   color: #EF7523;
-}
-
-.topbar,
-.topbar-spacer {
-  height: 80px;
-}
-
-.topbar {
-  align-items: center;
-  background-color: white;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  display: flex;
-  justify-content: space-around;
-  padding-right: 78px;
-  position: fixed;
-  width: 100%;
-  z-index: 100;
-}
-@media screen and (min-width: 1050px) {
-  .topbar {
-    padding-right: 32px;
-  }
-}
-.topbar .account-display {
-  align-items: center;
-  -moz-column-gap: 10px;
-       column-gap: 10px;
-  cursor: pointer;
-  display: flex;
-}
-.topbar .account-display div {
-  display: none;
-}
-@media screen and (min-width: 600px) {
-  .topbar .account-display div {
-    display: block;
-  }
-}
-@media screen and (min-width: 1050px) {
-  .topbar .account-display div {
-    display: none;
-  }
-}
-@media screen and (min-width: 1350px) {
-  .topbar .account-display div {
-    display: block;
-  }
-}
-.topbar .account-display img {
-  border-radius: 25px;
-  height: 43px;
-  -o-object-fit: cover;
-     object-fit: cover;
-  width: 43px;
-}
-.topbar .account-display .email {
-  color: rgb(148, 148, 148);
-  font-size: 14px;
-}
-.topbar .account-display .name {
-  font-size: 16px;
-}
-.topbar .logo {
-  cursor: pointer;
-  height: 48px;
-  margin: 0 32px;
-  width: 131px;
-}
-@media screen and (min-width: 1050px) {
-  .topbar .logo {
-    margin: 0 64px;
-  }
-}
-.topbar .search {
-  align-items: center;
-  background-color: rgb(240, 240, 240);
-  border-radius: 8px;
-  display: none;
-  height: 49px;
-  margin-right: 32px;
-  padding: 0 16px;
-  width: 500px;
-}
-@media screen and (min-width: 1220px) {
-  .topbar .search {
-    display: flex;
-  }
-}
-.topbar .search input {
-  background: transparent;
-  border: none;
-  color: rgb(100, 100, 100);
-  font-size: 16px;
-  height: 100%;
-  outline: none;
-  text-indent: 16px;
-  width: 100%;
-}
-.topbar .search .vertical-line {
-  border-left: 2px solid rgb(148, 148, 148);
-  height: 24px;
-  margin-left: 16px;
-}
-.topbar .search #search-icon {
-  cursor: pointer;
-}
-.topbar .sign-in {
-  background-color: #EF7523;
-  border: none;
-  border-radius: 4px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 13px;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color 0.1s;
-  white-space: nowrap;
-}
-.topbar .sign-in:hover {
-  background-color: #f29354;
-}
-.topbar #sidebar-icon {
-  position: absolute;
-  right: 20px;
-}
-@media screen and (min-width: 1050px) {
-  .topbar #sidebar-icon {
-    display: none;
-  }
-}
-.topbar #topbar-links {
-  -moz-column-gap: 40px;
-       column-gap: 40px;
-  display: none;
-  flex-grow: 0.25;
-  height: 100%;
-  justify-content: space-between;
-  margin-right: 48px;
-}
-@media screen and (min-width: 1050px) {
-  .topbar #topbar-links {
-    display: flex;
-  }
-}
-@media screen and (min-width: 1220px) {
-  .topbar #topbar-links .search-link {
-    display: none;
-  }
-}
-.topbar #topbar-links a {
-  align-items: center;
-  color: rgb(58, 58, 58);
-  display: flex;
-  font-size: 16px;
-  font-weight: 500;
-  justify-content: center;
-  position: relative;
-  text-decoration: none;
-}
-.topbar #topbar-links a:hover {
-  color: #EF7523;
-}
-.topbar #topbar-links a.selected .underline {
-  border-radius: 2px;
-  border-top: 5px solid #EF7523;
-  bottom: 0;
-  position: absolute;
-  width: min(150%, 120px);
 }
 
 #requests {

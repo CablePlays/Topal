@@ -3,9 +3,9 @@ extends ./head
 block body
   script(src="/javascripts/layouts/layout.js")
 
-  .topbar
+  header
     img.logo(src="/assets/logos/logo.svg" onclick="location.href='/'")
-    #topbar-links
+    #header-links
       a(href='/') Home
         .underline
       a(href='/awards') Awards
@@ -41,7 +41,7 @@ block body
           if (parts[1] === "profile" && parts[2] == #{user.id} && (parts[3] == null || parts[3].length === 0)) selectedLink = 4
         }
 
-        if (selectedLink != null) byId("topbar-links").children[selectedLink].classList.add("selected")
+        if (selectedLink != null) byId("header-links").children[selectedLink].classList.add("selected")
 
     .search
       #search-icon.material-icons search
@@ -49,18 +49,20 @@ block body
       input#search-input(type='text' placeholder='Search..')
 
     a.sign-in.signin-link(style=`display: ${displays.loggedIn.false.block}`) Sign In
-    .account-display(onclick=`location.href="/profile/${user.id}"` style=`display: ${displays.loggedIn.true.flex}`)
+    #account-display(style=`display: ${displays.loggedIn.true.flex}`)
       img(src=user.profilePicture)
       div
         p.name= user.fullName
         p.email= user.email
+    script.
+      byId("account-display").addEventListener("click", openLinkOnClick("/profile/#{user.id}"))
 
     #sidebar-icon.hamburger-icon
       div
       div
       div
 
-  .topbar-spacer
+  .header-spacer
 
   #sidebar
     a(href="/") Home
@@ -77,7 +79,11 @@ block body
     block content
 
   footer
-    p.a &copy 2023 <a href="/">TOPAL</a>
     a.treverton-link(href="https://www.treverton.co.za" target="_blank") TREVERTON
+    p &copy 2023 <a href="/">TOPAL</a>
+    .thanks
+      p Special Thanks
+      p Mr Beddy
+      p Mr Townsend
 
   block script

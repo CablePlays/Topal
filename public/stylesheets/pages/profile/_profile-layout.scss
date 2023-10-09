@@ -13,7 +13,7 @@ $profile-sidebar-width: 300px;
     padding: 8px 20px 8px 8px;
     position: fixed;
     right: 0;
-    top: $topbar-height;
+    top: $header-height;
     transition: $corner-details-transition;
     z-index: 80;
 
@@ -58,7 +58,7 @@ $profile-sidebar-width: 300px;
     z-index: 10;
 
     @media screen and (min-width: $columns-breakpoint) {
-        height: calc(100vh - $topbar-height);
+        height: calc(100vh - $header-height);
         position: fixed;
         width: $profile-sidebar-width;
     }

@@ -8,7 +8,7 @@
     overflow: hidden;
     position: fixed;
     right: 0;
-    top: $topbar-height;
+    top: $header-height;
     transition: 0.25s;
     width: 0;
     z-index: 90;
@@ -21,7 +21,7 @@
 
     &.visible {
         border-radius: 0;
-        height: calc(100vh - $topbar-height);
+        height: calc(100vh - $header-height);
         width: 280px;
     }
 

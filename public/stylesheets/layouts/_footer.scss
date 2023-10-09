@@ -1,9 +1,8 @@
 footer {
-    align-items: center;
     background-color: white;
     box-shadow: 0px -4px 16px rgba(0, 0, 0, 0.15);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     padding: 16px;
     position: relative;
     z-index: 80;
@@ -11,14 +10,14 @@ footer {
     a,
     p {
         color: black !important;
-        display: inline;
-        font-size: 16px;
         text-decoration: none !important;
+    }
+
+    .thanks :first-child {
+        font-size: 12px;
     }
 
     .treverton-link {
         font-weight: 800;
-        left: 16px;
-        position: absolute;
     }
 }
