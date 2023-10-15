@@ -354,17 +354,6 @@ header {
     padding-right: 32px;
   }
 }
-header .logo {
-  cursor: pointer;
-  height: 48px;
-  margin: 0 32px;
-  width: 131px;
-}
-@media screen and (min-width: 1050px) {
-  header .logo {
-    margin: 0 64px;
-  }
-}
 header .search {
   align-items: center;
   background-color: rgb(240, 240, 240);
@@ -490,6 +479,17 @@ header #header-links a.selected .underline {
   bottom: 0;
   position: absolute;
   width: min(150%, 120px);
+}
+header #logo {
+  cursor: pointer;
+  height: 70px;
+  margin: 0 32px;
+  width: 131px;
+}
+@media screen and (min-width: 1050px) {
+  header #logo {
+    margin: 0 64px;
+  }
 }
 header #sidebar-icon {
   position: absolute;
@@ -798,6 +798,12 @@ header #sidebar-icon {
 #settings .setting:not(.highlightable) .edit {
   display: none;
 }
+#settings .setting.row {
+  align-items: center;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
+  display: flex;
+}
 #settings .setting button {
   cursor: pointer;
   padding: 8px 16px;
@@ -809,40 +815,31 @@ header #sidebar-icon {
 #settings .setting p.value {
   font-weight: 600;
 }
-#settings .setting .row {
-  align-items: center;
-  -moz-column-gap: 15px;
-       column-gap: 15px;
-  display: flex;
-}
-#settings .setting#name-setting {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 64px;
+#settings .setting#title-setting {
+  height: 76px;
   row-gap: 20px;
 }
-#settings .setting#name-setting .input-container {
+#settings .setting#title-setting .input-container {
   align-items: center;
   -moz-column-gap: 10px;
        column-gap: 10px;
   display: flex;
 }
-#settings .setting#name-setting .input-container input,
-#settings .setting#name-setting .input-container select {
+#settings .setting#title-setting .input-container input,
+#settings .setting#title-setting .input-container select {
   border: 2px solid rgb(150, 150, 150);
   border-radius: 4px;
 }
-#settings .setting#name-setting .input-container input {
+#settings .setting#title-setting .input-container input {
   padding: 8px;
 }
-#settings .setting#name-setting .input-container select {
+#settings .setting#title-setting .input-container select {
   padding: 7px;
 }
-#settings .setting#name-setting .input-container .cancel {
+#settings .setting#title-setting .input-container .cancel {
   cursor: pointer;
 }
-#settings .setting#name-setting .input-container .save {
+#settings .setting#title-setting .input-container .save {
   background-color: rgb(230, 230, 230);
   border: none;
   border-radius: 4px;
@@ -850,6 +847,6 @@ header #sidebar-icon {
   padding: 10px 16px;
   transition: 0.25s background-color;
 }
-#settings .setting#name-setting .input-container .save:hover {
+#settings .setting#title-setting .input-container .save:hover {
   background-color: rgb(210, 210, 210);
 }

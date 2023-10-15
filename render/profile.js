@@ -9,12 +9,17 @@ const router = express.Router()
 const userRouter = express.Router()
 
 router.use("/:userId", async (req, res, next) => { // verify user ID
-    const { userId: profileUserId } = req.params
+    let { userId: profileUserId } = req.params
 
     if (await sqlDatabase.isUser(profileUserId)) {
-        req.targetUserId = parseInt(profileUserId)
         const { placeholders } = res
-        placeholders.profileUser = await general.getUserInfo(profileUserId)
+
+        profileUserId = parseInt(profileUserId)
+        req.profileUserId = profileUserId
+
+        const userInfo = await general.getUserInfo(profileUserId)
+        req.profileUser = userInfo
+        placeholders.profileUser = userInfo
 
         // grade
         let grade = await general.getGrade(profileUserId)
@@ -28,7 +33,7 @@ router.use("/:userId", async (req, res, next) => { // verify user ID
 }, userRouter)
 
 userRouter.get("/", async (req, res) => {
-    const { targetUserId } = req
+    const { profileUser, profileUserId } = req
     const { placeholders } = res
 
     function formatStat(val) {
@@ -39,7 +44,7 @@ userRouter.get("/", async (req, res) => {
 
     // total awards
 
-    const awards = jsonDatabase.getUser(targetUserId).get(jsonDatabase.AWARDS_PATH)
+    const awards = jsonDatabase.getUser(profileUserId).get(jsonDatabase.AWARDS_PATH)
     let totalAwards = 0
     let totalBaseAwards = 0
 
@@ -56,10 +61,10 @@ userRouter.get("/", async (req, res) => {
     }
 
     // running distance
-    const { total: totalDistanceRun } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM running_logs WHERE user = "${targetUserId}"`)
+    const { total: totalDistanceRun } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM running_logs WHERE user = "${profileUserId}"`)
 
     // total kayaking
-    const { total: totalPaddlingTrips } = await sqlDatabase.get(`SELECT COUNT(*) AS total FROM river_trip_logs WHERE user = "${targetUserId}"`)
+    const { total: totalPaddlingTrips } = await sqlDatabase.get(`SELECT COUNT(*) AS total FROM river_trip_logs WHERE user = "${profileUserId}"`)
 
     placeholders.profilePlaceholders = {
         stats: {
@@ -73,10 +78,17 @@ userRouter.get("/", async (req, res) => {
         }
     }
 
+    res.setTitle(profileUser.titleName)
     res.ren("profile/profile")
 })
 
-userRouter.get("/admin", middleware.getPermissionMiddleware("manageAwards"), (req, res) => {
+userRouter.use("/admin", (req, res, next) => {
+    const { profileUser } = req
+    res.setTitle(`${profileUser.titleName} - Admin`)
+    next()
+})
+
+userRouter.get("/admin", middleware.getPermissionMiddleware("manageAwards"), async (req, res) => {
     res.ren("profile/admin")
 })
 

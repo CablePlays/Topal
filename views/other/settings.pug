@@ -12,34 +12,28 @@ block content
   #settings
     .line
 
-    #name-setting.highlightable.setting
-      .row
-        p.title Name
-        p.value= user.fullName
-        .material-icons.edit edit
-        .input-container.invisible
-          select
-            option None
-            option Mr
-            option Ms
-            option Mrs
-            option Dr
-          input(placeholder="Name")
-          input(placeholder="Surname")
-          button.save Save
-          .material-icons.cancel cancel
-      #name-notice.invisible
-        .notice(data-type="warning") Please use your real name!
+    #title-setting.highlightable.setting.row
+      p.title Title
+      p.value= user.title || "None"
+      .material-icons.edit edit
+      .input-container.invisible
+        select
+          option None
+          option Mr
+          option Ms
+          option Mrs
+          option Dr
+        button.save Save
+        .material-icons.cancel cancel
 
     .line
 
-    .setting
-      .row
-        p.title Logout
-        button.secondary(onclick="logoutButtonClicked()") Log out
+    .setting.row
+      p.title Signout
+      button.secondary(onclick="handleSignoutButtonClicked()") Sign out
 
     .line
 
     .spacer.v20
 
-    .notice(data-type="info") Your profile picture updates to your Google profile picture every time you log in.
+    .notice(data-type="info") Your profile picture updates every time you log in.

@@ -133,16 +133,16 @@ function createNotice(type, options) {
 
 /* Formatting */
 
-function kebabToCamel(kebabCaseStr) { // kebab-case camelCase
-    return kebabCaseStr.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase())
+function kebabToCamel(s) { // kebab-case camelCase
+    return s.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase())
 }
 
-function pascalToCapitalized(s) { // PascalCase
-    return s.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, str => str.toUpperCase())
-}
-
-function pascalToKebab(s) { // PascalCase kebab-case
+function camelToKebab(s) { // camelCase kebab-case
     return s.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+}
+
+function camelToCapitalized(s) { // camelCase
+    return s.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, str => str.toUpperCase())
 }
 
 function formatDate(date) {

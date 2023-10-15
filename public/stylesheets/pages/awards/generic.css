@@ -354,17 +354,6 @@ header {
     padding-right: 32px;
   }
 }
-header .logo {
-  cursor: pointer;
-  height: 48px;
-  margin: 0 32px;
-  width: 131px;
-}
-@media screen and (min-width: 1050px) {
-  header .logo {
-    margin: 0 64px;
-  }
-}
 header .search {
   align-items: center;
   background-color: rgb(240, 240, 240);
@@ -490,6 +479,17 @@ header #header-links a.selected .underline {
   bottom: 0;
   position: absolute;
   width: min(150%, 120px);
+}
+header #logo {
+  cursor: pointer;
+  height: 70px;
+  margin: 0 32px;
+  width: 131px;
+}
+@media screen and (min-width: 1050px) {
+  header #logo {
+    margin: 0 64px;
+  }
 }
 header #sidebar-icon {
   position: absolute;

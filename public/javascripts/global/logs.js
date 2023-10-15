@@ -928,7 +928,7 @@ const _LOG_TYPES = {
 }
 
 function getLogTypeName(logType) {
-    return pascalToCapitalized(logType)
+    return camelToCapitalized(logType)
 }
 
 /*

@@ -14,7 +14,6 @@ const AWARDS = {
     },
     endurance: {},
     enduranceInstructor: {
-        name: "Endurance Instructor",
         signoffs: ["achievedTwice", "attitude", "firstAid", "instruction", "read", "voluntaryService", "whoseWho"]
     },
     enduranceLeader: {},
@@ -172,15 +171,19 @@ const PERMISSIONS = [
 /* Data */
 
 function getLogsTable(logType) {
-    return pascalToSnake(logType) + "_logs"
+    return camelToSnake(logType) + "_logs"
 }
 
 function getSublogsTable(logType) {
-    return pascalToSnake(logType) + "_sublogs"
+    return camelToSnake(logType) + "_sublogs"
 }
 
 function isAward(awardId) {
     return AWARDS[awardId] != null
+}
+
+function getAwardName(awardId) {
+    return camelToCapitalized(awardId)
 }
 
 function isLink(awardId, linkId) {
@@ -269,6 +272,10 @@ async function getUserInfo(userId) {
     }
 }
 
+function isUserInvisible(userId) {
+    return jsonDatabase.getUser(userId).get(jsonDatabase.DETAILS_PATH)?.invisible ?? false
+}
+
 async function isPasswordValid(req) {
     const userId = cookies.getUserId(req)
     if (userId == null) return false
@@ -305,25 +312,29 @@ async function provideUserInfoToStatuses(statuses) {
 
 function createDummyUsers() {
     async function createDummy(userId, sessionToken, name, surname, title) {
-        if (!await sqlDatabase.get(`SELECT * FROM users WHERE id = ${userId}`)) {
+        if (!await sqlDatabase.isUser(userId)) {
             sqlDatabase.run(`INSERT INTO users VALUES (${userId}, "dummy${userId}@treverton.co.za")`)
-            jsonDatabase.getUser(userId).set(jsonDatabase.DETAILS_PATH, { name, surname, title, sessionToken })
+            jsonDatabase.getUser(userId).set(jsonDatabase.DETAILS_PATH, { name, surname, title, sessionToken, invisible: true })
         }
     }
 
     createDummy(1, "Jfijwelafeowifiew", "Astra", "Spero")
-    createDummy(2, "pavpewfuHoweNJA", "James", "Lotz")
-    createDummy(3, "LapifweOEOvuOAA", "John", "Doe", "Mr")
+    createDummy(2, "LapifweOEOvuOAA", "John", "Doe", "Mr")
+    createDummy(3, "pavpewfuHoweNJA", "Test", "Dummy")
 }
 
 /* Utility */
 
-function kebabToCamel(kebabCaseStr) { // kebab-case camelCase
-    return kebabCaseStr.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase())
+function kebabToCamel(s) { // kebab-case camelCase
+    return s.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase())
 }
 
-function pascalToSnake(camelCaseString) { // PascalCase snake_case
-    return camelCaseString.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`)
+function camelToSnake(s) { // camelCase snake_case
+    return s.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`)
+}
+
+function camelToCapitalized(s) { // camelCase
+    return s.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, str => str.toUpperCase())
 }
 
 /*
@@ -351,6 +362,7 @@ module.exports = {
     getLogsTable,
     getSublogsTable,
     isAward,
+    getAwardName,
     isLogType,
     getParentLogType,
     getChildrenLogTypes,
@@ -366,5 +378,6 @@ module.exports = {
     getUserInfo,
     getGrade,
     getGradeFromEmail,
-    kebabToCamel
+    kebabToCamel,
+    isUserInvisible
 }

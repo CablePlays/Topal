@@ -296,7 +296,7 @@ function _createSequelShortcuts(awardId) {
         pathRoot += "/" + pathParts[i]
     }
 
-    const kebabBaseAwardId = pascalToKebab(baseAwardId)
+    const kebabBaseAwardId = camelToKebab(baseAwardId)
 
     if (sequelType && isAward(baseAwardId)) {
         createShortcut("Basic Award", "right", `${pathRoot}/${kebabBaseAwardId}`)

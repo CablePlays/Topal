@@ -90,12 +90,12 @@ function handleAddUserButton() {
     })
 
     const addButton = byId("add-button")
+    const userInputElement = byId("user-input")
 
-    addButton.addEventListener("click", async () => {
+    async function doAddUser() {
         setVisible(addButton, false)
         setInfoText("Please wait...")
 
-        const userInputElement = byId("user-input")
         const userEmail = userInputElement.value
 
         const { error, info, permissions } = await getRequest(`/users/permissions/user?email=${userEmail}`)
@@ -115,5 +115,10 @@ function handleAddUserButton() {
         }
 
         setVisible(addButton)
+    }
+
+    addButton.addEventListener("click", doAddUser)
+    userInputElement.addEventListener("keydown", e => {
+        if (e.key == "Enter") doAddUser()
     })
 }

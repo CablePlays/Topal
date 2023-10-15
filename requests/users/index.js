@@ -20,7 +20,7 @@ router.get("/permissions", middleware.getPermissionMiddleware("managePermissions
     for (let userId of users) {
         const permissions = jsonDatabase.getPermissions(userId, true)
 
-        if (permissions.any) {
+        if (permissions.any && !general.isUserInvisible(userId)) {
             const promise = general.getUserInfo(userId)
             const obj = { permissions }
 
@@ -44,7 +44,7 @@ router.get("/permissions/user", middleware.getPermissionMiddleware("managePermis
     }
 
     const info = await general.getUserInfo(userId)
-    const permissions = jsonDatabase.getPermissions(userId)
+    const permissions = jsonDatabase.getPermissions(userId, true)
     res.res(200, { info, permissions })
 })
 
@@ -112,12 +112,12 @@ router.get("/search", async (req, res) => { // search users using query
         return
     }
 
-    const resultUserIds = []
+    const results = []
     const allUsers = await sqlDatabase.all(`SELECT * FROM users`)
 
     function storeResultPosition(userId) {
-        if (!resultUserIds.includes(userId)) {
-            resultUserIds.push(userId)
+        if (!results.includes(userId)) {
+            results.push(userId)
         }
     }
 
@@ -155,23 +155,27 @@ router.get("/search", async (req, res) => { // search users using query
 
     // remaining
     for (let user of allUsers) {
-        storeResultPosition(user.id)
+        const { id } = user
+
+        if (!general.isUserInvisible(id)) {
+            storeResultPosition(id)
+        }
     }
 
-    const results = []
+    // supply user info
     const asyncTasks = []
 
-    for (let i = 0; i < resultUserIds.length; i++) {
-        const userId = resultUserIds[i]
+    for (let i = results.length - 1; i >= 0; i--) {
+        const userId = results[i]
 
         asyncTasks.push(new Promise(async r => {
-            const { email, profilePicture, titleName } = await general.getUserInfo(userId)
+            const { grade, profilePicture, titleName } = await general.getUserInfo(userId)
 
             results[i] = {
                 id: userId,
                 name: titleName,
-                grade: general.getGradeFromEmail(email),
-                profilePicture: profilePicture ?? general.DEFAULT_PROFILE_PICTURE_PATH
+                grade,
+                profilePicture
             }
 
             r()

@@ -5,7 +5,7 @@ function createSlide(awardId, user, date) {
     createElement("p", {
         c: "info",
         p: card,
-        t: `${user.titleName} recently achieved the <a href=/awards/${pascalToKebab(awardId)}>${getAwardName(awardId)} Award</a>`
+        t: `${user.titleName} recently achieved the <a href=/awards/${camelToKebab(awardId)}>${getAwardName(awardId)} Award</a>`
     })
     createElement("button", { p: card, t: "Profile", onClick: () => window.location.href = `/profile/${user.id}` })
     createElement("p", { c: "date", p: card, t: formatDate(date) })

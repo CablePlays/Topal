@@ -14,12 +14,12 @@ const _AWARDS = {
             {
                 id: "tent",
                 name: "Tent Pitching",
-                description: "You are competent to pitch a tent."
+                description: "Be competent to pitch a tent."
             },
             {
                 id: "cooker",
                 name: "Hiking Cooker",
-                description: "You know how to use a hiking cooker."
+                description: "Know how to use a hiking cooker."
             },
             {
                 id: "ecologicalAwareness",
@@ -28,7 +28,7 @@ const _AWARDS = {
             {
                 id: "backPack",
                 name: "Back Pack",
-                description: "You are able to pack a back pack."
+                description: "Be able to pack a back pack."
             }
         ]
     },
@@ -44,7 +44,7 @@ const _AWARDS = {
             {
                 id: "achievedTwice",
                 name: "Achieved Twice",
-                description: "Achieved both awards twice in two years."
+                description: "Have achieved both awards twice in two years."
             },
             {
                 id: "read",
@@ -54,27 +54,27 @@ const _AWARDS = {
             {
                 id: "instruction",
                 name: "Instruction",
-                description: "Practical ability to instruct a novice in basic training in running, MTB or AR. You have spent time doing so."
+                description: "Have a practical ability to instruct a novice in basic training in running, MTB or AR, and you must have spent time doing so."
             },
             {
                 id: "whoseWho",
                 name: "Whose Who",
-                description: "Familiarity with <i>Whose Who</i> in current endurance sport (from reading running magazines, internet, TV)."
+                description: "Be familiar with <i>Whose Who</i> in current endurance sport (from reading running magazines, internet, TV)."
             },
             {
                 id: "firstAid",
                 name: "First Aid Training",
-                description: "You have first aid training or your familiarity with endurance problems and their treatment satisfies the MIC."
+                description: "Have first aid training or your familiarity with endurance problems and their treatment satisfies the MIC."
             },
             {
                 id: "attitude",
                 name: "Healthy Mental Attitude",
-                description: "Exhibits a healthy mental attitude toward the sport and toward others."
+                description: "Exhibit a healthy mental attitude toward the sport and toward others."
             },
             {
                 id: "voluntaryService",
                 name: "Voluntary Service",
-                description: "You have performed voluntary service (either at Treverton or elsewhere) in administration and organizational roles - a minimum of organizing three events."
+                description: "Perform voluntary service (either at Treverton or elsewhere) in administration and organizational roles - a minimum of organizing three events."
             }
         ]
     },
@@ -132,7 +132,7 @@ const _AWARDS = {
             {
                 id: "riverStretches",
                 name: "River Stretches",
-                description: "Completed a minimum of six stretches of rivers of 3km or more (medium to high water levels)."
+                description: "Complete a minimum of six stretches of rivers of 3km or more (medium to high water levels)."
             },
             {
                 id: "instructing",
@@ -214,7 +214,7 @@ const _AWARDS = {
             {
                 id: "rescues",
                 name: "Rescue Procedures",
-                description: "You are knowledgeable of rescue procedures (add links to summaries of previous rescues in the info block)."
+                description: "Be knowledgeable of rescue procedures (add links to summaries of previous rescues in the info block)."
             },
             {
                 id: "history",
@@ -224,12 +224,12 @@ const _AWARDS = {
             {
                 id: "rockClimbing",
                 name: "Rock Climbing Award",
-                description: "Achieved the Rock Climbing Award, is competent and able to demonstrate and explain rope work."
+                description: "Achieve the Rock Climbing Award, and you must be competent and able to demonstrate and explain rope work."
             },
             {
                 id: "logs",
                 name: "Accurate Logs",
-                description: "Kept accurate logs of hikes and has shown ability in planning hikes as an assistant leader."
+                description: "Have kept accurate logs of hikes and have shown ability in planning hikes as an assistant leader."
             }
         ]
     },
@@ -263,23 +263,23 @@ const _AWARDS = {
             },
             {
                 id: "figureEightBight",
-                name: "Knots - Figure Of Eight on Bight",
+                name: "Knots - Figure Of Eight On Bight",
                 description: "Figure of eight on a bight."
             },
             {
                 id: "tapeKnot",
                 name: "Knots - Tape Knot",
-                description: "You can tie a tape knot."
+                description: "Able to tie a tape knot."
             },
             {
                 id: "doubleFishermansKnot",
                 name: "Knots - Double Fisherman's Knot",
-                description: "You can tie a double fisherman's knot."
+                description: "Able to tie a double fisherman's knot."
             },
             {
                 id: "harnessTypes",
                 name: "Harness - Types",
-                description: "You know the purpose and use of all harness types."
+                description: "Know the purpose and use of all harness types."
             },
             {
                 id: "straps",
@@ -289,12 +289,12 @@ const _AWARDS = {
             {
                 id: "belayPoints",
                 name: "Harness - Tie-in/Belay Points",
-                description: "Knowledge of appropriate tie-in/belay points."
+                description: "Be knowledge of appropriate tie-in/belay points."
             },
             {
                 id: "calls",
                 name: "Calls",
-                description: "You know the relevant calls (belayer, climber, slack/tight rope)."
+                description: "Know the relevant calls (belayer, climber, slack/tight rope)."
             },
             {
                 id: "ropeUsage",
@@ -409,12 +409,12 @@ const _AWARDS = {
             {
                 id: "stance",
                 name: "Abseiling - Stance",
-                description: "Position you should take when abseiling."
+                description: "Position you should take while abseiling."
             },
             {
                 id: "theoryTest",
                 name: "Theory Test",
-                description: "The test is based on <i>Reach Beyond</i>."
+                description: "This test is based on <i>Reach Beyond</i>."
             },
             {
                 id: "finalAbseil",
@@ -528,7 +528,7 @@ const _AWARDS = {
             {
                 id: "experience",
                 name: "Experience & Attitude",
-                description: "You have considerable experience in instructing and lead climbing, and show an attitude of service towards rock climbing and Outdoor Pursuits in general."
+                description: "Have considerable experience in instructing and lead climbing, and show an attitude of service towards rock climbing and Outdoor Pursuits in general."
             },
             {
                 id: "supervisedInstruction",
@@ -553,7 +553,7 @@ const _AWARDS = {
             {
                 id: "abseiling",
                 name: "Abseiling",
-                description: "Demonstrate ability to set-up a releasable abseil and supervise a group abseiling."
+                description: "Demonstrate the ability to set-up a releasable abseil and supervise a group abseiling."
             }
         ]
     },
@@ -599,17 +599,17 @@ const _AWARDS = {
             {
                 id: "hikingPreparedness",
                 name: "Hiking Preparedness Test",
-                description: "You have passed the hiking preparedness test."
+                description: "Pass the hiking preparedness test."
             },
             {
                 id: "mapReading",
                 name: "Map Reading Test",
-                description: "You have passed the map reading test."
+                description: "Pass the map reading test."
             },
             {
                 id: "routeFinding",
                 name: "Route Finding Test",
-                description: "You have passed the route finding test."
+                description: "Pass the route finding test."
             }
         ]
     },
@@ -632,12 +632,12 @@ const _AWARDS = {
             {
                 id: "summary",
                 name: "Facts Summary",
-                description: "Summarised facts about at least three mountain accidents, their causes, the rescue action taken and possible preventative measures which could have been taken."
+                description: "Summarise facts about at least three mountain accidents, their causes, the rescue action taken and possible preventative measures which could have been taken."
             },
             {
                 id: "hikePlan",
                 name: "Hike Plan",
-                description: "Prepared a detailed hike plan proven by presentation of one such plans."
+                description: "Prepare a detailed hike plan proven by presentation of one such plans."
             }
         ]
     },

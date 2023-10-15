@@ -38,6 +38,12 @@ $settings-space-left: 50px;
             display: none;
         }
 
+        &.row {
+            align-items: center;
+            column-gap: 15px;
+            display: flex;
+        }
+
         button {
             cursor: pointer;
             padding: 8px 16px;
@@ -52,17 +58,8 @@ $settings-space-left: 50px;
             font-weight: 600;
         }
 
-        .row {
-            align-items: center;
-            column-gap: 15px;
-            display: flex;
-        }
-
-        &#name-setting {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 64px;
+        &#title-setting {
+            height: 76px;
             row-gap: 20px;
 
             .input-container {

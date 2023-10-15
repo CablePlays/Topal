@@ -61,7 +61,9 @@
             },
             "info": {
                 "GET": "Get user information (name, surname, email, etc.)",
-                "PUT": "Set user information"
+                "title": {
+                    "PUT": "Set user title"
+                }
             },
             "links": {
                 "GET": "Get user links",

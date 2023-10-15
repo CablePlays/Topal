@@ -23,17 +23,6 @@ header {
         padding-right: 32px;
     }
 
-    .logo {
-        cursor: pointer;
-        height: 48px;
-        margin: 0 32px;
-        width: 131px;
-
-        @media screen and (min-width: $links-breakpoint) {
-            margin: 0 64px;
-        }
-    }
-
     .search {
         align-items: center;
         background-color: rgb(240, 240, 240);
@@ -165,6 +154,17 @@ header {
                 position: absolute;
                 width: min(150%, 120px);
             }
+        }
+    }
+
+    #logo {
+        cursor: pointer;
+        height: 70px;
+        margin: 0 32px;
+        width: 131px;
+
+        @media screen and (min-width: $links-breakpoint) {
+            margin: 0 64px;
         }
     }
 

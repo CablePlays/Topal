@@ -10,11 +10,13 @@ const profileRouter = require("./profile")
 
 const router = express.Router()
 
-async function advancedRender(req, res, path, options) {
-    const { adminPage } = options ?? {}
+async function advancedRender(req, res, path) {
+    let { placeholders, title } = res
     const loggedIn = cookies.isLoggedIn(req)
     const userId = cookies.getUserId(req)
     let permissions = {}
+
+    placeholders.title = title
 
     if (loggedIn && await general.isPasswordValid(req)) {
         const userId = cookies.getUserId(req)
@@ -29,12 +31,7 @@ async function advancedRender(req, res, path, options) {
         }
     }
 
-    const { placeholders } = res
-
     const displays = {
-        adminPage: {
-            true: generateDisplays(adminPage)
-        },
         loggedIn: {
             false: generateDisplays(!loggedIn),
             true: generateDisplays(loggedIn)
@@ -54,10 +51,14 @@ async function advancedRender(req, res, path, options) {
     res.render(path, placeholders)
 }
 
-router.use("/", (req, res, next) => { // provide advanced render & placeholders
+router.use("/", (req, res, next) => { // provide advanced render, placeholders & titles related
     res.placeholders = {}
-    res.ren = (path, options) => {
-        advancedRender(req, res, path, options)
+
+    res.title = "TOPAL" // provide default title
+    res.setTitle = title => res.title = `${title} | TOPAL`
+
+    res.ren = path => {
+        advancedRender(req, res, path)
     }
 
     next()
@@ -73,10 +74,12 @@ router.use("/", async (req, res, next) => { // verify login
 })
 
 router.get("/", (req, res) => {
+    res.setTitle("Welcome")
     res.ren("other/home")
 })
 
 router.get("/awards", (req, res) => {
+    res.setTitle("Awards")
     res.ren("other/awards")
 })
 
@@ -85,6 +88,7 @@ router.get("/leaderboard", (req, res) => {
 })
 
 router.get("/leaderboards", (req, res) => {
+    res.setTitle("Leaderboards")
     res.ren("errors/coming-soon")
 })
 
@@ -93,14 +97,17 @@ router.get("/login", (req, res) => {
 })
 
 router.get("/search", (req, res) => {
+    res.setTitle("Search")
     res.ren("other/search")
 })
 
 router.get("/settings", middleware.requireLoggedIn, (req, res) => {
+    res.setTitle("Settings")
     res.ren("other/settings")
 })
 
 router.get("/signin", middleware.requireLoggedOut, (req, res) => {
+    res.setTitle("Sign In")
     res.ren("other/signin")
 })
 

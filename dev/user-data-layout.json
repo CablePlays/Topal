@@ -25,7 +25,8 @@
         "surname": "surname",
         "title": "title",
         "profilePicture": "profile picture link",
-        "sessionToken": null
+        "sessionToken": null,
+        "invisible": false
     },
     "links": {
         "traverse": {

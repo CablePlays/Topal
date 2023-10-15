@@ -8,32 +8,24 @@ const router = express.Router()
 router.get("/", async (req, res) => { // get user info
     const { targetUserId } = req
     const userInfo = await general.getUserInfo(targetUserId)
+    console.log(userInfo)
     res.res(200, { info: userInfo })
 })
 
-router.put("/", middleware.requireSelf, async (req, res) => { // set user info
+router.put("/title", middleware.requireSelf, async (req, res) => { // set user title
     const { body, targetUserId } = req
-    let { name, surname, title } = body
-    name = name?.trim()
-    surname = surname?.trim()
+    const { title } = body
 
     const userDatabase = jsonDatabase.getUser(targetUserId)
+    const path = jsonDatabase.DETAILS_PATH + ".title"
 
-    if (name && name.trim()) userDatabase.set(jsonDatabase.DETAILS_PATH + ".name", name)
-    if (surname) userDatabase.set(jsonDatabase.DETAILS_PATH + ".surname", surname)
-
-    if (title !== undefined) {
-        const path = jsonDatabase.DETAILS_PATH + ".title"
-
-        if (["Mr", "Ms", "Mrs", "Dr"].includes(title)) {
-            userDatabase.set(path, title)
-        } else {
-            userDatabase.delete(path)
-        }
+    if (["Mr", "Ms", "Mrs", "Dr"].includes(title)) {
+        userDatabase.set(path, title)
+    } else {
+        userDatabase.delete(path)
     }
 
-    const userInfo = await general.getUserInfo(targetUserId)
-    res.res(200, { info: userInfo })
+    res.res(204)
 })
 
 module.exports = router

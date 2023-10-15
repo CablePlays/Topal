@@ -1,11 +1,14 @@
-Update logo
-Update footer to include credits, etc.
 Icon to go to top of page
 Make search also search awards
 
-> Query
+> Before Release
 
-Using "the need for a logbook" section?
+Remove setting to change name but leave title only
+Update settings to be more mobile friendly
+
+> Fixes
+
+Change google material icons to be images stored on server so they load on all devices
 
 > Pages
 
