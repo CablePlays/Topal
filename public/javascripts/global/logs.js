@@ -432,22 +432,22 @@ const _LOG_TYPES = {
                 name: "Put In",
                 display: {
                     type: "text",
-                    value: log => formatTime(log.put_in)
+                    value: "put_in",
                 },
                 input: {
                     attribute: "put_in",
-                    type: "time"
+                    type: "textShort"
                 }
             },
             {
                 name: "Take Out",
                 display: {
                     type: "text",
-                    value: log => formatTime(log.take_out)
+                    value: "take_out"
                 },
                 input: {
                     attribute: "take_out",
-                    type: "time"
+                    type: "textShort"
                 }
             },
             {

@@ -75,7 +75,7 @@ async function getUserId(userEmail) {
 }
 
 async function getEmail(userId) {
-    const record = await get(`SELECT * FROM users WHERE id = "${userId}"`)
+    const record = await get(`SELECT * FROM users WHERE id = ${userId}`)
     return record?.email
 }
 
@@ -132,10 +132,10 @@ function createTables() { // returns promise
 }
 
 module.exports = {
-    all, get, run,
-
+    all,
+    get,
+    run,
     getTableColumns,
-
     isUser,
     getUserId,
     getEmail,
