@@ -51,8 +51,39 @@ block body
     a.signin-link(style=`display: ${displays.loggedIn.false.block}`) Sign In
     button#logout-button(style=`display: ${displays.loggedIn.true.block}`) Sign Out
 
+  .content-block-container
+    block content
+
+  footer
+    .col1
+      img#footer-treverton-logo(src="/assets/logos/treverton-logo.webp")
+      .help
+        h3 Have Questions?
+        p.
+          Get help with the website by sending an email
+          <a href="https://mail.google.com/mail/?view=cm&to=4jencal@treverton.co.za&su=Topal" target="_blank">here</a>.
+          Not for help with awards.
+    .col2
+      div
+        p.heading Awards
+        a(href="/honours") Honours Requirements
+      div
+        p.heading School
+        a(href="https://treverton.co.za" target="_blank") Treverton
+        a(href="https://treverton.co.za/contact" target="_blank") Contact
+      div
+        p.heading Credits
+        p by Caleb Jennings
+      div
+        p.heading Special Thanks
+        p Mr Beddy
+        p Mr Townsend
+    .col3
+      p &copy 2023 <a href="/">TOPAL</a>
+
   script.
     byId("account-display").addEventListener("click", openLinkOnClick("/profile/#{user.id}"))
+    byId("footer-treverton-logo").addEventListener("click", () => window.open("https://treverton.co.za", "_blank"))
     byId("logo").addEventListener("click", openLinkOnClick("/"))
 
     const path = location.pathname
@@ -76,16 +107,5 @@ block body
     }
 
     if (selectedLink != null) byId("header-links").children[selectedLink].classList.add("selected")
-
-  .content-block-container
-    block content
-
-  footer
-    a.treverton-link(href="https://www.treverton.co.za" target="_blank") TREVERTON
-    p &copy 2023 <a href="/">TOPAL</a>
-    .thanks
-      p Special Thanks
-      p Mr Beddy
-      p Mr Townsend
 
   block script

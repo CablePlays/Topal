@@ -74,13 +74,18 @@ router.use("/", async (req, res, next) => { // verify login
 })
 
 router.get("/", (req, res) => {
-    res.setTitle("Welcome")
+    res.setTitle("Home")
     res.ren("other/home")
 })
 
 router.get("/awards", (req, res) => {
     res.setTitle("Awards")
     res.ren("other/awards")
+})
+
+router.get("/honours", (req, res) => {
+    res.setTitle("Honours")
+    res.ren("errors/coming-soon")
 })
 
 router.get("/leaderboard", (req, res) => {

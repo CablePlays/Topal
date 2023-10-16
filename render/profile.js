@@ -28,6 +28,7 @@ router.use("/:userId", async (req, res, next) => { // verify user ID
 
         next()
     } else {
+        res.setTitle("Invalid User")
         res.ren("errors/invalid-user")
     }
 }, userRouter)
