@@ -8,7 +8,6 @@ const router = express.Router()
 router.get("/", async (req, res) => { // get user info
     const { targetUserId } = req
     const userInfo = await general.getUserInfo(targetUserId)
-    console.log(userInfo)
     res.res(200, { info: userInfo })
 })
 

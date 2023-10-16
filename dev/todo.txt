@@ -1,14 +1,10 @@
 Icon to go to top of page
 Make search also search awards
 
-> Before Release
-
-Remove setting to change name but leave title only
-Update settings to be more mobile friendly
-
 > Fixes
 
 Change google material icons to be images stored on server so they load on all devices
+Info block for certain awards (running) not displaying info in correct order
 
 > Pages
 

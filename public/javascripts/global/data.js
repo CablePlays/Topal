@@ -35,6 +35,7 @@ const _AWARDS = {
     endurance: {
         name: "Endurance",
         description: "The Endurance Award recognizes achievement in road/trail running, adventure racing, competing in a multisport race, triathlon, mountain bike races, horse riding and canoeing.",
+        authorisedStaff: ["Mr Pellew", "Mr Townsend"],
         logTypes: ["endurance"]
     },
     enduranceInstructor: {
@@ -560,6 +561,7 @@ const _AWARDS = {
     running: {
         name: "Running",
         description: "Spend time on the trails and accumulate 100km of distance to earn this award. Log your runs to increase your total distance.",
+        authorisedStaff: ["Mr Pellew"],
         logTypes: ["running"]
     },
     service: {
@@ -644,6 +646,7 @@ const _AWARDS = {
     venture: {
         name: "Venture",
         description: "Develop the skills needed to think up, plan and lead a trip of adventure.",
+        authorisedStaff: ["Mr Townsend"],
         signoffs: [
             {
                 id: "proposalApproved",
