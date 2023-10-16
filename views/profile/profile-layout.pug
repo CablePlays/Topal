@@ -2,10 +2,6 @@ extends ../layout
 
 block content
   script(src="/javascripts/layouts/profile-layout.js")
-  script.
-    function getProfileUserId() {
-      return parseInt(location.pathname.split("/")[2])
-    }
 
   #corner-details
     img(src=profileUser.profilePicture)
@@ -30,8 +26,12 @@ block content
         a(href=`/profile/${profileUser.id}`) Profile
         a(href=`/profile/${profileUser.id}/admin`) Admin
       script.
+        function getProfileUserId() {
+          return parseInt(location.pathname.split("/")[2])
+        }
+
         const profilePageButtons = byId("profile-page-buttons")
-        const page = path.split("/")[3]
+        const page = location.pathname.split("/")[3]
         let selected
 
         if (page === "admin") {
