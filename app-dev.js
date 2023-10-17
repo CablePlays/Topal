@@ -58,8 +58,10 @@ app.use((err, req, res, next) => { // handle render errors
     res.locals.status = status
 
     if (status === 404) {
+        res.setTitle(404)
         res.ren("errors/not-found")
     } else {
+        res.setTitle(status)
         res.ren("errors/other")
     }
 })

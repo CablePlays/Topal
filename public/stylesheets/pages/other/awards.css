@@ -134,7 +134,7 @@ button.secondary {
 
 a.primary,
 button.primary {
-  background-color: #EF7523;
+  background-color: #f47721;
   border: 2px solid transparent;
   color: white;
 }
@@ -146,8 +146,8 @@ button.primary:hover {
 a.secondary,
 button.secondary {
   background-color: transparent;
-  border: 2px solid #EF7523;
-  color: #EF7523;
+  border: 2px solid #f47721;
+  color: #f47721;
 }
 a.secondary:hover,
 button.secondary:hover {
@@ -192,7 +192,7 @@ joined-buttons .buttons .joiner {
   border-right: 3px solid black;
 }
 joined-buttons .underline {
-  background-color: #EF7523;
+  background-color: #f47721;
   border-radius: 3px;
   height: 3px;
   margin-top: 3px;
@@ -331,9 +331,9 @@ footer .footer-col1 {
   justify-content: center;
 }
 footer .footer-col1 img {
+  aspect-ratio: 981/1130;
   cursor: pointer;
   height: 100px;
-  width: 83px;
 }
 footer .footer-col1 .help {
   padding-top: 10px;
@@ -442,7 +442,7 @@ header .search #search-icon {
   cursor: pointer;
 }
 header .sign-in {
-  background-color: #EF7523;
+  background-color: #f47721;
   border: none;
   border-radius: 4px;
   color: #fff;
@@ -525,11 +525,11 @@ header #header-links a {
   text-decoration: none;
 }
 header #header-links a:hover {
-  color: #EF7523;
+  color: #f47721;
 }
 header #header-links a.selected .underline {
   border-radius: 2px;
-  border-top: 5px solid #EF7523;
+  border-top: 5px solid #f47721;
   bottom: 0;
   position: absolute;
   width: min(150%, 120px);
@@ -667,7 +667,7 @@ header #sidebar-icon {
 }
 .logs .input .create,
 .logs .input .save {
-  background-color: #EF7523;
+  background-color: #f47721;
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -819,7 +819,7 @@ header #sidebar-icon {
 #sidebar a:hover,
 #sidebar button:hover {
   background-color: rgb(240, 240, 240);
-  color: #EF7523;
+  color: #f47721;
 }
 
 #cards-container {
@@ -884,7 +884,7 @@ header #sidebar-icon {
   }
 }
 #cards-container .card .info .links a {
-  background-color: #EF7523;
+  background-color: #f47721;
   border-radius: 4px;
   box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.15);
   color: white;

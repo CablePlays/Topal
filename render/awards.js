@@ -6,23 +6,22 @@ const general = require("../server/general")
 const router = express.Router()
 
 router.use("/", (req, res, next) => {
-    const { setTitle } = res
-    res.setTitle = awardId => setTitle(`Awards - ${general.getAwardName(awardId)}`)
+    res.setAwardTitle = awardId => res.setTitle(`Awards - ${general.getAwardName(awardId)}`)
     next()
 })
 
 router.get("/drakensberg", (req, res) => {
-    res.setTitle("drakensberg")
+    res.setAwardTitle("drakensberg")
     res.ren("awards/mountaineering/drakensberg")
 })
 
 router.get("/summit", (req, res) => {
-    res.setTitle("summit")
+    res.setAwardTitle("summit")
     res.ren("awards/mountaineering/summit")
 })
 
 router.get("/traverse", (req, res) => {
-    res.setTitle("summit")
+    res.setAwardTitle("summit")
     res.ren("awards/mountaineering/traverse")
 })
 
@@ -47,7 +46,7 @@ router.get("/:awardId", (req, res, next) => {
         if (err) {
             next() // does not exist
         } else {
-            res.setTitle(awardId)
+            res.setAwardTitle(awardId)
             res.ren(filePath)
         }
     })
