@@ -1,8 +1,7 @@
 Icon to go to top of page
 Make search also search awards
-Fix search user card display (spcing between profile and name)
 On permissions page, add descriptions for each permission.
-Add total distance paddled on river trips
+Add stats on profile page to each award page
 
 > Fixes
 

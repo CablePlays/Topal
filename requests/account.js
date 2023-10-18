@@ -35,10 +35,11 @@ router.put("/handle-login", async (req, res) => { // handle login token from Goo
     const record = await sqlDatabase.get(`SELECT * FROM users WHERE email = "${email}"`)
     let userId
     let sessionToken
+    let userDatabase
 
     if (record) {
         const { id } = record
-        const userDatabase = jsonDatabase.getUser(id)
+        userDatabase = jsonDatabase.getUser(id)
         const sessionTokenPath = jsonDatabase.DETAILS_PATH + ".sessionToken"
 
         userId = id
@@ -53,12 +54,14 @@ router.put("/handle-login", async (req, res) => { // handle login token from Goo
         userId = (await sqlDatabase.get(`SELECT * FROM users WHERE email = "${email}"`)).id
         sessionToken = uuidv4()
 
-        const userDatabase = jsonDatabase.getUser(userId)
-        userDatabase.set(jsonDatabase.DETAILS_PATH, { name: given_name, surname: family_name, sessionToken  })
+        userDatabase = jsonDatabase.getUser(userId)
+        userDatabase.set(jsonDatabase.DETAILS_PATH, { sessionToken })
     }
 
-    // save profile picture link
-    const userDatabase = jsonDatabase.getUser(userId)
+    // update details
+    userDatabase.set(jsonDatabase.DETAILS_PATH + ".name", given_name)
+    userDatabase.set(jsonDatabase.DETAILS_PATH + ".surname", family_name)
+    
     const profilePicturePath = jsonDatabase.DETAILS_PATH + ".profilePicture"
 
     if (picture) {
