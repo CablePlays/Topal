@@ -932,7 +932,7 @@ header #sidebar-icon {
 #views .view.stats ::-webkit-scrollbar-thumb {
   background-color: rgb(200, 200, 200);
 }
-#views .view.stats ::-webkit-scrollbar-thumb:hover {
+#views .view.stats ::-webkit-scrollbar-thumb:active {
   background-color: rgb(220, 220, 220);
 }
 #views .view.stats .progresses {
