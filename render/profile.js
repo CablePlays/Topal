@@ -33,21 +33,26 @@ router.use("/:userId", async (req, res, next) => { // verify user ID
     }
 }, userRouter)
 
-userRouter.get("/", async (req, res) => {
-    const { profileUser, profileUserId } = req
-    const { placeholders } = res
+async function getStats(userId) {
+    const stats = {}
 
-    function formatStat(val) {
-        val = "" + val
-        val = (val.length < 2 ? "0" : "") + val
+    function formatStat(val, unit) {
+        val += "" // convert to string
+
+        if (unit) {
+            val += unit
+        } else if (val.length < 2) {
+            val = "0" + val
+        }
+
         return val.replace(".", ",")
     }
 
     // total awards
 
-    const awards = jsonDatabase.getUser(profileUserId).get(jsonDatabase.AWARDS_PATH)
+    const awards = jsonDatabase.getUser(userId).get(jsonDatabase.AWARDS_PATH)
     let totalAwards = 0
-    let totalBaseAwards = 0
+    let totalFirstLevelAwards = 0
 
     for (let awardId in awards) {
         const { complete } = awards[awardId]
@@ -56,28 +61,48 @@ userRouter.get("/", async (req, res) => {
             totalAwards++
 
             if (!awardId.endsWith("Instructor") && !awardId.endsWith("Leader")) {
-                totalBaseAwards++
+                totalFirstLevelAwards++
             }
         }
     }
 
-    // running distance
-    const { total: totalDistanceRun } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM running_logs WHERE user = "${profileUserId}"`)
+    stats.totalAwards = formatStat(totalAwards)
+    stats.firstLevelAwards = formatStat(totalFirstLevelAwards)
 
-    // total kayaking
-    const { total: totalPaddlingTrips } = await sqlDatabase.get(`SELECT COUNT(*) AS total FROM river_trip_logs WHERE user = "${profileUserId}"`)
+    // kayaking
+    const { total: distancePaddled } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM river_trip_logs WHERE user = ${userId}`)
+    stats.distancePaddled = formatStat(distancePaddled / 1000, "km")
+    const { total: paddlingTrips } = await sqlDatabase.get(`SELECT COUNT() AS total FROM river_trip_logs WHERE user = ${userId}`)
+    stats.paddlingTrips = formatStat(paddlingTrips)
 
-    placeholders.profilePlaceholders = {
-        stats: {
-            opPoints: formatStat(0),
-            totalAwards,
-            totalAwards0: formatStat(totalAwards),
-            totalAwardsPlural: totalAwards === 1 ? "" : "s",
-            totalBaseAwards,
-            totalDistanceRun: formatStat((totalDistanceRun ?? 0) / 1000),
-            totalPaddlingTrips: formatStat(totalPaddlingTrips)
-        }
-    }
+    // midmar mile
+    const { total: distanceSwum } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM midmar_mile_training_logs WHERE user = ${userId}`)
+    stats.distanceSwum = formatStat(distanceSwum ?? 0, "m")
+
+    // mountaineering
+    const { total: distanceHiked } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM mountaineering_logs WHERE user = ${userId}`)
+    stats.distanceHiked = formatStat(distanceHiked / 1000, "km")
+    const { total: elevationGain } = await sqlDatabase.get(`SELECT SUM(elevation_gain) AS total FROM mountaineering_logs WHERE user = ${userId}`)
+    stats.elevationGain = formatStat(elevationGain ?? 0, "m")
+    const { total: hikingTrips } = await sqlDatabase.get(`SELECT COUNT() AS total FROM mountaineering_logs WHERE user = ${userId}`)
+    stats.hikingTrips = formatStat(hikingTrips)
+
+    // running
+    const { total: distanceRun } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM running_logs WHERE user = ${userId}`)
+    stats.distanceRun = formatStat(distanceRun / 1000, "km")
+
+    // service
+    const { total: serviceHours } = await sqlDatabase.get(`SELECT SUM(time) AS total FROM service_logs WHERE user = ${userId}`)
+    stats.serviceHours = formatStat(Math.floor(serviceHours / 3600))
+
+    return stats
+}
+
+userRouter.get("/", async (req, res) => {
+    const { profileUser, profileUserId } = req
+    const { placeholders } = res
+
+    placeholders.stats = await getStats(profileUserId)
 
     res.setTitle(profileUser.titleName)
     res.ren("profile/profile")

@@ -12,4 +12,4 @@ Info block for certain awards (running) not displaying info in correct order
 > Pages
 
 Honours requirements
-List of all awards given to users
+Admin list of all awards given to users

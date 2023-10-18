@@ -45,7 +45,7 @@ block body
     a(href="/awards") Awards
     a(href="/leaderboards") Leaderboards
     a(href="/search") Search
-    a(href="/settings") Settings
+    a(href="/settings" style=`display: ${displays.loggedIn.true.block}`) Settings
     a(href=`/profile/${user.id}` style=`display: ${displays.loggedIn.true.block}`) Profile
     a(href=`/admin` style=`display: ${displays.permission.any.flex}`) Admin
     a.signin-link(style=`display: ${displays.loggedIn.false.block}`) Sign In

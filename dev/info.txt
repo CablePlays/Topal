@@ -8,10 +8,21 @@ Earliest accounts
 
 Total awards
 Total first-level awards
+
 OP points
-Running distance
+
+Distance run
+
 Paddling trips
-Midmar mile training distance
+Distance paddled
+
+Distance swum
+
+Hiking trips
+Elevation gained
+
+Service hours
+
 Bars indicating progress of half colors, colors and honours
 
 > Variety Award Idea

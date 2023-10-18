@@ -1,6 +1,9 @@
 extends ./profile-layout
 
 block assets
+  script.
+    setParam("view", minMax(getParam("view") ?? 0, 0, 1))
+
   link(rel="stylesheet" href="/stylesheets/pages/profile/profile.css")
   script(src="/javascripts/profile/profile.js")
 
@@ -8,7 +11,7 @@ block sidebar
   .spacer.v20
 
   .line
-  
+
   .spacer.v20
 
   joined-buttons#profile-view-buttons
@@ -24,24 +27,116 @@ block profile-content
 
       table#awards-display
 
-    .view
+    .view.stats
+      .stat-cards
+        .card
+          p.value= stats.totalAwards
+          p.description Total awards
+          .material-icons.open(onclick="window.open('/awards')") open_in_new
+          .material-icons.info info
+            p Total number of awards achieved.
+        .card
+          p.value= stats.firstLevelAwards
+          p.description First-level awards
+          .material-icons.open(onclick="window.open('/awards')") open_in_new
+          .material-icons.info info
+            p Total number of awards achieved, excluding instructor and leader awards.
+        //- .card
+          p.value 00
+          p.description OP points earned
+          .material-icons.open open_in_new
+          .material-icons.info info
+            p Information.
+        .card
+          p.value= stats.distanceRun
+          p.description Distance run
+          .material-icons.open(onclick="window.open('/awards/running')") open_in_new
+          .material-icons.info info
+            p Total distance run for the Running Award.
+        .card
+          p.value= stats.paddlingTrips
+          p.description Paddling trips
+          .material-icons.open(onclick="window.open('/awards/kayaking')") open_in_new
+          .material-icons.info info
+            p Total number of paddling trips done for the Kayaking Award.
+        .card
+          p.value= stats.distancePaddled
+          p.description Distance paddled
+          .material-icons.open(onclick="window.open('/awards/kayaking')") open_in_new
+          .material-icons.info info
+            p Total distance paddled for the Kayaking Award.
+        .card
+          p.value= stats.distanceSwum
+          p.description Distance swum
+          .material-icons.open(onclick="window.open('/awards/midmar-mile')") open_in_new
+          .material-icons.info info
+            p Total distance swum during training for the Midmar Mile Award.
+        .card
+          p.value= stats.hikingTrips
+          p.description Hiking trips
+          .material-icons.open(onclick="window.open('/awards/drakensberg')") open_in_new
+          .material-icons.info info
+            p Total hiking trps done for the mountaineering awards.
+        .card
+          p.value= stats.distanceHiked
+          p.description Distance hiked
+          .material-icons.open(onclick="window.open('/awards/drakensberg')") open_in_new
+          .material-icons.info info
+            p Total distance hiked for the mountaineering awards.
+        .card
+          p.value= stats.elevationGain
+          p.description Elevation gained
+          .material-icons.open(onclick="window.open('/awards/drakensberg')") open_in_new
+          .material-icons.info info
+            p Total elevation gained during hiking for the mountaineering awards.
+        .card
+          p.value= stats.serviceHours
+          p.description Service hours
+          .material-icons.open(onclick="window.open('/awards/service')") open_in_new
+          .material-icons.info info
+            p Total hours of service completed for the Service Award.
+
+      .spacer.v20
+
+      .progresses
+        .progresses-col1
+          h2 Team Award
+          meter.stripes(max=4 value=stats.totalAwards)
+
+          h2 Half Colours
+          meter(max=7 value=stats.totalAwards)
+
+          h2 Colours
+          meter(max=10 value=stats.totalAwards)
+
+        .progresses-col2
+          .heading-line
+            h2 Honours
+            .material-icons(onclick="window.open('/honours')") open_in_new
+          .spacer.v10
+          .circle-progress(style=`--p: calc(${stats.totalAwards} / 24 * 100%)`)
+
+      .spacer.v40
+
+    //- .view.stats-old
       .spacer.v20
 
       .center-cards
         .cards
           .row
             .card
-              p.number= profilePlaceholders.stats.totalAwards0
+              p.number 00
               p.type Total awards.
               .spacer.v20
               p.description.
                 There are 12 awards in total that users can earn.
-                Of the #{profilePlaceholders.stats.totalAwards} award#{profilePlaceholders.stats.totalAwardsPlural} which #{profileUser.titleSurname} has earned, #{profilePlaceholders.stats.totalBaseAwards} of them are base awards.
+                Of the 0 awards which USER has earned, 0 of them are first level awards.
               .spacer.v20
               a(href="/awards") Awards
                 .underline
             .card
-              p.number= profilePlaceholders.stats.opPoints
+              p.number 00
+
               p.type OP points earned.
               .spacer.v20
               p.description.
@@ -52,7 +147,7 @@ block profile-content
                 .underline
           .row
             .card
-              p.number= profilePlaceholders.stats.totalDistanceRun
+              p.number 00
               p.type km of distance run.
               .spacer.v20
               p.description.
@@ -62,7 +157,7 @@ block profile-content
               a(href="/awards/running") Running Award
                 .underline
             .card
-              p.number= profilePlaceholders.stats.totalPaddlingTrips
+              p.number 00
               p.type Paddling trips.
               .spacer.v20
               p.description.

@@ -9,6 +9,10 @@ document.addEventListener("click", event => {
     }
 })
 
+function minMax(val, min, max) {
+    return Math.min(Math.max(val, min), max)
+}
+
 function getParam(param) {
     return new URLSearchParams(location.search).get(param)
 }

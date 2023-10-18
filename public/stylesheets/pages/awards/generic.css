@@ -1107,10 +1107,9 @@ header #sidebar-icon {
   font-size: 14px;
   padding: 8px;
   position: absolute;
-  word-wrap: normal;
-  width: 200px;
   right: 0;
   white-space: normal;
+  width: 200px;
 }
 .col-container .col2 #award-info #request-container .info:hover p {
   display: block;
