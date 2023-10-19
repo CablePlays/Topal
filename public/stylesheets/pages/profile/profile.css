@@ -938,9 +938,8 @@ header #sidebar-icon {
 #views .view.stats .progresses {
   display: flex;
   flex-direction: column;
-  padding: 0 32px 0 16px;
-  -moz-column-gap: 40px;
-       column-gap: 40px;
+  padding: 0 32px;
+  gap: 20px 40px;
 }
 @media screen and (min-width: 650px) {
   #views .view.stats .progresses {
@@ -968,12 +967,13 @@ header #sidebar-icon {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 500px;
+  max-width: 550px;
   width: 100%;
 }
 #views .view.stats .progresses .progresses-col2 {
-  width: -moz-max-content;
-  width: max-content;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 #views .view.stats .progresses .progresses-col2 h2 {
   text-align: center;
@@ -983,7 +983,7 @@ header #sidebar-icon {
   -moz-column-gap: 10px;
        column-gap: 10px;
   display: flex;
-  left: 25px;
+  left: 16px;
   position: relative;
 }
 #views .view.stats .progresses .progresses-col2 .material-icons {

@@ -34,8 +34,8 @@ $bars-breakpoint: 650px;
             .progresses {
                 display: flex;
                 flex-direction: column;
-                padding: 0 32px 0 16px;
-                column-gap: 40px;
+                padding: 0 32px;
+                gap: 20px 40px;
 
                 @media screen and (min-width: $bars-breakpoint) {
                     flex-direction: row;
@@ -70,12 +70,14 @@ $bars-breakpoint: 650px;
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
-                    max-width: 500px;
+                    max-width: 550px;
                     width: 100%;
                 }
 
                 .progresses-col2 {
-                    width: max-content;
+                    align-items: center;
+                    display: flex;
+                    flex-direction: column;
 
                     h2 {
                         text-align: center;
@@ -85,7 +87,7 @@ $bars-breakpoint: 650px;
                         align-items: center;
                         column-gap: 10px;
                         display: flex;
-                        left: 25px;
+                        left: 16px;
                         position: relative;
                     }
 
