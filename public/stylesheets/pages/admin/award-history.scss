@@ -1,0 +1,30 @@
+@import "../../global";
+
+#history-container {
+    display: grid;
+    font-size: 14px;
+    grid-template-columns: repeat(4, min-content);
+    gap: 10px 20px;
+    overflow-x: auto;
+    padding-bottom: 20px;
+
+    @media screen and (min-width: 460px) {
+        font-size: 16px;
+    }
+
+    @media screen and (min-width: 670px) {
+        column-gap: 30px;
+        grid-template-columns: repeat(4, max-content);
+    }
+
+    p.date {
+        align-items: top;
+        color: rgb(100, 100, 100);
+        display: flex;
+        font-size: 14px;
+    }
+
+    p.heading {
+        font-weight: 700;
+    }
+}

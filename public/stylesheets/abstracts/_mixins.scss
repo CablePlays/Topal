@@ -8,11 +8,13 @@
     }
 }
 
-@mixin alternating-background-gray() {
+@mixin alternating-background-gray($hover: false) {
     @include alternating-background(rgb(230, 230, 230), rgb(210, 210, 210));
 
-    &:hover {
-        @include alternating-background(rgb(240, 240, 240), rgb(220, 220, 220));
+    @if $hover {
+        &:hover {
+            @include alternating-background(rgb(240, 240, 240), rgb(220, 220, 220));
+        }
     }
 }
 

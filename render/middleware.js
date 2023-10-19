@@ -1,6 +1,5 @@
 const cookies = require("../server/cookies")
 const general = require("../server/general")
-const jsonDatabase = require("../server/json-database")
 
 function requireLoggedIn(req, res, next) {
     if (cookies.isLoggedIn(req)) {
@@ -22,7 +21,7 @@ function getPermissionMiddleware(permission) {
     return (req, res, next) => {
         if (cookies.isLoggedIn(req)) {
             const userId = cookies.getUserId(req)
-            const permissions = jsonDatabase.getPermissions(userId)
+            const permissions = general.getPermissions(userId)
 
             if (permissions[permission] === true) {
                 next()

@@ -882,10 +882,10 @@ header #sidebar-icon {
   padding: 8px;
 }
 #users .user:nth-child(odd) {
-  background-color: rgb(210, 210, 210);
+  background-color: rgb(230, 230, 230);
 }
 #users .user:nth-child(even) {
-  background-color: rgb(230, 230, 230);
+  background-color: rgb(210, 210, 210);
 }
 #users .user img {
   border-radius: 30px;

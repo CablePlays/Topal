@@ -2,6 +2,11 @@
     "account": {
         "PUT": "Handle login token from Google"
     },
+    "admin": {
+        "award-history": {
+            "GET": "Gets a list of award grantings ordered by their date granted"
+        }
+    },
     "logs": {
         ":logType": {
             "GET": "Get user logs & sublogs of type",

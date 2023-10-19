@@ -1,7 +1,6 @@
 const express = require("express")
 const cookies = require("../server/cookies")
 const general = require("../server/general")
-const jsonDatabase = require("../server/json-database")
 const middleware = require("./middleware")
 
 const adminRouter = require("./admin")
@@ -20,7 +19,7 @@ async function advancedRender(req, res, path) {
 
     if (loggedIn && await general.isPasswordValid(req)) {
         const userId = cookies.getUserId(req)
-        permissions = jsonDatabase.getPermissions(userId)
+        permissions = general.getPermissions(userId)
     }
 
     const generateDisplays = condition => {

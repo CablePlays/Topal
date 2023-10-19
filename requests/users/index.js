@@ -18,7 +18,7 @@ router.get("/permissions", middleware.getPermissionMiddleware("managePermissions
     const asyncTasks = []
 
     for (let userId of users) {
-        const permissions = jsonDatabase.getPermissions(userId, true)
+        const permissions = general.getPermissions(userId, true)
 
         if (permissions.any && !general.isUserInvisible(userId)) {
             const promise = general.getUserInfo(userId)
@@ -44,7 +44,7 @@ router.get("/permissions/user", middleware.getPermissionMiddleware("managePermis
     }
 
     const info = await general.getUserInfo(userId)
-    const permissions = jsonDatabase.getPermissions(userId, true)
+    const permissions = general.getPermissions(userId, true)
     res.res(200, { info, permissions })
 })
 

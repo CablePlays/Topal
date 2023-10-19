@@ -8,6 +8,11 @@ router.get("/", middleware.getPermissionMiddleware("any"), (req, res) => {
     res.ren("admin/admin")
 })
 
+router.get("/award-history", middleware.getPermissionMiddleware("viewAwardHistory"), (req, res) => {
+    res.setTitle("Award History")
+    res.ren("admin/award-history")
+})
+
 router.get("/permissions", middleware.getPermissionMiddleware("managePermissions"), (req, res) => {
     res.setTitle("Permissions")
     res.ren("admin/permissions")

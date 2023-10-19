@@ -14,13 +14,6 @@ block content
     h1 Admin Portal
     p.limit-width Only users with permissions (usually staff) can view this page.
 
-    div
-      .spacer.v20
-      h2.heading Award History
-      p.limit-width A list of all the awards which have been granted to users.
-      .spacer.v10
-      p Coming soon!
-
     div(style=`display: ${displays.permission.manageAwards.block}`)
       .spacer.v20
       h2.heading Signoff Requests
@@ -29,6 +22,15 @@ block content
         The <i>Manage Awards</i> permission is required to view this page.
       .spacer.v10
       a.link.secondary(href="/admin/requests") Go
+
+    div(style=`display: ${displays.permission.viewAwardHistory.block}`)
+      .spacer.v20
+      h2.heading Award History
+      p.limit-width.
+        A list of all the awards which have been granted to users in chronological order.
+        The <i>View Award History</i> permission is required to view this page.
+      .spacer.v10
+      a.link.secondary(href="/admin/award-history") Go
 
     div(style=`display: ${displays.permission.managePermissions.block}`)
       .spacer.v20

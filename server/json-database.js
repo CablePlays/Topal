@@ -63,26 +63,6 @@ async function forEachUser(consumer) {
     }))
 }
 
-/* Get Permissions */
-
-function getPermissions(userId, raw) {
-    const permissions = getUser(userId).get(PERMISSIONS_PATH) ?? {}
-
-    if (!raw && permissions.managePermissions === true) {
-        permissions.manageAwards = true
-        permissions.viewAuditLog = true
-    }
-
-    for (let key in permissions) {
-        if (permissions[key]) {
-            permissions.any = true
-            break
-        }
-    }
-
-    return permissions
-}
-
 module.exports = {
     APPROVALS_PATH,
     AWARDS_PATH,
@@ -95,6 +75,5 @@ module.exports = {
     setCompact: c => compact = c,
     getUser,
     forEachUser,
-    getPermissions,
     get, set
 }

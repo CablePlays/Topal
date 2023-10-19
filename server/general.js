@@ -165,7 +165,8 @@ const LOG_TYPES = {
 
 const PERMISSIONS = [
     "manageAwards",
-    "managePermissions"
+    "managePermissions",
+    "viewAwardHistory"
 ]
 
 /* Data */
@@ -252,7 +253,7 @@ async function getGrade(userId) {
 }
 
 async function getUserInfo(userId) {
-    const record = await sqlDatabase.get(`SELECT * FROM users WHERE id = "${userId}"`)
+    const record = await sqlDatabase.get(`SELECT * FROM users WHERE id = ${userId}`)
     if (record == null) return {}
 
     const { email } = record
@@ -267,8 +268,7 @@ async function getUserInfo(userId) {
         title,
         profilePicture: profilePicture ?? DEFAULT_PROFILE_PICTURE_PATH,
         fullName: (title ? title + " " : "") + `${name} ${surname}`, // e.g. Mr John Doe
-        titleName: (title ? title : name) + " " + surname, // e.g. John Doe / Mr Doe
-        titleSurname: title ? title + " " + surname : name // e.g. John / Mr Doe
+        titleName: (title ? title : name) + " " + surname // e.g. John Doe / Mr Doe
     }
 }
 
@@ -308,6 +308,25 @@ async function provideUserInfoToStatuses(statuses) {
     await forEachAndWait(statusKeys, async status => {
         await provideUserInfoToStatus(statuses[status])
     })
+}
+
+function getPermissions(userId, raw) {
+    const permissions = jsonDatabase.getUser(userId).get(jsonDatabase.PERMISSIONS_PATH) ?? {}
+
+    if (!raw && permissions.managePermissions === true) {
+        for (let permission of PERMISSIONS) {
+            permissions[permission] = true
+        }
+    }
+
+    for (let key in permissions) {
+        if (permissions[key]) {
+            permissions.any = true
+            break
+        }
+    }
+
+    return permissions
 }
 
 function createDummyUsers() {
@@ -375,6 +394,7 @@ module.exports = {
     forEachAndWait,
     provideUserInfoToStatus,
     provideUserInfoToStatuses,
+    getPermissions,
     getUserInfo,
     getGrade,
     getGradeFromEmail,

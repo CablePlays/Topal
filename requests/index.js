@@ -1,9 +1,9 @@
 const express = require("express")
 const cookies = require("../server/cookies")
 const general = require("../server/general")
-const jsonDatabase = require("../server/json-database")
 
 const accountRouter = require("./account")
+const adminRouter = require("./admin")
 const logsRouter = require("./logs")
 const recentAwardsRouter = require("./recent-awards")
 const usersRouter = require("./users")
@@ -14,7 +14,7 @@ router.use("/", (req, res, next) => { // provide response method
     res.res = (responseCode, extra) => {
         if (extra == null) {
             res.sendStatus(responseCode)
-        } else if (typeof extra === "string") { // error: ID or message
+        } else if (typeof extra === "string") { // error: message
             res.status(responseCode).json({ error: extra })
         } else if (typeof extra === "object") { // success: json
             res.status(responseCode).json(extra)
@@ -31,7 +31,7 @@ router.use("/", async (req, res, next) => { // provide user information
         const userId = cookies.getUserId(req)
         req.loggedIn = true
         req.userId = userId
-        req.permissions = jsonDatabase.getPermissions(userId)
+        req.permissions = general.getPermissions(userId)
     } else {
         req.permissions = {}
         req.loggedIn = false
@@ -43,6 +43,7 @@ router.use("/", async (req, res, next) => { // provide user information
 /* Routers */
 
 router.use("/account", accountRouter)
+router.use("/admin", adminRouter)
 router.use("/logs", logsRouter)
 router.use("/recent-awards", recentAwardsRouter)
 router.use("/users", usersRouter)

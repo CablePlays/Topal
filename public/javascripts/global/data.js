@@ -665,6 +665,9 @@ const _PERMISSIONS = {
     },
     managePermissions: {
         name: "Manage Permissions"
+    },
+    viewAwardHistory: {
+        name: "View Award History"
     }
 }
 

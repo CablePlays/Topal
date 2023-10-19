@@ -59,7 +59,7 @@
     row-gap: 10px;
 
     .user {
-        @include alternating-background(rgb(210, 210, 210), rgb(230, 230, 230));
+        @include alternating-background-gray();
         align-items: center;
         border-radius: 4px;
         display: flex;
