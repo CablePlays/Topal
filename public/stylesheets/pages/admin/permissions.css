@@ -822,6 +822,10 @@ header #sidebar-icon {
   color: #f47721;
 }
 
+.permissions-list .permission {
+  font-weight: 700;
+}
+
 #add-user {
   align-items: center;
   border: 2px solid transparent;

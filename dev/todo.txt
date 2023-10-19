@@ -1,6 +1,5 @@
 Icon to go to top of page
 Make search also search awards
-On permissions page, add descriptions for each permission.
 Add stats on profile page to each award page
 
 > Fixes

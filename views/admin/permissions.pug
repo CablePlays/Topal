@@ -17,7 +17,30 @@ block content
 
     .spacer.v20
 
-    .notice(data-type="warning") Users with the <i>Manage Permissions</i> permission automatically have all other permissions.
+    h2.heading Permission Types
+
+    .spacer.v20
+
+    ul.limit-width.spacious.permissions-list
+      li
+        p.permission Manage Awards
+        p Users with this permission can:
+        .spacer.v20
+        ul
+          li Grant and revoke awards and signoffs
+          li View user logs
+      li
+        p.permission Manage Permissions
+        p Allows users to manage the permissions of other users.
+        .spacer.v20
+        .notice(data-type="warning") Users with this permission automatically have all other permissions.
+      li
+        p.permission View Award History
+        p Allows users to view the <a href="/admin/award-history">Award History</a> page.
+
+    .spacer.v20
+
+    h2.heading User Permissions
 
     .spacer.v20
 
@@ -26,7 +49,7 @@ block content
       p Add User
     
     #add-user-input.invisible
-      h2.heading Add User
+      h3 Add User
       p Provide the user's email adress.
       .spacer.v20
       #add-user-info-container.invisible
