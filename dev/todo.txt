@@ -1,6 +1,6 @@
 Icon to go to top of page
 Make search also search awards
-Add stats on profile page to each award page
+Add stats on profile stats page to each award page
 
 > Fixes
 
@@ -9,4 +9,4 @@ Info block for certain awards (running) not displaying info in correct order
 
 > Pages
 
-Honours requirements
+Leaderboards

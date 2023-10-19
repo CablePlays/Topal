@@ -1,0 +1,23 @@
+extends ../layout
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/generic.css")
+
+block content
+  .p16
+    h1 Honours Requirements
+    p.limit-width In order to achieve honours, it is required that a pupil achieves a total of 24 awards.
+
+    .spacer.v20
+
+    h2 Required Awards: 24
+    .spacer.v10
+    h2#total-awards
+
+    .spacer.v20
+
+    p.limit-width The awards which contribute towards the honours award can be worked towards over a pupil's entire school career.
+
+block script
+  script.
+    byId("total-awards").innerHTML = `Total Awards Achievable: ${getAwards().length}`

@@ -82,9 +82,9 @@ router.get("/awards", (req, res) => {
     res.ren("other/awards")
 })
 
-router.get("/honours", (req, res) => {
+router.get("/honours-requirements", (req, res) => {
     res.setTitle("Honours")
-    res.ren("errors/coming-soon")
+    res.ren("other/honours-requirements")
 })
 
 router.get("/leaderboard", (req, res) => {
