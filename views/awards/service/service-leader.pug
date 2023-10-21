@@ -1,7 +1,4 @@
-extends ../award-layout
-
-block assets
-  link(rel="stylesheet" href="/stylesheets/pages/awards/generic.css")
+extends ./service-layout
 
 block top
   p.
@@ -17,8 +14,9 @@ block requirements
       objective demands of the award (i.e. 150 hours cumulative service), but where the applicant has encouraged,
       organised and motivated others to join in a service project.
 
-block script
+block s
   script.
     setAward("serviceLeader")
     setDifficulty(3)
     setSkillLevel(1)
+    showHours(150)

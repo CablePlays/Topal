@@ -1,3 +1,2 @@
 SELECT * FROM users;
-SELECT SUM(elevation_gain) FROM mountaineering_logs WHERE user = 4;
-SELECT * FROM service_logs;
+SELECT * FROM service_logs WHERE user = 4;

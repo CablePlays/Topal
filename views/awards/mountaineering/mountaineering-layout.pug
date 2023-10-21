@@ -1,0 +1,37 @@
+extends ../award-layout
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/awards/generic.css")
+
+block script
+  block s
+  script.
+    if (isLoggedIn()) {
+      const tripsDisplay = createElement("p", { t: LOADING_TEXT })
+      const distanceDisplay = createElement("p", { t: LOADING_TEXT })
+      const elevationDisplay = createElement("p", { t: LOADING_TEXT })
+
+      appendInfo([
+        createElement("h3", { t: "Hiking Trips" }),
+        tripsDisplay,
+        createSpacer(10),
+        createElement("h3", { t: "Distance Hiked" }),
+        distanceDisplay,
+        createSpacer(10),
+        createElement("h3", { t: "Elevation Gained" }),
+        elevationDisplay
+      ])
+
+      getRequest(`/users/${getUserId()}/awards/mountaineering/trips`).then(res => {
+        const { trips } = res
+        tripsDisplay.innerHTML = `${trips} trip${trips === 1 ? "" : "s"}`
+      })
+      getRequest(`/users/${getUserId()}/awards/mountaineering/distance`).then(res => {
+        const { distance } = res
+        distanceDisplay.innerHTML = `${distance / 1000}km`
+      })
+      getRequest(`/users/${getUserId()}/awards/mountaineering/elevation`).then(res => {
+        const { elevation } = res
+        elevationDisplay.innerHTML = `${elevation}m`
+      })
+    }

@@ -6,7 +6,7 @@ block assets
 block style
   style.
     table.distances {
-      border-spacing: 50px 0;
+      border-spacing: 30px 0;
     }
 
     table.distances th {
@@ -48,21 +48,20 @@ block script
     setSkillLevel(1)
 
     if (isLoggedIn()) {
-      const totalDistanceDisplay = createElement("p")
-      totalDistanceDisplay.innerHTML = LOADING_TEXT
+      const distanceDisplay = createElement("p", { t: LOADING_TEXT })
 
-      const totalDistanceMeter = createElement("meter")
+      const distanceMeter = createElement("meter")
       totalDistanceMeter.max = 100000
 
       appendInfo([
         createElement("h3", { t: "Total Distance" }),
-        totalDistanceDisplay,
-        totalDistanceMeter
+        distanceDisplay,
+        distanceMeter
       ])
 
       getRequest(`/users/${getUserId()}/awards/running/distance`).then(res => {
         const { distance } = res
-        totalDistanceDisplay.innerHTML = `${distance / 1000}km / 100km`
-        totalDistanceMeter.value = distance
+        distanceDisplay.innerHTML = `${distance / 1000}km / 100km`
+        distanceMeter.value = distance
       })
     }

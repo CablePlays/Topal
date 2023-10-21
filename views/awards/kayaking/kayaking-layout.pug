@@ -1,0 +1,29 @@
+extends ../award-layout
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/awards/generic.css")
+
+block script
+  block s
+  script.
+    if (isLoggedIn()) {
+      const tripsDisplay = createElement("p", { t: LOADING_TEXT })
+      const distanceDisplay = createElement("p", { t: LOADING_TEXT })
+
+      appendInfo([
+        createElement("h3", { t: "River Trips" }),
+        tripsDisplay,
+        createSpacer(10),
+        createElement("h3", { t: "Distance Paddled" }),
+        distanceDisplay
+      ])
+
+      getRequest(`/users/${getUserId()}/awards/kayaking/trips`).then(res => {
+        const { trips } = res
+        tripsDisplay.innerHTML = `${trips} trip${trips === 1 ? "" : "s"}`
+      })
+      getRequest(`/users/${getUserId()}/awards/kayaking/distance`).then(res => {
+        const { distance } = res
+        distanceDisplay.innerHTML = `${distance / 1000}km`
+      })
+    }

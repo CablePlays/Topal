@@ -7,16 +7,15 @@ block script
   block s
   script.
     if (isLoggedIn()) {
-      const trainingDistanceDisplay = createElement("p")
-      trainingDistanceDisplay.innerHTML = LOADING_TEXT
+      const distanceDisplay = createElement("p", { t: LOADING_TEXT })
 
       appendInfo([
-        createElement("h3", { t: "Training Distance" }),
-        trainingDistanceDisplay
+        createElement("h3", { t: "Distance Swum" }),
+        distanceDisplay
       ])
 
-      getRequest(`/users/${getUserId()}/awards/midmarMile/trainingDistance`).then(res => {
+      getRequest(`/users/${getUserId()}/awards/midmarMile/distance`).then(res => {
         const { distance } = res
-        trainingDistanceDisplay.innerHTML = `${distance}m`
+        distanceDisplay.innerHTML = `${distance}m`
       })
     }

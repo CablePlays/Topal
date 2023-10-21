@@ -214,11 +214,7 @@ $border-radius: 8px;
             }
 
             .slider {
-                min-width: 100%;
-
-                @media screen and (min-width: 480px) {
-                    min-width: 400px;
-                }
+                min-width: 500px;
 
                 input {
                     cursor: pointer;

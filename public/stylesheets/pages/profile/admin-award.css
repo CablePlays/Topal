@@ -737,12 +737,7 @@ header #sidebar-icon {
   padding: 8px;
 }
 .logs .input .items .slider {
-  min-width: 100%;
-}
-@media screen and (min-width: 480px) {
-  .logs .input .items .slider {
-    min-width: 400px;
-  }
+  min-width: 500px;
 }
 .logs .input .items .slider input {
   cursor: pointer;

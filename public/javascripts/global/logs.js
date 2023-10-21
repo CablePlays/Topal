@@ -993,6 +993,7 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
                 if (typeof value === "string") { // attribute
                     displayValue = log[value]
                     if (map) displayValue = map[displayValue]
+                    displayValue = displayValue.replace("\n", "<br>")
                 } else {
                     displayValue = value(log)
                 }

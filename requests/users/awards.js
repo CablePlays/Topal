@@ -26,16 +26,52 @@ router.get("/", async (req, res) => { // get user award info
     res.res(200, { awards })
 })
 
-router.get("/midmarMile/trainingDistance", async (req, res) => { // get total training distance
+router.get("/midmarMile/distance", async (req, res) => { // get total training distance
     const { targetUserId } = req
-    const { total } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM midmar_mile_training_logs WHERE user = "${targetUserId}"`)
+    const { total } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM midmar_mile_training_logs WHERE user = ${targetUserId}`)
     res.res(200, { distance: total ?? 0 })
+})
+
+router.get("/kayaking/distance", async (req, res) => { // get total distance paddled on trips
+    const { targetUserId } = req
+    const { total } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM river_trip_logs WHERE user = ${targetUserId}`)
+    res.res(200, { distance: total ?? 0 })
+})
+
+router.get("/kayaking/trips", async (req, res) => { // get total paddling trips
+    const { targetUserId } = req
+    const { total } = await sqlDatabase.get(`SELECT COUNT() AS total FROM river_trip_logs WHERE user = ${targetUserId}`)
+    res.res(200, { trips: total ?? 0 })
+})
+
+router.get("/mountaineering/elevation", async (req, res) => { // get total elevation gained
+    const { targetUserId } = req
+    const { total } = await sqlDatabase.get(`SELECT SUM(elevation_gain) AS total FROM mountaineering_logs WHERE user = ${targetUserId}`)
+    res.res(200, { elevation: total ?? 0 })
+})
+
+router.get("/mountaineering/distance", async (req, res) => { // get total distance hiked
+    const { targetUserId } = req
+    const { total } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM mountaineering_logs WHERE user = ${targetUserId}`)
+    res.res(200, { distance: total ?? 0 })
+})
+
+router.get("/mountaineering/trips", async (req, res) => { // get total hiking trips
+    const { targetUserId } = req
+    const { total } = await sqlDatabase.get(`SELECT COUNT() AS total FROM mountaineering_logs WHERE user = ${targetUserId}`)
+    res.res(200, { trips: total ?? 0 })
 })
 
 router.get("/running/distance", async (req, res) => { // get total distance run
     const { targetUserId } = req
-    const { total } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM running_logs WHERE user = "${targetUserId}"`)
+    const { total } = await sqlDatabase.get(`SELECT SUM(distance) AS total FROM running_logs WHERE user = ${targetUserId}`)
     res.res(200, { distance: total ?? 0 })
+})
+
+router.get("/service/hours", async (req, res) => { // get total service hours
+    const { targetUserId } = req
+    const { total } = await sqlDatabase.get(`SELECT SUM(time) AS total FROM service_logs WHERE user = ${targetUserId}`)
+    res.res(200, { time: total ?? 0 })
 })
 
 const awardRouter = express.Router()

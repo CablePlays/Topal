@@ -309,14 +309,13 @@ function _createSequelShortcuts(awardId) {
     }
 }
 
-function _showAuthorisedStaff(awardId) {
+function _displayAuthorisedStaff(awardId) {
     const authorisedStaff = getAwardAuthorisedStaff(awardId)
+    if (authorisedStaff == null) return end
 
-    if (authorisedStaff) {
-        const authorisedStaffElement = createElement("p", { t: "MIC's: " + authorisedStaff.join(", ") })
-        authorisedStaffElement.style["font-size"] = "14px"
-        appendInfo([authorisedStaffElement])
-    }
+    const authorisedStaffElement = createElement("p", { t: `MIC${authorisedStaff.length === 1 ? "" : "'s"}: ${authorisedStaff.join(", ")}` })
+    authorisedStaffElement.style["font-size"] = "14px"
+    appendInfo([authorisedStaffElement])
 }
 
 function _generateSignoffs(awardId) {
@@ -468,7 +467,7 @@ function setAward(awardId) {
     }
 
     _createSequelShortcuts(awardId)
-    _showAuthorisedStaff(awardId)
     _generateSignoffs(awardId)
     _showLogs(awardId)
+    setTimeout(() => _displayAuthorisedStaff(awardId), 50) // timeout to display after award-specific info parts
 }

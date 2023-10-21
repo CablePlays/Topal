@@ -39,13 +39,37 @@
             "awards": {
                 "GET": "Get user awards information",
                 "midmarMile": {
-                    "trainingDistance": {
-                        "GET": "Get total training distance"
+                    "distance": {
+                        "GET": "Get total distance swum"
+                    }
+                },
+                "kayaking": {
+                    "distance": {
+                        "GET": "Get total distance paddled on trips"
+                    },
+                    "trips": {
+                        "GET": "Get total paddling trips"
+                    }
+                },
+                "mountaineering": {
+                    "distance": {
+                        "GET": "Get total distance hiked"
+                    },
+                    "elevation": {
+                        "GET": "Get total elevation gained"
+                    },
+                    "trips": {
+                        "GET": "Get total hiking trips"
                     }
                 },
                 "running": {
                     "distance": {
                         "GET": "Get total distance run"
+                    }
+                },
+                "service": {
+                    "hours": {
+                        "GET": "Get total service time"
                     }
                 },
                 ":awardId": {

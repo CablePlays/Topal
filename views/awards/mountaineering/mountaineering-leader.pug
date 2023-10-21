@@ -1,7 +1,4 @@
-extends ../award-layout
-
-block assets
-  link(rel="stylesheet" href="/stylesheets/pages/awards/generic.css")
+extends ./mountaineering-layout
 
 block top
   p.
@@ -20,7 +17,7 @@ block requirements
       Responsibilities of a Leader Squad include instruction of learners and instructors as well as assistance in the running
       of the Treverton Hiking programme.
 
-block script
+block s
   script.
     createShortcut("Drakensberg Award", "right", "/awards/drakensberg")
     createShortcut("Summit Award", "right", "/awards/summit")

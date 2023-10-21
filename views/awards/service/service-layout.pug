@@ -1,0 +1,28 @@
+extends ../award-layout
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/awards/generic.css")
+
+block script
+  script.
+    function showHours(total) {
+      if (isLoggedIn()) {
+        const hoursDisplay = createElement("p", { t: LOADING_TEXT })
+
+        const hoursMeter = createElement("meter")
+        hoursMeter.max = total * 3600
+
+        appendInfo([
+          createElement("h3", { t: "Service Hours" }),
+          hoursDisplay,
+          hoursMeter
+        ])
+
+        getRequest(`/users/${getUserId()}/awards/service/hours`).then(res => {
+          const { time } = res
+          hoursDisplay.innerHTML = formatDuration(time, false)
+          hoursMeter.value = time
+        })
+      }
+    }
+  block s

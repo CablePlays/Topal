@@ -1,7 +1,4 @@
-extends ../award-layout
-
-block assets
-  link(rel="stylesheet" href="/stylesheets/pages/awards/generic.css")
+extends ./mountaineering-layout
 
 block requirements
   ol.spacious
@@ -9,7 +6,7 @@ block requirements
     li Have logged a total of four nights hiking in the Berg, including a 700m ascent.
     li Have the required signoffs from an instructor or a staff member leading a Berg trip.
 
-block script
+block s
   script.
     createShortcut("Drakensberg Award", "right", "/awards/drakensberg")
     createShortcut("Traverse Award", "right", "/awards/traverse")

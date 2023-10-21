@@ -1,7 +1,4 @@
-extends ../award-layout
-
-block assets
-  link(rel="stylesheet" href="/stylesheets/pages/awards/generic.css")
+extends ./kayaking-layout
 
 block top
   p.
@@ -18,7 +15,7 @@ block requirements
     li Plan a trip (including all logistics, briefings, client control/assistance/assurance).
     li Correctly interpret environmental conditions (including possible dangers and weather).
 
-block script
+block s
   script.
     setAward("kayakingLeader")
     setDifficulty(4)
