@@ -1390,8 +1390,8 @@ function _createInputSection(options) {
                 }
 
                 valueSupplier = () => {
-                    let total = (hoursElement.value || 0) * 3600 + (minutesElement.value || 0) * 60
-                    if (seconds) total += secondsElement.value || 0
+                    let total = hoursElement.value * 3600 + minutesElement.value * 60
+                    if (seconds) total += secondsElement.value * 1 // multiply to change to number
                     return (total > 0) ? total : null
                 }
 
