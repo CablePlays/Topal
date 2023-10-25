@@ -784,6 +784,7 @@ const _LOG_TYPES = {
                 },
                 input: {
                     attribute: "link",
+                    description: "The URL to your activity (e.g. Strava activity).",
                     optional: true,
                     type: "url"
                 }
