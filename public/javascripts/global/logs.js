@@ -419,12 +419,23 @@ const _LOG_TYPES = {
         signable: true,
         items: [
             {
-                name: "Date",
+                name: "Start Date",
                 display: {
                     type: "date"
                 },
                 input: {
                     attribute: "date",
+                    type: "date"
+                }
+            },
+            {
+                name: "End Date",
+                display: {
+                    type: "date",
+                    attribute: "end_date"
+                },
+                input: {
+                    attribute: "end_date",
                     type: "date"
                 }
             },
@@ -529,6 +540,18 @@ const _LOG_TYPES = {
                     attribute: "boat",
                     description: "e.g. Kayak, Croc, K1, K2, etc.",
                     type: "textShort"
+                }
+            },
+            {
+                name: "Comments",
+                display: {
+                    type: "text",
+                    value: "description"
+                },
+                input: {
+                    attribute: "description",
+                    optional: true,
+                    type: "textLong"
                 }
             }
         ]
@@ -752,6 +775,18 @@ const _LOG_TYPES = {
                     attribute: "description",
                     type: "textLong"
                 }
+            },
+            {
+                name: "Activity URL",
+                display: {
+                    type: "url",
+                    attribute: "link"
+                },
+                input: {
+                    attribute: "link",
+                    optional: true,
+                    type: "url"
+                }
             }
         ]
     },
@@ -938,6 +973,7 @@ function getLogTypeName(logType) {
         date
         sublogs
         text
+        url
 */
 function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, viewOnly }) {
     const displaySectionElement = createElement("div", { c: ["log", "display"] })
@@ -951,8 +987,9 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
     for (let item of items) {
         const { name, display } = item
         const { type } = display
+        let hide = false
 
-        const itemElement = createElement("div", { c: "item", p: itemsContainer })
+        const itemElement = createElement("div", { c: "item" })
         createElement("h3", { p: itemElement, t: name })
 
         switch (type) {
@@ -993,6 +1030,12 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
 
                 if (typeof value === "string") { // attribute
                     displayValue = log[value]
+
+                    if (displayValue == null) {
+                        hide = true
+                        break
+                    }
+
                     if (map) displayValue = map[displayValue]
                     displayValue = displayValue.replace("\n", "<br>")
                 } else {
@@ -1002,6 +1045,24 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
                 createElement("p", { p: itemElement, t: displayValue })
                 break
             }
+            case "url": {
+                const { attribute } = display
+                const val = log[attribute]
+
+                if (val) {
+                    const linkElement = createElement("a", { p: itemElement, t: "Link" })
+                    linkElement.href = val
+                    linkElement.target = "_blank"
+                } else {
+                    hide = true
+                }
+
+                break
+            }
+        }
+
+        if (!hide) {
+            itemsContainer.appendChild(itemElement)
         }
     }
 
@@ -1215,6 +1276,7 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
         textLong
         textShort
         time
+        url
 */
 function _createInputSection(options) {
     const { edit, createLogElement, initialValues, logId, logType, parentLogId } = options ?? {} // edit, logId || createLogElement
@@ -1223,17 +1285,20 @@ function _createInputSection(options) {
     const itemsContainer = createElement("div", { c: "items", p: inputSectionElement })
 
     const { items, signable } = _LOG_TYPES[logType]
-    const itemStorage = {} // stores value suppliers & item elements
+    const itemStorage = {} // stores heading, optional & value supplier
 
     for (let item of items) {
         const { name, input } = item
-        if (!input) continue // item does not support input
+        if (input == null) continue // item does not support input
 
-        const { attribute, description, type } = input
+        const { attribute, description, optional, type } = input
         const initialValue = initialValues?.[attribute] ?? null
 
         const itemElement = createElement("div", { c: "item", p: itemsContainer })
+
         const headingElement = createElement("h3", { p: itemElement, t: name })
+        if (optional) headingElement.classList.add("optional")
+
         if (description) createElement("p", { p: itemElement, t: description })
 
         let valueSupplier // null indicates no value provided
@@ -1427,11 +1492,27 @@ function _createInputSection(options) {
 
                 break
             }
+            case "url": {
+                itemElement.classList.add("url")
+                createSpacer(10, { p: itemElement })
+
+                const inputElement = createElement("input", { p: itemElement })
+                inputElement.type = "url"
+                inputElement.value = initialValue
+
+                valueSupplier = () => {
+                    const val = inputElement.value
+                    return (val === "") ? null : val
+                }
+
+                break
+            }
         }
 
         itemStorage[attribute] = {
-            valueSupplier,
-            heading: headingElement
+            heading: headingElement,
+            optional,
+            valueSupplier
         }
     }
 
@@ -1447,10 +1528,10 @@ function _createInputSection(options) {
             const log = {}
 
             for (let attribute in itemStorage) {
-                const { heading, valueSupplier } = itemStorage[attribute]
+                const { heading, optional, valueSupplier } = itemStorage[attribute]
                 const value = valueSupplier()
 
-                if (value == null) {
+                if (value == null && !optional) {
                     heading.classList.add("required")
                     missing = true
                 } else {

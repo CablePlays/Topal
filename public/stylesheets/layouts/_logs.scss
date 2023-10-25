@@ -171,6 +171,12 @@ $border-radius: 8px;
             width: 133px;
         }
 
+        .optional::after {
+            color: $color-info;
+            content: " (optional)";
+            font-size: 12px;
+        }
+
         .required::after {
             color: $color-error;
             content: " *";
@@ -234,7 +240,7 @@ $border-radius: 8px;
             }
 
             .slider {
-                min-width: 500px;
+                min-width: min(500px, 100%);
 
                 input {
                     cursor: pointer;
@@ -260,7 +266,8 @@ $border-radius: 8px;
                 }
             }
 
-            .text-short input {
+            .text-short input,
+            .url input {
                 border: 2px solid $border-color;
                 border-radius: $border-radius;
                 height: 30px;

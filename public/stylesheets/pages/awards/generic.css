@@ -709,6 +709,11 @@ header #sidebar-icon {
   height: 30px;
   width: 133px;
 }
+.logs .input .optional::after {
+  color: rgb(52, 152, 219);
+  content: " (optional)";
+  font-size: 12px;
+}
 .logs .input .required::after {
   color: rgb(231, 76, 60);
   content: " *";
@@ -760,7 +765,7 @@ header #sidebar-icon {
   padding: 8px;
 }
 .logs .input .items .slider {
-  min-width: 500px;
+  min-width: min(500px, 100%);
 }
 .logs .input .items .slider input {
   cursor: pointer;
@@ -781,7 +786,8 @@ header #sidebar-icon {
 .logs .input .items .text-long textarea:focus {
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
 }
-.logs .input .items .text-short input {
+.logs .input .items .text-short input,
+.logs .input .items .url input {
   border: 2px solid rgb(50, 50, 50);
   border-radius: 8px;
   height: 30px;
@@ -790,7 +796,8 @@ header #sidebar-icon {
   padding: 4px;
   width: 100%;
 }
-.logs .input .items .text-short input:focus {
+.logs .input .items .text-short input:focus,
+.logs .input .items .url input:focus {
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
 }
 

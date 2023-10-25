@@ -1,7 +1,4 @@
 Log cancel button when creating and editing editing
-Link to Strava (or similar) activity for running (make optional)
-Kayaking river trip logs, add comments item (make optional)
-
 Icon to go to top of page
 Make search also search awards
 Add images to website for displaying when link is sent on social media

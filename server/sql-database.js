@@ -111,12 +111,12 @@ function createTables() { // returns promise
         c("endurance_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, discipline TEXT NOT NULL, distance INTEGER NOT NULL, time INTEGER NOT NULL, description TEXT")
         c("midmar_mile_training_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, distance INTEGER NOT NULL, time INTEGER NOT NULL, description TEXT")
         c("mountaineering_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, start_date TEXT NOT NULL, area TEXT NOT NULL, days INTEGER NOT NULL, distance INTEGER NOT NULL, elevation_gain INTEGER NOT NULL, party_size INTEGER NOT NULL, shelter TEXT NOT NULL, trail INTEGER NOT NULL, leader INTEGER NOT NULL, majority_above_2000m INTEGER NOT NULL, route TEXT, weather TEXT, situations TEXT")
-        c("running_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, distance INTEGER NOT NULL, time INTEGER NOT NULL, description TEXT")
+        c("running_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, distance INTEGER NOT NULL, time INTEGER NOT NULL, description TEXT, link TEXT")
         c("service_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, service TEXT NOT NULL, time INTEGER NOT NULL, description TEXT, sign_state TEXT, sign_date TEXT, sign_user INTEGER")
 
         // kayaking
         c("flat_water_paddling_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, training TEXT NOT NULL, boat TEXT NOT NULL, time INTEGER NOT NULL, distance TEXT NOT NULL, place TEXT NOT NULL, description TEXT NOT NULL")
-        c("river_trip_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, put_in TEXT NOT NULL, take_out TEXT NOT NULL, time INTEGER NOT NULL, distance INTEGER NOT NULL, party_size INTEGER NOT NULL, river TEXT NOT NULL, water_level TEXT NOT NULL, boat TEXT NOT NULL, sign_state TEXT, sign_date TEXT, sign_user INTEGER")
+        c("river_trip_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, end_date TEXT NOT NULL, put_in TEXT NOT NULL, take_out TEXT NOT NULL, time INTEGER NOT NULL, distance INTEGER NOT NULL, party_size INTEGER NOT NULL, river TEXT NOT NULL, water_level TEXT NOT NULL, boat TEXT NOT NULL, description TEXT, sign_state TEXT, sign_date TEXT, sign_user INTEGER")
 
         // rock climbing
         c("rock_climbing_logs", "id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER NOT NULL, date TEXT NOT NULL, area TEXT NOT NULL, party_size INTEGER NOT NULL, weather TEXT NOT NULL")

@@ -51,10 +51,10 @@ block script
       const distanceDisplay = createElement("p", { t: LOADING_TEXT })
 
       const distanceMeter = createElement("meter")
-      totalDistanceMeter.max = 100000
+      distanceMeter.max = 100000
 
       appendInfo([
-        createElement("h3", { t: "Total Distance" }),
+        createElement("h3", { t: "Distance Run" }),
         distanceDisplay,
         distanceMeter
       ])
