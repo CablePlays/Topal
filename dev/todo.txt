@@ -1,5 +1,4 @@
-Log cancel button when creating and editing editing
-Icon to go to top of page
+Log cancel button when creating and editing
 Make search also search awards
 Add images to website for displaying when link is sent on social media
 

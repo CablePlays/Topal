@@ -42,7 +42,9 @@ const AWARDS = {
     },
     kayakingLeader: {},
     midmarMile: {},
-    midmarMileInstructor: {},
+    midmarMileInstructor: {
+        links: ["previousRescues"]
+    },
     midmarMileLeader: {},
     mountaineeringInstructor: {},
     mountaineeringLeader: {},
@@ -90,6 +92,7 @@ const AWARDS = {
         ]
     },
     rockClimbingInstructor: {
+        links: ["bookReviews"],
         signoffs: [
             "bookReviews",
             "knots",
@@ -109,6 +112,7 @@ const AWARDS = {
         ]
     },
     rockClimbingLeader: {
+        links: ["motivation"],
         signoffs: [
             "experience",
             "supervisedInstruction",

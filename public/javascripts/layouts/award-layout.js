@@ -232,10 +232,10 @@ function _showLinks(awardId) {
                     c: "material-icons", p: container, t: "open_in_new", onClick: () => window.open(l, "_blank")
                 }))
                 icons.push(createElement("div", {
-                    c: ["emerge", "material-icons"], p: container, t: "edit", onClick: showInput
+                    c: "emerge material-icons", p: container, t: "edit", onClick: showInput
                 }))
                 icons.push(createElement("div", {
-                    c: ["emerge", "material-icons"], p: container, t: "delete", onClick: () => {
+                    c: "emerge material-icons", p: container, t: "delete", onClick: () => {
                         container.replaceWith(createLinkDisplay(linkId, linkName, null))
                         putRequest(`/users/${getUserId()}/links/${awardId}/${linkId}`)
                     }
