@@ -5,6 +5,9 @@
     "admin": {
         "award-history": {
             "GET": "Gets a list of award grantings ordered by their date granted"
+        },
+        "requests": {
+            "GET": "Get number of signoff requests for each user"
         }
     },
     "logs": {
@@ -13,8 +16,18 @@
             "POST": "Create new log or sublog",
             ":logId": {
                 "DELETE": "Delete log or sublog",
-                "sign": {
-                    "PUT": "Set log signed off status"
+                "PUT": "Set signed off status",
+                "cancel-request": {
+                    "PUT": "Cancel signoff request"
+                },
+                "clear-decline": {
+                    "PUT": "Clear decline message"
+                },
+                "decline-request": {
+                    "PUT": "Decline user signoff request"
+                },
+                "request-signoff": {
+                    "PUT": "Request signoff"
                 }
             }
         }
@@ -28,9 +41,6 @@
             "user": {
                 "GET": "Get user permissions from email"
             }
-        },
-        "requests": {
-            "GET": "Get number of signoff requests for each user"
         },
         "search": {
             "GET": "Searches users with a query."
@@ -73,18 +83,18 @@
                     }
                 },
                 ":awardId": {
-                    "PUT": "Set user award completion",
+                    "PUT": "Set signed off status",
                     "cancel-request": {
-                        "PUT": "Cancels the signoff request for a signoff"
+                        "PUT": "Cancel signoff request"
                     },
                     "clear-decline": {
-                        "PUT": "Clear the decline message for a signoff"
+                        "PUT": "Clear decline message"
                     },
                     "decline-request": {
                         "PUT": "Decline user signoff request"
                     },
                     "request-signoff": {
-                        "PUT": "Request signoff for a signoff"
+                        "PUT": "Request signoff"
                     }
                 }
             },
@@ -109,18 +119,18 @@
                 ":awardId": {
                     "GET": "Get user signoffs for award",
                     ":signoffId": {
-                        "PUT": "Set user signoff completion",
+                        "PUT": "Set signed off status",
                         "cancel-request": {
-                            "PUT": "Cancels the signoff request for a signoff"
+                            "PUT": "Cancel signoff request"
                         },
                         "clear-decline": {
-                            "PUT": "Clear the decline message for a signoff"
+                            "PUT": "Clear decline message"
                         },
                         "decline-request": {
                             "PUT": "Decline user signoff request"
                         },
                         "request-signoff": {
-                            "PUT": "Request signoff for a signoff"
+                            "PUT": "Request signoff"
                         }
                     }
                 }

@@ -25,7 +25,7 @@ async function loadUsers() {
     const requestsElement = byId("requests")
     const loadingElement = createElement("p", { p: requestsElement, t: LOADING_TEXT })
 
-    const { users } = await getRequest("/users/requests")
+    const { users } = await getRequest("/admin/requests")
     const userIds = Object.keys(users)
 
     if (userIds.length === 0) {

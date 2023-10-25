@@ -96,7 +96,7 @@ awardRouter.put("/", middleware.getPermissionMiddleware("manageAwards"), async (
 
     if (complete === true) {
         if (userDb.get(path + ".complete")) {
-            res.res(409, "already_complete")
+            res.res(409, "already_signed")
             return
         }
 
@@ -145,7 +145,7 @@ awardRouter.put("/decline-request", middleware.getPermissionMiddleware("manageAw
     const path = jsonDatabase.AWARDS_PATH + "." + awardId
 
     if (userDb.get(path + ".complete")) {
-        res.res(409, "already_complete")
+        res.res(409, "already_signed")
         return
     }
 
@@ -168,7 +168,7 @@ awardRouter.put("/request-signoff", middleware.requireSelf, (req, res) => { // r
     const awardData = userData.get(path) ?? {}
 
     if (awardData.complete) {
-        res.res(409, "already_complete")
+        res.res(409, "already_signed")
         return
     }
 

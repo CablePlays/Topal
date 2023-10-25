@@ -1,0 +1,4 @@
+For log tables which are requestable, the last three columns will be sign_state, sign_date and sign_user.
+sign_state: requested; sign_date: request date; sign_user: none
+sign_state: declined || decline message; sign_date: decline date; sign_user: decline user
+sign_state: signed; sign_date: sign date; sign_user: sign user

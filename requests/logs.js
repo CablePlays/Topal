@@ -71,6 +71,21 @@ typeRouter.get("/", async (req, res) => { // get logs
         logs = await getLogs(logType, `user = ${targetUserId}`)
     }
 
+    // provide signer info
+
+    const asyncTasks = []
+
+    for (let log of logs) {
+        const signUserId = log.sign_user
+
+        if (signUserId) {
+            const promise = general.getUserInfo(signUserId)
+            asyncTasks.push(promise)
+            promise.then(val => log.sign_user = val)
+        }
+    }
+
+    await Promise.all(asyncTasks)
     res.res(200, { logs })
 })
 
@@ -176,12 +191,12 @@ typeRouter.post("/", async (req, res) => { // create log
 
 const logIdRouter = express.Router()
 
-typeRouter.use("/:logId", async (req, res, next) => { // verify log and self
-    const { logType, userId } = req
-    const { logId } = req.params
+typeRouter.use("/:logId", async (req, res, next) => { // verify log and provide self
+    const { logType, params, userId } = req
+    const { logId } = params
     const logsTable = general.getLogsTable(logType)
 
-    const record = await sqlDatabase.get(`SELECT * FROM ${logsTable} WHERE id = "${logId}"`)
+    const record = await sqlDatabase.get(`SELECT * FROM ${logsTable} WHERE id = ${logId}`)
 
     if (!record) {
         res.res(404, "invalid_log")
@@ -189,17 +204,20 @@ typeRouter.use("/:logId", async (req, res, next) => { // verify log and self
     }
 
     const recordOwnerId = await getLogOwner(logType, logId)
-
-    if (recordOwnerId != userId) {
-        res.res(403)
-        return
-    }
-
+    req.self = recordOwnerId == userId
     req.logId = logId
     next()
 }, logIdRouter)
 
-logIdRouter.delete("/", async (req, res) => { // delete log
+function requireSelf(req, res, next) { // require self middleware
+    if (req.self) {
+        next()
+    } else {
+        res.res(403)
+    }
+}
+
+logIdRouter.delete("/", requireSelf, async (req, res) => { // delete log
     const { logId, logType } = req
 
     async function deleteDescendantLogs(parentLogType, parentLogId) {
@@ -223,7 +241,7 @@ logIdRouter.delete("/", async (req, res) => { // delete log
     res.res(204)
 })
 
-logIdRouter.put("/sign", middleware.getPermissionMiddleware("manageAwards"), async (req, res) => { // set log signed off status
+logIdRouter.put("/", middleware.getPermissionMiddleware("manageAwards"), async (req, res) => { // set signed off status
     const { body, logId, logType, userId } = req
     const { signed } = body
 
@@ -233,14 +251,70 @@ logIdRouter.put("/sign", middleware.getPermissionMiddleware("manageAwards"), asy
     }
 
     const table = general.getLogsTable(logType)
+    let signoffData = {}
 
     if (signed === true) {
-        sqlDatabase.run(`UPDATE ${table} SET signer = ${userId} WHERE id = ${logId}`)
+        let date = new Date()
+        let dateFormatted = general.formatDateForStorage(date)
+
+        signoffData.date = date
+        signoffData.signer = await general.getUserInfo(userId)
+
+        sqlDatabase.run(`UPDATE ${table} SET sign_state = "signed", sign_date = "${dateFormatted}", sign_user = ${userId} WHERE id = ${logId}`)
     } else {
-        sqlDatabase.run(`UPDATE ${table} SET signer = null WHERE id = ${logId}`)
+        sqlDatabase.run(`UPDATE ${table} SET sign_state = null, sign_date = null, sign_user = null WHERE id = ${logId}`)
     }
 
+    res.res(200, { signoff: signoffData })
+})
+
+logIdRouter.put("/cancel-request", requireSelf, async (req, res) => { // cancel signoff request
+    const { logId, logType } = req
+    const logsTable = general.getLogsTable(logType)
+    await sqlDatabase.run(`UPDATE ${logsTable} SET sign_state = null, sign_date = null, sign_user = null WHERE id = ${logId}`)
     res.res(204)
+})
+
+logIdRouter.put("/clear-decline", requireSelf, async (req, res) => { // clear decline
+    const { logId, logType } = req
+    const logsTable = general.getLogsTable(logType)
+    await sqlDatabase.run(`UPDATE ${logsTable} SET sign_state = null, sign_date = null, sign_user = null WHERE id = ${logId}`)
+    res.res(204)
+})
+
+logIdRouter.put("/decline-request", middleware.getPermissionMiddleware("manageAwards"), async (req, res) => { // decline signoff request
+    const { logId, body, logType, userId } = req
+    const { message } = body
+
+    const logsTable = general.getLogsTable(logType)
+    const record = await sqlDatabase.get(`SELECT * FROM ${logsTable} WHERE id = ${logId}`)
+
+    if (record.sign_state === "signed") {
+        res.res(409, "already_signed")
+        return
+    }
+
+    const signState = message ? message : "declined"
+    const date = general.formatDateForStorage(new Date())
+    await sqlDatabase.run(`UPDATE ${logsTable} SET sign_state = "${signState}", sign_date = "${date}", sign_user = ${userId}`)
+    res.res(204)
+})
+
+logIdRouter.put("/request-signoff", requireSelf, async (req, res) => { // request signoff
+    const { logId, logType } = req
+
+    const logsTable = general.getLogsTable(logType)
+    const record = await sqlDatabase.get(`SELECT * FROM ${logsTable} WHERE id = ${logId}`)
+
+    if (record.sign_state === "signed") {
+        res.res(409, "already_signed")
+        return
+    }
+
+    const date = new Date()
+    const dateFormatted = general.formatDateForStorage(date)
+    await sqlDatabase.run(`UPDATE ${logsTable} SET sign_state = "requested", sign_date = "${dateFormatted}", sign_user = null`)
+    res.res(204, { date })
 })
 
 module.exports = router

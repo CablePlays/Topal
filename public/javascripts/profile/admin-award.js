@@ -153,14 +153,14 @@ function createStatus(statusDetails, displayType, setComplete, onRequestDecline)
 
             const bottomContainer = createElement("div", { c: "row", p: requestContainer })
             createElement("button", { // accept button
-                c: "primary", p: bottomContainer, t: "Accept", onClick: async () => {
+                c: "primary shadow", p: bottomContainer, t: "Accept", onClick: async () => {
                     bottomContainer.innerHTML = LOADING_TEXT
                     const newStatusDetails = await setComplete(true)
                     statusElement.replaceWith(createStatus(newStatusDetails, displayType, setComplete, onRequestDecline))
                 }
             })
             createElement("button", { // decline button
-                c: "secondary", p: bottomContainer, t: "Decline", onClick: () => {
+                c: "secondary shadow", p: bottomContainer, t: "Decline", onClick: () => {
                     bottomContainer.innerHTML = null
 
                     const declineInfoElement = createElement("p", {
@@ -172,7 +172,7 @@ function createStatus(statusDetails, displayType, setComplete, onRequestDecline)
                     declineMessageInputElement.type = "text"
 
                     createElement("button", { // confirm decline button
-                        c: "secondary", p: bottomContainer, t: "Decline", onClick: async () => {
+                        c: "secondary shadow", p: bottomContainer, t: "Decline", onClick: async () => {
                             declineInfoElement.remove()
                             bottomContainer.innerHTML = LOADING_TEXT
 
@@ -187,7 +187,7 @@ function createStatus(statusDetails, displayType, setComplete, onRequestDecline)
             })
         } else {
             const toggleButtonElement = createElement("button", {
-                c: "primary toggle-button", p: statusElement, t: (complete ? "Revoke" : "Grant") + " " + displayType, onClick: async () => {
+                c: "primary shadow toggle-button", p: statusElement, t: (complete ? "Revoke" : "Grant") + " " + displayType, onClick: async () => {
                     toggleButtonElement.replaceWith(createElement("p", { t: LOADING_TEXT }))
                     const newStatusDetails = await setComplete(!complete)
                     statusElement.replaceWith(createStatus(newStatusDetails, displayType, setComplete, onRequestDecline))

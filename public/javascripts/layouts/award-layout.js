@@ -128,7 +128,7 @@ function _createSignoffElement(options) {
                     const requestInfoContainer = createElement("div", { c: "horizontal-container", p: bottomElement })
                     createElement("p", { p: requestInfoContainer, t: "Signoff requested" })
                     createElement("button", {
-                        p: requestInfoContainer, t: "Cancel", onClick() {
+                        c: "primary", p: requestInfoContainer, t: "Cancel", onClick: () => {
                             options.open = true
                             delete signoffDataLoaded.requestDate
                             signoffElement.replaceWith(_createSignoffElement(options))
@@ -155,7 +155,7 @@ function _createSignoffElement(options) {
                     const buttonContainer = createElement("div", { c: "horizontal-container", p: bottomElement })
 
                     createElement("button", {
-                        p: buttonContainer, t: "Request", onClick() {
+                        c: "primary", p: buttonContainer, t: "Request Signoff", onClick: () => {
                             options.open = true
                             signoffDataLoaded.requestDate = true // indicate that there has been request made
                             delete signoffDataLoaded.decline
@@ -167,7 +167,7 @@ function _createSignoffElement(options) {
 
                     if (decline) {
                         createElement("button", {
-                            p: buttonContainer, t: "Clear Decline", onClick(b) {
+                            c: "secondary", p: buttonContainer, t: "Clear Decline", onClick: (_, b) => {
                                 b.remove()
                                 declineContainer.remove()
                                 statusElement.innerHTML = boxEmpty

@@ -37,10 +37,10 @@
         }
 
         .types {
+            column-gap: 10px;
             display: grid;
-            grid-template-columns: 1fr 20px 1fr min-content;
+            grid-template-columns: min-content min-content min-content min-content;
             font-size: 12px;
-            gap: 0 10px;
             margin-top: 20px;
 
             p:not(.number) {

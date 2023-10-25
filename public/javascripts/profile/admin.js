@@ -5,7 +5,7 @@ window.addEventListener("load", () => {
 function loadAwards() {
     const cardsContainer = byId("cards")
     const requestsPromise = new Promise(async r => {
-        const { users } = await getRequest("/users/requests")
+        const { users } = await getRequest("/admin/requests")
         r(users[getProfileUserId()]?.requests ?? {})
     })
 

@@ -142,6 +142,10 @@ a.primary:hover,
 button.primary:hover {
   background-color: #f29354;
 }
+a.primary.shadow,
+button.primary.shadow {
+  box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 a.secondary,
 button.secondary {
@@ -152,6 +156,10 @@ button.secondary {
 a.secondary:hover,
 button.secondary:hover {
   background-color: rgba(0, 0, 0, 0.05);
+}
+a.secondary.shadow,
+button.secondary.shadow {
+  text-shadow: -4px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 joined-buttons {
@@ -658,6 +666,21 @@ header #sidebar-icon {
   cursor: pointer;
   margin-top: 10px;
   padding: 4px 8px;
+}
+.logs .display .items .sign input {
+  margin-top: 10px;
+  padding: 4px;
+}
+.logs .display .items .sign .decline-info {
+  font-size: 12px;
+}
+.logs .display .items .sign .row {
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+  display: flex;
+}
+.logs .display .items .sign .small-text {
+  font-size: 14px;
 }
 .logs .input {
   align-items: center;

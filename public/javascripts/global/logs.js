@@ -454,11 +454,12 @@ const _LOG_TYPES = {
                 name: "Hours On River",
                 display: {
                     type: "text",
-                    value: log => formatDuration(log.time)
+                    value: log => formatDuration(log.time, false)
                 },
                 input: {
                     attribute: "time",
-                    type: "duration"
+                    type: "duration",
+                    seconds: false
                 }
             },
             {
@@ -1005,31 +1006,144 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
     }
 
     if (signable) {
-        const signItemElement = createElement("div", { c: "item sign", p: itemsContainer })
+        let { sign_state, sign_date, sign_user } = log
+        let signItemElement = createSignoffItem(sign_state, sign_date, sign_user)
+        itemsContainer.appendChild(signItemElement)
 
-        if (viewOnly) { // can sign
-            let signed = log.signer != null
+        function updateSignoffItem(signState, signDate, signUser) {
+            let newSignItemElement = createSignoffItem(signState, signDate, signUser)
+            signItemElement.replaceWith(newSignItemElement)
+            signItemElement = newSignItemElement
+        }
 
-            const titleElement = createElement("h3", { p: signItemElement, t: "Signed" })
-            const updateTitleText = () => titleElement.innerHTML = signed ? "Signed" : "Sign"
-            updateTitleText()
+        function createSignoffItem(signState, signDate, signUser) {
+            const signItemElement = createElement("div", { c: "item sign" })
+            createElement("h3", { p: signItemElement, t: "Signoff" })
 
             idPromise.then(id => {
-                const buttonElement = createElement("button", {
-                    c: "primary", p: signItemElement, t: "Remove Sign", onClick: () => {
-                        signed = !signed
-                        updateTitleText()
-                        updateButtonText()
-                        putRequest(`/logs/${logType}/${id}/sign`, { signed })
-                    }
-                })
+                if (viewOnly) { // can sign
+                    if (signState === "signed") {
+                        const detailsContainer = createElement("div", { p: signItemElement })
+                        createElement("p", { p: detailsContainer, t: "Signed off" })
+                        createSpacer(10, { p: detailsContainer })
+                        createElement("p", { c: "small-text", p: detailsContainer, t: formatDate(signDate) })
+                        createElement("p", { c: "small-text", p: detailsContainer, t: "by " + signUser.titleName })
 
-                const updateButtonText = () => buttonElement.innerHTML = signed ? "Remove Sign" : "Sign Off"
-                updateButtonText()
+                        createElement("button", {
+                            c: "primary shadow", p: signItemElement, t: "Revoke Signoff", onClick: async (_, b) => {
+                                detailsContainer.remove()
+                                createElement("p", { r: b, t: LOADING_TEXT })
+
+                                await putRequest(`/logs/${logType}/${id}`, { signed: false })
+                                updateSignoffItem(null, null, null)
+                            }
+                        })
+                    } else if (signState === "requested") {
+                        const requestedElement = createElement("p", { p: signItemElement, t: "Requested" })
+                        const dateElement = createElement("p", { c: "small-text", p: signItemElement, t: formatDate(signDate) })
+
+                        const buttonContainer = createElement("div", { c: "row", p: signItemElement })
+                        createElement("button", {
+                            c: "primary shadow", p: buttonContainer, t: "Accept", onClick: async () => {
+                                requestedElement.remove()
+                                dateElement.remove()
+                                createElement("p", { r: buttonContainer, t: LOADING_TEXT })
+
+                                const { signoff } = await putRequest(`/logs/${logType}/${id}`, { signed: true })
+                                updateSignoffItem("signed", signoff.date, signoff.signer)
+                            }
+                        })
+                        createElement("button", {
+                            c: "secondary shadow", p: buttonContainer, t: "Decline", onClick: async () => {
+                                requestedElement.remove()
+                                dateElement.remove()
+                                buttonContainer.remove()
+
+                                const declineInfoElement = createElement("p", { c: "decline-info", p: signItemElement, t: "Tell the user why you're declining the request (optional)." })
+
+                                const declineContainer = createElement("div", { c: "row", p: signItemElement })
+                                const inputElement = createElement("input", { p: declineContainer })
+                                inputElement.type = "text"
+                                createElement("button", {
+                                    c: "secondary shadow", p: declineContainer, t: "Decline", onClick: async () => {
+                                        let declineMessage = inputElement.value.trim()
+                                        if (declineMessage.length === 0) declineMessage = null
+
+                                        declineInfoElement.remove()
+                                        createElement("p", { r: declineContainer, t: LOADING_TEXT })
+                                        await putRequest(`/logs/${logType}/${id}/decline-request`, { message: declineMessage })
+                                        updateSignoffItem("declined", null, null)
+                                    }
+                                })
+                            }
+                        })
+                    } else {
+                        const infoText = createElement("p", { p: signItemElement, t: "Not signed off" })
+                        createElement("button", {
+                            c: "primary shadow", p: signItemElement, t: "Grant Signoff", onClick: async (_, b) => {
+                                infoText.remove()
+                                createElement("p", { r: b, t: LOADING_TEXT })
+                                const { signoff } = await putRequest(`/logs/${logType}/${id}`, { signed: true })
+                                updateSignoffItem("signed", signoff.date, signoff.signer)
+                            }
+                        })
+                    }
+                } else {
+                    if (signState === "signed") {
+                        createElement("p", { p: signItemElement, t: "Signed off" })
+                        createSpacer(10, { p: signItemElement })
+                        createElement("p", { c: "small-text", p: signItemElement, t: formatDate(signDate) })
+                        createElement("p", { c: "small-text", p: signItemElement, t: "by " + signUser.titleName })
+                    } else if (signState === "requested") {
+                        const infoText = createElement("p", { p: signItemElement, t: "Signoff requested" })
+                        createElement("button", {
+                            c: "primary shadow", p: signItemElement, t: "Cancel", onClick: async (_, b) => {
+                                infoText.remove()
+                                createElement("p", { r: b, t: LOADING_TEXT })
+                                await putRequest(`/logs/${logType}/${id}/cancel-request`)
+                                updateSignoffItem(null, null, null)
+                            }
+                        })
+                    } else {
+                        const replaceContainer = createElement("div", { p: signItemElement })
+                        const declined = signState != null
+
+                        if (declined) {
+                            createElement("p", { p: replaceContainer, t: "Declined" })
+                            createSpacer(10, { p: replaceContainer })
+                            createElement("p", { c: "small-text", p: replaceContainer, t: formatDate(signDate) })
+                            createElement("p", { c: "small-text", p: replaceContainer, t: "by " + signUser.titleName })
+
+                            if (signState !== "declined") { // is message
+                                createElement("p", { c: "small-text", p: replaceContainer, t: `Reason: "${sign_state}"` })
+                            }
+                        } else {
+                            createElement("p", { p: replaceContainer, t: "Not signed off" })
+                        }
+
+                        const buttonContainer = createElement("div", { c: "row", p: replaceContainer })
+
+                        createElement("button", {
+                            c: "primary shadow", p: buttonContainer, t: "Request Signoff", onClick: async () => {
+                                createElement("p", { r: replaceContainer, t: LOADING_TEXT })
+                                const { date } = await putRequest(`/logs/${logType}/${id}/request-signoff`)
+                                updateSignoffItem("requested", date, null)
+                            }
+                        })
+
+                        if (declined) {
+                            createElement("button", {
+                                c: "secondary", p: buttonContainer, t: "Clear Decline", onClick: () => {
+                                    putRequest(`/logs/${logType}/${id}/clear-decline`)
+                                    updateSignoffItem(null, null, null)
+                                }
+                            })
+                        }
+                    }
+                }
             })
-        } else {
-            createElement("h3", { p: signItemElement, t: "Signed" })
-            createElement("p", { p: signItemElement, t: log.signer ? "Yes" : "No" })
+
+            return signItemElement
         }
     }
 
@@ -1103,12 +1217,12 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
         time
 */
 function _createInputSection(options) {
-    const { edit, createLogElement, initialValues, logId, logsContainer, logType, parentLogId } = options ?? {} // edit, logId || createLogElement, logsContainer
+    const { edit, createLogElement, initialValues, logId, logType, parentLogId } = options ?? {} // edit, logId || createLogElement
 
     const inputSectionElement = createElement("div", { c: ["log", "input"] })
     const itemsContainer = createElement("div", { c: "items", p: inputSectionElement })
 
-    const { items } = _LOG_TYPES[logType]
+    const { items, signable } = _LOG_TYPES[logType]
     const itemStorage = {} // stores value suppliers & item elements
 
     for (let item of items) {
@@ -1162,6 +1276,8 @@ function _createInputSection(options) {
                 break
             }
             case "duration": {
+                const { seconds = true } = input
+
                 itemElement.classList.add("duration")
                 createSpacer(10, { p: itemElement })
 
@@ -1201,11 +1317,16 @@ function _createInputSection(options) {
                 const hoursElement = createTimeInput("h", 99, ih)
                 createColon()
                 const minutesElement = createTimeInput("m", 59, im)
-                createColon()
-                const secondsElement = createTimeInput("s", 59, is)
+                let secondsElement
+
+                if (seconds) {
+                    createColon()
+                    secondsElement = createTimeInput("s", 59, is)
+                }
 
                 valueSupplier = () => {
-                    const total = (hoursElement.value || 0) * 3600 + (minutesElement.value || 0) * 60 + (secondsElement.value || 0) * 1
+                    let total = (hoursElement.value || 0) * 3600 + (minutesElement.value || 0) * 60
+                    if (seconds) total += secondsElement.value || 0
                     return (total > 0) ? total : null
                 }
 
@@ -1316,8 +1437,12 @@ function _createInputSection(options) {
 
     const infoElement = createElement("p", { p: inputSectionElement })
 
+    if (edit && signable) {
+        infoElement.innerHTML = "Updating your log will reset its signoff data!"
+    }
+
     createElement("button", {
-        c: edit ? "save" : "create", p: inputSectionElement, t: edit ? "Save" : "Create", onClick: async () => {
+        c: edit ? "save" : "create", p: inputSectionElement, t: edit ? "Save" : "Create", onClick: () => {
             let missing = false
             const log = {}
 
@@ -1360,7 +1485,7 @@ function _createInputSection(options) {
                 inputSectionElement.replaceWith(logElement)
             } else {
                 inputSectionElement.remove()
-                createLogElement.style.display = "flex"
+                setVisible(createLogElement)
 
                 const logElement = _createDisplaySection({
                     logType,
@@ -1412,7 +1537,7 @@ function createLogDisplay(options) {
                     logType,
                     parentLogId
                 })
-                createLogElement.style.display = "none"
+                setVisible(createLogElement, false)
                 createLogElement.insertAdjacentElement("afterend", log)
             }
         })

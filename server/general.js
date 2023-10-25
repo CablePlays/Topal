@@ -144,7 +144,8 @@ const LOG_TYPES = {
     midmarMileTraining: {},
     mountaineering: {},
     riverTrip: {
-        signable: true
+        signable: true,
+        signoffRequestAward: "kayaking"
     },
     rockClimbing: {
         sublogs: true
@@ -153,11 +154,13 @@ const LOG_TYPES = {
         parent: "rockClimbing"
     },
     rockClimbingInstruction: {
-        signable: true
+        signable: true,
+        signoffRequestAward: "rockClimbingInstructor"
     },
     running: {},
     service: {
-        signable: true
+        signable: true,
+        signoffRequestAward: "service"
     },
     solitaire: {},
     solitaireInstruction: {}
@@ -170,6 +173,10 @@ const PERMISSIONS = [
 ]
 
 /* Data */
+
+function getLogTypes() {
+    return Object.keys(LOG_TYPES)
+}
 
 function getLogsTable(logType) {
     return camelToSnake(logType) + "_logs"
@@ -219,6 +226,10 @@ function getChildrenLogTypes(logType) {
 
 function isSignable(logType) {
     return LOG_TYPES[logType].signable === true
+}
+
+function getLogTypeSignoffRequestAward(logType) {
+    return LOG_TYPES[logType].signoffRequestAward
 }
 
 function hasSublogs(logType) {
@@ -356,6 +367,11 @@ function camelToCapitalized(s) { // camelCase
     return s.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, str => str.toUpperCase())
 }
 
+function formatDateForStorage(date) {
+    let month = date.getMonth() + 1
+    return `${date.getFullYear()}-${month.toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`
+}
+
 /*
     Runs an async function on a list of objects and waits for all functions to be completed.
 */
@@ -378,6 +394,7 @@ module.exports = {
     UNKNOWN_TEXT,
 
     createDummyUsers,
+    getLogTypes,
     getLogsTable,
     getSublogsTable,
     isAward,
@@ -386,6 +403,7 @@ module.exports = {
     getParentLogType,
     getChildrenLogTypes,
     isSignable,
+    getLogTypeSignoffRequestAward,
     hasSublogs,
     isPermission,
     isLink,
@@ -399,5 +417,6 @@ module.exports = {
     getGrade,
     getGradeFromEmail,
     kebabToCamel,
-    isUserInvisible
+    isUserInvisible,
+    formatDateForStorage
 }
