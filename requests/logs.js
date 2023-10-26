@@ -313,7 +313,7 @@ logIdRouter.put("/request-signoff", requireSelf, async (req, res) => { // reques
 
     const date = new Date()
     const dateFormatted = general.formatDateForStorage(date)
-    await sqlDatabase.run(`UPDATE ${logsTable} SET sign_state = "requested", sign_date = "${dateFormatted}", sign_user = null`)
+    await sqlDatabase.run(`UPDATE ${logsTable} SET sign_state = "requested", sign_date = "${dateFormatted}", sign_user = null WHERE id = ${logId}`)
     res.res(204, { date })
 })
 
