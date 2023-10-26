@@ -43,24 +43,25 @@ app.use((req, res, next) => { // catch 404 and forward to error handler
 })
 
 app.use(REQUESTS_PATH, (err, req, res, next) => { // handle request errors
-    console.error(err)
     const status = err.status ?? 500
+    console.error(err)
     res.sendStatus(status)
 })
 
 app.use((err, req, res, next) => { // handle render errors
     const status = err.status ?? 500
     res.status(status)
-    console.error(err)
 
     // set locals
     res.locals.message = err.message
     res.locals.status = status
 
     if (status === 404) {
+        console.warn("Page not found for client: " + req.path)
         res.setTitle(404)
         res.ren("errors/not-found")
     } else {
+        console.error(err)
         res.setTitle(status)
         res.ren("errors/other")
     }
