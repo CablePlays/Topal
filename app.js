@@ -18,10 +18,10 @@ const app = express()
 sqlDatabase.createTables().then(general.createDummyUsers)
 
 // view engine setup
-app.set('views', 'views')
-app.set('view engine', 'pug')
+app.set("views", "views")
+app.set("view engine", "pug")
 
-app.use(express.static('public'))
+app.use(express.static("public"))
 app.use(express.json()) // for reading json post requests
 app.use(cookieParser()) // for cookie object
 

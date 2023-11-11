@@ -10,7 +10,7 @@ Service hours
 > Profile Page Stats
 
 Total awards
-Total first-level awards
+First-level awards
 
 OP points
 
@@ -22,11 +22,10 @@ Distance paddled
 Distance swum
 
 Hiking trips
+Distance hiked
 Elevation gained
 
 Service hours
-
-Bars indicating progress of half colors, colors and honours
 
 > Variety Award Idea
 

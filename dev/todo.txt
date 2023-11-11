@@ -1,6 +1,8 @@
+Make award MICs editable by admins with specific permission
 Log cancel button when creating and editing
 Make search also search awards
 Add images to website for displaying when link is sent on social media
+Make running log distance input a number input instead of slider
 
 > Fixes
 
@@ -9,3 +11,25 @@ Change google material icons to be images stored on server so they load on all d
 > Pages
 
 Leaderboards
+
+> Feature Ideas
+
+>> Badges
+
+Users can earn badges next to their profile picture on their profile page by achieving various things:
+
+- Team Award
+- Half Colors
+- Colors
+- Honours
+- Duo
+
+>> Duo
+
+A page where users can put in each others' emails to create a duo by selecting the award which they want to do together.
+When both users in the duo complete the selected award, they will both earn the duo badge.
+This is to make doing awards with friends more exiting.
+
+>> Netball League Page
+
+>> Tennis & Squash Ladders
