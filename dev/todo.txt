@@ -1,12 +1,7 @@
 Make award MICs editable by admins with specific permission
-Log cancel button when creating and editing
-Make search also search awards
+Add award type filer to admin requests page
+Make search also search awards OR make awards tab have dropdown of all awards
 Add images to website for displaying when link is sent on social media
-Make running log distance input a number input instead of slider
-
-> Fixes
-
-Change google material icons to be images stored on server so they load on all devices
 
 > Pages
 
@@ -33,3 +28,8 @@ This is to make doing awards with friends more exiting.
 >> Netball League Page
 
 >> Tennis & Squash Ladders
+
+>> House point standings page
+
+Users can view which house is in first, second and third.
+Feature will have option to make unavailable for the end of the year announcement of standings.

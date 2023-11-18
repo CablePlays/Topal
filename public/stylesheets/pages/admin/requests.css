@@ -162,6 +162,32 @@ button.secondary.shadow {
   text-shadow: -4px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.hamburger-icon {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  max-width: 38px;
+  min-width: 38px;
+  row-gap: 8px;
+}
+.hamburger-icon div {
+  background-color: rgb(150, 150, 150);
+  border-radius: 3px;
+  height: 4px;
+  transition: 0.25s;
+  width: 100%;
+}
+.hamburger-icon.active div:nth-child(1) {
+  transform: rotateZ(-45deg) translateY(9px) translateX(-8px);
+}
+.hamburger-icon.active div:nth-child(2) {
+  width: 0;
+}
+.hamburger-icon.active div:nth-child(3) {
+  transform: rotateZ(45deg) translateY(-9px) translateX(-8px);
+}
+
 joined-buttons {
   display: inline-block;
   margin-left: 5%;
@@ -205,32 +231,6 @@ joined-buttons .underline {
   height: 3px;
   margin-top: 3px;
   transition: 0.2s;
-}
-
-.hamburger-icon {
-  align-items: center;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  max-width: 38px;
-  min-width: 38px;
-  row-gap: 8px;
-}
-.hamburger-icon div {
-  background-color: rgb(150, 150, 150);
-  border-radius: 3px;
-  height: 4px;
-  transition: 0.25s;
-  width: 100%;
-}
-.hamburger-icon.active div:nth-child(1) {
-  transform: rotateZ(-45deg) translateY(9px) translateX(-8px);
-}
-.hamburger-icon.active div:nth-child(2) {
-  width: 0;
-}
-.hamburger-icon.active div:nth-child(3) {
-  transform: rotateZ(45deg) translateY(-9px) translateX(-8px);
 }
 
 .material-icons {
@@ -318,6 +318,23 @@ joined-buttons .underline {
   transform: translateY(-5px);
   box-shadow: 0 6px 5px 0 rgba(0, 0, 0, 0.7);
   width: 12px;
+}
+
+.tooltip {
+  position: relative;
+}
+.tooltip .tooltiptext {
+  background-color: rgba(100, 100, 100, 0.9);
+  border-radius: 4px;
+  color: white;
+  display: none;
+  font-size: 12px;
+  padding: 2px 4px;
+  position: absolute;
+  z-index: 500;
+}
+.tooltip:hover .tooltiptext {
+  display: block;
 }
 
 footer {
@@ -688,6 +705,9 @@ header #sidebar-icon {
   flex-direction: column;
   row-gap: 10px;
 }
+.logs .input .description {
+  font-size: 14px;
+}
 .logs .input .create,
 .logs .input .save {
   background-color: #f47721;
@@ -735,6 +755,11 @@ header #sidebar-icon {
   border-radius: 8px;
   padding: 8px;
   width: 100%;
+}
+.logs .input .items .number input {
+  border: 2px solid rgb(50, 50, 50);
+  border-radius: 8px;
+  padding: 8px;
 }
 .logs .input .items .duration .input-container {
   align-items: center;

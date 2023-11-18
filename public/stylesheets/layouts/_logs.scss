@@ -147,6 +147,10 @@ $border-radius: 8px;
         flex-direction: column;
         row-gap: 10px;
 
+        .description {
+            font-size: 14px;
+        }
+
         .create,
         .save {
             background-color: $color-primary-400;
@@ -203,6 +207,12 @@ $border-radius: 8px;
                 border-radius: $border-radius;
                 padding: 8px;
                 width: 100%;
+            }
+
+            .number input {
+                border: 2px solid $border-color;
+                border-radius: $border-radius;
+                padding: 8px;
             }
 
             .duration .input-container {

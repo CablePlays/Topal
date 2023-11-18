@@ -149,6 +149,10 @@ function camelToCapitalized(s) { // camelCase
     return s.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, str => str.toUpperCase())
 }
 
+function round(val, decimals) {
+    return val.toFixed(decimals) * 1
+}
+
 function formatDate(date) {
     if (typeof date === "string") {
         date = new Date(date)

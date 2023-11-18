@@ -82,6 +82,11 @@ router.get("/awards", (req, res) => {
     res.ren("other/awards")
 })
 
+router.get("/credits", (req, res) => {
+    res.setTitle("Credits")
+    res.ren("other/credits")
+})
+
 router.get("/honours-requirements", (req, res) => {
     res.setTitle("Honours")
     res.ren("other/honours-requirements")

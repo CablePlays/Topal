@@ -872,85 +872,20 @@ header #sidebar-icon {
   color: #f47721;
 }
 
-#settings {
+.bottom {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  max-width: 800px;
-  padding: 0 16px;
+  margin: 0 auto;
 }
-#settings .line {
-  border-top: 2px solid rgb(220, 220, 220);
-  width: 100%;
-}
-#settings .setting {
-  padding: 20px 0;
-  padding-left: 50px;
-}
-#settings .setting.highlightable {
-  cursor: pointer;
-  transition: 0.1s;
-}
-#settings .setting.highlightable .edit {
-  display: none;
-}
-#settings .setting.highlightable:hover {
-  background-color: rgb(245, 245, 245);
-}
-#settings .setting.highlightable:hover .edit {
+.bottom img {
   display: block;
 }
-#settings .setting:not(.highlightable) .edit {
-  display: none;
+.bottom p {
+  color: #f47721;
+  font-weight: 500;
 }
-#settings .setting.row {
-  align-items: center;
-  -moz-column-gap: 15px;
-       column-gap: 15px;
-  display: flex;
-}
-#settings .setting button {
-  cursor: pointer;
-  padding: 8px 16px;
-}
-#settings .setting p.title {
-  color: rgb(50, 50, 50);
-  font-weight: 400;
-}
-#settings .setting p.value {
+
+.credits .name {
   font-weight: 600;
-}
-#settings .setting#title-setting {
-  height: 76px;
-  row-gap: 20px;
-}
-#settings .setting#title-setting .input-container {
-  align-items: center;
-  -moz-column-gap: 10px;
-       column-gap: 10px;
-  display: flex;
-}
-#settings .setting#title-setting .input-container input,
-#settings .setting#title-setting .input-container select {
-  border: 2px solid rgb(150, 150, 150);
-  border-radius: 4px;
-}
-#settings .setting#title-setting .input-container input {
-  padding: 8px;
-}
-#settings .setting#title-setting .input-container select {
-  padding: 7px;
-}
-#settings .setting#title-setting .input-container .cancel {
-  cursor: pointer;
-}
-#settings .setting#title-setting .input-container .save {
-  background-color: rgb(230, 230, 230);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 10px 16px;
-  transition: 0.25s background-color;
-}
-#settings .setting#title-setting .input-container .save:hover {
-  background-color: rgb(210, 210, 210);
 }

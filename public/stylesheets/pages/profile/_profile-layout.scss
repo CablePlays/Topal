@@ -93,6 +93,17 @@ $profile-sidebar-width: 300px;
             font-weight: 600;
             width: min-content;
         }
+
+        .badges {
+            column-gap: 8px;
+            display: flex;
+            margin-top: 5px;
+
+            img {
+                height: 20px;
+                width: 20px;
+            }
+        }
     }
 }
 

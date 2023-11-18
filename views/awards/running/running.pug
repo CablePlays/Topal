@@ -61,7 +61,7 @@ block script
 
       getRequest(`/users/${getUserId()}/awards/running/distance`).then(res => {
         const { distance } = res
-        distanceDisplay.innerHTML = `${distance / 1000}km / 100km`
+        distanceDisplay.innerHTML = `${round(distance / 1000, 2)}km / 100km`
         distanceMeter.value = distance
       })
     }

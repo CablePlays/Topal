@@ -12,7 +12,24 @@ block content
 
     .name-and-picture
       img(src=profileUser.profilePicture)
-      p= profileUser.titleName
+      div
+        p= profileUser.titleName
+        .badges
+          .tooltip(style=`display: ${badges.team}`)
+            img(src="/assets/badges/team.png")
+            .tooltiptext Team Award
+          .tooltip(style=`display: ${badges.halfColours}`)
+            img(src="/assets/badges/half-colours.png")
+            .tooltiptext Half Colours
+          .tooltip(style=`display: ${badges.colours}`)
+            img(src="/assets/badges/colours.png")
+            .tooltiptext Colours
+          .tooltip(style=`display: ${badges.honours}`)
+            img(src="/assets/badges/honours.png")
+            .tooltiptext Honours
+          .tooltip(style=`display: ${badges.duo}`)
+            img(src="/assets/badges/duo.png")
+            .tooltiptext Duo
 
     .spacer.v20
 

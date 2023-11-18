@@ -8,7 +8,7 @@ const router = express.Router()
 
 const userRouter = express.Router()
 
-router.use("/:userId", async (req, res, next) => { // verify user ID
+router.use("/:userId", async (req, res, next) => { // verify user ID & provide placeholders
     let { userId: profileUserId } = req.params
 
     if (await sqlDatabase.isUser(profileUserId)) {
@@ -26,12 +26,57 @@ router.use("/:userId", async (req, res, next) => { // verify user ID
         if (grade) grade = (grade > 12) ? "Matriculated" : "Grade " + grade
         placeholders.grade = grade
 
+        // placeholders
+        res.placeholders.badges = {
+            team: "none",
+            halfColours: "none",
+            colours: "none",
+            honours: "none",
+            duo: "none"
+        }
+
         next()
     } else {
         res.setTitle("Invalid User")
         res.ren("errors/invalid-user")
     }
 }, userRouter)
+
+function getTotalAwards(userId) {
+    const awards = jsonDatabase.getUser(userId).get(jsonDatabase.AWARDS_PATH)
+
+    let totalAwards = 0
+    let totalFirstLevelAwards = 0
+
+    for (let awardId in awards) {
+        const { complete } = awards[awardId]
+
+        if (complete) {
+            totalAwards++
+
+            if (!awardId.endsWith("Instructor") && !awardId.endsWith("Leader")) {
+                totalFirstLevelAwards++
+            }
+        }
+    }
+
+    return [totalAwards, totalFirstLevelAwards]
+}
+
+function getBadgePlaceholders(userId) {
+    const [totalAwards] = getTotalAwards(userId)
+    const generatePlaceholder = bool => bool ? "block" : "none"
+
+    const placeholders = {
+        team: generatePlaceholder(totalAwards >= 4),
+        halfColours: generatePlaceholder(totalAwards >= 7),
+        colours: generatePlaceholder(totalAwards >= 10),
+        honours: generatePlaceholder(totalAwards >= 24),
+        duo: generatePlaceholder(false)
+    }
+
+    return placeholders
+}
 
 async function getStats(userId) {
     const stats = {}
@@ -49,23 +94,7 @@ async function getStats(userId) {
     }
 
     // total awards
-
-    const awards = jsonDatabase.getUser(userId).get(jsonDatabase.AWARDS_PATH)
-    let totalAwards = 0
-    let totalFirstLevelAwards = 0
-
-    for (let awardId in awards) {
-        const { complete } = awards[awardId]
-
-        if (complete) {
-            totalAwards++
-
-            if (!awardId.endsWith("Instructor") && !awardId.endsWith("Leader")) {
-                totalFirstLevelAwards++
-            }
-        }
-    }
-
+    const [totalAwards, totalFirstLevelAwards] = getTotalAwards(userId)
     stats.totalAwards = formatStat(totalAwards)
     stats.firstLevelAwards = formatStat(totalFirstLevelAwards)
 
@@ -102,6 +131,7 @@ userRouter.get("/", async (req, res) => {
     const { profileUser, profileUserId } = req
     const { placeholders } = res
 
+    placeholders.badges = getBadgePlaceholders(profileUserId)
     placeholders.stats = await getStats(profileUserId)
 
     res.setTitle(profileUser.titleName)

@@ -740,17 +740,15 @@ const _LOG_TYPES = {
                 name: "Distance",
                 display: {
                     type: "text",
-                    value: log => (log.distance / 1000) + "km"
+                    value: log => round(log.distance / 1000, 2) + "km"
                 },
                 input: {
                     attribute: "distance",
-                    type: "slider",
-                    slider: {
-                        min: 500,
-                        max: 50000,
-                        step: 100,
-                        value: 3000,
-                        display: val => (val / 1000) + "km"
+                    description: "Distance in metres.",
+                    type: "number",
+                    number: {
+                        integer: true,
+                        min: 0
                     }
                 }
             },
@@ -1272,6 +1270,7 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
         boolean
         date
         duration
+        number
         select
         slider
         textLong
@@ -1300,7 +1299,7 @@ function _createInputSection(options) {
         const headingElement = createElement("h3", { p: itemElement, t: name })
         if (optional) headingElement.classList.add("optional")
 
-        if (description) createElement("p", { p: itemElement, t: description })
+        if (description) createElement("p", { c: "description", p: itemElement, t: description })
 
         let valueSupplier // null indicates no value provided
 
@@ -1394,6 +1393,39 @@ function _createInputSection(options) {
                     let total = hoursElement.value * 3600 + minutesElement.value * 60
                     if (seconds) total += secondsElement.value * 1 // multiply to change to number
                     return (total > 0) ? total : null
+                }
+
+                break
+            }
+            case "number": {
+                const { number } = input
+                const { integer, min, max } = number ?? {}
+
+                itemElement.classList.add("number")
+                createSpacer(10, { p: itemElement })
+
+                const inputElement = createElement("input", { p: itemElement })
+                inputElement.type = "number"
+
+                inputElement.addEventListener("input", () => {
+                    const val = inputElement.value
+
+                    if (min != null && val < min) {
+                        inputElement.value = min
+                    } else if (max != null && val > max) {
+                        inputElement.value = max
+                    } else if (integer) {
+                        inputElement.value = parseInt(val)
+                    }
+                })
+
+                if (initialValue) {
+                    inputElement.value = initialValue
+                }
+
+                valueSupplier = () => {
+                    const val = inputElement.value
+                    return (val === "") ? null : parseFloat(val)
                 }
 
                 break

@@ -1,0 +1,21 @@
+@import "../../global";
+
+.bottom {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+
+    img {
+        display: block;
+    }
+
+    p {
+        color: $color-primary-400;
+        font-weight: 500;
+    }
+}
+
+.credits .name {
+    font-weight: 600;
+}

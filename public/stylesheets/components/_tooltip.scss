@@ -1,0 +1,18 @@
+.tooltip {
+    position: relative;
+
+    .tooltiptext {
+        background-color: rgb(100, 100, 100, 0.9);
+        border-radius: 4px;
+        color: white;
+        display: none;
+        font-size: 12px;
+        padding: 2px 4px;
+        position: absolute;
+        z-index: 500;
+    }
+
+    &:hover .tooltiptext {
+        display: block;
+    }
+}
