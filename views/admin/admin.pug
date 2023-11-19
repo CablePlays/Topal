@@ -14,29 +14,30 @@ block content
     h1 Admin Portal
     p.limit-width Only users with permissions (usually staff) can view this page.
 
-    div(style=`display: ${displays.permission.manageAwards.block}`)
-      .spacer.v20
-      h2.heading Signoff Requests
-      p.limit-width.
-        All requests made by users for their awards and signoffs to be signed off.
-        The <i>Manage Awards</i> permission is required to view this page.
-      .spacer.v10
-      a.link.secondary(href="/admin/requests") Go
-
     div(style=`display: ${displays.permission.viewAwardHistory.block}`)
       .spacer.v20
       h2.heading Award History
-      p.limit-width.
-        A list of all the awards which have been granted to users in chronological order.
-        The <i>View Award History</i> permission is required to view this page.
+      p.limit-width A list of all the awards which have been granted to users in chronological order.
       .spacer.v10
       a.link.secondary(href="/admin/award-history") Go
+
+    div(style=`display: ${displays.permission.manageMics.block}`)
+      .spacer.v20
+      h2.heading Award MICs
+      p.limit-width Set the MICs for each award.
+      .spacer.v10
+      a.link.secondary(href="/admin/mics") Go
 
     div(style=`display: ${displays.permission.managePermissions.block}`)
       .spacer.v20
       h2.heading Permissions Page
-      p.limit-width.
-        This page allows staff to manage the permissions of other users.
-        The <i>Manage Permissions</i> permission is required to view this page.
+      p.limit-width Manage the permissions of other users.
       .spacer.v10
       a.link.secondary(href="/admin/permissions") Go
+
+    div(style=`display: ${displays.permission.manageAwards.block}`)
+      .spacer.v20
+      h2.heading Signoff Requests
+      p.limit-width All requests made by users for their awards and signoffs to be signed off.
+      .spacer.v10
+      a.link.secondary(href="/admin/requests") Go

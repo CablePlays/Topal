@@ -3,12 +3,13 @@ const general = require("../../server/general")
 const jsonDatabase = require("../../server/json-database")
 const sqlDatabase = require("../../server/sql-database")
 const middleware = require("../middleware")
+const userDatabase = require("../../server/user-database")
 
 const router = express.Router()
 
 router.get("/", async (req, res) => { // get user award info
     const { permissions, targetUserId, userId } = req
-    const awards = jsonDatabase.getUser(targetUserId).get(jsonDatabase.AWARDS_PATH) ?? {}
+    const awards = userDatabase.getUser(targetUserId).get(userDatabase.AWARDS_PATH) ?? {}
 
     if (userId !== targetUserId && !permissions.manageAwards) { // remove data other than complete, date and signer
         for (let awardId in awards) {
@@ -91,8 +92,8 @@ awardRouter.put("/", middleware.getPermissionMiddleware("manageAwards"), async (
     const { awardId, body, targetUserId, userId } = req
     const { complete } = body
 
-    const userDb = jsonDatabase.getUser(targetUserId)
-    const path = jsonDatabase.AWARDS_PATH + "." + awardId
+    const userDb = userDatabase.getUser(targetUserId)
+    const path = userDatabase.AWARDS_PATH + "." + awardId
 
     if (complete === true) {
         if (userDb.get(path + ".complete")) {
@@ -127,13 +128,13 @@ awardRouter.put("/", middleware.getPermissionMiddleware("manageAwards"), async (
 
 awardRouter.put("/cancel-request", middleware.requireSelf, (req, res) => { // cancel signoff request
     const { awardId, targetUserId } = req
-    jsonDatabase.getUser(targetUserId).delete(`${jsonDatabase.AWARDS_PATH}.${awardId}.requestDate`)
+    userDatabase.getUser(targetUserId).delete(`${userDatabase.AWARDS_PATH}.${awardId}.requestDate`)
     res.res(204)
 })
 
 awardRouter.put("/clear-decline", middleware.requireSelf, (req, res) => { // clear decline
     const { awardId, targetUserId } = req
-    jsonDatabase.getUser(targetUserId).delete(`${jsonDatabase.AWARDS_PATH}.${awardId}.decline`)
+    userDatabase.getUser(targetUserId).delete(`${userDatabase.AWARDS_PATH}.${awardId}.decline`)
     res.res(204)
 })
 
@@ -141,8 +142,8 @@ awardRouter.put("/decline-request", middleware.getPermissionMiddleware("manageAw
     const { awardId, body, targetUserId, userId } = req
     const { message } = body
 
-    const userDb = jsonDatabase.getUser(targetUserId)
-    const path = jsonDatabase.AWARDS_PATH + "." + awardId
+    const userDb = userDatabase.getUser(targetUserId)
+    const path = userDatabase.AWARDS_PATH + "." + awardId
 
     if (userDb.get(path + ".complete")) {
         res.res(409, "already_signed")
@@ -163,8 +164,8 @@ awardRouter.put("/decline-request", middleware.getPermissionMiddleware("manageAw
 awardRouter.put("/request-signoff", middleware.requireSelf, (req, res) => { // request signoff
     const { awardId, targetUserId } = req
 
-    const path = `${jsonDatabase.AWARDS_PATH}.${awardId}`
-    const userData = jsonDatabase.getUser(targetUserId)
+    const path = `${userDatabase.AWARDS_PATH}.${awardId}`
+    const userData = userDatabase.getUser(targetUserId)
     const awardData = userData.get(path) ?? {}
 
     if (awardData.complete) {

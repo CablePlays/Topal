@@ -1,0 +1,11 @@
+{
+    "recentAwards": "array of recent awards to be displayed on home page",
+    "awards": {
+        "awardId": {
+            "mics": [
+                "MIC 1",
+                "MIC 2"
+            ]
+        }
+    }
+}

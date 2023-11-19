@@ -1,6 +1,6 @@
 const express = require("express")
 const general = require("../server/general")
-const jsonDatabase = require("../server/json-database")
+const userDatabase = require("../server/user-database")
 const sqlDatabase = require("../server/sql-database")
 const middleware = require("./middleware")
 
@@ -43,7 +43,7 @@ router.use("/:userId", async (req, res, next) => { // verify user ID & provide p
 }, userRouter)
 
 function getTotalAwards(userId) {
-    const awards = jsonDatabase.getUser(userId).get(jsonDatabase.AWARDS_PATH)
+    const awards = userDatabase.getUser(userId).get(userDatabase.AWARDS_PATH)
 
     let totalAwards = 0
     let totalFirstLevelAwards = 0

@@ -1,6 +1,6 @@
 const express = require("express")
 const general = require("../../server/general")
-const jsonDatabase = require("../../server/json-database")
+const userDatabase = require("../../server/user-database")
 const sqlDatabase = require("../../server/sql-database")
 const middleware = require("../middleware")
 
@@ -69,7 +69,7 @@ router.get("/search", async (req, res) => { // search users using query
     // name
     for (let user of allUsers) {
         const { id } = user
-        let { name, surname } = jsonDatabase.getUser(id).get(jsonDatabase.DETAILS_PATH) ?? {}
+        let { name, surname } = userDatabase.getUser(id).get(userDatabase.DETAILS_PATH) ?? {}
         name = name?.toLowerCase()
         surname = surname?.toLowerCase()
 

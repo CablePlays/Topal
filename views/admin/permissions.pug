@@ -7,9 +7,7 @@ block assets
 block content
   div.p16
     h1 Permissions Page
-    p.limit-width.
-      This page allows staff to manage the permissions of other users.
-      The <i>Manage Permissions</i> permission is required to view this page.
+    p.limit-width This page allows staff to manage the permissions of other users.
 
     .spacer.v20
 
@@ -30,10 +28,13 @@ block content
           li Grant and revoke awards and signoffs
           li View user logs
       li
+        p.permission Manage MICs
+        p Allows users to set the MICs for each award. The names of the MICs for an award are shown on the page of that award.
+      li
         p.permission Manage Permissions
-        p Allows users to manage the permissions of other users.
+        p Allows users to view this page in order to manage the permissions of other users.
         .spacer.v20
-        .notice(data-type="warning") Users with this permission automatically have all other permissions.
+        .notice(data-type="warning") Users with this permission automatically have <b>all other</b> permissions as well.
       li
         p.permission View Award History
         p Allows users to view the <a href="/admin/award-history">Award History</a> page.

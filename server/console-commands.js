@@ -1,5 +1,5 @@
 const readline = require("readline")
-const jsonDatabase = require("./json-database")
+const userDatabase = require("./user-database")
 const general = require("./general")
 const sqlDatabase = require("./sql-database")
 
@@ -17,8 +17,8 @@ const commands = {
             has = (has === "true")
         }
 
-        const db = jsonDatabase.getUser(userId)
-        const path = jsonDatabase.PERMISSIONS_PATH + "." + permission
+        const db = userDatabase.getUser(userId)
+        const path = userDatabase.PERMISSIONS_PATH + "." + permission
 
         if (has === true || has === "true") {
             db.set(path, true)

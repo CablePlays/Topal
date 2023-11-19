@@ -1,5 +1,4 @@
 const MOUNTAINEERING_DESCRIPTION = "Spend time hiking in mountainous areas and natural places. There are five hiking awards that you learner can achieve."
-const MOUNTAINEERING_AUTHORISED_STAFF = ["Mr Brown", "Mr Townsend"]
 
 /*
     If description is excluded then uses description from first-level award.
@@ -8,7 +7,6 @@ const _AWARDS = {
     drakensberg: {
         name: "Drakensberg",
         description: MOUNTAINEERING_DESCRIPTION,
-        authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
         logTypes: ["mountaineering"],
         signoffs: [
             {
@@ -35,7 +33,6 @@ const _AWARDS = {
     endurance: {
         name: "Endurance",
         description: "The Endurance Award recognizes achievement in road/trail running, adventure racing, competing in a multisport race, triathlon, mountain bike races, horse riding and canoeing.",
-        authorisedStaff: ["Mr Pellew", "Mr Townsend"],
         logTypes: ["endurance"]
     },
     enduranceInstructor: {
@@ -86,7 +83,6 @@ const _AWARDS = {
     kayaking: {
         name: "Kayaking",
         description: "Travel down rivers on kayaks and other boats and develop skills which let you face technical waters.",
-        authorisedStaff: ["Mr Brown"],
         logTypes: ["flatWaterPaddling", "riverTrip"],
         signoffs: [
             {
@@ -179,7 +175,6 @@ const _AWARDS = {
     midmarMile: {
         name: "Midmar Mile",
         description: "Take part in the Midmar Mile after training to make your times faster and faster.",
-        authorisedStaff: ["Mr Ndhlovu"],
         logTypes: ["midmarMileTraining"]
     },
     midmarMileInstructor: {
@@ -193,7 +188,6 @@ const _AWARDS = {
     mountaineeringInstructor: {
         name: "Mountaineering Instructor",
         description: MOUNTAINEERING_DESCRIPTION,
-        authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
         logTypes: ["mountaineering"],
         links: [
             {
@@ -237,13 +231,11 @@ const _AWARDS = {
     mountaineeringLeader: {
         name: "Mountaineering Leader",
         description: MOUNTAINEERING_DESCRIPTION,
-        authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
         logTypes: ["mountaineering"],
     },
     polarBear: {
         name: "Polar Bear",
-        description: "Created by Mr Neil Solomon and based on similar awards around the world, the Polar Bear challenge is a daring one which involves jumping into the school dam in the early morning once a week.",
-        authorisedStaff: ["Mr Townsend"]
+        description: "Created by Mr Neil Solomon and based on similar awards around the world, the Polar Bear challenge is a daring one which involves jumping into the school dam in the early morning once a week."
     },
     polarBearInstructor: {
         name: "Polar Bear Instructor"
@@ -254,7 +246,6 @@ const _AWARDS = {
     rockClimbing: {
         name: "Rock Climbing",
         description: "Learn to use various devices and techniques to climb rock faces.",
-        authorisedStaff: ["Mr Brown"],
         logTypes: ["rockClimbing"],
         signoffs: [
             {
@@ -561,13 +552,11 @@ const _AWARDS = {
     running: {
         name: "Running",
         description: "Spend time on the trails and accumulate 100km of distance to earn this award. Log your runs to increase your total distance.",
-        authorisedStaff: ["Mr Pellew"],
         logTypes: ["running"]
     },
     service: {
         name: "Service",
         description: "Give time and energy through serving others and build an awareness of others' needs.",
-        authorisedStaff: ["Mr Nowlan"],
         logTypes: ["service"]
     },
     serviceInstructor: {
@@ -581,7 +570,6 @@ const _AWARDS = {
     solitaire: {
         name: "Solitaire",
         description: "Learn to be alone in God's beautiful creation while making construcive use of your time.",
-        authorisedStaff: ["Ms Oosthuizen"],
         logTypes: ["solitaire"]
     },
     solitaireInstructor: {
@@ -595,7 +583,6 @@ const _AWARDS = {
     summit: {
         name: "Summit",
         description: MOUNTAINEERING_DESCRIPTION,
-        authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
         logTypes: ["mountaineering"],
         signoffs: [
             {
@@ -618,7 +605,6 @@ const _AWARDS = {
     traverse: {
         name: "Traverse",
         description: MOUNTAINEERING_DESCRIPTION,
-        authorisedStaff: MOUNTAINEERING_AUTHORISED_STAFF,
         logTypes: ["mountaineering"],
         links: [
             {
@@ -646,7 +632,6 @@ const _AWARDS = {
     venture: {
         name: "Venture",
         description: "Develop the skills needed to think up, plan and lead a trip of adventure.",
-        authorisedStaff: ["Mr Townsend"],
         signoffs: [
             {
                 id: "proposalApproved",
@@ -663,6 +648,9 @@ const _PERMISSIONS = {
     manageAwards: {
         name: "Manage Awards"
     },
+    manageMics: {
+        name: "Manage MICs"
+    },
     managePermissions: {
         name: "Manage Permissions"
     },
@@ -675,7 +663,19 @@ const _PERMISSIONS = {
     Returns a list of award IDs.
 */
 function getAwards() {
-    return Object.getOwnPropertyNames(_AWARDS)
+    return Object.keys(_AWARDS)
+}
+
+function getFirstLevelAwards() {
+    const awards = []
+
+    for (let awardId of getAwards()) {
+        if (isFirstLevelAward(awardId)) {
+            awards.push(awardId)
+        }
+    }
+
+    return awards
 }
 
 function getAwardName(awardId) {
@@ -688,14 +688,6 @@ function getAwardDescription(awardId) {
 
     const baseAward = getFirstLevelAward(awardId)
     return getAwardDescription(baseAward)
-}
-
-function getAwardAuthorisedStaff(awardId) {
-    const { authorisedStaff } = _AWARDS[awardId]
-    if (authorisedStaff) return authorisedStaff
-
-    const baseAward = getFirstLevelAward(awardId)
-    return (baseAward === awardId) ? null : getAwardAuthorisedStaff(baseAward)
 }
 
 function getAwardLogTypes(awardId) {
@@ -731,7 +723,7 @@ function awardHasLeader(awardId) {
 }
 
 function getPermissions() {
-    return Object.getOwnPropertyNames(_PERMISSIONS)
+    return Object.keys(_PERMISSIONS)
 }
 
 function getPermissionName(permissionId) {

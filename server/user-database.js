@@ -1,0 +1,59 @@
+const fs = require("fs")
+const path = require("path")
+const fsdb = require("file-system-db")
+
+const DIRECTORY = "./database"
+const USER_DIRECTORY = path.join(DIRECTORY, "user_data")
+const USER_FILE_PREFIX = "user"
+let compact = true
+
+const APPROVALS_PATH = "approvals"
+const AWARDS_PATH = "awards"
+const DETAILS_PATH = "details"
+const LINKS_PATH = "links"
+const PERMISSIONS_PATH = "permissions"
+const SIGNOFFS_PATH = "signoffs"
+
+/* Get File */
+
+function getUser(userId) {
+    return new fsdb(path.join(USER_DIRECTORY, USER_FILE_PREFIX + userId), compact)
+}
+
+async function forEachUser(consumer) {
+    await new Promise(r => fs.readdir(USER_DIRECTORY, async (error, files) => {
+        if (error) {
+            console.error(error)
+        } else {
+            const asyncTasks = []
+
+            for (let fileName of files) {
+                const userId = parseInt(fileName.substring(USER_FILE_PREFIX.length, fileName.length - ".json".length))
+                const db = new fsdb(path.join(USER_DIRECTORY, fileName), compact)
+                const promise = consumer(userId, db)
+
+                if (promise instanceof Promise) {
+                    asyncTasks.push(promise)
+                }
+            }
+
+            if (asyncTasks.length > 0) {
+                await Promise.all(asyncTasks)
+            }
+        }
+
+        r()
+    }))
+}
+
+module.exports = {
+    APPROVALS_PATH,
+    AWARDS_PATH,
+    DETAILS_PATH,
+    LINKS_PATH,
+    PERMISSIONS_PATH,
+    SIGNOFFS_PATH,
+    setCompact: c => compact = c,
+    getUser,
+    forEachUser
+}

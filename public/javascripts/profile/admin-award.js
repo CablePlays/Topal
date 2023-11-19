@@ -180,7 +180,7 @@ function createStatus(statusDetails, displayType, setComplete, onRequestDecline)
                             if (message.length === 0) message = null
                             await onRequestDecline(message)
 
-                            requestContainer.remove()
+                            statusElement.replaceWith(createStatus({}, displayType, setComplete, onRequestDecline))
                         }
                     })
                 }

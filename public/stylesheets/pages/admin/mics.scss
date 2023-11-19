@@ -1,0 +1,35 @@
+@import "../../global";
+
+#awards-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    .award {
+        @include alternating-background-gray();
+        border-radius: 4px;
+        padding: 16px;
+
+        .create-container {
+            align-items: center;
+            column-gap: 10px;
+            display: flex;
+            margin-top: 10px;
+
+            input {
+                padding: 0 4px;
+            }
+        }
+
+        .mics-container {
+            column-gap: 10px;
+            display: grid;
+            grid-template-columns: repeat(2, max-content);
+            margin-top: 10px;
+        }
+
+        .pointer {
+            cursor: pointer;
+        }
+    }
+}

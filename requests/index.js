@@ -4,6 +4,7 @@ const general = require("../server/general")
 
 const accountRouter = require("./account")
 const adminRouter = require("./admin")
+const awardsRouter = require("./awards")
 const logsRouter = require("./logs")
 const recentAwardsRouter = require("./recent-awards")
 const usersRouter = require("./users")
@@ -44,6 +45,7 @@ router.use("/", async (req, res, next) => { // provide user information
 
 router.use("/account", accountRouter)
 router.use("/admin", adminRouter)
+router.use("/awards", awardsRouter)
 router.use("/logs", logsRouter)
 router.use("/recent-awards", recentAwardsRouter)
 router.use("/users", usersRouter)

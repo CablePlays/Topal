@@ -4,17 +4,19 @@ const cookieParser = require("cookie-parser")
 const general = require("./server/general")
 const jsonDatabase = require("./server/json-database")
 const sqlDatabase = require("./server/sql-database")
+const userDatabase = require("./server/user-database")
 const consoleCommands = require("./server/console-commands")
 const requestsRouter = require("./requests/index")
 const renderRouter = require("./render")
 
 const PORT = 80
-const ARTIFICIAL_LATENCY = 0
+const ARTIFICIAL_LATENCY = 500
 const REQUESTS_PATH = "/requests"
 
 const app = express()
 
 jsonDatabase.setCompact(false)
+userDatabase.setCompact(false)
 sqlDatabase.createTables().then(general.createDummyUsers)
 
 // view engine setup

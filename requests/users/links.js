@@ -1,13 +1,13 @@
 const express = require("express")
 const general = require("../../server/general")
-const jsonDatabase = require("../../server/json-database")
+const userDatabase = require("../../server/user-database")
 const middleware = require("../middleware")
 
 const router = express.Router()
 
 router.get("/", middleware.getPermissionMiddleware("manageAwards", true), (req, res) => { // get user links
     const { targetUserId } = req
-    const links = jsonDatabase.getUser(targetUserId).get(jsonDatabase.LINKS_PATH) ?? {}
+    const links = userDatabase.getUser(targetUserId).get(userDatabase.LINKS_PATH) ?? {}
     res.res(200, { links })
 })
 
@@ -34,8 +34,8 @@ awardLinkRouter.put("/", middleware.requireSelf, (req, res) => { // set/delete u
     const { awardId, body, linkId, targetUserId } = req
     const { link } = body
 
-    const path = jsonDatabase.LINKS_PATH + "." + awardId + "." + linkId
-    const userDb = jsonDatabase.getUser(targetUserId)
+    const path = userDatabase.LINKS_PATH + "." + awardId + "." + linkId
+    const userDb = userDatabase.getUser(targetUserId)
 
     if (link) {
         userDb.set(path, link)

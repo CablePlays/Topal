@@ -13,6 +13,11 @@ router.get("/award-history", middleware.getPermissionMiddleware("viewAwardHistor
     res.ren("admin/award-history")
 })
 
+router.get("/mics", middleware.getPermissionMiddleware("manageMics"), (req, res) => {
+    res.setTitle("Award MICs")
+    res.ren("admin/mics")
+})
+
 router.get("/permissions", middleware.getPermissionMiddleware("managePermissions"), (req, res) => {
     res.setTitle("Permissions")
     res.ren("admin/permissions")

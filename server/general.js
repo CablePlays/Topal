@@ -1,5 +1,5 @@
 const cookies = require("./cookies")
-const jsonDatabase = require("./json-database")
+const userDatabase = require("./user-database")
 const sqlDatabase = require("./sql-database")
 
 const RECENT_AWARDS_LIFETIME = 14 * 24 // hours
@@ -172,6 +172,7 @@ const LOG_TYPES = {
 
 const PERMISSIONS = [
     "manageAwards",
+    "manageMics",
     "managePermissions",
     "viewAwardHistory"
 ]
@@ -190,8 +191,9 @@ function getSublogsTable(logType) {
     return camelToSnake(logType) + "_sublogs"
 }
 
-function isAward(awardId) {
-    return AWARDS[awardId] != null
+function isAward(awardId, firstLevel) {
+    if (AWARDS[awardId] == null) return false
+    return !firstLevel || (!awardId.includes("Instructor") && !awardId.includes("Leader"))
 }
 
 function getAwardName(awardId) {
@@ -207,7 +209,7 @@ function isSignoff(awardId, signoffId) {
 }
 
 function isLogType(logType) {
-    return Object.getOwnPropertyNames(LOG_TYPES).includes(logType)
+    return Object.keys(LOG_TYPES).includes(logType)
 }
 
 function getParentLogType(logType) {
@@ -272,7 +274,7 @@ async function getUserInfo(userId) {
     if (record == null) return {}
 
     const { email } = record
-    const { name, surname, title, profilePicture } = jsonDatabase.getUser(userId).get(jsonDatabase.DETAILS_PATH)
+    const { name, surname, title, profilePicture } = userDatabase.getUser(userId).get(userDatabase.DETAILS_PATH)
 
     return {
         id: userId,
@@ -288,7 +290,7 @@ async function getUserInfo(userId) {
 }
 
 function isUserInvisible(userId) {
-    return jsonDatabase.getUser(userId).get(jsonDatabase.DETAILS_PATH)?.invisible ?? false
+    return userDatabase.getUser(userId).get(userDatabase.DETAILS_PATH)?.invisible ?? false
 }
 
 async function isPasswordValid(req) {
@@ -298,7 +300,7 @@ async function isPasswordValid(req) {
     const clientSessionToken = cookies.getPassword(req)
     if (clientSessionToken == null) return false
 
-    const sessionToken = jsonDatabase.getUser(userId).get(jsonDatabase.DETAILS_PATH + ".sessionToken")
+    const sessionToken = userDatabase.getUser(userId).get(userDatabase.DETAILS_PATH + ".sessionToken")
     return (clientSessionToken === sessionToken)
 }
 
@@ -318,7 +320,7 @@ async function provideUserInfoToStatus(status) {
 }
 
 async function provideUserInfoToStatuses(statuses) {
-    const statusKeys = Object.getOwnPropertyNames(statuses)
+    const statusKeys = Object.keys(statuses)
 
     await forEachAndWait(statusKeys, async status => {
         await provideUserInfoToStatus(statuses[status])
@@ -326,7 +328,7 @@ async function provideUserInfoToStatuses(statuses) {
 }
 
 function getPermissions(userId, raw) {
-    const permissions = jsonDatabase.getUser(userId).get(jsonDatabase.PERMISSIONS_PATH) ?? {}
+    const permissions = userDatabase.getUser(userId).get(userDatabase.PERMISSIONS_PATH) ?? {}
 
     if (!raw && permissions.managePermissions === true) {
         for (let permission of PERMISSIONS) {
@@ -348,7 +350,7 @@ function createDummyUsers() {
     async function createDummy(userId, sessionToken, name, surname, title) {
         if (!await sqlDatabase.isUser(userId)) {
             sqlDatabase.run(`INSERT INTO users VALUES (${userId}, "dummy${userId}@treverton.co.za")`)
-            jsonDatabase.getUser(userId).set(jsonDatabase.DETAILS_PATH, { name, surname, title, sessionToken, invisible: true })
+            userDatabase.getUser(userId).set(userDatabase.DETAILS_PATH, { name, surname, title, sessionToken, invisible: true })
         }
     }
 

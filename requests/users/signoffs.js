@@ -1,6 +1,6 @@
 const express = require("express")
 const general = require("../../server/general")
-const jsonDatabase = require("../../server/json-database")
+const userDatabase = require("../../server/user-database")
 const middleware = require("../middleware")
 
 const router = express.Router()
@@ -26,7 +26,7 @@ awardRouter.get("/", async (req, res) => { // get user signoffs
         return
     }
 
-    let signoffs = jsonDatabase.getUser(targetUserId).get(jsonDatabase.SIGNOFFS_PATH + (awardId ? "." + awardId : ""))
+    let signoffs = userDatabase.getUser(targetUserId).get(userDatabase.SIGNOFFS_PATH + (awardId ? "." + awardId : ""))
 
     if (signoffs) {
         await general.provideUserInfoToStatuses(signoffs)
@@ -55,8 +55,8 @@ awardSignoffRouter.put("/", middleware.getPermissionMiddleware("manageAwards"), 
     const { awardId, body, signoffId, targetUserId, userId } = req
     const { complete } = body
 
-    const userDb = jsonDatabase.getUser(targetUserId)
-    const path = jsonDatabase.SIGNOFFS_PATH + "." + awardId + "." + signoffId
+    const userDb = userDatabase.getUser(targetUserId)
+    const path = userDatabase.SIGNOFFS_PATH + "." + awardId + "." + signoffId
 
     if (complete === true) {
         if (userDb.get(path + ".complete")) {
@@ -82,13 +82,13 @@ awardSignoffRouter.put("/", middleware.getPermissionMiddleware("manageAwards"), 
 
 awardSignoffRouter.put("/cancel-request", middleware.requireSelf, (req, res) => { // cancel signoff request
     const { awardId, signoffId, targetUserId } = req
-    jsonDatabase.getUser(targetUserId).delete(`${jsonDatabase.SIGNOFFS_PATH}.${awardId}.${signoffId}.requestDate`)
+    userDatabase.getUser(targetUserId).delete(`${userDatabase.SIGNOFFS_PATH}.${awardId}.${signoffId}.requestDate`)
     res.res(204)
 })
 
 awardSignoffRouter.put("/clear-decline", middleware.requireSelf, (req, res) => { // clear decline
     const { awardId, signoffId, targetUserId } = req
-    jsonDatabase.getUser(targetUserId).delete(`${jsonDatabase.SIGNOFFS_PATH}.${awardId}.${signoffId}.decline`)
+    userDatabase.getUser(targetUserId).delete(`${userDatabase.SIGNOFFS_PATH}.${awardId}.${signoffId}.decline`)
     res.res(204)
 })
 
@@ -96,8 +96,8 @@ awardSignoffRouter.put("/decline-request", middleware.getPermissionMiddleware("m
     const { awardId, body, signoffId, targetUserId, userId } = req
     const { message } = body
 
-    const userDb = jsonDatabase.getUser(targetUserId)
-    const path = jsonDatabase.SIGNOFFS_PATH + "." + awardId + "." + signoffId
+    const userDb = userDatabase.getUser(targetUserId)
+    const path = userDatabase.SIGNOFFS_PATH + "." + awardId + "." + signoffId
 
     if (userDb.get(path + ".complete")) {
         res.res(409, "already_signed")
@@ -118,8 +118,8 @@ awardSignoffRouter.put("/decline-request", middleware.getPermissionMiddleware("m
 awardSignoffRouter.put("/request-signoff", middleware.requireSelf, (req, res) => { // request signoff
     const { awardId, signoffId, targetUserId } = req
 
-    const path = `${jsonDatabase.SIGNOFFS_PATH}.${awardId}.${signoffId}`
-    const userData = jsonDatabase.getUser(targetUserId)
+    const path = `${userDatabase.SIGNOFFS_PATH}.${awardId}.${signoffId}`
+    const userData = userDatabase.getUser(targetUserId)
     const signoffData = userData.get(path) ?? {}
 
     if (signoffData.complete) {

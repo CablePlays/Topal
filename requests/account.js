@@ -2,8 +2,8 @@ const express = require("express")
 const { v4: uuidv4 } = require("uuid")
 const { OAuth2Client } = require("google-auth-library")
 const cookies = require("../server/cookies")
-const jsonDatabase = require("../server/json-database")
 const sqlDatabase = require("../server/sql-database")
+const userDatabase = require("../server/user-database")
 
 const router = express.Router()
 
@@ -35,39 +35,39 @@ router.put("/handle-login", async (req, res) => { // handle login token from Goo
     const record = await sqlDatabase.get(`SELECT * FROM users WHERE email = "${email}"`)
     let userId
     let sessionToken
-    let userDatabase
+    let ud
 
     if (record) {
         const { id } = record
-        userDatabase = jsonDatabase.getUser(id)
-        const sessionTokenPath = jsonDatabase.DETAILS_PATH + ".sessionToken"
+        ud = userDatabase.getUser(id)
+        const sessionTokenPath = userDatabase.DETAILS_PATH + ".sessionToken"
 
         userId = id
-        sessionToken = userDatabase.get(sessionTokenPath)
+        sessionToken = ud.get(sessionTokenPath)
 
         if (sessionToken == null) {
             sessionToken = uuidv4()
-            userDatabase.set(sessionTokenPath, sessionToken)
+            ud.set(sessionTokenPath, sessionToken)
         }
     } else { // create account
         await sqlDatabase.run(`INSERT INTO users (email) VALUES ("${email}")`)
         userId = (await sqlDatabase.get(`SELECT * FROM users WHERE email = "${email}"`)).id
         sessionToken = uuidv4()
 
-        userDatabase = jsonDatabase.getUser(userId)
-        userDatabase.set(jsonDatabase.DETAILS_PATH, { sessionToken })
+        ud = userDatabase.getUser(userId)
+        ud.set(userDatabase.DETAILS_PATH, { sessionToken })
     }
 
     // update details
-    userDatabase.set(jsonDatabase.DETAILS_PATH + ".name", given_name)
-    userDatabase.set(jsonDatabase.DETAILS_PATH + ".surname", family_name)
+    ud.set(userDatabase.DETAILS_PATH + ".name", given_name)
+    ud.set(userDatabase.DETAILS_PATH + ".surname", family_name)
     
-    const profilePicturePath = jsonDatabase.DETAILS_PATH + ".profilePicture"
+    const profilePicturePath = userDatabase.DETAILS_PATH + ".profilePicture"
 
     if (picture) {
-        userDatabase.set(profilePicturePath, picture)
+        ud.set(profilePicturePath, picture)
     } else { // profile picture only visible within organisation
-        userDatabase.delete(profilePicturePath)
+        ud.delete(profilePicturePath)
     }
 
     res.cookie(cookies.USER_COOKIE, userId)

@@ -10,6 +10,15 @@
             "GET": "Get number of signoff requests for each user"
         }
     },
+    "awards": {
+        "mics": {
+            "GET": "Get MICs of awards",
+            ":awardId": {
+                "DELETE": "Remove MIC for award",
+                "POST": "Add MIC for award"
+            }
+        }
+    },
     "logs": {
         ":logType": {
             "GET": "Get user logs & sublogs of type",

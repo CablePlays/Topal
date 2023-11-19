@@ -1,6 +1,6 @@
 const express = require("express")
 const general = require("../server/general")
-const jsonDatabase = require("../server/json-database")
+const userDatabase = require("../server/user-database")
 const sqlDatabase = require("../server/sql-database")
 const middleware = require("./middleware")
 
@@ -10,8 +10,8 @@ router.get("/award-history", middleware.getPermissionMiddleware("viewAwardHistor
     const history = []
     const asyncTasks = []
 
-    await jsonDatabase.forEachUser((userId, db) => {
-        const awards = db.get(jsonDatabase.AWARDS_PATH)
+    await userDatabase.forEachUser((userId, db) => {
+        const awards = db.get(userDatabase.AWARDS_PATH)
 
         for (let awardId in awards) {
             const award = awards[awardId]
@@ -53,8 +53,8 @@ router.get("/requests", middleware.getPermissionMiddleware("manageAwards"), asyn
     }
 
     // awards and signoffs
-    await jsonDatabase.forEachUser((userId, db) => {
-        const awards = db.get(jsonDatabase.AWARDS_PATH) ?? {}
+    await userDatabase.forEachUser((userId, db) => {
+        const awards = db.get(userDatabase.AWARDS_PATH) ?? {}
 
         for (let awardId in awards) {
             const award = awards[awardId]
@@ -64,7 +64,7 @@ router.get("/requests", middleware.getPermissionMiddleware("manageAwards"), asyn
             }
         }
 
-        const signoffs = db.get(jsonDatabase.SIGNOFFS_PATH) ?? {}
+        const signoffs = db.get(userDatabase.SIGNOFFS_PATH) ?? {}
 
         for (let awardId in signoffs) {
             const award = signoffs[awardId]

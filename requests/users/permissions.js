@@ -1,6 +1,6 @@
 const express = require("express")
 const general = require("../../server/general")
-const jsonDatabase = require("../../server/json-database")
+const userDatabase = require("../../server/user-database")
 const middleware = require("../middleware")
 
 const router = express.Router()
@@ -11,12 +11,12 @@ router.put("/", (req, res) => { // set user permissions
     const { body, targetUserId } = req
     const { permissions } = body
 
-    const userDb = jsonDatabase.getUser(targetUserId)
+    const userDb = userDatabase.getUser(targetUserId)
 
     for (let permissionId in permissions) {
         if (general.isPermission(permissionId)) {
             const has = permissions[permissionId]
-            const path = jsonDatabase.PERMISSIONS_PATH + "." + permissionId
+            const path = userDatabase.PERMISSIONS_PATH + "." + permissionId
 
             if (has) {
                 userDb.set(path, true)

@@ -1,6 +1,6 @@
 const express = require("express")
 const general = require("../../server/general")
-const jsonDatabase = require("../../server/json-database")
+const userDatabase = require("../../server/user-database")
 const middleware = require("../middleware")
 
 const router = express.Router()
@@ -15,8 +15,8 @@ router.put("/title", middleware.requireSelf, async (req, res) => { // set user t
     const { body, targetUserId } = req
     const { title } = body
 
-    const userDatabase = jsonDatabase.getUser(targetUserId)
-    const path = jsonDatabase.DETAILS_PATH + ".title"
+    const userDatabase = userDatabase.getUser(targetUserId)
+    const path = userDatabase.DETAILS_PATH + ".title"
 
     if (["Mr", "Ms", "Mrs", "Dr"].includes(title)) {
         userDatabase.set(path, title)

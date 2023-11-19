@@ -1,0 +1,16 @@
+extends ../layout
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/admin/mics.css")
+  script(src="/javascripts/admin/mics.js")
+
+block content
+  .p16
+    h1 Award MICs
+    p.limit-width.
+      This page allows you to set the MICs for each award.
+      The names of the MICs for an award are shown on the page of that award.
+
+    .spacer.v20
+
+    #awards-container

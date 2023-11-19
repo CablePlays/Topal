@@ -309,15 +309,6 @@ function _createSequelShortcuts(awardId) {
     }
 }
 
-function _displayAuthorisedStaff(awardId) {
-    const authorisedStaff = getAwardAuthorisedStaff(awardId)
-    if (authorisedStaff == null) return end
-
-    const authorisedStaffElement = createElement("p", { t: `MIC${authorisedStaff.length === 1 ? "" : "'s"}: ${authorisedStaff.join(", ")}` })
-    authorisedStaffElement.style["font-size"] = "14px"
-    appendInfo([authorisedStaffElement])
-}
-
 function _generateSignoffs(awardId) {
     const awardSignoffs = getAwardSignoffs(awardId)
 
@@ -455,6 +446,22 @@ function _showLogs(awardId) {
     }
 }
 
+async function _showMics(awardId) {
+    const { mics } = await getRequest("/awards/mics")
+    const awardMics = mics[awardId] ?? []
+    let text
+
+    if (awardMics.length === 0) {
+        text = "MIC's: None"
+    } else {
+        text = "MIC" + (awardMics.length > 1 ? "'s" : "") + ": " + awardMics.join(", ")
+    }
+
+    const micsElement = createElement("p", { t: text })
+    micsElement.style["font-size"] = "14px"
+    appendInfo([micsElement])
+}
+
 function setAward(awardId) {
     const awardName = getAwardName(awardId)
     byId("award-title").innerHTML = awardName + " Award"
@@ -469,5 +476,5 @@ function setAward(awardId) {
     _createSequelShortcuts(awardId)
     _generateSignoffs(awardId)
     _showLogs(awardId)
-    setTimeout(() => _displayAuthorisedStaff(awardId), 50) // timeout to display after award-specific info parts
+    _showMics(awardId)
 }
