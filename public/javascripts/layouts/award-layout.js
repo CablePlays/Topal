@@ -448,7 +448,7 @@ function _showLogs(awardId) {
 
 async function _showMics(awardId) {
     const { mics } = await getRequest("/awards/mics")
-    const awardMics = mics[awardId] ?? []
+    const awardMics = mics[getFirstLevelAward(awardId)] ?? []
     let text
 
     if (awardMics.length === 0) {

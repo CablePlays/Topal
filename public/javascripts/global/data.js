@@ -187,7 +187,6 @@ const _AWARDS = {
     },
     mountaineeringInstructor: {
         name: "Mountaineering Instructor",
-        description: MOUNTAINEERING_DESCRIPTION,
         logTypes: ["mountaineering"],
         links: [
             {
@@ -230,7 +229,6 @@ const _AWARDS = {
     },
     mountaineeringLeader: {
         name: "Mountaineering Leader",
-        description: MOUNTAINEERING_DESCRIPTION,
         logTypes: ["mountaineering"],
     },
     polarBear: {
@@ -659,11 +657,19 @@ const _PERMISSIONS = {
     }
 }
 
+function isAward(awardId) {
+    return _AWARDS[awardId] != null
+}
+
 /*
     Returns a list of award IDs.
 */
 function getAwards() {
     return Object.keys(_AWARDS)
+}
+
+function isFirstLevelAward(awardId) {
+    return isAward(awardId) && getFirstLevelAward(awardId) === awardId
 }
 
 function getFirstLevelAwards() {
@@ -676,6 +682,11 @@ function getFirstLevelAwards() {
     }
 
     return awards
+}
+
+function getFirstLevelAward(awardId) {
+    if (awardId.startsWith("mountaineering")) return "drakensberg"
+    return awardId.replace("Instructor", "").replace("Leader", "")
 }
 
 function getAwardName(awardId) {
@@ -700,18 +711,6 @@ function getAwardLinks(awardId) {
 
 function getAwardSignoffs(awardId) {
     return _AWARDS[awardId].signoffs
-}
-
-function isAward(awardId) {
-    return _AWARDS[awardId] != null
-}
-
-function isFirstLevelAward(awardId) {
-    return isAward(awardId) && getFirstLevelAward(awardId) === awardId
-}
-
-function getFirstLevelAward(awardId) {
-    return awardId.replace("Instructor", "").replace("Leader", "")
 }
 
 function awardHasInstructor(awardId) {
