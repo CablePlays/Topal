@@ -98,7 +98,7 @@ router.get("/leaderboard", (req, res) => {
 
 router.get("/leaderboards", (req, res) => {
     res.setTitle("Leaderboards")
-    res.ren("errors/coming-soon")
+    res.ren("other/leaderboards")
 })
 
 router.get("/login", (req, res) => {

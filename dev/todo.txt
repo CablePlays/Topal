@@ -1,7 +1,6 @@
 Add award type filer to admin requests page
 Make search also search awards OR make awards tab have dropdown of all awards
 Add images to website for displaying when link is sent on social media
-Make recent awards get data from user data instead of cache
 
 > Pages
 

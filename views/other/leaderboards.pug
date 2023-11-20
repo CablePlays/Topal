@@ -1,0 +1,148 @@
+extends ../layout
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/other/leaderboards.css")
+  script(src="/javascripts/other/leaderboards.js")
+
+block content
+  #leaderboards-sidebar-icon.hamburger-icon
+    div
+    div
+    div
+
+  .cols
+    #leaderboards-container.col1
+      //- div
+        .podium
+          .swallowtail-container.silver
+            p.position 02
+            <svg class="swallowtail" width="100" height="339" viewBox="0 0 100 339" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="290" fill="#C0C0C0" />
+              <path d="M0.000904537 339L-3.52273e-07 289H50L0.000904537 339Z" fill="#C0C0C0" />
+              <path d="M99.9991 339L100 289H50L99.9991 339Z" fill="#C0C0C0" />
+            </svg>
+            img.profile-picture(src=user.profilePicture)
+            p.name Christopher Dendrinos
+            p.grade Grade 11
+            p.value 4
+            p.type awards
+          .swallowtail-container.gold
+            p.position 01
+            <svg class="swallowtail" width="100" height="371" viewBox="0 0 100 371" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="322" fill="#FFCF40"/>
+              <path d="M0.000904537 371L-3.52273e-07 321H50L0.000904537 371Z" fill="#FFCF40"/>
+              <path d="M99.9991 371L100 321H50L99.9991 371Z" fill="#FFCF40"/>
+            </svg>
+            img.profile-picture(src=user.profilePicture)
+            p.name Caleb Jennings
+            p.grade Grade 11
+            p.value 6
+            p.type awards
+          .swallowtail-container.bronze
+            p.position 03
+            <svg class="swallowtail" width="100" height="306" viewBox="0 0 100 306" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="257" fill="#CD7F32" />
+              <path d="M0.000904537 306L-3.52273e-07 256H50L0.000904537 306Z" fill="#CD7F32" />
+              <path d="M99.9991 306L100 256H50L99.9991 306Z" fill="#CD7F32" />
+            </svg>
+            img.profile-picture(src=user.profilePicture)
+            p.name Megan Ramsey
+            p.grade Grade 11
+            p.value 64km
+            p.type distance
+
+        .cards
+          .card
+            img.background(src="/assets/pages/leaderboards/parms.svg")
+            .content-container
+              p.position 04
+              img.profile-picture(src=user.profilePicture)
+              .details
+                p.name Caleb Jennings
+                p.grade Grade 11
+              .stars
+                img(src="/assets/pages/leaderboards/star-full.svg")
+                img(src="/assets/pages/leaderboards/star-full.svg")
+                img(src="/assets/pages/leaderboards/star-full.svg")
+                img(src="/assets/pages/leaderboards/star-empty.svg")
+                img(src="/assets/pages/leaderboards/star-empty.svg")
+              .type-value
+                p.value 02
+                p.type awards
+          .card
+            img.background(src="/assets/pages/leaderboards/parms.svg")
+            .content-container
+              p.position 05
+              img.profile-picture(src=user.profilePicture)
+              .details
+                p.name Abigael Don-Wauchope
+                p.grade Grade 11
+              .stars
+                img(src="/assets/pages/leaderboards/star-full.svg")
+                img(src="/assets/pages/leaderboards/star-full.svg")
+                img(src="/assets/pages/leaderboards/star-empty.svg")
+                img(src="/assets/pages/leaderboards/star-empty.svg")
+                img(src="/assets/pages/leaderboards/star-empty.svg")
+              .type-value
+                p.value 01
+                p.type awards
+          .card
+            img.background(src="/assets/pages/leaderboards/parms.svg")
+            .content-container
+              p.position 06
+              img.profile-picture(src=user.profilePicture)
+              .details
+                p.name Megan Ramsey
+                p.grade Grade 11
+              .stars
+                img(src="/assets/pages/leaderboards/star-full.svg")
+                img(src="/assets/pages/leaderboards/star-empty.svg")
+                img(src="/assets/pages/leaderboards/star-empty.svg")
+                img(src="/assets/pages/leaderboards/star-empty.svg")
+                img(src="/assets/pages/leaderboards/star-empty.svg")
+              .type-value
+                p.value 5km
+                p.type distance
+
+    #leaderboards-sidebar.col2
+      h2 Leaderboards
+      #leaderboard-selection
+
+  template#leaderboard-template
+    .podium
+      .swallowtail-container.silver
+        p.position 02
+        <svg class="swallowtail" width="100" height="339" viewBox="0 0 100 339" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="290" fill="#C0C0C0" />
+          <path d="M0.000904537 339L-3.52273e-07 289H50L0.000904537 339Z" fill="#C0C0C0" />
+          <path d="M99.9991 339L100 289H50L99.9991 339Z" fill="#C0C0C0" />
+        </svg>
+        img.profile-picture
+        p.name
+        p.grade
+        p.value
+        p.type
+      .swallowtail-container.gold
+        p.position 01
+        <svg class="swallowtail" width="100" height="371" viewBox="0 0 100 371" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="322" fill="#FFCF40"/>
+          <path d="M0.000904537 371L-3.52273e-07 321H50L0.000904537 371Z" fill="#FFCF40"/>
+          <path d="M99.9991 371L100 321H50L99.9991 371Z" fill="#FFCF40"/>
+        </svg>
+        img.profile-picture
+        p.name
+        p.grade
+        p.value
+        p.type
+      .swallowtail-container.bronze
+        p.position 03
+        <svg class="swallowtail" width="100" height="306" viewBox="0 0 100 306" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="257" fill="#CD7F32" />
+          <path d="M0.000904537 306L-3.52273e-07 256H50L0.000904537 306Z" fill="#CD7F32" />
+          <path d="M99.9991 306L100 256H50L99.9991 306Z" fill="#CD7F32" />
+        </svg>
+        img.profile-picture
+        p.name
+        p.grade
+        p.value
+        p.type

@@ -1,12 +1,22 @@
 > Leaderboards
 
-Earliest accounts
+>> User
+
+Position
+Profile picture
+Name
+Grade
+Value
+
+>> Categories
+
 OP points
 Most awards
 Most first-level awards
 Distance run
 Distance paddled
 Service hours
+Earliest accounts
 
 > Profile Page Stats
 
