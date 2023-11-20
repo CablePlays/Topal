@@ -106,15 +106,6 @@ awardRouter.put("/", middleware.getPermissionMiddleware("manageAwards"), async (
             date: new Date(),
             signer: userId
         })
-
-        // add to recent awards
-        const recentAwards = jsonDatabase.get(jsonDatabase.RECENT_AWARDS_PATH) ?? []
-        recentAwards.unshift({
-            user: targetUserId,
-            award: awardId,
-            date: new Date()
-        })
-        jsonDatabase.set(jsonDatabase.RECENT_AWARDS_PATH, recentAwards)
     } else {
         userDb.delete(path + ".complete")
         userDb.delete(path + ".date")

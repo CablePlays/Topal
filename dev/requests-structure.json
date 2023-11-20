@@ -17,6 +17,9 @@
                 "DELETE": "Remove MIC for award",
                 "POST": "Add MIC for award"
             }
+        },
+        "recents": {
+            "GET": "Get recent awards"
         }
     },
     "logs": {
@@ -40,9 +43,6 @@
                 }
             }
         }
-    },
-    "recent-awards": {
-        "GET": "Get recent awards"
     },
     "users": {
         "permissions": {

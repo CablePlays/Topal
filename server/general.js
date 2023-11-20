@@ -2,7 +2,6 @@ const cookies = require("./cookies")
 const userDatabase = require("./user-database")
 const sqlDatabase = require("./sql-database")
 
-const RECENT_AWARDS_LIFETIME = 14 * 24 // hours
 const RECENT_AWARDS_MAX = 10
 
 const DEFAULT_PROFILE_PICTURE_PATH = "/assets/other/default-profile-picture.jpg"
@@ -393,7 +392,6 @@ async function forEachAndWait(array, consumer) {
 }
 
 module.exports = {
-    RECENT_AWARDS_LIFETIME,
     RECENT_AWARDS_MAX,
     PERMISSIONS,
     DEFAULT_PROFILE_PICTURE_PATH,

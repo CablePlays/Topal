@@ -15,7 +15,7 @@ function createSlide(awardId, user, date) {
 
 async function setupSlideshow() {
     const slidesPromise = new Promise(async r => {
-        const { recentAwards } = await getRequest("/recent-awards")
+        const { recentAwards } = await getRequest("/awards/recents")
         const slides = []
 
         if (recentAwards.length === 0) {

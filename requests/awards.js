@@ -1,10 +1,37 @@
 const express = require("express")
 const general = require("../server/general")
-const jsonDatabase = require("../server/json-database")
-const sqlDatabase = require("../server/sql-database")
+const userDatabase = require("../server/user-database")
 const middleware = require("./middleware")
 
 const router = express.Router()
+
+router.get("/recents", async (req, res) => {
+    const recentAwards = []
+    const asyncTasks = []
+
+    await userDatabase.forEachUser((userId, db) => {
+        const awards = db.get(userDatabase.AWARDS_PATH)
+
+        for (let awardId in awards) {
+            const award = awards[awardId]
+
+            if (award.complete) {
+                const awardData = { award: awardId, date: award.date }
+
+                const userInfoPromise = general.getUserInfo(userId)
+                userInfoPromise.then(v => awardData.user = v)
+                asyncTasks.push(userInfoPromise)
+
+                recentAwards.push(awardData)
+            }
+        }
+    })
+
+    recentAwards.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    await Promise.all(asyncTasks)
+    recentAwards.splice(0, recentAwards.length - general.RECENT_AWARDS_MAX)
+    res.res(200, { recentAwards })
+})
 
 const micsRouter = express.Router()
 

@@ -6,7 +6,6 @@ const accountRouter = require("./account")
 const adminRouter = require("./admin")
 const awardsRouter = require("./awards")
 const logsRouter = require("./logs")
-const recentAwardsRouter = require("./recent-awards")
 const usersRouter = require("./users")
 
 const router = express.Router()
@@ -47,7 +46,6 @@ router.use("/account", accountRouter)
 router.use("/admin", adminRouter)
 router.use("/awards", awardsRouter)
 router.use("/logs", logsRouter)
-router.use("/recent-awards", recentAwardsRouter)
 router.use("/users", usersRouter)
 
 module.exports = router
