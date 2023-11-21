@@ -175,20 +175,20 @@ button.secondary.shadow {
   min-width: 38px;
   row-gap: 8px;
 }
-.hamburger-icon div {
+.hamburger-icon span {
   background-color: rgb(150, 150, 150);
   border-radius: 3px;
   height: 4px;
   transition: 0.25s;
   width: 100%;
 }
-.hamburger-icon.active div:nth-child(1) {
+.hamburger-icon.active span:nth-child(1) {
   transform: rotateZ(-45deg) translateY(9px) translateX(-8px);
 }
-.hamburger-icon.active div:nth-child(2) {
+.hamburger-icon.active span:nth-child(2) {
   width: 0;
 }
-.hamburger-icon.active div:nth-child(3) {
+.hamburger-icon.active span:nth-child(3) {
   transform: rotateZ(45deg) translateY(-9px) translateX(-8px);
 }
 
@@ -290,7 +290,6 @@ joined-buttons .underline {
 }
 .slideshow .slide-container {
   display: flex;
-  flex-direction: row;
   height: 100%;
   transition: transform 0.5s;
 }

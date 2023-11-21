@@ -14,18 +14,46 @@ $leaderboards-sidebar-width: 200px;
     @media screen and (min-width: $breakpoint-3) {
         display: none;
     }
+
+    span {
+        background-color: white;
+    }
 }
 
 .cols {
     display: flex;
+    min-height: 100vh;
 
     @media screen and (min-width: $breakpoint-3) {
         margin-right: $leaderboards-sidebar-width;
     }
 
     .col1 {
+        display: flex;
         flex-grow: 1;
-        margin-bottom: 40px;
+        overflow: hidden;
+        padding-bottom: 40px;
+
+        .background {
+            background: url("/assets/backgrounds/leaderboards.webp");
+            background-size: cover;
+            height: 100vh;
+            position: fixed;
+            width: 100vw;
+            z-index: -10;
+        }
+
+        .loading {
+            color: white;
+            margin-top: 16px;
+            text-align: center;
+            width: 100%;
+        }
+
+        #viewport-slider {
+            display: flex;
+            transition: transform 0.75s;
+        }
     }
 
     .col2 {
@@ -79,7 +107,7 @@ $leaderboards-sidebar-width: 200px;
                 .underline {
                     border-radius: 3px;
                     border-top: 3px solid transparent;
-                    transition: 0.1s;
+                    transition: 0.25s;
                 }
 
                 &.selected .underline {
@@ -102,6 +130,7 @@ $leaderboards-sidebar-width: 200px;
     }
 
     .card {
+        @include hover-grow();
         height: 160px;
         min-width: 280px;
         position: relative;

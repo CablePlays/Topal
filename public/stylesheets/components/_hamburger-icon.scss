@@ -7,7 +7,7 @@
     min-width: 38px;
     row-gap: 8px;
 
-    div {
+    span {
         background-color: rgb(150, 150, 150);
         border-radius: 3px;
         height: 4px;
@@ -16,15 +16,15 @@
     }
 
     &.active {
-        div:nth-child(1) {
+        span:nth-child(1) {
             transform: rotateZ(-45deg) translateY(9px) translateX(-8px);
         }
 
-        div:nth-child(2) {
+        span:nth-child(2) {
             width: 0;
         }
 
-        div:nth-child(3) {
+        span:nth-child(3) {
             transform: rotateZ(45deg) translateY(-9px) translateX(-8px);
         }
     }
