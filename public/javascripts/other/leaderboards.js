@@ -114,11 +114,11 @@ function renderSwallowtail(swalllowtail, data, typeLabel) {
     const [, , profilePictureElement, nameElement, gradeElement, valueElement, typeElement] = swalllowtail.children
 
     profilePictureElement.src = available ? profilePicture : DEFAULT_PROFILE_PICTURE_PATH
-    profilePictureElement.addEventListener("click", openLinkOnClick(`/profile/${id}`))
     nameElement.innerHTML = available ? user.titleName : MISSING_TEXT
     valueElement.innerHTML = available ? value : "-"
 
     if (available) {
+        profilePictureElement.addEventListener("click", openLinkOnClick(`/profile/${id}`))
         gradeElement.innerHTML = formatGrade(grade)
         if (typeLabel) typeElement.innerHTML = typeLabel(value)
     }
