@@ -905,7 +905,7 @@ header #sidebar-icon {
   overflow: hidden;
   padding-bottom: 40px;
 }
-.cols .col1 .background {
+.cols .col1 .leaderboard-background {
   background: url("/assets/backgrounds/leaderboards.webp");
   background-size: cover;
   height: 100vh;
