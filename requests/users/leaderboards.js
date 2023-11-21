@@ -26,8 +26,8 @@ router.get("/", async (req, res) => {
             }
         }
 
-        totalAwards.push({ user: id, value: userTotalAwards })
-        firstLevelAwards.push({ user: id, value: userFirstLevelAwards })
+        if (userTotalAwards > 0) totalAwards.push({ user: id, value: userTotalAwards })
+        if (userFirstLevelAwards > 0) firstLevelAwards.push({ user: id, value: userFirstLevelAwards })
     })
 
     totalAwards.sort((a, b) => b.value - a.value)
