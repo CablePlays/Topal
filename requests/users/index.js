@@ -6,6 +6,7 @@ const middleware = require("../middleware")
 
 const awardsRouter = require("./awards")
 const infoRouter = require("./info")
+const leaderboardsRouter = require("./leaderboards")
 const linksRouter = require("./links")
 const permissionsRouter = require("./permissions")
 const signoffsRouter = require("./signoffs")
@@ -130,6 +131,8 @@ router.get("/search", async (req, res) => { // search users using query
     await Promise.all(asyncTasks)
     res.res(200, { results })
 })
+
+router.use("/leaderboards", leaderboardsRouter)
 
 const targetUserRouter = express.Router()
 

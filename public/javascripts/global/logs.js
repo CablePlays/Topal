@@ -477,17 +477,15 @@ const _LOG_TYPES = {
                 name: "Distance On River",
                 display: {
                     type: "text",
-                    value: log => (log.distance / 1000) + "km"
+                    value: log => round(log.distance / 1000, 2) + "km"
                 },
                 input: {
                     attribute: "distance",
-                    type: "slider",
-                    slider: {
-                        min: 1000,
-                        max: 100000,
-                        step: 500,
-                        value: 10000,
-                        display: v => (v / 1000) + "km"
+                    description: "Distance in metres.",
+                    type: "number",
+                    number: {
+                        integer: true,
+                        min: 0
                     }
                 }
             },

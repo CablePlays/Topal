@@ -321,7 +321,7 @@ async function provideUserInfoToStatus(status) {
 async function provideUserInfoToStatuses(statuses) {
     const statusKeys = Object.keys(statuses)
 
-    await forEachAndWait(statusKeys, async status => {
+    await forEachAsync(statusKeys, async status => {
         await provideUserInfoToStatus(statuses[status])
     })
 }
@@ -380,7 +380,7 @@ function formatDateForStorage(date) {
 /*
     Runs an async function on a list of objects and waits for all functions to be completed.
 */
-async function forEachAndWait(array, consumer) {
+async function forEachAsync(array, consumer) {
     const promises = []
 
     for (let value of array) {
@@ -413,7 +413,7 @@ module.exports = {
     isLink,
     isSignoff,
     isPasswordValid,
-    forEachAndWait,
+    forEachAsync,
     provideUserInfoToStatus,
     provideUserInfoToStatuses,
     getPermissions,

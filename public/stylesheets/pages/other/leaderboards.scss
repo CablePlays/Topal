@@ -1,15 +1,17 @@
 @import "../../global";
 
-$breakpoint-1: 840px;
-$breakpoint-2: 1030px;
+$breakpoint-1: 660px; // heigher
+$breakpoint-2: 830px; // smaller
+$breakpoint-3: 1030px; // sidebar
 $leaderboards-sidebar-width: 200px;
 
 #leaderboards-sidebar-icon {
     left: 20px;
     position: fixed;
     top: calc($header-height + 20px);
+    z-index: 100;
 
-    @media screen and (min-width: $breakpoint-2) {
+    @media screen and (min-width: $breakpoint-3) {
         display: none;
     }
 }
@@ -17,13 +19,13 @@ $leaderboards-sidebar-width: 200px;
 .cols {
     display: flex;
 
-    @media screen and (min-width: $breakpoint-2) {
+    @media screen and (min-width: $breakpoint-3) {
         margin-right: $leaderboards-sidebar-width;
     }
 
     .col1 {
         flex-grow: 1;
-        margin-bottom: 20px;
+        margin-bottom: 40px;
     }
 
     .col2 {
@@ -40,7 +42,7 @@ $leaderboards-sidebar-width: 200px;
             margin: 8px;
         }
 
-        @media screen and (min-width: $breakpoint-2) {
+        @media screen and (min-width: $breakpoint-3) {
             box-shadow: -5px 0 5px rgb(0, 0, 0, 0.2);
             right: 0;
         }
@@ -61,10 +63,14 @@ $leaderboards-sidebar-width: 200px;
                 border-radius: 8px;
                 cursor: pointer;
                 font-size: 16px;
-                padding: 8px;
+                padding: 2px 4px;
                 text-align: start;
                 transition: 0.25s;
                 width: max-content;
+
+                @media screen and (min-height: 500px) {
+                    padding: 8px;
+                }
 
                 &:hover {
                     background-color: $color-accent-100;
@@ -87,15 +93,24 @@ $leaderboards-sidebar-width: 200px;
 .cards {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
-    padding: 0 40px;
+    margin-top: 40px;
+    padding: 0 20px;
     row-gap: 20px;
 
+    @media screen and (min-width: $breakpoint-1) {
+        padding: 0 40px;
+    }
+
     .card {
-        height: 80px;
+        height: 160px;
+        min-width: 280px;
         position: relative;
 
-        img.background {
+        @media screen and (min-width: $breakpoint-1) {
+            height: 80px;
+        }
+
+        .background {
             display: block;
             height: 100%;
             margin: 0 auto;
@@ -105,28 +120,75 @@ $leaderboards-sidebar-width: 200px;
         }
 
         .content-container {
-            align-items: center;
             display: flex;
-            height: 67px;
+            flex-direction: column;
+            height: 135px;
             margin-left: 6%;
             position: relative;
             width: 92%;
+
+            .top-container {
+                padding-right: 20px;
+            }
+
+            .bottom-container {
+                bottom: 10px;
+                position: relative;
+            }
+
+            .top-container,
+            .bottom-container {
+                align-items: center;
+                display: flex;
+                height: 50%;
+            }
+
+            @media screen and (min-width: $breakpoint-1) {
+                flex-direction: row;
+                height: 67px;
+
+                .top-container {
+                    padding-right: 0;
+                }
+
+                .bottom-container {
+                    bottom: initial;
+                    position: static;
+                }
+
+                .top-container,
+                .bottom-container {
+                    height: 100%;
+                }
+            }
         }
 
         .position {
             font-family: "Courier New", Courier, monospace;
-            font-size: 32px;
-            font-weight: 600;
+            font-size: 25px;
+            font-weight: 700;
             margin-left: 10px;
+
+            @media screen and (min-width: $breakpoint-2) {
+                font-size: 32px;
+            }
         }
 
         .profile-picture {
             border-radius: 50%;
             box-shadow: 0 0 4px 2px rgb(0, 0, 0, 0.15);
             cursor: pointer;
-            height: 85%;
+            height: 70%;
             margin-left: 20px;
-            transition: 0.25s;
+            transition: border-radius 0.25s;
+
+            @media screen and (min-width: $breakpoint-1) {
+                height: 60%;
+            }
+
+            @media screen and (min-width: $breakpoint-2) {
+                height: 85%;
+            }
 
             &:hover {
                 border-radius: 10px;
@@ -136,23 +198,57 @@ $leaderboards-sidebar-width: 200px;
         .details {
             display: flex;
             flex-direction: column;
-            margin-left: 15px;
+            margin-left: 10px;
 
             .name {
+                color: white;
+                font-size: 16px;
                 font-weight: 500;
             }
 
             .grade {
                 font-size: 14px;
             }
+
+            @media screen and (min-width: $breakpoint-1) {
+                margin-left: 15px;
+
+                .name {
+                    font-size: 14px;
+                }
+
+                .grade {
+                    font-size: 12px;
+                }
+            }
+
+            @media screen and (min-width: $breakpoint-2) {
+                .name {
+                    font-size: 16px;
+                }
+
+                .grade {
+                    font-size: 14px;
+                }
+            }
         }
 
         .stars {
             column-gap: 5px;
             display: flex;
-            height: 35%;
-            left: 380px;
-            position: absolute;
+            height: 30%;
+            margin-left: 20px;
+
+            @media screen and (min-width: $breakpoint-1) {
+                left: 300px;
+                margin-left: 0;
+                position: absolute;
+            }
+
+            @media screen and (min-width: $breakpoint-2) {
+                height: 35%;
+                left: 380px;
+            }
 
             img {
                 height: 100%;
@@ -160,8 +256,17 @@ $leaderboards-sidebar-width: 200px;
         }
 
         .type-value {
-            left: 590px;
-            position: absolute;
+            margin-left: 40px;
+
+            @media screen and (min-width: $breakpoint-1) {
+                left: 450px;
+                margin-left: 0;
+                position: absolute;
+            }
+
+            @media screen and (min-width: $breakpoint-2) {
+                left: 590px;
+            }
         }
 
         .value {
@@ -176,19 +281,29 @@ $leaderboards-sidebar-width: 200px;
 }
 
 .podium {
-    column-gap: 50px;
+    column-gap: 3%;
     display: flex;
     justify-content: center;
+
+    @media screen and (min-width: $breakpoint-1) {
+        column-gap: 50px;
+    }
 
     .swallowtail-container {
         align-items: center;
         display: flex;
         flex-direction: column;
-        height: 500px;
-        padding: 0 8px;
+        height: 350px;
+        padding: 0 4px;
         position: relative;
         text-align: center;
-        width: 134px;
+        width: 94px;
+
+        @media screen and (min-width: $breakpoint-1) {
+            height: 500px;
+            padding: 0 8px;
+            width: 134px;
+        }
     }
 
     .swallowtail {
@@ -200,63 +315,109 @@ $leaderboards-sidebar-width: 200px;
 
     .gold {
         .profile-picture {
-            margin-top: 5px !important;
+            margin-top: 5px;
         }
 
         .swallowtail {
-            height: 500px;
+            height: 350px;
+        }
+
+        @media screen and (min-width: $breakpoint-1) {
+            .swallowtail {
+                height: 500px;
+            }
         }
     }
 
     .silver .swallowtail {
-        height: 457px;
+        height: 320px;
+
+        @media screen and (min-width: $breakpoint-1) {
+            height: 457px;
+        }
     }
 
     .bronze .swallowtail {
-        height: 412px;
+        height: 289px;
+
+        @media screen and (min-width: $breakpoint-1) {
+            height: 412px;
+        }
     }
 
     .position {
         font-family: "Courier New", Courier, monospace;
-        font-size: 40px;
-        font-weight: 600;
-        margin-top: 20px;
+        font-size: 25px;
+        font-weight: 700;
+        margin-top: 10px;
+
+        @media screen and (min-width: $breakpoint-1) {
+            font-size: 40px;
+            margin-top: 20px;
+        }
     }
 
     .profile-picture {
         border-radius: 48px;
         box-shadow: 0 0 4px 2px rgb(0, 0, 0, 0.15);
         cursor: pointer;
-        height: 96px;
-        margin-top: 30px;
-        transition: 0.25s;
-        width: 96px;
+        height: 55px;
+        margin-top: 5px;
+        transition: border-radius 0.25s;
+        width: 55px;
 
         &:hover {
             border-radius: 10px;
         }
+
+        @media screen and (min-width: $breakpoint-1) {
+            height: 96px;
+            margin-top: 20px;
+            width: 96px;
+        }
     }
 
     .name {
+        font-size: 14px;
         font-weight: 500;
-        margin-top: 10px;
+        margin-top: 5px;
+
+        @media screen and (min-width: $breakpoint-1) {
+            font-size: 16px;
+            margin-top: 10px;
+        }
     }
 
     .grade {
-        font-size: 14px;
-        margin-top: 5px;
+        font-size: 12px;
+
+        @media screen and (min-width: $breakpoint-1) {
+            font-size: 14px;
+            margin-top: 5px;
+        }
     }
 
     .value {
-        bottom: 200px;
-        font-size: 20px;
+        bottom: 140px;
+        font-size: 16px;
         font-weight: 700;
         position: absolute;
+
+        @media screen and (min-width: $breakpoint-1) {
+            bottom: 200px;
+            font-size: 20px;
+        }
     }
 
     .type {
-        bottom: 180px;
+        bottom: 125px;
+        font-size: 14px;
         font-weight: 500;
         position: absolute;
+
+        @media screen and (min-width: $breakpoint-1) {
+            bottom: 180px;
+            font-size: 16px;
+        }
     }
 }

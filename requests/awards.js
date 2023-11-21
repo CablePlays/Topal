@@ -1,5 +1,6 @@
 const express = require("express")
 const general = require("../server/general")
+const jsonDatabase = require("../server/json-database")
 const userDatabase = require("../server/user-database")
 const middleware = require("./middleware")
 
@@ -29,7 +30,7 @@ router.get("/recents", async (req, res) => {
 
     recentAwards.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     await Promise.all(asyncTasks)
-    recentAwards.splice(0, recentAwards.length - general.RECENT_AWARDS_MAX)
+    recentAwards.splice(general.RECENT_AWARDS_MAX)
     res.res(200, { recentAwards })
 })
 

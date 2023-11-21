@@ -45,6 +45,9 @@
         }
     },
     "users": {
+        "leaderboards": {
+            "GET": "Get leaderboard data"
+        },
         "permissions": {
             "GET": "Gets all users with permissions and their permissions",
             "user": {

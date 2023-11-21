@@ -2,6 +2,7 @@ const LOADING_TEXT = "Loading . . ."
 const LOADING_ICON_TEXT = "hourglass_empty"
 const MISSING_TEXT = "N/A"
 const NONE_TEXT = "None"
+const DEFAULT_PROFILE_PICTURE_PATH = "/assets/other/default-profile-picture.jpg"
 
 document.addEventListener("click", event => {
     if (event.target.classList.contains("signin-link")) { // signin link

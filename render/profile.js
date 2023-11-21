@@ -27,13 +27,7 @@ router.use("/:userId", async (req, res, next) => { // verify user ID & provide p
         placeholders.grade = grade
 
         // placeholders
-        res.placeholders.badges = {
-            team: "none",
-            halfColours: "none",
-            colours: "none",
-            honours: "none",
-            duo: "none"
-        }
+        placeholders.badges = getBadgePlaceholders(profileUserId)
 
         next()
     } else {
@@ -131,7 +125,6 @@ userRouter.get("/", async (req, res) => {
     const { profileUser, profileUserId } = req
     const { placeholders } = res
 
-    placeholders.badges = getBadgePlaceholders(profileUserId)
     placeholders.stats = await getStats(profileUserId)
 
     res.setTitle(profileUser.titleName)
