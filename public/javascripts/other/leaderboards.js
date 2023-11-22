@@ -1,3 +1,5 @@
+const VIEW_PARAMETER = "view"
+
 window.addEventListener("load", () => {
     setupSidebar()
     generateLeaderboards()
@@ -30,10 +32,14 @@ async function generateLeaderboards() {
 
     const dataPromise = getRequest("/users/leaderboards")
     let loaded = false
+
     dataPromise.then(() => {
         loadingElement.remove()
         setVisible(viewportSlider)
         loaded = true
+
+        upadateSelected(true)
+        window.addEventListener("resize", () => upadateSelected(false))
     })
 
     const leaderboards = [
@@ -48,9 +54,41 @@ async function generateLeaderboards() {
         ["earliestAccounts", "Earliest Accounts"]
     ]
 
-    let selected = 0
+    let currentTimeout
+    let selected = parseInt(getParam(VIEW_PARAMETER))
 
-    function upadateSelected() {
+    if (Number.isInteger(selected)) {
+        selected = minMax(selected, 0, leaderboards.length - 1)
+    } else {
+        selected = 0
+    }
+
+    function upadateSelected(sidebar) {
+        function setCardsVisible(visible) {
+            const children = viewportSlider.children
+
+            for (let i = 0; i < children.length; i++) {
+                const cards = children[i].children[1]
+                if (cards == null) continue
+
+                if (visible) {
+                    setVisible(cards, true)
+                } else if (i !== selected) {
+                    setVisible(cards, visible)
+                }
+            }
+        }
+
+        if (sidebar) {
+            for (let o of leaderboardSelection.children) {
+                o.classList.remove("selected")
+            }
+
+            leaderboardSelection.children[selected].classList.add("selected")
+        }
+
+        setCardsVisible(true)
+
         const width = leaderboardsContainer.clientWidth
 
         for (let leaderboardView of viewportSlider.children) {
@@ -58,6 +96,12 @@ async function generateLeaderboards() {
         }
 
         viewportSlider.style.transform = `translateX(-${selected * width}px)`
+
+        if (currentTimeout) {
+            clearTimeout(currentTimeout)
+        }
+
+        currentTimeout = setTimeout(() => setCardsVisible(false), 750)
     }
 
     for (let i = 0; i < leaderboards.length; i++) {
@@ -71,16 +115,11 @@ async function generateLeaderboards() {
 
         const selector = createElement("button", {
             p: leaderboardSelection, t: leaderboardName, onClick: () => {
-                if (!loaded) return
-
-                selected = i
-                upadateSelected()
-
-                for (let o of leaderboardSelection.children) {
-                    o.classList.remove("selected")
+                if (loaded) {
+                    selected = i
+                    setParam(VIEW_PARAMETER, i)
+                    upadateSelected(true)
                 }
-
-                selector.classList.add("selected")
             }
         })
         createElement("div", { c: "underline", p: selector })
@@ -101,15 +140,8 @@ async function generateLeaderboards() {
 
             const cards = generateCards(leaderboardData, leaderboardTypeFunction)
             leaderboardView.appendChild(cards)
-
-            if (i === selected) {
-                selector.classList.add("selected")
-            }
         })
     }
-
-    upadateSelected()
-    window.addEventListener("resize", upadateSelected)
 }
 
 function formatGrade(grade) {
@@ -147,6 +179,36 @@ function generateCards(leaderboardData, typeLabel) {
         const topContainer = createElement("div", { c: "top-container", p: contentContainer })
 
         createElement("p", { c: "position", p: topContainer, t: (i + 1).toString().padStart(2, "0") })
+        createElement("img", { c: "profile-picture", p: topContainer, onClick: openLinkOnClick(`/profile/${userId}`) }).src = profilePicture
+
+        const detailsElement = createElement("div", { c: "details", p: topContainer })
+        createElement("p", { c: "name", p: detailsElement, t: titleName })
+        createElement("p", { c: "grade", p: detailsElement, t: formatGrade(grade) })
+
+        const bottomContainer = createElement("div", { c: "bottom-container", p: contentContainer })
+
+        const starsContainer = createElement("div", { c: "stars", p: bottomContainer })
+        const starCount = Math.ceil((leaderboardData.length - i) / leaderboardData.length * 5)
+        for (let i = 0; i < 5; i++) {
+            createElement("img", { p: starsContainer }).src = i < starCount ? "/assets/pages/leaderboards/star-full.svg" : "/assets/pages/leaderboards/star-empty.svg"
+        }
+
+        const typeValueElement = createElement("div", { c: "type-value", p: bottomContainer })
+        createElement("p", { c: "value", p: typeValueElement, t: value })
+        if (typeLabel) createElement("p", { c: "type", p: typeValueElement, t: typeLabel(value) })
+    }
+
+    for (let x = 0; x < Math.random() * 100; x++) {
+        const i = 0
+        const { user, value } = leaderboardData[i]
+        const { id: userId, grade, profilePicture, titleName } = user
+        const card = createElement("div", { c: "card", p: cardsContainer })
+        createElement("img", { c: "background", p: card }).src = "/assets/pages/leaderboards/parms.svg"
+
+        const contentContainer = createElement("div", { c: "content-container", p: card })
+        const topContainer = createElement("div", { c: "top-container", p: contentContainer })
+
+        createElement("p", { c: "position", p: topContainer, t: (x + 1).toString().padStart(2, "0") })
         createElement("img", { c: "profile-picture", p: topContainer, onClick: openLinkOnClick(`/profile/${userId}`) }).src = profilePicture
 
         const detailsElement = createElement("div", { c: "details", p: topContainer })

@@ -14,32 +14,6 @@ function minMax(val, min, max) {
     return Math.min(Math.max(val, min), max)
 }
 
-function getParam(param) {
-    return new URLSearchParams(location.search).get(param)
-}
-
-function setParam(param, value) {
-    const url = new URL(location.href)
-    const { searchParams } = url
-
-    if (value == null) {
-        searchParams.delete(param)
-    } else {
-        searchParams.set(param, value)
-    }
-
-    window.history.replaceState({}, "", url.toString())
-}
-
-function isValidUrl(url) {
-    try {
-        new URL(url)
-        return true
-    } catch (error) {
-        return false
-    }
-}
-
 function byId(id) {
     return (typeof id === "string") ? document.getElementById(id) : id
 }
@@ -85,6 +59,32 @@ function openLinkOnClick(url) {
                 window.location.href = url
             }
         }
+    }
+}
+
+function getParam(param) {
+    return new URLSearchParams(location.search).get(param)
+}
+
+function setParam(param, value) {
+    const url = new URL(location.href)
+    const { searchParams } = url
+
+    if (value == null) {
+        searchParams.delete(param)
+    } else {
+        searchParams.set(param, value)
+    }
+
+    window.history.replaceState({}, "", url.toString())
+}
+
+function isValidUrl(url) {
+    try {
+        new URL(url)
+        return true
+    } catch (error) {
+        return false
     }
 }
 

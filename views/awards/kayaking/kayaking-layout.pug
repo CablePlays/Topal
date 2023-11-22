@@ -24,6 +24,6 @@ block script
       })
       getRequest(`/users/${getUserId()}/awards/kayaking/distance`).then(res => {
         const { distance } = res
-        distanceDisplay.innerHTML = `${distance / 1000}km`
+        distanceDisplay.innerHTML = `${round(distance / 1000, 2)}km`
       })
     }
