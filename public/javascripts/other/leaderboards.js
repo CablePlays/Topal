@@ -39,7 +39,16 @@ async function generateLeaderboards() {
         loaded = true
 
         upadateSelected(true)
-        window.addEventListener("resize", () => upadateSelected(false))
+
+        let previousWidth = window.innerWidth
+
+        window.addEventListener("resize", _ => {
+            const currentWidth = window.innerWidth
+            if (previousWidth === currentWidth) return
+
+            previousWidth = currentWidth
+            upadateSelected(false)
+        })
     })
 
     const leaderboards = [
