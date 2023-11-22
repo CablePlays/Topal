@@ -198,35 +198,5 @@ function generateCards(leaderboardData, typeLabel) {
         if (typeLabel) createElement("p", { c: "type", p: typeValueElement, t: typeLabel(value) })
     }
 
-    for (let x = 0; x < Math.random() * 100; x++) {
-        const i = 0
-        const { user, value } = leaderboardData[i]
-        const { id: userId, grade, profilePicture, titleName } = user
-        const card = createElement("div", { c: "card", p: cardsContainer })
-        createElement("img", { c: "background", p: card }).src = "/assets/pages/leaderboards/parms.svg"
-
-        const contentContainer = createElement("div", { c: "content-container", p: card })
-        const topContainer = createElement("div", { c: "top-container", p: contentContainer })
-
-        createElement("p", { c: "position", p: topContainer, t: (x + 1).toString().padStart(2, "0") })
-        createElement("img", { c: "profile-picture", p: topContainer, onClick: openLinkOnClick(`/profile/${userId}`) }).src = profilePicture
-
-        const detailsElement = createElement("div", { c: "details", p: topContainer })
-        createElement("p", { c: "name", p: detailsElement, t: titleName })
-        createElement("p", { c: "grade", p: detailsElement, t: formatGrade(grade) })
-
-        const bottomContainer = createElement("div", { c: "bottom-container", p: contentContainer })
-
-        const starsContainer = createElement("div", { c: "stars", p: bottomContainer })
-        const starCount = Math.ceil((leaderboardData.length - i) / leaderboardData.length * 5)
-        for (let i = 0; i < 5; i++) {
-            createElement("img", { p: starsContainer }).src = i < starCount ? "/assets/pages/leaderboards/star-full.svg" : "/assets/pages/leaderboards/star-empty.svg"
-        }
-
-        const typeValueElement = createElement("div", { c: "type-value", p: bottomContainer })
-        createElement("p", { c: "value", p: typeValueElement, t: value })
-        if (typeLabel) createElement("p", { c: "type", p: typeValueElement, t: typeLabel(value) })
-    }
-
     return cardsContainer
 }
