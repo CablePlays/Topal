@@ -129,11 +129,16 @@ $breakpoint: 500px;
 }
 
 #results {
+    justify-content: center;
     display: flex;
     flex-wrap: wrap;
     gap: var(--card-gap);
     margin-top: var(--card-gap);
     padding: 0 var(--card-gap);
+
+    @media screen and (min-width: $breakpoint) {
+        justify-content: flex-start;
+    }
 
     .card {
         @include card-style();

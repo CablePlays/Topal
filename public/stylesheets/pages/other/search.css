@@ -992,11 +992,17 @@ header #sidebar-icon {
 }
 
 #results {
+  justify-content: center;
   display: flex;
   flex-wrap: wrap;
   gap: var(--card-gap);
   margin-top: var(--card-gap);
   padding: 0 var(--card-gap);
+}
+@media screen and (min-width: 500px) {
+  #results {
+    justify-content: flex-start;
+  }
 }
 #results .card {
   background-color: rgb(50, 50, 70);
