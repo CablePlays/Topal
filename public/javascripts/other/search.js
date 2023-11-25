@@ -5,7 +5,7 @@ window.addEventListener("load", () => {
 
     const query = getParam("query")
     setParam("query", null)
-    doSearch(query ?? "12")
+    doSearch(query ?? "")
 
     setupSearchListeners()
 })

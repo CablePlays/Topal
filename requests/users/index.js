@@ -58,7 +58,7 @@ router.get("/search", async (req, res) => { // search users using query
         return
     }
 
-    const results = []
+    let results = []
     const allUsers = await sqlDatabase.all(`SELECT * FROM users`)
 
     function storeResultPosition(userId) {
@@ -102,16 +102,16 @@ router.get("/search", async (req, res) => { // search users using query
     // remaining
     for (let user of allUsers) {
         const { id } = user
-
-        if (!general.isUserInvisible(id)) {
-            storeResultPosition(id)
-        }
+        storeResultPosition(id)
     }
+
+    // remove invisible
+    results = results.filter((userId) => !general.isUserInvisible(userId))
 
     // supply user info
     const asyncTasks = []
 
-    for (let i = results.length - 1; i >= 0; i--) {
+    for (let i = 0; i < results.length; i++) {
         const userId = results[i]
 
         asyncTasks.push(new Promise(async r => {

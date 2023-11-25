@@ -921,7 +921,6 @@ header #sidebar-icon {
   flex-direction: column;
   flex-grow: 1;
   padding: 16px;
-  min-height: 230px;
   text-align: center;
   max-width: 400px;
   min-width: 170px;
