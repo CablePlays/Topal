@@ -875,14 +875,46 @@ header #sidebar-icon {
   color: #f47721;
 }
 
-#requests {
+.content-block-container {
+  padding: 16px;
+}
+
+.filter-icon {
+  background-color: #0064ee;
+  color: white;
+  padding: 4px;
+  border-radius: 2px;
+  margin-top: 20px;
+  position: absolute;
+  right: 20px;
+  top: 80px;
+}
+.filter-icon:hover #filter-dropdown {
+  display: grid;
+}
+
+#filter-dropdown {
+  background-color: rgba(100, 100, 100, 0.9);
+  border-radius: 4px;
+  color: white;
+  display: none;
+  font-size: 18px;
+  gap: 10px;
+  grid-template-columns: repeat(2, max-content);
+  padding: 8px;
+  position: absolute;
+  right: 0;
+  top: 100%;
+}
+
+#users {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
 }
-#requests .request {
-  transition: transform 0.2s;
+#users .user {
   align-items: center;
+  background-color: rgb(230, 230, 230);
   border-radius: 4px;
   cursor: pointer;
   display: flex;
@@ -893,37 +925,26 @@ header #sidebar-icon {
   text-align: center;
   max-width: 400px;
   min-width: 170px;
+  transition: background-color 0.1s;
   width: -moz-min-content;
   width: min-content;
 }
-#requests .request:nth-child(odd) {
-  background-color: rgb(230, 230, 230);
-}
-#requests .request:nth-child(even) {
-  background-color: rgb(210, 210, 210);
-}
-#requests .request:hover:nth-child(odd) {
+#users .user:hover {
   background-color: rgb(240, 240, 240);
 }
-#requests .request:hover:nth-child(even) {
-  background-color: rgb(220, 220, 220);
-}
-#requests .request:hover {
-  transform: scale(1.005);
-}
-#requests .request img {
+#users .user img {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
   border-radius: 43px;
   height: 86px;
   width: 86px;
 }
-#requests .request .grade {
+#users .user .grade {
   font-size: 14px;
 }
-#requests .request .name {
+#users .user .name {
   margin-top: 10px;
 }
-#requests .request .types {
+#users .user .types {
   -moz-column-gap: 10px;
        column-gap: 10px;
   display: grid;
@@ -931,11 +952,11 @@ header #sidebar-icon {
   font-size: 12px;
   margin-top: 20px;
 }
-#requests .request .types p:not(.number) {
+#users .user .types p:not(.number) {
   width: -moz-max-content;
   width: max-content;
 }
-#requests .request .types .number {
+#users .user .types .number {
   color: #0064ee;
   font-weight: 600;
   text-align: left;

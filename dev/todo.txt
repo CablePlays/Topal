@@ -1,4 +1,3 @@
-Add award type filer to admin requests page
 Make search also search awards OR make awards tab have dropdown of all awards
 Add images to website for displaying when link is sent on social media
 If have honours -> make profile picture have cool ring

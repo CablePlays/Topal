@@ -5,10 +5,16 @@ block assets
   script(src="/javascripts/admin/requests.js")
 
 block content
-  div.p16
-    h1 Requests Page
-    p.limit-width This page shows all signoff requests made by users and gives you easy access to their profiles.
+  h1 Requests Page
+  p.limit-width.
+    This page shows all signoff requests made by users and gives you easy access to their profiles.
+    Filter users based on awards requested using the icon in the top right.
+    If no filter options are selected then all requests will be shown.
 
-    .spacer.v20
+  .filter-icon.material-icons filter_list
+    #filter-dropdown
 
-    #requests
+  .spacer.v20
+
+  p#no-requests-indicator.invisible No requests. Try adjusting the filter.
+  #users

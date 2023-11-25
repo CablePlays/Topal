@@ -1,8 +1,10 @@
+$tooltip-background-color: rgb(100, 100, 100, 0.9);
+
 .tooltip {
     position: relative;
 
     .tooltiptext {
-        background-color: rgb(100, 100, 100, 0.9);
+        background-color: $tooltip-background-color;
         border-radius: 4px;
         color: white;
         display: none;

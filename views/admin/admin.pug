@@ -14,6 +14,13 @@ block content
     h1 Admin Portal
     p.limit-width Only users with permissions (usually staff) can view this page.
 
+    div(style=`display: ${displays.permission.manageAwards.block}`)
+      .spacer.v20
+      h2.heading Signoff Requests
+      p.limit-width All requests made by users for their awards and signoffs to be signed off.
+      .spacer.v10
+      a.link.secondary(href="/admin/requests") Go
+
     div(style=`display: ${displays.permission.viewAwardHistory.block}`)
       .spacer.v20
       h2.heading Award History
@@ -34,10 +41,3 @@ block content
       p.limit-width Manage the permissions of other users.
       .spacer.v10
       a.link.secondary(href="/admin/permissions") Go
-
-    div(style=`display: ${displays.permission.manageAwards.block}`)
-      .spacer.v20
-      h2.heading Signoff Requests
-      p.limit-width All requests made by users for their awards and signoffs to be signed off.
-      .spacer.v10
-      a.link.secondary(href="/admin/requests") Go
