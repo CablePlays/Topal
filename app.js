@@ -25,8 +25,19 @@ app.use(express.static("public"))
 app.use(express.json()) // for reading json post requests
 app.use(cookieParser()) // for cookie object
 
-app.use("/", renderRouter) // render
+function checkCrossover(req, res, next) {
+    const { hostname } = req
 
+    if (hostname === "crossovermc.store") {
+        const redirect = `https://${hostname}:90${req.path}`
+        res.redirect(redirect)
+    } else {
+        next()
+    }
+}
+
+app.use("/", checkCrossover)
+app.use("/", renderRouter) // render
 app.use(REQUESTS_PATH, requestsRouter) // requests
 
 app.use((req, res, next) => { // catch 404 and forward to error handler
@@ -60,19 +71,19 @@ app.use((err, req, res, next) => { // handle render errors
 })
 
 const options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/opawards.treverton.co.za/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/opawards.treverton.co.za/fullchain.pem')
+    key: fs.readFileSync("/etc/letsencrypt/live/opawards.treverton.co.za/privkey.pem"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/opawards.treverton.co.za/fullchain.pem")
 }
 
-https.createServer(options, app).listen(PORT_HTTPS, (req, res) => {
+https.createServer(options, app).listen(PORT_HTTPS, () => {
     console.info("Server started at port " + PORT_HTTPS)
 })
 
 const httpApp = express()
 
-httpApp.use("/", (req, res) => {
+httpApp.use("/", checkCrossover, (req, res) => {
     res.redirect(`https://${req.headers.host}${req.url}`)
-});
+})
 
 httpApp.listen(PORT_HTTP)
 consoleCommands()
