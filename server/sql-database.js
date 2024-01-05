@@ -65,7 +65,7 @@ async function getTableColumns(table) {
     Checks that the given user is a valid one.
 */
 async function isUser(userId) {
-    const record = await get(`SELECT * FROM users WHERE id = ${userId}`)
+    const record = await get(`SELECT * FROM users WHERE id = "${userId}"`)
     return (record != null)
 }
 
