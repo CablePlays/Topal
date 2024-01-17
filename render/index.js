@@ -44,6 +44,7 @@ async function advancedRender(req, res, path) {
         displays.permission[permission] = generateDisplays(permissions[permission])
     }
 
+    placeholders.canonicalUrl = `https://opawards.treverton.co.za${req.originalUrl}`
     placeholders.displays = displays
     placeholders.user = userId ? await general.getUserInfo(userId) : { id: 0 }
 
