@@ -23,7 +23,7 @@ app.set("views", "views")
 app.set("view engine", "pug")
 
 app.use("/", express.static("public"))
-app.use("sitemap.xml", express.static(path.join(__dirname, "sitemap.xml")))
+app.use("/sitemap.xml", express.static(path.join(__dirname, "sitemap.xml")))
 app.use(express.json()) // for reading json post requests
 app.use(cookieParser()) // for cookie object
 
