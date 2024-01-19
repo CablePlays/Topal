@@ -8,6 +8,7 @@ const requestsRouter = require("./requests/index")
 const renderRouter = require("./render")
 const https = require("https")
 const fs = require("fs")
+const path = require("path")
 
 const PORT_HTTPS = 443
 const PORT_HTTP = 80
@@ -21,7 +22,8 @@ sqlDatabase.createTables().then(general.createDummyUsers)
 app.set("views", "views")
 app.set("view engine", "pug")
 
-app.use(express.static("public"))
+app.use("/", express.static("public"))
+app.use("sitemap.xml", express.static(path.join(__dirname, "sitemap.xml")))
 app.use(express.json()) // for reading json post requests
 app.use(cookieParser()) // for cookie object
 
