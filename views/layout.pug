@@ -6,13 +6,13 @@ block body
   header
     img#logo(src="/assets/logos/logo.svg")
     #header-links
-      a(href='/') Home
+      a(href="/") Home
         .underline
-      a(href='/awards') Awards
+      a(href="/awards") Awards
         .underline
-      a(href='/leaderboards') Leaderboards
+      a(href="/leaderboards") Leaderboards
         .underline
-      a(href='/settings' style=`display: ${displays.loggedIn.true.flex}`) Settings
+      a(href="/settings" style=`display: ${displays.loggedIn.true.flex}`) Settings
         .underline
       a(href=`/profile/${user.id}` style=`display: ${displays.loggedIn.true.flex}`) Profile
         .underline
@@ -24,7 +24,7 @@ block body
     .search
       #search-icon.material-icons search
       .vertical-line
-      input#search-input(type='text' placeholder='Search..')
+      input#search-input(type="text" placeholder="Search..")
 
     a.sign-in.signin-link(style=`display: ${displays.loggedIn.false.block}`) Sign In
     #account-display(style=`display: ${displays.loggedIn.true.flex}`)
