@@ -1,11 +1,14 @@
 extends ../layout
 
+block head
+  meta(name="robots" content="noindex")
+
 block assets
   link(rel="stylesheet" href="/stylesheets/pages/admin/requests.css")
   script(src="/javascripts/admin/requests.js")
 
 block content
-  h1 Requests Page
+  h1 Signoff Requests Page
   p.limit-width.
     This page shows all signoff requests made by users and gives you easy access to their profiles.
     Filter users based on awards requested using the icon in the top right.

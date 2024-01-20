@@ -1,5 +1,8 @@
 extends ../layout
 
+block head
+  meta(name="robots" content="noindex")
+
 block assets
   link(rel="stylesheet" href="/stylesheets/pages/generic.css")
 
@@ -19,7 +22,7 @@ block content
       h2.heading Signoff Requests
       p.limit-width All requests made by users for their awards and signoffs to be signed off.
       .spacer.v10
-      a.link.secondary(href="/admin/requests") Go
+      a.link.secondary(href="/admin/signoff-requests") Go
 
     div(style=`display: ${displays.permission.viewAwardHistory.block}`)
       .spacer.v20

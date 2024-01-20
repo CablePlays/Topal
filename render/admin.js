@@ -23,9 +23,9 @@ router.get("/permissions", middleware.getPermissionMiddleware("managePermissions
     res.ren("admin/permissions")
 })
 
-router.get("/requests", middleware.getPermissionMiddleware("manageAwards"), (req, res) => {
+router.get("/signoff-requests", middleware.getPermissionMiddleware("manageAwards"), (req, res) => {
     res.setTitle("Signoff Requests")
-    res.ren("admin/requests")
+    res.ren("admin/signoff-requests")
 })
 
 module.exports = router
