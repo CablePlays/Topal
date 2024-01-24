@@ -9,7 +9,7 @@ const profileRouter = require("./profile")
 
 const router = express.Router()
 
-async function advancedRender(req, res, path) {
+async function advancedRender(req, res, path, statusCode = 200) {
     let { placeholders, title } = res
     const loggedIn = cookies.isLoggedIn(req)
     const userId = cookies.getUserId(req)
@@ -48,7 +48,7 @@ async function advancedRender(req, res, path) {
     placeholders.displays = displays
     placeholders.user = userId ? await general.getUserInfo(userId) : { id: 0 }
 
-    res.render(path, placeholders)
+    res.status(statusCode).render(path, placeholders)
 }
 
 router.use("/", (req, res, next) => { // provide advanced render, placeholders & titles related
@@ -57,10 +57,7 @@ router.use("/", (req, res, next) => { // provide advanced render, placeholders &
     res.title = "TOPAL" // provide default title
     res.setTitle = title => res.title = `${title} | TOPAL`
 
-    res.ren = path => {
-        advancedRender(req, res, path)
-    }
-
+    res.ren = (path, statusCode) => advancedRender(req, res, path, statusCode)
     next()
 })
 
