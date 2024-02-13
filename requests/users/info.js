@@ -15,13 +15,13 @@ router.put("/title", middleware.requireSelf, async (req, res) => { // set user t
     const { body, targetUserId } = req
     const { title } = body
 
-    const userDatabase = userDatabase.getUser(targetUserId)
+    const userDb = userDatabase.getUser(targetUserId)
     const path = userDatabase.DETAILS_PATH + ".title"
 
     if (["Mr", "Ms", "Mrs", "Dr"].includes(title)) {
-        userDatabase.set(path, title)
+        userDb.set(path, title)
     } else {
-        userDatabase.delete(path)
+        userDb.delete(path)
     }
 
     res.res(204)
