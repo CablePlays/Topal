@@ -25,13 +25,17 @@ function setupSearchListeners() {
     byId("search-bar-icon").addEventListener("click", searchUsingInput)
 }
 
+function formatGrade(grade) {
+    return grade && (grade > 12 ? "Matriculated" : "Grade " + grade)
+}
+
 function createCard(result) {
     const { id, name, grade, profilePicture } = result
     const containerElement = createElement("div", { c: "card" })
 
     createElement("img", { c: "profile-picture", p: containerElement }).src = profilePicture
     createElement("p", { c: "name", p: containerElement, t: name })
-    createElement("p", { c: "grade", p: containerElement, t: grade && "Grade " + grade })
+    createElement("p", { c: "grade", p: containerElement, t: formatGrade(grade) })
     createElement("a", { p: containerElement, t: "Profile" }).href = `/profile/${id}`
 
     return containerElement
