@@ -58,13 +58,13 @@ function getTotalAwards(userId) {
 }
 
 function getBadgePlaceholders(userId) {
-    const [totalAwards] = getTotalAwards(userId)
+    const [totalAwards, totalFirstLevelAwards] = getTotalAwards(userId)
     const generatePlaceholder = bool => bool ? "block" : "none"
 
     const placeholders = {
-        team: generatePlaceholder(totalAwards >= 4),
-        halfColours: generatePlaceholder(totalAwards >= 7),
-        colours: generatePlaceholder(totalAwards >= 10),
+        team: generatePlaceholder(totalFirstLevelAwards >= 4),
+        halfColours: generatePlaceholder(totalFirstLevelAwards >= 7),
+        colours: generatePlaceholder(totalFirstLevelAwards >= 10),
         honours: generatePlaceholder(totalAwards >= 24),
         duo: generatePlaceholder(false)
     }

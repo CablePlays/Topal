@@ -1,0 +1,35 @@
+extends ../layout
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/generic.css")
+
+block content
+  .p16
+    h1 Award Requirements
+    p.limit-width A student can achieve several awards by completing a certain number of O.P. awards over their high school careers.
+
+    .spacer.v20
+
+    h2 Team Award
+    p.limit-width To earn a Team Award, <b>4 first-level awards</b> must be completed.
+
+    .spacer.v20
+
+    h2 Half Colours
+    p.limit-width To earn Half Colours, <b>7 first-level awards</b> must be completed.
+
+    .spacer.v20
+
+    h2 Colours
+    p.limit-width To earn Full Colours, <b>10 first-level awards</b> must be completed.
+
+    .spacer.v20
+
+    h2 Honours
+    p.limit-width To earn Honours, <b>24 awards</b> must be completed.
+    .spacer.v20
+    .notice(data-type="success") All awards contribute towards Honours, not only first-level awards.
+
+block script
+  script.
+    byId("total-awards").innerHTML = `Total Awards Achievable: ${getAwards().length}`

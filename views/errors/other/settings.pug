@@ -1,0 +1,40 @@
+extends ../layout
+
+block head
+  meta(name="robots" content="noindex")
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/other/settings.css")
+  script(src="/javascripts/other/settings.js")
+
+block content
+  h1.plrt16 Settings
+
+  .spacer.v20
+
+  #settings
+    .line
+
+    #title-setting.highlightable.setting.row
+      p.title Title
+      p.value= user.title || "None"
+      .material-icons.edit edit
+      .input-container.invisible
+        select
+          option None
+          option Mr
+          option Ms
+          option Mrs
+          option Dr
+        button.save Save
+        .material-icons.cancel cancel
+
+    .line
+
+    .setting.row
+      p.title Signout
+      button.secondary(onclick="handleSignoutButtonClicked()") Sign out
+
+    .line
+
+    .spacer.v20

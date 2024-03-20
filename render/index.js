@@ -75,6 +75,11 @@ router.get("/", (req, res) => {
     res.ren("other/home")
 })
 
+router.get("/award-requirements", (req, res) => {
+    res.setTitle("Award Requirements")
+    res.ren("other/award-requirements")
+})
+
 router.get("/awards", (req, res) => {
     res.setTitle("Awards")
     res.ren("other/awards")
@@ -83,11 +88,6 @@ router.get("/awards", (req, res) => {
 router.get("/credits", (req, res) => {
     res.setTitle("Credits")
     res.ren("other/credits")
-})
-
-router.get("/honours-requirements", (req, res) => {
-    res.setTitle("Honours")
-    res.ren("other/honours-requirements")
 })
 
 router.get("/leaderboard", (req, res) => {

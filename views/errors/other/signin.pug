@@ -1,0 +1,46 @@
+extends ../head
+
+block head
+  meta(name="description", content="The signin page for Topal. Sign in to keep track of your awards and log your activities.")
+
+block body
+  link(rel="stylesheet" href="/stylesheets/pages/other/signin.css")
+  script(src="/javascripts/other/signin.js")
+  script(src="https://accounts.google.com/gsi/client")
+
+  .main-container
+    img.logo(src="/assets/logos/logo.svg" onclick="location.href='/'")
+    image.col1(src="/assets/backgrounds/signin.webp")
+    .col2
+      .col2-center
+        h1 Account Signin
+
+        .spacer.v20
+
+        p.description.
+          Sign in to Topal to save your logs and signoffs.
+          Your friends will also be able to find your profile and view your progress.
+          When signing in, you must use a Treverton google account.
+
+        .spacer.v20
+
+        p#info-text
+
+        .spacer.v20
+
+        #g_id_onload(
+          data-client_id="234912320633-vfi8srp2bhol1lb0a814mn4e4oo7a920.apps.googleusercontent.com"
+          data-context="signin"
+          data-ux_mode="popup"
+          data-callback="handleLogin"
+          data-auto_prompt="false"
+        )
+        .g_id_signin(
+          data-type="standard"
+          data-shape="pill"
+          data-theme="filled_black"
+          data-text="signin"
+          data-size="large"
+          data-logo_alignment="left"
+          data-width="250"
+        )

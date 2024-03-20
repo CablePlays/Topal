@@ -41,12 +41,6 @@ block profile-content
           .material-icons.open(onclick="window.open('/awards')") open_in_new
           .material-icons.info info
             p Total number of awards achieved, excluding instructor and leader awards.
-        //- .card
-          p.value 00
-          p.description OP points earned
-          .material-icons.open open_in_new
-          .material-icons.info info
-            p Information.
         .card
           p.value= stats.distanceRun
           p.description Distance run
@@ -101,18 +95,18 @@ block profile-content
       .progresses
         .progresses-col1
           h2 Team Award
-          meter.stripes(max=4 value=stats.totalAwards)
+          meter.stripes(max=4 value=stats.firstLevelAwards)
 
           h2 Half Colours
-          meter(max=7 value=stats.totalAwards)
+          meter(max=7 value=stats.firstLevelAwards)
 
           h2 Colours
-          meter(max=10 value=stats.totalAwards)
+          meter(max=10 value=stats.firstLevelAwards)
 
         .progresses-col2
           .heading-line
             h2 Honours
-            .material-icons(onclick="window.open('/honours-requirements')") open_in_new
+            .material-icons(onclick="window.open('/award-requirements')") open_in_new
           .spacer.v10
           .circle-progress(style=`--p: calc(${stats.totalAwards} / 24 * 100%)`)
 
