@@ -52,15 +52,13 @@ async function generateLeaderboards() {
     })
 
     const leaderboards = [
-        // "OP Awards",
         ["totalAwards", "Total Awards", v => "award" + (v === 1 ? "" : "s")],
         ["firstLevelAwards", "First-Level Awards", v => "award" + (v === 1 ? "" : "s")],
         ["distanceRun", "Distance Run", v => "distance", v => round(v / 1000, 1) + "km"],
         ["distancePaddled", "Distance Paddled", v => "distance", v => round(v / 1000, 1) + "km"],
         ["distanceSwum", "Distance Swum", v => "distance", v => v + "m"],
         ["elevationGained", "Elevation Gained", v => "elevation", v => v + "m"],
-        ["serviceHours", "Service Hours", v => "hour" + (v === 1 ? "" : "s"), v => round(v / 3600, 1)],
-        ["earliestAccounts", "Earliest Accounts"]
+        ["serviceHours", "Service Hours", v => "hour" + (v === 1 ? "" : "s"), v => round(v / 3600, 1)]
     ]
 
     let currentTimeout

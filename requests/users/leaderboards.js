@@ -38,8 +38,6 @@ router.get("/", async (req, res) => {
     data.distanceSwum = await sqlDatabase.all("SELECT user, SUM(distance) AS value FROM midmar_mile_training_logs GROUP BY user ORDER BY SUM(distance) DESC")
     data.elevationGained = await sqlDatabase.all("SELECT user, SUM(elevation_gain) AS value FROM mountaineering_logs GROUP BY user ORDER BY SUM(elevation_gain) DESC")
     data.serviceHours = await sqlDatabase.all("SELECT user, SUM(time) AS value FROM service_logs GROUP BY user ORDER BY SUM(time) DESC")
-    data.earliestAccounts = await sqlDatabase.all("SELECT id AS user, (id - 3) AS value FROM users ORDER BY id")
-    data.earliestAccounts.splice(0, 3)
 
     await general.forEachAsync(Object.keys(data), async key => {
         const leaderboardType = data[key]
