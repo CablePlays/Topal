@@ -773,7 +773,7 @@ const _LOG_TYPES = {
                 }
             },
             {
-                name: "Activity URL",
+                name: "Activity Link",
                 display: {
                     type: "url",
                     attribute: "link"
