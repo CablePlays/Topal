@@ -76,7 +76,7 @@ https.createServer(options, app).listen(PORT_HTTPS, () => {
 
 const httpApp = express()
 
-httpApp.use("/", checkCrossover, (req, res) => {
+httpApp.use("/", (req, res) => {
     res.redirect(`https://${req.headers.host}${req.url}`)
 })
 
