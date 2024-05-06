@@ -28,18 +28,10 @@ app.use("/sitemap.xml", express.static(path.join(__dirname, "sitemap.xml")))
 app.use(express.json()) // for reading json post requests
 app.use(cookieParser()) // for cookie object
 
-function checkCrossover(req, res, next) {
-    const { hostname } = req
-
-    if (hostname === "crossovermc.store") {
-        const redirect = `https://${hostname}:90${req.path}`
-        res.redirect(redirect)
-    } else {
-        next()
-    }
-}
-
-app.use("/", checkCrossover)
+app.use("/", (req, res, next) => {
+    console.log("hostname: '" + req.hostname + "'")
+    next()
+})
 app.use("/", renderRouter) // render
 app.use(REQUESTS_PATH, requestsRouter) // requests
 

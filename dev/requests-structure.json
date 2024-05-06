@@ -1,6 +1,8 @@
 {
     "account": {
-        "PUT": "Handle login token from Google"
+        "handle-login": {
+            "PUT": "Handle login token from Google"
+        }
     },
     "admin": {
         "award-history": {

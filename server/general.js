@@ -294,7 +294,7 @@ function isUserInvisible(userId) {
 
 async function isPasswordValid(req) {
     const userId = cookies.getUserId(req)
-    if (userId == null) return false
+    if (!userId || !await sqlDatabase.isUser(userId)) return false
 
     const clientSessionToken = cookies.getPassword(req)
     if (clientSessionToken == null) return false
