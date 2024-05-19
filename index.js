@@ -6,15 +6,14 @@ const sqlDatabase = require("./server/sql-database")
 const consoleCommands = require("./server/console-commands")
 const requestsRouter = require("./requests/index")
 const renderRouter = require("./render")
-const https = require("https")
-const fs = require("fs")
 const path = require("path")
 
-const PORT_HTTPS = 443
-const PORT_HTTP = 80
+const PORT = 3000
+const ARTIFICIAL_LATENCY = 1000
 const REQUESTS_PATH = "/requests"
 
 const app = express()
+const devEnv = process.env.NODE_ENV === "development"
 
 sqlDatabase.createTables().then(general.createDummyUsers)
 
@@ -28,12 +27,14 @@ app.use("/sitemap.xml", express.static(path.join(__dirname, "sitemap.xml")))
 app.use(express.json()) // for reading json post requests
 app.use(cookieParser()) // for cookie object
 
-app.use("/", (req, res, next) => {
-    console.log("hostname: '" + req.hostname + "'")
-    next()
-})
 app.use("/", renderRouter) // render
-app.use(REQUESTS_PATH, requestsRouter) // requests
+app.use(REQUESTS_PATH, (req, res, next) => { // requests
+    if (devEnv && ARTIFICIAL_LATENCY > 0) {
+        setTimeout(next, ARTIFICIAL_LATENCY)
+    } else {
+        next()
+    }
+}, requestsRouter)
 
 app.use((req, res, next) => { // catch 404 and forward to error handler
     console.warn("Not found: " + req.url)
@@ -65,20 +66,8 @@ app.use((err, req, res, next) => { // handle render errors
     }
 })
 
-const options = {
-    key: fs.readFileSync("/etc/letsencrypt/live/opawards.treverton.co.za/privkey.pem"),
-    cert: fs.readFileSync("/etc/letsencrypt/live/opawards.treverton.co.za/fullchain.pem")
-}
-
-https.createServer(options, app).listen(PORT_HTTPS, () => {
-    console.info("Server started at port " + PORT_HTTPS)
+app.listen(PORT, () => {
+    console.info(`Server listening on port ${PORT}`)
 })
 
-const httpApp = express()
-
-httpApp.use("/", (req, res) => {
-    res.redirect(`https://${req.headers.host}${req.url}`)
-})
-
-httpApp.listen(PORT_HTTP)
 consoleCommands()
