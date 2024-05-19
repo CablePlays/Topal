@@ -36,8 +36,7 @@ app.use(REQUESTS_PATH, (req, res, next) => { // requests
     }
 }, requestsRouter)
 
-app.use((req, res, next) => { // catch 404 and forward to error handler
-    console.warn("Not found: " + req.url)
+app.use((req, res, next) => { // forward 404 to error handler
     next(createError(404))
 })
 
@@ -56,7 +55,7 @@ app.use((err, req, res, next) => { // handle render errors
     res.locals.status = status
 
     if (status === 404) {
-        console.warn("Page not found for client: " + req.path)
+        console.warn(`Not found: ${req.path}`)
         res.setTitle(404)
         res.ren("errors/not-found")
     } else {
