@@ -18,8 +18,8 @@ const devEnv = process.env.NODE_ENV === "development"
 sqlDatabase.createTables().then(general.createDummyUsers)
 
 // view engine setup
-app.set("views", "views")
 app.set("view engine", "pug")
+app.set("views", "views")
 
 app.use("/", express.static("public"))
 app.use("/robots.txt", express.static(path.join(__dirname, "robots.txt")))
