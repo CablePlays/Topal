@@ -1,9 +1,6 @@
 extends ./profile-layout
 
 block assets
-  script.
-    setParam("view", minMax(getParam("view") ?? 0, 0, 1))
-
   link(rel="stylesheet" href="/stylesheets/pages/profile/profile.css")
   script(src="/javascripts/profile/profile.js")
 

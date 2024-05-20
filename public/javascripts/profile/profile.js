@@ -15,7 +15,7 @@ function setView(viewI) {
 }
 
 function setInitialView() {
-    const view = getParam("view") ?? 0
+    const view = minMax(getParam("view") ?? 0, 0, 1)
     setView(parseInt(view))
     byId("profile-view-buttons").setAttribute("selected", view)
 }
