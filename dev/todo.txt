@@ -1,25 +1,8 @@
 Make search also search awards OR make awards tab have dropdown of all awards
 Add images to website for displaying when link is sent on social media
-If have honours -> make profile picture have cool ring
 Show character during leaderboard page loading
 
-> Pages
-
-Leaderboards
-
 > Feature Ideas
-
->> Badges
-
-Users can earn badges next to their profile picture on their profile page by achieving various things:
-
-- Team Award
-- Half Colors
-- Colors
-- Honours
-- Duo
-- All (for all awards)
-- Mountaineering (for all mountaineering awards)
 
 >> Duo
 
