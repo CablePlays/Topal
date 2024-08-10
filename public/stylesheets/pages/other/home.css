@@ -899,7 +899,7 @@ header #sidebar-icon {
   max-width: 880px;
   text-align: center;
 }
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 500px) {
   .banner .top h1 {
     font-size: 60px;
   }
@@ -1054,7 +1054,79 @@ header #sidebar-icon {
   width: 26px;
 }
 
-.text-content {
+.section-house-points {
+  padding: 32px;
+}
+@media screen and (min-width: 500px) {
+  .section-house-points {
+    padding: 64px;
+  }
+}
+.section-house-points h1 {
+  text-align: center;
+  text-transform: uppercase;
+}
+.section-house-points p.points {
+  font-size: 14px;
+}
+@media screen and (min-width: 500px) {
+  .section-house-points p.points {
+    font-size: 16px;
+  }
+}
+.section-house-points p.position {
+  align-items: center;
+  display: flex;
+  font-family: "Edu VIC WA NT Beginner", cursive;
+  font-size: 32px;
+  font-weight: 600;
+}
+@media screen and (min-width: 500px) {
+  .section-house-points p.position {
+    font-size: 40px;
+  }
+}
+.section-house-points .card {
+  border-radius: 8px;
+  padding: 16px;
+}
+@media screen and (min-width: 500px) {
+  .section-house-points .card {
+    padding: 16px 32px;
+  }
+}
+.section-house-points .card.c {
+  background-color: rgb(218, 8, 8);
+  color: white;
+}
+.section-house-points .card.h {
+  background-color: rgb(238, 203, 4);
+}
+.section-house-points .card.j {
+  background-color: rgb(18, 121, 218);
+  color: white;
+}
+.section-house-points .card h2 {
+  font-size: 20px;
+}
+@media screen and (min-width: 500px) {
+  .section-house-points .card h2 {
+    font-size: 24px;
+  }
+}
+.section-house-points .cards {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  margin-top: 20px;
+  row-gap: 20px;
+}
+@media screen and (min-width: 500px) {
+  .section-house-points .cards {
+    grid-template-columns: 60px 1fr;
+  }
+}
+
+.section-text {
   line-height: 1.6;
   margin: 0 auto;
 }

@@ -1,6 +1,9 @@
 Make search also search awards OR make awards tab have dropdown of all awards
 Add images to website for displaying when link is sent on social media
-Show character during leaderboard page loading
+
+Page containing list of new award recpients
+Notifications to staff members
+Update award page images
 
 > Feature Ideas
 

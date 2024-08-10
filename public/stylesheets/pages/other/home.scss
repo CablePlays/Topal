@@ -1,6 +1,6 @@
 @import "../../global";
 
-$banner-breakpoint: 450px;
+$banner-breakpoint: 500px;
 
 .banner {
     background-image: url("/assets/backgrounds/home.webp");
@@ -214,7 +214,82 @@ $banner-breakpoint: 450px;
     }
 }
 
-.text-content {
+.section-house-points {
+    padding: 32px;
+
+    @media screen and (min-width: $banner-breakpoint) {
+        padding: 64px;
+    }
+
+    h1 {
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    p.points {
+        font-size: 14px;
+
+        @media screen and (min-width: $banner-breakpoint) {
+            font-size: 16px;
+        }
+    }
+
+    p.position {
+        align-items: center;
+        display: flex;
+        font-family: "Edu VIC WA NT Beginner", cursive;
+        font-size: 32px;
+        font-weight: 600;
+
+        @media screen and (min-width: $banner-breakpoint) {
+            font-size: 40px;
+        }
+    }
+
+    .card {
+        border-radius: 8px;
+        padding: 16px;
+
+        @media screen and (min-width: $banner-breakpoint) {
+            padding: 16px 32px;
+        }
+
+        &.c {
+            background-color: rgb(218, 8, 8);
+            color: white;
+        }
+
+        &.h {
+            background-color: rgb(238, 203, 4);
+        }
+
+        &.j {
+            background-color: rgb(18, 121, 218);
+            color: white;
+        }
+
+        h2 {
+            font-size: 20px;
+
+            @media screen and (min-width: $banner-breakpoint) {
+                font-size: 24px;
+            }
+        }
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: 50px 1fr;
+        margin-top: 20px;
+        row-gap: 20px;
+
+        @media screen and (min-width: $banner-breakpoint) {
+            grid-template-columns: 60px 1fr;
+        }
+    }
+}
+
+.section-text {
     line-height: 1.6;
     margin: 0 auto;
 }
