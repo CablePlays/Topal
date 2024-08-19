@@ -8,6 +8,12 @@
         "award-history": {
             "GET": "Gets a list of award grantings ordered by their date granted"
         },
+        "house-points": {
+            "PUT": "Set house points for houses",
+            "visible": {
+                "PUT": "Set house points visibility"
+            }
+        },
         "requests": {
             "GET": "Get number of signoff requests for each user"
         }

@@ -171,6 +171,7 @@ const LOG_TYPES = {
 
 const PERMISSIONS = [
     "manageAwards",
+    "manageHousePoints",
     "manageMics",
     "managePermissions",
     "viewAwardHistory"
@@ -372,6 +373,20 @@ function camelToCapitalized(s) { // camelCase
     return s.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, str => str.toUpperCase())
 }
 
+function formatDate(date) {
+    if (typeof date === "string") {
+        date = new Date(date)
+    }
+
+    let day = date.getDate() + ""
+    if (day.length === 1) day = "0" + day
+
+    let month = date.getMonth() + 1 + ""
+    if (month.length === 1) month = "0" + month
+
+    return `${day}/${month}/${date.getFullYear()}`
+}
+
 function formatDateForStorage(date) {
     let month = date.getMonth() + 1
     return `${date.getFullYear()}-${month.toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`
@@ -422,5 +437,6 @@ module.exports = {
     getGradeFromEmail,
     kebabToCamel,
     isUserInvisible,
+    formatDate,
     formatDateForStorage
 }

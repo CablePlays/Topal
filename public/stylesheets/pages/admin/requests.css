@@ -106,6 +106,12 @@ ul.spacious > li:not(:first-child) {
   padding-right: 32px;
 }
 
+.plrt32 {
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 32px;
+}
+
 .spacer.v10 {
   height: 10px;
 }

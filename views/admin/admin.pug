@@ -4,43 +4,32 @@ block head
   meta(name="robots" content="noindex")
 
 block assets
-  link(rel="stylesheet" href="/stylesheets/pages/generic.css")
-
-block style
-  style.
-    a.link {
-      padding: 4px 16px;
-    }
+  link(rel="stylesheet" href="/stylesheets/pages/admin/admin.css")
 
 block content
   div.p16
     h1 Admin Portal
     p.limit-width Only users with permissions (usually staff) can view this page.
 
-    div(style=`display: ${displays.permission.manageAwards.block}`)
-      .spacer.v20
-      h2.heading Signoff Requests
-      p.limit-width All requests made by users for their awards and signoffs to be signed off.
-      .spacer.v10
-      a.link.secondary(href="/admin/signoff-requests") Go
+    .spacer.v20
 
-    div(style=`display: ${displays.permission.viewAwardHistory.block}`)
-      .spacer.v20
-      h2.heading Award History
-      p.limit-width A list of all the awards which have been granted to users in chronological order.
-      .spacer.v10
-      a.link.secondary(href="/admin/award-history") Go
+    .links-container
+      a.link(href="/admin/award-history" style=`display: ${displays.permission.viewAwardHistory.block}`)
+        h2 Award History
+        p A list of all the awards which have been granted to users in chronological order.
 
-    div(style=`display: ${displays.permission.manageMics.block}`)
-      .spacer.v20
-      h2.heading Award MICs
-      p.limit-width Set the MICs for each award.
-      .spacer.v10
-      a.link.secondary(href="/admin/mics") Go
+      a.link(href="/admin/mics" style=`display: ${displays.permission.manageMics.block}`)
+        h2 Award MICs
+        p Set the MICs for each award.
 
-    div(style=`display: ${displays.permission.managePermissions.block}`)
-      .spacer.v20
-      h2.heading Permissions Page
-      p.limit-width Manage the permissions of other users.
-      .spacer.v10
-      a.link.secondary(href="/admin/permissions") Go
+      a.link(href="/admin/house-points" style=`display: ${displays.permission.manageHousePoints.block}`)
+        h2 House Points
+        p Set the current house points for each house, and whether the standings should be displayed on the home page.
+
+      a.link(href="/admin/signoff-requests" style=`display: ${displays.permission.manageAwards.block}`)
+        h2 Signoff Requests
+        p All requests made by users for their awards and signoffs to be signed off.
+
+      a.link(href="/admin/permissions" style=`display: ${displays.permission.managePermissions.block}`)
+        h2 User Permissions
+        p Manage the permissions of other users.

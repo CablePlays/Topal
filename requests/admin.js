@@ -1,7 +1,8 @@
 const express = require("express")
 const general = require("../server/general")
-const userDatabase = require("../server/user-database")
+const jsonDatabase = require("../server/json-database")
 const sqlDatabase = require("../server/sql-database")
+const userDatabase = require("../server/user-database")
 const middleware = require("./middleware")
 
 const router = express.Router()
@@ -36,6 +37,34 @@ router.get("/award-history", middleware.getPermissionMiddleware("viewAwardHistor
     history.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     await Promise.all(asyncTasks)
     res.res(200, { history })
+})
+
+const housePointsRouter = express.Router()
+
+router.use("/house-points", middleware.getPermissionMiddleware("manageHousePoints"), housePointsRouter)
+
+housePointsRouter.put("/", (req, res) => {
+    const { body } = req
+    const path = jsonDatabase.HOUSE_POINTS_PATH + ".points"
+
+    for (let houseId of ["campbell", "harland", "jonsson"]) {
+        const housePoints = body[houseId]
+
+        if (housePoints != null) {
+            jsonDatabase.set(`${path}.${houseId}`, housePoints)
+        }
+    }
+
+    jsonDatabase.set(jsonDatabase.HOUSE_POINTS_PATH + "." + "lastUpdated", new Date())
+    res.res(204)
+})
+
+housePointsRouter.put("/visible", (req, res) => { // set house points visibility
+    const { body } = req
+    const visible = body.visible === true
+
+    jsonDatabase.set(jsonDatabase.HOUSE_POINTS_PATH + ".visible", visible)
+    res.res(204)
 })
 
 router.get("/requests", middleware.getPermissionMiddleware("manageAwards"), async (req, res) => { // get number of signoff requests for each user

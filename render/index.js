@@ -6,6 +6,7 @@ const middleware = require("./middleware")
 const adminRouter = require("./admin")
 const awardsRouter = require("./awards")
 const profileRouter = require("./profile")
+const jsonDatabase = require("../server/json-database")
 
 const router = express.Router()
 
@@ -71,7 +72,26 @@ router.use("/", async (req, res, next) => { // verify login
 })
 
 router.get("/", (req, res) => {
+    const { placeholders } = res
+
     res.setTitle("Home")
+
+    const housePointsVisible = jsonDatabase.get(jsonDatabase.HOUSE_POINTS_PATH + ".visible") === true
+    placeholders.housePointsDisplay = housePointsVisible ? "block" : "none"
+    placeholders.housePointsLastUpdated = jsonDatabase.get(jsonDatabase.HOUSE_POINTS_PATH + ".lastUpdated")
+
+    if (housePointsVisible) {
+        const path = jsonDatabase.HOUSE_POINTS_PATH + ".points"
+        let val = ""
+
+        for (let houseId of ["campbell", "harland", "jonsson"]) {
+            if (val.length > 0) val += ","
+            val += jsonDatabase.get(`${path}.${houseId}`) ?? 0
+        }
+
+        placeholders.housePoints = val
+    }
+
     res.ren("other/home")
 })
 

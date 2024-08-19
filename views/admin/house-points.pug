@@ -1,0 +1,43 @@
+extends ../layout
+
+block head
+  meta(name="robots" content="noindex")
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/admin/house-points.css")
+  script(src="/javascripts/admin/house-points.js")
+
+block content
+  .p16
+    h1 House Points
+    p.limit-width Set the current house points for each house, and whether the standings should be displayed on the home page.
+
+    .spacer.v20
+
+    .checkbox-container
+      label(for="visibility-checkbox") Visible On Home Page
+      input#visibility-checkbox(type="checkbox" checked=housePointsVisible)
+    .spacer.v10
+    p#visibility-error.e.invisible Unable to update visibility. Please try again later.
+
+    .spacer.v20
+
+    #houses.houses
+      .house.c(data-house-id="campbell")
+        h2 Campbell
+        input(type="number" value=points.campbell)
+      .house.h(data-house-id="harland")
+        h2 Harland
+        input(type="number" value=points.harland)
+      .house.j(data-house-id="jonsson")
+        h2 Jonsson
+        input(type="number" value=points.jonsson)
+
+    .spacer.v20
+
+    button#update-button.update-button Update Points
+
+    .spacer.v20
+
+    p#update-error.e.invisible Unable to update points. Please try again later.
+    p#update-success.s.invisible House points have been updated successfully.

@@ -215,15 +215,19 @@ $banner-breakpoint: 500px;
 }
 
 .section-house-points {
-    padding: 32px;
+    padding: 32px 32px 0 32px;
 
     @media screen and (min-width: $banner-breakpoint) {
-        padding: 64px;
+        padding: 64px 64px 0 64px;
     }
 
     h1 {
         text-align: center;
         text-transform: uppercase;
+    }
+
+    p.date {
+        text-align: right;
     }
 
     p.points {
@@ -255,16 +259,16 @@ $banner-breakpoint: 500px;
         }
 
         &.c {
-            background-color: rgb(218, 8, 8);
+            background-color: $color-house-campbell;
             color: white;
         }
 
         &.h {
-            background-color: rgb(238, 203, 4);
+            background-color: $color-house-harland;
         }
 
         &.j {
-            background-color: rgb(18, 121, 218);
+            background-color: $color-house-jonsson;
             color: white;
         }
 

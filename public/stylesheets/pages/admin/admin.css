@@ -881,100 +881,25 @@ header #sidebar-icon {
   color: #f47721;
 }
 
-.permissions-list .permission {
-  font-weight: 700;
-}
-
-#add-user {
-  align-items: center;
-  border: 2px solid transparent;
-  border-radius: 4px;
-  -moz-column-gap: 10px;
-       column-gap: 10px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  padding: 16px;
-  transition: background-color 0.15s;
-}
-#add-user:hover {
-  background-color: rgb(240, 240, 240);
-  border: 2px dashed rgb(50, 50, 50);
-}
-#add-user .add-icon {
-  align-items: center;
-  background-color: rgb(210, 210, 210);
-  border-radius: 25px;
-  display: flex;
-  font-size: 50px;
-  height: 50px;
-  justify-content: center;
-  width: 50px;
-}
-
-#add-user-input input {
-  border: 2px solid rgb(50, 50, 50);
-  border-radius: 4px;
-  max-width: 500px;
-  outline: none;
-  padding: 8px;
-  width: 100%;
-}
-#add-user-input p.info {
-  font-size: 14px;
-}
-#add-user-input .row {
-  align-items: center;
-  -moz-column-gap: 10px;
-       column-gap: 10px;
-  display: flex;
-}
-#add-user-input .row #add-button {
-  cursor: pointer;
-}
-
-#users {
+.links-container {
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  max-width: 900px;
+  row-gap: 20px;
 }
-#users .user {
-  align-items: center;
+.links-container a.link {
+  background-color: rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  display: flex;
-  padding: 8px;
+  color: black;
+  display: inline-block;
+  padding: 8px 12px;
+  text-decoration: none;
+  transition: 0.2s;
 }
-#users .user:nth-child(odd) {
-  background-color: rgb(230, 230, 230);
+.links-container a.link:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
 }
-#users .user:nth-child(even) {
-  background-color: rgb(210, 210, 210);
-}
-#users .user img {
-  border-radius: 30px;
-  height: 60px;
-  margin-right: 10px;
-  width: 60px;
-}
-#users .user input {
-  min-height: 20px;
-  min-width: 20px;
-}
-#users .user .email {
-  font-size: 12px;
-}
-#users .user .permissions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 10px 20px;
-  margin-left: 20px;
-  font-size: 14px;
-  width: 100%;
-}
-#users .user .permissions > div {
-  align-items: center;
-  -moz-column-gap: 10px;
-       column-gap: 10px;
-  display: flex;
+.links-container a.link h2 {
+  text-transform: uppercase;
 }

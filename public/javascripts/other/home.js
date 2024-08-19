@@ -61,6 +61,38 @@ async function setupSlideshow() {
     byId("slideshow").replaceWith(slideshow)
 }
 
+function handleHousePoints(val) {
+    if (val === "") return
+
+    const values = val.split(",").map(a => parseInt(a))
+    const standings = [
+        {
+            id: "campbell",
+            points: values[0]
+        },
+        {
+            id: "harland",
+            points: values[1]
+        },
+        {
+            id: "jonsson",
+            points: values[2]
+        }
+    ].sort((a, b) => b.points - a.points)
+
+    const houseCards = byId("house-cards")
+
+    for (let i = 0; i < standings.length; i++) {
+        const { id: houseId, points } = standings[i]
+
+        createElement("p", { c: "position", p: houseCards, t: i + 1 + ")" })
+
+        const card = createElement("div", { c: "card " + houseId.substring(0, 1), p: houseCards })
+        createElement("h2", { p: card, t: houseId.charAt(0).toUpperCase() + houseId.slice(1) })
+        createElement("p", { p: card, t: points + " Points" })
+    }
+}
+
 window.addEventListener("load", () => {
     setupSlideshow()
 })
