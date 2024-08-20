@@ -1,5 +1,6 @@
 Make leaderboards only use logs from current year
 Make leaderboard only use signed off logs where applicable (e.g. service)
+Use correct house colors
 
 Page containing list of new award recpients
 Notifications to staff members
@@ -18,8 +19,3 @@ This is to make doing awards with friends more exiting.
 >> Netball League Page
 
 >> Tennis & Squash Ladders
-
->> House point standings page
-
-Users can view which house is in first, second and third.
-Feature will have option to make unavailable for the end of the year announcement of standings.

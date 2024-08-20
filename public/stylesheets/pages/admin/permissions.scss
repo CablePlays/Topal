@@ -1,5 +1,7 @@
 @import "../../global";
 
+$permissions-breakpoint: 670px;
+
 .permissions-list .permission {
     font-weight: 700;
 }
@@ -67,12 +69,17 @@
         align-items: center;
         border-radius: 4px;
         display: flex;
+        flex-direction: column;
         padding: 8px;
+        gap: 20px;
+
+        @media screen and (min-width: $permissions-breakpoint) {
+            flex-direction: row;
+        }
 
         img {
             border-radius: 30px;
             height: 60px;
-            margin-right: 10px;
             width: 60px;
         }
 
@@ -81,23 +88,32 @@
             min-width: 20px;
         }
 
+        .details {
+            align-items: center;
+            column-gap: 10px;
+            display: flex;
+        }
+
         .email {
             font-size: 12px;
         }
 
         .permissions {
+            grid-column: span 2;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
             gap: 10px 20px;
-            margin-left: 20px;
             font-size: 14px;
-            width: 100%;
 
             >div {
                 align-items: center;
+                background-color: $color-accent-400;
+                border-radius: 4px;
+                color: white;
                 column-gap: 10px;
                 display: flex;
+                padding: 4px 8px;
             }
         }
     }

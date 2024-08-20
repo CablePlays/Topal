@@ -13,7 +13,11 @@ const signoffsRouter = require("./signoffs")
 
 const router = express.Router()
 
-router.get("/permissions", middleware.getPermissionMiddleware("managePermissions"), async (req, res) => { // get users with permissions & their permissions
+const permissionsRouter0 = express.Router()
+
+router.use("/permissions", middleware.getPermissionMiddleware("managePermissions"), permissionsRouter0)
+
+permissionsRouter0.get("/", async (req, res) => { // get users with permissions & their permissions
     const users = await sqlDatabase.getUsers()
     const permissionUsers = []
     const asyncTasks = []
@@ -35,7 +39,7 @@ router.get("/permissions", middleware.getPermissionMiddleware("managePermissions
     res.res(200, { users: permissionUsers })
 })
 
-router.get("/permissions/user", middleware.getPermissionMiddleware("managePermissions"), async (req, res) => { // get user permissions
+permissionsRouter0.get("/user", middleware.getPermissionMiddleware("managePermissions"), async (req, res) => { // get user permissions
     const { email } = req.query
     const userId = await sqlDatabase.getUserId(email)
 

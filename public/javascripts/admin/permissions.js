@@ -10,18 +10,20 @@ function createUserCard(userInfo, permissions) {
     _loadedUserIds.push(userId)
 
     const container = createElement("div", { c: "user" })
-    createElement("img", { p: container }).src = userInfo.profilePicture
+    const detailsContainer = createElement("div", { c: "details", p: container })
 
-    const infoContainer = createElement("div", { p: container })
+    createElement("img", { p: detailsContainer }).src = userInfo.profilePicture
+
+    const infoContainer = createElement("div", { p: detailsContainer })
     createElement("p", { p: infoContainer, t: userInfo.fullName })
     createElement("p", { c: "email", p: infoContainer, t: userInfo.email })
 
     const permissionsContainer = createElement("div", { c: "permissions", p: container })
-    const otherCheckboxes = {} // checkboxes which are not managePermission checkbox
+    const otherCheckboxes = [] // checkboxes which are not managePermission checkbox
 
     function setOtherCheckboxesDisabled(disabled) {
-        for (let permissionId in otherCheckboxes) {
-            otherCheckboxes[permissionId].disabled = disabled
+        for (let checkbox of otherCheckboxes) {
+            checkbox.disabled = disabled
         }
     }
 
@@ -42,7 +44,7 @@ function createUserCard(userInfo, permissions) {
                 setOtherCheckboxesDisabled(checkboxElement.checked)
             })
         } else {
-            otherCheckboxes[permissionId] = checkboxElement
+            otherCheckboxes.push(checkboxElement)
         }
     }
 

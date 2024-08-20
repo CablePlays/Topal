@@ -9,7 +9,7 @@ const renderRouter = require("./render")
 const path = require("path")
 
 const PORT = 3000
-const ARTIFICIAL_LATENCY = 1000
+const ARTIFICIAL_LATENCY = 50
 const REQUESTS_PATH = "/requests"
 
 const app = express()
