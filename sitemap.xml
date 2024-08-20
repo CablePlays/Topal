@@ -7,10 +7,22 @@
         <priority>1.0</priority>
     </url>
     <url>
+        <loc>https://opawards.treverton.co.za/award-requirements</loc>
+        <lastmod>2024-08-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
         <loc>https://opawards.treverton.co.za/awards</loc>
         <lastmod>2024-01-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://opawards.treverton.co.za/changelog</loc>
+        <lastmod>2024-08-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.1</priority>
     </url>
     <url>
         <loc>https://opawards.treverton.co.za/leaderboards</loc>

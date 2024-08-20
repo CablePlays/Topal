@@ -105,6 +105,11 @@ router.get("/awards", (req, res) => {
     res.ren("other/awards")
 })
 
+router.get("/changelog", (req, res) => {
+    res.setTitle("Changelog")
+    res.ren("other/changelog")
+})
+
 router.get("/credits", (req, res) => {
     res.setTitle("Credits")
     res.ren("other/credits")
