@@ -88,6 +88,22 @@ router.use("/:awardId", (req, res, next) => {
     }
 }, awardRouter)
 
+function addNewAward(user, type) {
+    let highestId = -1
+
+    const newAwards = jsonDatabase.get(jsonDatabase.NEW_AWARDS_PATH) ?? {}
+
+    for (let newAward in newAwards) {
+        highestId = Math.max(highestId, newAward)
+    }
+
+    jsonDatabase.set(jsonDatabase.NEW_AWARDS_PATH + "." + (highestId + 1), {
+        user,
+        date: new Date(),
+        type
+    })
+}
+
 awardRouter.put("/", middleware.getPermissionMiddleware("manageAwards"), async (req, res) => { // set user award completion
     const { awardId, body, targetUserId, userId } = req
     const { complete } = body
@@ -106,6 +122,26 @@ awardRouter.put("/", middleware.getPermissionMiddleware("manageAwards"), async (
             date: new Date(),
             signer: userId
         })
+
+        // check if should add new award
+        const [totalAwards, totalFirstLevelAwards] = userDatabase.getTotalAwards(targetUserId)
+
+        for (let milestoneId in general.MILESTONES) {
+            const { awards, firstLevel } = general.MILESTONES[milestoneId]
+            const v = firstLevel ? totalFirstLevelAwards : totalAwards
+
+            if (v === awards) {
+                const udb = userDatabase.getUser(targetUserId)
+                const existing = udb.get(userDatabase.MILESTONES_PATH) ?? []
+
+                if (!existing.includes(milestoneId)) {
+                    existing.push(milestoneId)
+                    udb.set(userDatabase.MILESTONES_PATH, existing)
+
+                    addNewAward(targetUserId, milestoneId)
+                }
+            }
+        }
     } else {
         userDb.delete(path + ".complete")
         userDb.delete(path + ".date")

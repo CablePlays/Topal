@@ -1,12 +1,16 @@
 Make leaderboards only use logs from current year
 Make leaderboard only use signed off logs where applicable (e.g. service)
-Use correct house colors
 
-Page containing list of new award recpients
 Notifications to staff members
 Update award page images
+Get real color codes for house colors
 
 Make search also search awards OR make awards tab have dropdown of all awards
+
+> New Awards
+
+Page containing list of new award recpients
+Add permission for this page, including the middleware
 
 > Feature Ideas
 

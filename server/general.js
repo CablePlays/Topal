@@ -169,12 +169,32 @@ const LOG_TYPES = {
     solitaireInstruction: {}
 }
 
+const MILESTONES = {
+    team: {
+        awards: 4,
+        firstLevel: true
+    },
+    halfColours: {
+        awards: 5,
+        firstLevel: true
+    },
+    colours: {
+        awards: 6,
+        firstLevel: true
+    },
+    honours: {
+        awards: 7,
+        firstLevel: false
+    }
+}
+
 const PERMISSIONS = [
     "manageAwards",
     "manageHousePoints",
     "manageMics",
     "managePermissions",
-    "viewAwardHistory"
+    "viewAwardHistory",
+    "viewNewAwards"
 ]
 
 /* Data */
@@ -411,6 +431,7 @@ module.exports = {
     PERMISSIONS,
     DEFAULT_PROFILE_PICTURE_PATH,
     UNKNOWN_TEXT,
+    MILESTONES,
 
     createDummyUsers,
     getLogTypes,

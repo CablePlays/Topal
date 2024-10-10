@@ -2,20 +2,23 @@ const createError = require("http-errors")
 const express = require("express")
 const cookieParser = require("cookie-parser")
 const general = require("./server/general")
+const jsonDatabase = require("./server/json-database")
 const sqlDatabase = require("./server/sql-database")
 const consoleCommands = require("./server/console-commands")
 const requestsRouter = require("./requests/index")
 const renderRouter = require("./render")
-const path = require("path")
+const userDatabase = require("./server/user-database")
 
 const PORT = 3000
-const ARTIFICIAL_LATENCY = 50
+const ARTIFICIAL_LATENCY = 500
 const REQUESTS_PATH = "/requests"
 
 const app = express()
 const devEnv = process.env.NODE_ENV === "development"
 
 sqlDatabase.createTables().then(general.createDummyUsers)
+jsonDatabase.setCompact(!devEnv)
+userDatabase.setCompact(!devEnv)
 
 // view engine setup
 app.set("view engine", "pug")

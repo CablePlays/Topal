@@ -1,0 +1,32 @@
+@import "../../global";
+
+$list-breakpoint: 650px;
+
+#list-container {
+    display: grid;
+    grid-template-columns: max-content;
+    gap: 10px 0;
+
+    @media screen and (min-width: $list-breakpoint) {
+        gap: 20px 40px;
+        grid-template-columns: repeat(3, max-content) 100px;
+
+        button {
+            margin-bottom: 0 !important;
+        }
+
+        p.heading {
+            font-weight: 700;
+            display: inline !important;
+        }
+    }
+
+    button {
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    p.heading {
+        display: none;
+    }
+}

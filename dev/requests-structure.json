@@ -14,6 +14,10 @@
                 "PUT": "Set house points visibility"
             }
         },
+        "new-awards": {
+            "DELETE": "Clear a new award",
+            "GET": "Get new awards"
+        },
         "requests": {
             "GET": "Get number of signoff requests for each user"
         }

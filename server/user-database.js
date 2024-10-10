@@ -11,6 +11,7 @@ const APPROVALS_PATH = "approvals"
 const AWARDS_PATH = "awards"
 const DETAILS_PATH = "details"
 const LINKS_PATH = "links"
+const MILESTONES_PATH = "milestones"
 const PERMISSIONS_PATH = "permissions"
 const SIGNOFFS_PATH = "signoffs"
 
@@ -46,14 +47,37 @@ async function forEachUser(consumer) {
     }))
 }
 
+function getTotalAwards(userId) {
+    const awards = getUser(userId).get(AWARDS_PATH)
+
+    let totalAwards = 0
+    let totalFirstLevelAwards = 0
+
+    for (let awardId in awards) {
+        const { complete } = awards[awardId]
+
+        if (complete) {
+            totalAwards++
+
+            if (!awardId.endsWith("Instructor") && !awardId.endsWith("Leader")) {
+                totalFirstLevelAwards++
+            }
+        }
+    }
+
+    return [totalAwards, totalFirstLevelAwards]
+}
+
 module.exports = {
     APPROVALS_PATH,
     AWARDS_PATH,
     DETAILS_PATH,
     LINKS_PATH,
+    MILESTONES_PATH,
     PERMISSIONS_PATH,
     SIGNOFFS_PATH,
     setCompact: c => compact = c,
     getUser,
-    forEachUser
+    forEachUser,
+    getTotalAwards
 }

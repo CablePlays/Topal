@@ -67,6 +67,39 @@ housePointsRouter.put("/visible", (req, res) => { // set house points visibility
     res.res(204)
 })
 
+const newAwardsRouter = express.Router()
+
+router.use("/new-awards", middleware.getPermissionMiddleware("viewNewAwards"), newAwardsRouter)
+
+newAwardsRouter.delete("/", async (req, res) => { // delete a new award
+    const { body } = req
+    const { id } = body
+
+    if (isNaN(parseInt(id))) {
+        res.res(400, "invalid_id")
+        return
+    }
+
+    jsonDatabase.del(jsonDatabase.NEW_AWARDS_PATH + "." + id)
+    res.res(204)
+})
+
+newAwardsRouter.get("/", async (req, res) => { // get new awards
+    const newAwards = jsonDatabase.get(jsonDatabase.NEW_AWARDS_PATH) ?? {}
+    const promises = []
+
+    for (let id in newAwards) {
+        const promise = general.getUserInfo(newAwards[id].user).then(info => {
+            newAwards[id].user = info
+        })
+
+        promises.push(promise)
+    }
+
+    await Promise.all(promises)
+    res.res(200, { newAwards })
+})
+
 router.get("/requests", middleware.getPermissionMiddleware("manageAwards"), async (req, res) => { // get number of signoff requests for each user
     const users = {}
 

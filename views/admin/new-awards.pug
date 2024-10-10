@@ -1,0 +1,24 @@
+extends ../layout
+
+block head
+  meta(name="robots" content="noindex")
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/admin/new-awards.css")
+  script(src="/javascripts/admin/new-awards.js")
+
+block content
+  .p16
+    h1 New Awards
+    p.limit-width.
+      A list of awards which have recently been achieved by pupils.
+      This page was created to make it easy to know which awards have not yet been awarded in assembly.
+      Once a newly achieved award has been acknowledged to be given out in assembly, it can be removed from this list.
+
+    .spacer.v40
+
+    #list-container
+      p.heading Name
+      p.heading Date
+      p.heading Award Type
+      p.heading

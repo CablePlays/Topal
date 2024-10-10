@@ -657,6 +657,9 @@ const _PERMISSIONS = {
     },
     viewAwardHistory: {
         name: "View Award History"
+    },
+    viewNewAwards: {
+        name: "View New Awards"
     }
 }
 

@@ -36,37 +36,17 @@ router.use("/:userId", async (req, res, next) => { // verify user ID & provide p
     }
 }, userRouter)
 
-function getTotalAwards(userId) {
-    const awards = userDatabase.getUser(userId).get(userDatabase.AWARDS_PATH)
-
-    let totalAwards = 0
-    let totalFirstLevelAwards = 0
-
-    for (let awardId in awards) {
-        const { complete } = awards[awardId]
-
-        if (complete) {
-            totalAwards++
-
-            if (!awardId.endsWith("Instructor") && !awardId.endsWith("Leader")) {
-                totalFirstLevelAwards++
-            }
-        }
-    }
-
-    return [totalAwards, totalFirstLevelAwards]
-}
-
 function getBadgePlaceholders(userId) {
-    const [totalAwards, totalFirstLevelAwards] = getTotalAwards(userId)
-    const generatePlaceholder = bool => bool ? "block" : "none"
+    const [totalAwards, totalFirstLevelAwards] = userDatabase.getTotalAwards(userId)
+    const generatePlaceholder = b => b ? "block" : "none"
 
     const placeholders = {
-        team: generatePlaceholder(totalFirstLevelAwards >= 4),
-        halfColours: generatePlaceholder(totalFirstLevelAwards >= 7),
-        colours: generatePlaceholder(totalFirstLevelAwards >= 10),
-        honours: generatePlaceholder(totalAwards >= 24),
-        duo: generatePlaceholder(false)
+        duo: generatePlaceholder(false) // unused feature
+    }
+
+    for (let milestoneId in general.MILESTONES) {
+        const { awards, firstLevel } = general.MILESTONES[milestoneId]
+        placeholders[milestoneId] = generatePlaceholder((firstLevel ? totalFirstLevelAwards : totalAwards) >= awards)
     }
 
     return placeholders
@@ -88,7 +68,7 @@ async function getStats(userId) {
     }
 
     // total awards
-    const [totalAwards, totalFirstLevelAwards] = getTotalAwards(userId)
+    const [totalAwards, totalFirstLevelAwards] = userDatabase.getTotalAwards(userId)
     stats.totalAwards = formatStat(totalAwards)
     stats.firstLevelAwards = formatStat(totalFirstLevelAwards)
 

@@ -41,6 +41,11 @@ router.get("/mics", middleware.getPermissionMiddleware("manageMics"), (req, res)
     res.ren("admin/mics")
 })
 
+router.get("/new-awards", middleware.getPermissionMiddleware("viewNewAwards"), (req, res) => {
+    res.setAdminTitle("New Awards")
+    res.ren("admin/new-awards")
+})
+
 router.get("/permissions", middleware.getPermissionMiddleware("managePermissions"), (req, res) => {
     res.setAdminTitle("Permissions")
     res.ren("admin/permissions")

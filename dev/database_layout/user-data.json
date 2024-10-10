@@ -1,5 +1,5 @@
 {
-    "statusTypes": {
+    "STATUS_TYPES": {
         "STATUS": {
             "complete": false,
             "date": "date",
@@ -33,10 +33,9 @@
             "summary": "url"
         }
     },
+    "milestones": ["team", "halfColours", "colours", "honours", "INFO: used to prevent duplicates in new awards"],
     "permissions": {
-        "manageAwards": false,
-        "managePermissions": false,
-        "viewLogs": false
+        "manageAwards": false
     },
     "signoffs": {
         "awardId": {

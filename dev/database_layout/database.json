@@ -6,13 +6,19 @@
             "houseId": 100
         }
     },
-    "recentAwards": "array of recent awards to be displayed on home page",
     "awards": {
         "awardId": {
             "mics": [
                 "MIC 1",
                 "MIC 2"
             ]
+        }
+    },
+    "newAwards": {
+        "0": {
+            "user": 0,
+            "date": "date",
+            "type": "halfColours"
         }
     }
 }

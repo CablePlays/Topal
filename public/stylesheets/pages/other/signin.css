@@ -152,6 +152,10 @@ a.primary:hover,
 button.primary:hover {
   background-color: #f29354;
 }
+a.primary.disabled,
+button.primary.disabled {
+  background-color: #9c4205;
+}
 a.primary.shadow,
 button.primary.shadow {
   box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.1);
