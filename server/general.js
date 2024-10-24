@@ -175,15 +175,15 @@ const MILESTONES = {
         firstLevel: true
     },
     halfColours: {
-        awards: 5,
+        awards: 7,
         firstLevel: true
     },
     colours: {
-        awards: 6,
+        awards: 10,
         firstLevel: true
     },
     honours: {
-        awards: 7,
+        awards: 24,
         firstLevel: false
     }
 }
