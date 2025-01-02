@@ -128,6 +128,11 @@ router.get("/login", (req, res) => {
     res.redirect("signin")
 })
 
+router.get("/privacy-policy", (req, res) => {
+    res.setTitle("Privacy Policy")
+    res.ren("other/privacy-policy")
+})
+
 router.get("/search", (req, res) => {
     res.setTitle("Search")
     res.ren("other/search")

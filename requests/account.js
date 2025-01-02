@@ -16,7 +16,7 @@ router.put("/handle-login", async (req, res) => { // handle login token from Goo
     try {
         ticket = await authClient.verifyIdToken({
             idToken: token,
-            audience: "234912320633-vfi8srp2bhol1lb0a814mn4e4oo7a920.apps.googleusercontent.com"
+            audience: "744081203194-uj863ju05kpehmk0u6n7eqnuojhte9m3.apps.googleusercontent.com"
         })
     } catch (error) {
         console.warn("Invalid JWT: " + error.message)
