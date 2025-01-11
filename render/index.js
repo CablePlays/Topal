@@ -115,17 +115,9 @@ router.get("/credits", (req, res) => {
     res.ren("other/credits")
 })
 
-router.get("/leaderboard", (req, res) => {
-    res.redirect("leaderboards")
-})
-
 router.get("/leaderboards", (req, res) => {
     res.setTitle("Leaderboards")
     res.ren("other/leaderboards")
-})
-
-router.get("/login", (req, res) => {
-    res.redirect("signin")
 })
 
 router.get("/privacy-policy", (req, res) => {

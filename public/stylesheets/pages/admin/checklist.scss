@@ -1,0 +1,96 @@
+@import "../../global";
+
+.bottom-container {
+    display: flex;
+
+    .col2 {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .input-container {
+            align-items: center;
+            column-gap: 10px;
+            display: flex;
+            position: relative;
+
+            input {
+                padding: 2px 4px;
+            }
+
+            #create-button {
+                cursor: pointer;
+                position: absolute;
+                right: -30px;
+            }
+        }
+
+        #save-info {
+            margin-top: 20px;
+        }
+    }
+
+    #unsaved-changes-container {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        margin-top: 40px;
+        row-gap: 20px;
+
+        button {
+            cursor: pointer;
+            padding: 8px 16px;
+        }
+
+        p {
+            font-weight: 500;
+        }
+
+        .buttons-container {
+            column-gap: 20px;
+            display: flex;
+        }
+    }
+}
+
+.checklist-item {
+    @include alternating-background-gray();
+    align-items: center;
+    border-radius: 23px;
+    display: flex;
+    padding: 16px;
+    position: relative;
+
+    &:hover .icons-container {
+        display: block;
+    }
+
+    input {
+        margin-right: 5px;
+        padding: 2px 4px;
+    }
+
+    .icons-container {
+        display: none;
+        position: absolute;
+        right: 40px;
+
+        .material-icons {
+            cursor: pointer;
+        }
+    }
+
+    .save-name-button {
+        cursor: pointer;
+    }
+
+    .reorder-icon {
+        cursor: grab;
+        margin-right: 40px;
+    }
+}
+
+#checklist-items-container {
+    min-width: 500px;
+}

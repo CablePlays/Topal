@@ -19,6 +19,11 @@ router.get("/award-history", middleware.getPermissionMiddleware("viewAwardHistor
     res.ren("admin/award-history")
 })
 
+router.get("/checklist", middleware.getPermissionMiddleware("manageChecklist"), (req, res) => {
+    res.setAdminTitle("Checklist")
+    res.ren("admin/checklist")
+})
+
 router.get("/house-points", middleware.getPermissionMiddleware("manageMics"), (req, res) => {
     const { placeholders } = res
     res.setAdminTitle("House Points")

@@ -5,6 +5,7 @@ const sqlDatabase = require("../../server/sql-database")
 const middleware = require("../middleware")
 
 const awardsRouter = require("./awards")
+const checklistRouter = require("./checklist")
 const infoRouter = require("./info")
 const leaderboardsRouter = require("./leaderboards")
 const linksRouter = require("./links")
@@ -39,7 +40,7 @@ permissionsRouter0.get("/", async (req, res) => { // get users with permissions 
     res.res(200, { users: permissionUsers })
 })
 
-permissionsRouter0.get("/user", middleware.getPermissionMiddleware("managePermissions"), async (req, res) => { // get user permissions
+permissionsRouter0.get("/user", middleware.getPermissionMiddleware("managePermissions"), async (req, res) => { // get user permissions from email
     const { email } = req.query
     const userId = await sqlDatabase.getUserId(email)
 
@@ -152,6 +153,7 @@ router.use("/:targetUserId", async (req, res, next) => { // verify target user
 }, targetUserRouter)
 
 targetUserRouter.use("/awards", awardsRouter)
+targetUserRouter.use("/checklist", checklistRouter)
 targetUserRouter.use("/info", infoRouter)
 targetUserRouter.use("/links", linksRouter)
 targetUserRouter.use("/permissions", permissionsRouter)

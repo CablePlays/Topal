@@ -190,6 +190,7 @@ const MILESTONES = {
 
 const PERMISSIONS = [
     "manageAwards",
+    "manageChecklist",
     "manageHousePoints",
     "manageMics",
     "managePermissions",

@@ -1,0 +1,34 @@
+extends ../layout
+
+block head
+  meta(name="robots" content="noindex")
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/admin/checklist.css")
+  script(src="/javascripts/admin/checklist.js")
+
+block content
+  .p16
+    h1 Checklist
+    p.limit-width A list of checkboxes for keeping track of what specific users have achieved.
+
+    .spacer.v20
+
+    .notice(data-type="warning") This page should be used on a computer, not a mobile device.
+
+    .spacer.v40
+
+    .bottom-container
+      #checklist-items-container
+      .col2
+        h2.heading Create new
+        .input-container
+          input#create-input(type="text" placeholder="Item name")
+          #create-button.material-icons add_circle
+
+        #unsaved-changes-container.invisible
+          p You have unsaved changes
+          .buttons-container
+            button#save-button.primary Save
+            button#cancel-button.primary Cancel
+        p#save-info

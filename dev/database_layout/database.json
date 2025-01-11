@@ -1,17 +1,23 @@
 {
-    "housePoints": {
-        "lastUpdated": "date",
-        "visible": false,
-        "points": {
-            "houseId": 100
-        }
-    },
     "awards": {
         "awardId": {
             "mics": [
                 "MIC 1",
                 "MIC 2"
             ]
+        }
+    },
+    "checklist": [
+        {
+            "id": "item id",
+            "name": "item name"
+        }
+    ],
+    "housePoints": {
+        "lastUpdated": "date",
+        "visible": false,
+        "points": {
+            "houseId": 100
         }
     },
     "newAwards": {

@@ -1,25 +1,10 @@
+Notifications to staff members
+Checklist feature
+
 Make leaderboards only use logs from current year
 Make leaderboard only use signed off logs where applicable (e.g. service)
-
-Notifications to staff members
-Update award page images
-Get real color codes for house colors
-
-Make search also search awards OR make awards tab have dropdown of all awards
 
 > New Awards
 
 Page containing list of new award recpients
 Add permission for this page, including the middleware
-
-> Feature Ideas
-
->> Duo
-
-A page where users can put in each others' emails to create a duo by selecting the award which they want to do together.
-When both users in the duo complete the selected award, they will both earn the duo badge.
-This is to make doing awards with friends more exiting.
-
->> Netball League Page
-
->> Tennis & Squash Ladders

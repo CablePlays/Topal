@@ -1,9 +1,11 @@
 const express = require("express")
-const general = require("../server/general")
-const jsonDatabase = require("../server/json-database")
-const sqlDatabase = require("../server/sql-database")
-const userDatabase = require("../server/user-database")
-const middleware = require("./middleware")
+const general = require("../../server/general")
+const jsonDatabase = require("../../server/json-database")
+const sqlDatabase = require("../../server/sql-database")
+const userDatabase = require("../../server/user-database")
+const middleware = require("../middleware")
+
+const checklistRouter = require("./checklist")
 
 const router = express.Router()
 
@@ -175,5 +177,7 @@ router.get("/requests", middleware.getPermissionMiddleware("manageAwards"), asyn
     await Promise.all(asyncTasks)
     res.res(200, { users })
 })
+
+router.use("/checklist", middleware.getPermissionMiddleware("manageChecklist"), checklistRouter)
 
 module.exports = router

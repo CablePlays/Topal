@@ -8,6 +8,10 @@
         "award-history": {
             "GET": "Gets a list of award grantings ordered by their date granted"
         },
+        "checklist": {
+            "GET": "Get checklist items",
+            "PUT": "Update checklist items"
+        },
         "house-points": {
             "PUT": "Set house points for houses",
             "visible": {
@@ -121,6 +125,10 @@
                         "PUT": "Request signoff"
                     }
                 }
+            },
+            "checklist": {
+                "GET": "Get completed status of all checklist items for the user",
+                "PUT": "Update single checklist item for user"
             },
             "info": {
                 "GET": "Get user information (name, surname, email, etc.)",

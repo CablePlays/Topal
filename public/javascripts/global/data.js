@@ -646,6 +646,9 @@ const _PERMISSIONS = {
     manageAwards: {
         name: "Manage Awards"
     },
+    manageChecklist: {
+        name: "Manage Checklist"
+    },
     manageHousePoints: {
         name: "Manage House Points"
     },

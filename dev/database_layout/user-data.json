@@ -20,6 +20,9 @@
     "awards": {
         "running": "REQUESTABLE_STATUS"
     },
+    "checklistCompleteItems": [
+        "item id"
+    ],
     "details": {
         "name": "name",
         "surname": "surname",
@@ -33,7 +36,13 @@
             "summary": "url"
         }
     },
-    "milestones": ["team", "halfColours", "colours", "honours", "INFO: used to prevent duplicates in new awards"],
+    "milestones": [
+        "team",
+        "halfColours",
+        "colours",
+        "honours",
+        "INFO: used to prevent duplicates in new awards"
+    ],
     "permissions": {
         "manageAwards": false
     },
