@@ -10,10 +10,11 @@ const userRouter = express.Router()
 
 router.use("/:userId", async (req, res, next) => { // verify user ID & provide placeholders
     const { permissions, userId } = req
+    const { placeholders } = res
     let { userId: profileUserId } = req.params
 
     if (await sqlDatabase.isUser(profileUserId)) {
-        const { placeholders } = res
+        const profileUserDb = userDatabase.getUser(profileUserId)
 
         profileUserId = parseInt(profileUserId)
         req.profileUserId = profileUserId
@@ -31,8 +32,11 @@ router.use("/:userId", async (req, res, next) => { // verify user ID & provide p
         // badges
         placeholders.badges = getBadgePlaceholders(profileUserId)
 
+        // admin buttons
+        placeholders.adminSwapButtonsDisplay = (permissions.manageAwards || permissions.manageChecklist) ? "block" : "none"
+
         // rise link
-        placeholders.riseLinkDisplay = (profileUserId === userId || permissions.viewChecklist) ? "block" : "none"
+        placeholders.riseLinkDisplay = (profileUserDb.get(userDatabase.CHECKLIST_ENABLED_PATH) === true && (profileUserId === userId || permissions.manageChecklist)) ? "block" : "none"
 
         req.profileUserId = profileUserId
         next()
@@ -108,7 +112,7 @@ async function getStats(userId) {
 }
 
 userRouter.get("/", async (req, res) => {
-    const { profileUser, profileUserId } = req
+    const { permissions, profileUser, profileUserId } = req
     const { placeholders } = res
 
     placeholders.stats = await getStats(profileUserId)
@@ -118,16 +122,31 @@ userRouter.get("/", async (req, res) => {
 })
 
 userRouter.use("/admin", (req, res, next) => {
-    const { profileUser } = req
+    const { permissions, profileUser } = req
+    const { placeholders } = res
+
+    // admin buttons placeholder
+    placeholders.adminButtonsDisplay = (permissions.manageAwards && permissions.manageChecklist) ? "block" : "none"
+
     res.setTitle(`${profileUser.titleName} - Admin`)
     next()
 })
 
-userRouter.get("/admin", middleware.getPermissionMiddleware("manageAwards"), async (req, res) => {
-    res.ren("profile/admin")
+userRouter.get("/admin", middleware.getPermissionMiddleware("manageAwards", "manageChecklist"), async (req, res, next) => {
+    const { permissions, profileUserId } = req
+
+    if (permissions.manageAwards) {
+        res.redirect(`/profile/${profileUserId}/admin/awards`)
+    } else {
+        res.redirect(`/profile/${profileUserId}/admin/checklist`)
+    }
 })
 
-userRouter.get("/admin/:awardId", middleware.getPermissionMiddleware("manageAwards"), (req, res) => {
+userRouter.get("/admin/awards", middleware.getPermissionMiddleware("manageAwards"), async (req, res) => {
+    res.ren("profile/admin-awards")
+})
+
+userRouter.get("/admin/awards/:awardId", middleware.getPermissionMiddleware("manageAwards"), (req, res) => {
     const { awardId } = req.params
 
     if (general.isAward(general.kebabToCamel(awardId))) {
@@ -135,6 +154,10 @@ userRouter.get("/admin/:awardId", middleware.getPermissionMiddleware("manageAwar
     } else {
         res.ren("errors/not-found")
     }
+})
+
+userRouter.get("/admin/checklist", middleware.getPermissionMiddleware("manageChecklist"), async (req, res) => {
+    res.ren("profile/admin-checklist")
 })
 
 module.exports = router

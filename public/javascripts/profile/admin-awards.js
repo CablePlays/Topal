@@ -11,7 +11,7 @@ function loadAwards() {
 
     for (let awardId of getAwards()) {
         const linkElement = createElement("a", { p: cardsContainer, t: getAwardName(awardId) })
-        linkElement.href = `/profile/${getProfileUserId()}/admin/${camelToKebab(awardId)}`
+        linkElement.href = `/profile/${getProfileUserId()}/admin/awards/${camelToKebab(awardId)}`
 
         const loadingElement = createElement("div", { c: "material-icons", p: linkElement, t: LOADING_ICON_TEXT })
 

@@ -17,15 +17,20 @@ function requireLoggedOut(req, res, next) {
     }
 }
 
-function getPermissionMiddleware(permission) {
+function getPermissionMiddleware(...requiredPermissions) {
     return (req, res, next) => {
         const { loggedIn, permissions } = req
 
-        if (loggedIn && permissions[permission] === true) {
-            next()
-        } else {
-            res.ren("errors/not-found", 403) // make it look like page does not exist
+        if (loggedIn) {
+            for (let permission of requiredPermissions) {
+                if (permissions[permission] === true) {
+                    next()
+                    return
+                }
+            }
         }
+
+        res.ren("errors/not-found", 403) // make it look like page does not exist
     }
 }
 

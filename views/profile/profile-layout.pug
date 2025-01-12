@@ -39,7 +39,7 @@ block content
     p.pl16= grade
     p.email.pl16= profileUser.email
 
-    div(style=`display: ${displays.permission.manageAwards.block}`)
+    div(style=`display: ${adminSwapButtonsDisplay}`)
       .spacer.v20
 
       joined-buttons#profile-page-buttons
@@ -50,7 +50,6 @@ block content
           return parseInt(location.pathname.split("/")[2])
         }
 
-        const profilePageButtons = byId("profile-page-buttons")
         const page = location.pathname.split("/")[3]
         let selected
 
@@ -59,7 +58,8 @@ block content
         } else if (page === "requests") {
           selected = 2
         }
-        if (selected) profilePageButtons.setAttribute("selected", selected)
+        
+        byId("profile-page-buttons").setAttribute("selected", selected)
 
     block sidebar
 

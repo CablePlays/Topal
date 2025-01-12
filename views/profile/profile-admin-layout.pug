@@ -1,0 +1,25 @@
+extends ./profile-layout
+
+block sidebar
+  div(style=`display: ${adminButtonsDisplay}`)
+    .spacer.v20
+
+    .line
+
+    .spacer.v20
+
+    joined-buttons#admin-buttons
+      a(href=`/profile/${profileUser.id}/admin/awards`) Awards
+      a(href=`/profile/${profileUser.id}/admin/checklist`) RISE
+
+    script.
+      const adminPage = location.pathname.split("/")[4]
+      let adminSelectedButton
+
+      if (adminPage === "awards") {
+        adminSelectedButton = 0
+      } else if (adminPage === "checklist") {
+        adminSelectedButton = 1
+      }
+      
+      byId("admin-buttons").setAttribute("selected", adminSelectedButton)

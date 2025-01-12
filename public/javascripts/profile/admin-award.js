@@ -7,7 +7,7 @@ window.addEventListener("load", () => {
 })
 
 function getCurrentAwardId() {
-    const id = location.pathname.split("/")[4]
+    const id = location.pathname.split("/")[5]
     return kebabToCamel(id)
 }
 

@@ -21,12 +21,12 @@ router.get("/award-history", middleware.getPermissionMiddleware("viewAwardHistor
 
 router.get("/checklist/manage", middleware.getPermissionMiddleware("manageChecklist"), (req, res) => {
     res.setAdminTitle("Manage Checklist")
-    res.ren("admin/manage-checklist")
+    res.ren("admin/checklist-manage")
 })
 
 router.get("/checklist/view", middleware.getPermissionMiddleware("manageChecklist"), (req, res) => {
     res.setAdminTitle("Checklist Users")
-    res.ren("admin/checklist-users")
+    res.ren("admin/checklist-view")
 })
 
 router.get("/house-points", middleware.getPermissionMiddleware("manageMics"), (req, res) => {

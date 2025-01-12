@@ -1,6 +1,8 @@
 const { v4: uuidv4 } = require("uuid")
 const express = require("express")
+const general = require("../../server/general")
 const jsonDatabase = require("../../server/json-database")
+const userDatabase = require("../../server/user-database")
 
 const router = express.Router()
 
@@ -35,6 +37,23 @@ router.put("/", async (req, res) => { // update checklist items
 
     jsonDatabase.set(jsonDatabase.CHECKLIST_PATH, newItems)
     res.res(200, { items: newItems })
+})
+
+router.get("/users", async (req, res) => { // get all users who have checklist enabled and their completed items
+    const items = jsonDatabase.get(jsonDatabase.CHECKLIST_PATH) ?? []
+    const users = {}
+
+    await userDatabase.forEachUser(async (userId, udb) => {
+        if (udb.get(userDatabase.CHECKLIST_ENABLED_PATH) === true) {
+            const completed = udb.get(userDatabase.CHECKLIST_COMPLETED_ITEMS_PATH) ?? []
+            users[userId] = {
+                completed,
+                info: await general.getUserInfo(userId)
+            }
+        }
+    })
+
+    res.res(200, { items, users })
 })
 
 module.exports = router

@@ -1,0 +1,17 @@
+extends ./profile-admin-layout
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/profile/admin-awards.css")
+  script(src="/javascripts/profile/admin-awards.js")
+
+block profile-content
+  .p16
+    h1 Admin
+
+    .spacer.v20
+
+    .notice(data-type="info") The numbers beside each award indicate the number of signoff requests the user has requested for that award.
+
+    .spacer.v20
+
+    #cards

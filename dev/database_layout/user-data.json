@@ -23,6 +23,7 @@
     "checklistCompleteItems": [
         "item id"
     ],
+    "checklistEnabled": false,
     "details": {
         "name": "name",
         "surname": "surname",

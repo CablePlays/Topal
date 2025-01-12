@@ -10,6 +10,7 @@ let compact = true
 const APPROVALS_PATH = "approvals"
 const AWARDS_PATH = "awards"
 const CHECKLIST_COMPLETED_ITEMS_PATH = "checklistCompletedItems"
+const CHECKLIST_ENABLED_PATH = "checklistEnabled"
 const DETAILS_PATH = "details"
 const LINKS_PATH = "links"
 const MILESTONES_PATH = "milestones"
@@ -73,6 +74,7 @@ module.exports = {
     APPROVALS_PATH,
     AWARDS_PATH,
     CHECKLIST_COMPLETED_ITEMS_PATH,
+    CHECKLIST_ENABLED_PATH,
     DETAILS_PATH,
     LINKS_PATH,
     MILESTONES_PATH,

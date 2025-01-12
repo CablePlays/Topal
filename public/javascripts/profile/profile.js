@@ -1,8 +1,3 @@
-window.addEventListener("load", () => {
-    renderAwards()
-    setInitialView()
-})
-
 function setView(viewI) {
     const viewsContainer = byId("views").children
 
@@ -11,11 +6,13 @@ function setView(viewI) {
     }
 
     viewsContainer[viewI].style.display = "block"
-    setParam("view", viewI === 0 ? null : viewI)
+    setParam("view", viewI)
 }
 
 function setInitialView() {
-    const view = minMax(getParam("view") ?? 0, 0, 1)
+    let view = parseInt(getParam("view"))
+    if (![0, 1, 2].includes(view)) view = 0
+
     setView(parseInt(view))
     byId("profile-view-buttons").setAttribute("selected", view)
 }
@@ -57,3 +54,22 @@ async function renderAwards() {
         })
     }
 }
+
+async function loadChecklist() {
+    const checklistContainer = byId("checklist-container")
+    const loadingElement = createElement("p", { p: checklistContainer, t: LOADING_TEXT })
+
+    const { items } = await getRequest(`/users/${getProfileUserId()}/checklist`)
+    loadingElement.remove()
+
+    for (let item of items) {
+        const itemElement = createElement("div", { c: "item", p: checklistContainer })
+        createElement("p", { c: "name", p: itemElement, t: item.name })
+        createElement("div", { c: "material-icons", p: itemElement, t: item.complete ? "check_box" : "check_box_outline_blank" })
+    }
+}
+
+window.addEventListener("load", () => {
+    renderAwards()
+    setInitialView()
+})

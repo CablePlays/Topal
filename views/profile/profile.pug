@@ -110,53 +110,16 @@ block profile-content
 
       .spacer.v40
 
-    //- .view.stats-old
-      .spacer.v20
-
-      .center-cards
-        .cards
-          .row
-            .card
-              p.number 00
-              p.type Total awards.
-              .spacer.v20
-              p.description.
-                There are 12 awards in total that users can earn.
-                Of the 0 awards which USER has earned, 0 of them are first level awards.
-              .spacer.v20
-              a(href="/awards") Awards
-                .underline
-            .card
-              p.number 00
-
-              p.type OP points earned.
-              .spacer.v20
-              p.description.
-                Earn points by taking part in OP trips like hikes and paddling trips.
-                With enough points, you'll be displayed on the leaderboards.
-              .spacer.v20
-              a(href="/leaderboards") Leaderboards
-                .underline
-          .row
-            .card
-              p.number 00
-              p.type km of distance run.
-              .spacer.v20
-              p.description.
-                Log your runs at the Running Award page to increase your total distance.
-                Compete with others for the furthest total distance.
-              .spacer.v20
-              a(href="/awards/running") Running Award
-                .underline
-            .card
-              p.number 00
-              p.type Paddling trips.
-              .spacer.v20
-              p.description.
-                Log your padding trips at the Kayaking Award page to increase your total kayaking trips done.
-                Compete with others for most trips done.
-              .spacer.v20
-              a(href="/awards/kayaking") Kayaking Award
-                .underline
+    .view.p16
+      h1 RISE Checklist
+      p.limit-width Your RISE checklist, where you can view which achievements you have completed and which ones you still need to complete. Only you and certain staff members can view this page.
 
       .spacer.v20
+
+      #checklist-container
+
+      script.
+        console.log("#{riseLinkDisplay}")
+        if ("#{riseLinkDisplay}" === "block") {
+          loadChecklist()
+        }

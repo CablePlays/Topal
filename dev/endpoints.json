@@ -10,7 +10,10 @@
         },
         "checklist": {
             "GET": "Get checklist items",
-            "PUT": "Update checklist items"
+            "PUT": "Update checklist items",
+            "users": {
+                "GET": "Get all users who have checklist enabled and their completed items"
+            }
         },
         "house-points": {
             "PUT": "Set house points for houses",
@@ -128,7 +131,10 @@
             },
             "checklist": {
                 "GET": "Get completed status of all checklist items for the user",
-                "PUT": "Update single checklist item for user"
+                "PUT": "Update single checklist item for user",
+                "enabled": {
+                    "PUT": "Set checklist enabled/disabled for user"
+                }
             },
             "info": {
                 "GET": "Get user information (name, surname, email, etc.)",

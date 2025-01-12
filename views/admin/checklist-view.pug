@@ -1,0 +1,19 @@
+extends ../layout
+
+block head
+  meta(name="robots" content="noindex")
+
+block assets
+  link(rel="stylesheet" href="/stylesheets/pages/admin/checklist-view.css")
+  script(src="/javascripts/admin/checklist-view.js")
+
+block content
+  .plrt16
+    h1 Checklist Users
+    p.limit-width An overview of all users with an enabled checklist, and their checklist items.
+
+  .spacer.v20
+
+  #users-container
+
+  .spacer.v20
