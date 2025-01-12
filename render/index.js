@@ -11,9 +11,9 @@ const jsonDatabase = require("../server/json-database")
 const router = express.Router()
 
 async function advancedRender(req, res, path, statusCode = 200) {
-    let { placeholders, title } = res
+    const { userId } = req
+    const { placeholders, title } = res
     const loggedIn = cookies.isLoggedIn(req)
-    const userId = cookies.getUserId(req)
     let permissions = {}
 
     placeholders.title = title
@@ -51,6 +51,20 @@ async function advancedRender(req, res, path, statusCode = 200) {
 
     res.status(statusCode).render(path, placeholders)
 }
+
+router.use("/", async (req, res, next) => { // provide logged in info
+    if (await general.isPasswordValid(req)) {
+        const userId = cookies.getUserId(req)
+        req.loggedIn = true
+        req.userId = userId
+        req.permissions = general.getPermissions(userId)
+    } else {
+        req.permissions = {}
+        req.loggedIn = false
+    }
+
+    next()
+})
 
 router.use("/", (req, res, next) => { // provide advanced render, placeholders & titles related
     res.placeholders = {}

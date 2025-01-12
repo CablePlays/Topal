@@ -9,6 +9,7 @@ const router = express.Router()
 const userRouter = express.Router()
 
 router.use("/:userId", async (req, res, next) => { // verify user ID & provide placeholders
+    const { permissions, userId } = req
     let { userId: profileUserId } = req.params
 
     if (await sqlDatabase.isUser(profileUserId)) {
@@ -17,6 +18,7 @@ router.use("/:userId", async (req, res, next) => { // verify user ID & provide p
         profileUserId = parseInt(profileUserId)
         req.profileUserId = profileUserId
 
+        // user info
         const userInfo = await general.getUserInfo(profileUserId)
         req.profileUser = userInfo
         placeholders.profileUser = userInfo
@@ -26,9 +28,13 @@ router.use("/:userId", async (req, res, next) => { // verify user ID & provide p
         if (grade) grade = (grade > 12) ? "Matriculated" : "Grade " + grade
         placeholders.grade = grade
 
-        // placeholders
+        // badges
         placeholders.badges = getBadgePlaceholders(profileUserId)
 
+        // rise link
+        placeholders.riseLinkDisplay = (profileUserId === userId || permissions.viewChecklist) ? "block" : "none"
+
+        req.profileUserId = profileUserId
         next()
     } else {
         res.setTitle("Invalid User")

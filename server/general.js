@@ -351,9 +351,13 @@ async function provideUserInfoToStatuses(statuses) {
 function getPermissions(userId, raw) {
     const permissions = userDatabase.getUser(userId).get(userDatabase.PERMISSIONS_PATH) ?? {}
 
-    if (!raw && permissions.managePermissions === true) {
-        for (let permission of PERMISSIONS) {
-            permissions[permission] = true
+    if (!raw) {
+        if (permissions.managePermissions === true) {
+            for (let permission of PERMISSIONS) {
+                permissions[permission] = true
+            }
+        } else if (permissions.manageChecklist) {
+            permissions.viewChecklist = true
         }
     }
 

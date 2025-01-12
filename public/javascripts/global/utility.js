@@ -232,7 +232,7 @@ class JoinedButtons extends HTMLElement {
 
     connectedCallback() {
         setTimeout(() => {
-            const buttons = this.querySelectorAll("a, button")
+            const buttons = [...this.querySelectorAll("a, button")].filter(v => v.style.display !== "none")
             const buttonCount = buttons.length
             this.buttonCount = buttonCount
 

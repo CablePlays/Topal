@@ -18,9 +18,13 @@ block content
         h2 Award History
         p A list of all the awards which have been granted to users in chronological order.
 
-      a.link(href="/admin/checklist" style=`display: ${displays.permission.manageChecklist.block}`)
-        h2 Checklist
+      a.link(href="/admin/checklist/manage" style=`display: ${displays.permission.manageChecklist.block}`)
+        h2 Checklist - Manage
         p Manage the user checklist items.
+
+      a.link(href="/admin/checklist/view" style=`display: ${displays.permission.manageChecklist.block}`)
+        h2 Checklist - View
+        p Set the checklist completed status for users.
 
       a.link(href="/admin/mics" style=`display: ${displays.permission.manageMics.block}`)
         h2 Award MICs

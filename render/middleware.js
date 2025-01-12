@@ -19,17 +19,13 @@ function requireLoggedOut(req, res, next) {
 
 function getPermissionMiddleware(permission) {
     return (req, res, next) => {
-        if (cookies.isLoggedIn(req)) {
-            const userId = cookies.getUserId(req)
-            const permissions = general.getPermissions(userId)
+        const { loggedIn, permissions } = req
 
-            if (permissions[permission] === true) {
-                next()
-                return
-            }
+        if (loggedIn && permissions[permission] === true) {
+            next()
+        } else {
+            res.ren("errors/not-found", 403) // make it look like page does not exist
         }
-
-        res.ren("errors/not-found", 403) // make it look like page does not exist
     }
 }
 
