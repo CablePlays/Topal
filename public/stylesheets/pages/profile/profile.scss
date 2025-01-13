@@ -343,6 +343,7 @@ $bars-breakpoint: 650px;
 }
 
 #checklist-container {
+    justify-content: center;
     display: grid;
     flex-wrap: wrap;
     gap: 10px;
@@ -354,6 +355,7 @@ $bars-breakpoint: 650px;
 
     @media screen and (min-width: $columns-breakpoint) {
         grid-template-columns: repeat(1, 300px);
+        justify-content: initial;
     }
 
     @media screen and (min-width: 970px) {

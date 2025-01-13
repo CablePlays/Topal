@@ -1,10 +1,40 @@
 async function loadItems() {
-    const itemsContainer = byId("items-container")
-
     const totalCompleteElement = byId("total-complete")
     totalCompleteElement.innerHTML = LOADING_TEXT
 
-    const { items } = await getRequest(`/users/${getProfileUserId()}/checklist`)
+    let { enabled, items } = await getRequest(`/users/${getProfileUserId()}/checklist`)
+
+    const itemsContainer = byId("items-container")
+
+    function updateChecklistVisibility() {
+        setVisible(totalCompleteElement, enabled)
+        setVisible(itemsContainer, enabled)
+    }
+
+    updateChecklistVisibility()
+
+    const checklistEnabledButton = byId("checklist-enabled-button")
+    checklistEnabledButton.innerHTML = enabled ? "Disable Checklist" : "Enable Checklist"
+    setVisible(checklistEnabledButton)
+    let setEnabledDebounce = false
+
+    checklistEnabledButton.addEventListener("click", async () => {
+        if (setEnabledDebounce) return
+        setEnabledDebounce = true
+        checklistEnabledButton.classList.add("disabled")
+
+        const newEnabled = !enabled
+        const { ok } = await putRequest(`/users/${getProfileUserId()}/checklist/enabled`, { enabled: newEnabled })
+
+        if (ok) {
+            enabled = newEnabled
+            checklistEnabledButton.innerHTML = enabled ? "Disable Checklist" : "Enable Checklist"
+            updateChecklistVisibility()
+        }
+
+        checklistEnabledButton.classList.remove("disabled")
+        setEnabledDebounce = false
+    })
 
     let totalComplete = 0
 

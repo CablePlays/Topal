@@ -1213,7 +1213,7 @@ function _createDisplaySection({ fetchSublogs, log, logType, parentLogId, post, 
             const bottomBar = createElement("div", { c: "bottom-bar", p: displaySectionElement })
 
             createElement("div", {
-                c: "material-icons", p: bottomBar, t: "edit_square", onClick: () => {
+                c: "material-icons", p: bottomBar, t: "edit", onClick: () => {
                     const inputSectionElement = _createInputSection({
                         edit: true,
                         logId,

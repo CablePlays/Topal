@@ -1,5 +1,16 @@
 @import "./profile-layout";
 
+.topbar {
+    align-items: center;
+    column-gap: 20px;
+    display: flex;
+
+    button {
+        cursor: pointer;
+        padding: 2px 4px;
+    }
+}
+
 .total-complete {
     color: $color-primary-500;
     padding-left: 8px;

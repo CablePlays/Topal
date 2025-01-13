@@ -9,7 +9,11 @@ router.get("/", middleware.getPermissionMiddleware("manageChecklist", true), asy
     const { targetUserId } = req
 
     const checklistItems = jsonDatabase.get(jsonDatabase.CHECKLIST_PATH) ?? []
-    const completeItems = userDatabase.getUser(targetUserId).get(userDatabase.CHECKLIST_COMPLETED_ITEMS_PATH) ?? []
+
+    const udb = userDatabase.getUser(targetUserId)
+    const completeItems = udb.get(userDatabase.CHECKLIST_COMPLETED_ITEMS_PATH) ?? []
+    const checklistEnabled = udb.get(userDatabase.CHECKLIST_ENABLED_PATH) === true
+
     const returningItems = []
 
     for (let checklistItem of checklistItems) {
@@ -20,7 +24,7 @@ router.get("/", middleware.getPermissionMiddleware("manageChecklist", true), asy
         })
     }
 
-    res.res(200, { items: returningItems })
+    res.res(200, { enabled: checklistEnabled, items: returningItems })
 })
 
 router.put("/", middleware.getPermissionMiddleware("manageChecklist"), async (req, res) => { // update checklist item
@@ -50,7 +54,7 @@ router.put("/", middleware.getPermissionMiddleware("manageChecklist"), async (re
     res.res(204)
 })
 
-router.put("/enabled", middleware.getPermissionMiddleware("manageChecklist"), async (req, res) => { // update checklist item
+router.put("/enabled", middleware.getPermissionMiddleware("manageChecklist"), async (req, res) => { // set checklist enabled
     const { body, targetUserId } = req
     const { enabled } = body
 

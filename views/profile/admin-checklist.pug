@@ -7,12 +7,16 @@ block assets
 block profile-content
   .p16
     h1 RISE Checklist
-    p.limit-width Manage which checklist items this user has completed.
+    p.limit-width.
+      Manage which checklist items this user has completed.
+      If the checklist is disabled, this user will not show up on the checklist users overview, and the user will not be able to view their checklist.
 
     .spacer.v20
 
-    p#total-complete
+    .topbar
+      button#checklist-enabled-button.primary.invisible Enable Checklist
+      p#total-complete
 
     .spacer.v10
 
-    #items-container
+    #items-container.invisible

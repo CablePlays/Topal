@@ -130,7 +130,7 @@
                 }
             },
             "checklist": {
-                "GET": "Get completed status of all checklist items for the user",
+                "GET": "Get completed status of all checklist items for the user, and whether the checklist is enabled",
                 "PUT": "Update single checklist item for user",
                 "enabled": {
                     "PUT": "Set checklist enabled/disabled for user"
