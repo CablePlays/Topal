@@ -1,3 +1,56 @@
+function handleBulkUpdate() {
+    const enableButton = byId("bulk-update-enable")
+    const disableButton = byId("bulk-update-disable")
+    const selectElement = byId("bulk-update-select")
+    const infoElement = byId("bulk-update-info")
+
+    let initialEnable = true
+
+    function setButtonsEnabled(enabled) {
+        for (let v of [enableButton, disableButton]) {
+            v.disabled = !enabled
+
+            if (enabled) {
+                v.classList.remove("disabled")
+            } else {
+                v.classList.add("disabled")
+            }
+        }
+    }
+
+    function getOnClickHandler(setEnabled) {
+        return async () => {
+            const grade = parseInt(selectElement.value)
+            setButtonsEnabled(false)
+            setInfoText(null)
+
+            const { ok } = await putRequest("/admin/checklist/enabled", { enabled: setEnabled, grade })
+
+            if (ok) {
+                setInfoText(`The checklists of all grade ${grade} students are now ${setEnabled ? "enabled" : "disabled"}.`)
+            } else {
+                setInfoText("The checklists could not be updated. Please try again.")
+            }
+
+            setButtonsEnabled(true)
+        }
+    }
+
+    function setInfoText(text) {
+        setVisible(infoElement, text != null)
+        infoElement.innerHTML = text
+    }
+
+    enableButton.addEventListener("click", getOnClickHandler(true))
+    disableButton.addEventListener("click", getOnClickHandler(false))
+    selectElement.addEventListener("change", () => {
+        if (initialEnable) {
+            initialEnable = false
+            setButtonsEnabled(true)
+        }
+    })
+}
+
 function getOrderedUsers(users) {
     const usersArr = []
 
@@ -102,5 +155,6 @@ async function loadUsers() {
 }
 
 window.addEventListener("load", () => {
+    handleBulkUpdate()
     loadUsers()
 })

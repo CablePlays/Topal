@@ -39,6 +39,26 @@ router.put("/", async (req, res) => { // update checklist items
     res.res(200, { items: newItems })
 })
 
+router.put("/enabled", async (req, res) => { // set checklist enabled/disabled for a grade
+    const { body } = req
+    const { enabled, grade } = body
+
+    if (![8, 9, 10, 11, 12].includes(grade)) {
+        res.res(400, "invalid_grade")
+        return
+    }
+
+    await userDatabase.forEachUser(async (userId, udb) => {
+        const g = await general.getGrade(userId)
+
+        if (g === grade) {
+            udb.set(userDatabase.CHECKLIST_ENABLED_PATH, enabled === true)
+        }
+    })
+
+    res.res(204)
+})
+
 router.get("/users", async (req, res) => { // get all users who have checklist enabled and their completed items
     const items = jsonDatabase.get(jsonDatabase.CHECKLIST_PATH) ?? []
     const users = {}

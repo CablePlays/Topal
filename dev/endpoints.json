@@ -11,6 +11,9 @@
         "checklist": {
             "GET": "Get checklist items",
             "PUT": "Update checklist items",
+            "enabled": {
+                "PUT": "Set checklist enabled/disabled for a grade"
+            },
             "users": {
                 "GET": "Get all users who have checklist enabled and their completed items"
             }

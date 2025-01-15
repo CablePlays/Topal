@@ -14,7 +14,27 @@ block content
       An overview of all users with an enabled checklist, and their checklist items.
       Enable a user's checklist at their profile admin page.
 
-  .spacer.v20
+    .spacer.v20
+
+    h2 Bulk Enable/Disable By Grade
+
+    .spacer.v20
+
+    .bulk-update-row
+      select#bulk-update-select
+        option(hidden selected) Grade
+        option 8
+        option 9
+        option 10
+        option 11
+        option 12
+      
+      button#bulk-update-enable.primary.disabled(disabled="true") Enable
+      button#bulk-update-disable.secondary.disabled(disabled="true") Disable
+    
+    p#bulk-update-info.invisible
+
+  .spacer.v40
 
   #users-container
 

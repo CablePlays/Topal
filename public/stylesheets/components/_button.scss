@@ -37,6 +37,10 @@ button.secondary {
         background-color: $color-button-secondary-hover;
     }
 
+    &.disabled {
+        background-color: rgb(200, 200, 200);
+    }
+
     &.shadow {
         text-shadow: -4px 4px 8px rgb(0, 0, 0, 0.1);
     }
