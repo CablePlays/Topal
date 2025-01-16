@@ -384,6 +384,82 @@ function createDummyUsers() {
     createDummy(3, "pavpewfuHoweNJA", "Test", "Dummy")
 }
 
+async function getSignoffRequestsInfo() {
+    const users = {}
+
+    function incrementRequests(userId, awardId, amount = 1) {
+        const user = users[userId] ??= {}
+        const requests = user.requests ??= {}
+
+        if (requests[awardId]) {
+            requests[awardId] += amount
+        } else {
+            requests[awardId] = amount
+        }
+    }
+
+    // awards and signoffs
+    await userDatabase.forEachUser((userId, db) => {
+        const awards = db.get(userDatabase.AWARDS_PATH) ?? {}
+
+        for (let awardId in awards) {
+            const award = awards[awardId]
+
+            if (award.requestDate) {
+                incrementRequests(userId, awardId)
+            }
+        }
+
+        const signoffs = db.get(userDatabase.SIGNOFFS_PATH) ?? {}
+
+        for (let awardId in signoffs) {
+            const award = signoffs[awardId]
+
+            for (let signoffId in award) {
+                const signoff = award[signoffId]
+
+                if (signoff.requestDate) {
+                    incrementRequests(userId, awardId)
+                }
+            }
+        }
+    })
+
+    // logs
+    let asyncTasks = []
+
+    for (let logType of getLogTypes()) {
+        if (isSignable(logType)) {
+            const logsTable = getLogsTable(logType)
+            const promise = sqlDatabase.all(`SELECT user, COUNT() AS count FROM ${logsTable} WHERE sign_state = "requested" GROUP BY user`)
+            asyncTasks.push(promise)
+
+            promise.then(records => {
+                const awardId = getLogTypeSignoffRequestAward(logType)
+
+                for (let record of records) {
+                    const { user: userId, count } = record
+                    incrementRequests(userId, awardId, count)
+                }
+            })
+        }
+    }
+
+    await Promise.all(asyncTasks)
+
+    // provide user info
+    asyncTasks = []
+
+    for (let userId in users) {
+        const promise = getUserInfo(userId)
+        asyncTasks.push(promise)
+        promise.then(info => users[userId].info = info)
+    }
+
+    await Promise.all(asyncTasks)
+    return users
+}
+
 /* Utility */
 
 function kebabToCamel(s) { // kebab-case camelCase
@@ -441,6 +517,7 @@ module.exports = {
     createDummyUsers,
     getLogTypes,
     getLogsTable,
+    getSignoffRequestsInfo,
     getSublogsTable,
     isAward,
     getAwardName,

@@ -5,12 +5,13 @@ const general = require("./server/general")
 const jsonDatabase = require("./server/json-database")
 const sqlDatabase = require("./server/sql-database")
 const consoleCommands = require("./server/console-commands")
+const emailer = require("./server/emailer")
 const requestsRouter = require("./requests/index")
 const renderRouter = require("./render")
 const userDatabase = require("./server/user-database")
 
 const PORT = 3000
-const ARTIFICIAL_LATENCY = 500
+const ARTIFICIAL_LATENCY = 0
 const REQUESTS_PATH = "/requests"
 
 const app = express()
@@ -71,3 +72,4 @@ app.listen(PORT, () => {
 })
 
 consoleCommands()
+emailer.scheduleEmails()

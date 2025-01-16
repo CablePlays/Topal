@@ -32,6 +32,7 @@ function handleBulkUpdate() {
                 setInfoText("The checklists could not be updated. Please try again.")
             }
 
+            loadUsers()
             setButtonsEnabled(true)
         }
     }
@@ -67,6 +68,8 @@ function getOrderedUsers(users) {
 
 async function loadUsers() {
     const usersContainer = byId("users-container")
+    usersContainer.innerHTML = null
+
     const loadingElement = createElement("p", { c: "plr16", p: usersContainer, t: LOADING_TEXT })
 
     const { items, users } = await getRequest("/admin/checklist/users")

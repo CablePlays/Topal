@@ -1,11 +1,6 @@
 const filterSelection = [] // stores selected filter optinos
 const usersStorage = [] // stores user card & array of request types
 
-window.addEventListener("load", () => {
-    handleFilter()
-    loadUsers()
-})
-
 function updateFilter() {
     let totalShowing = 0
 
@@ -88,11 +83,10 @@ async function loadUsers() {
     const loadingElement = createElement("p", { p: usersContainer, t: LOADING_TEXT })
 
     const { users } = await getRequest("/admin/requests")
-    const userIds = Object.keys(users)
 
     loadingElement.remove()
 
-    for (let userId of userIds) {
+    for (let userId in users) {
         const { info, requests } = users[userId]
         const card = createCard(info, requests)
         usersContainer.appendChild(card)
@@ -105,3 +99,8 @@ async function loadUsers() {
 
     updateFilter()
 }
+
+window.addEventListener("load", () => {
+    handleFilter()
+    loadUsers()
+})
