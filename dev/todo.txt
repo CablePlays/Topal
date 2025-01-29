@@ -1,10 +1,2 @@
-Notifications to staff members
-Checklist feature
-
 Make leaderboards only use logs from current year
 Make leaderboard only use signed off logs where applicable (e.g. service)
-
-> New Awards
-
-Page containing list of new award recpients
-Add permission for this page, including the middleware
