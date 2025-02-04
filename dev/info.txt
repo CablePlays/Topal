@@ -1,3 +1,7 @@
+> Google Signin
+
+When changing API keys, update client ID in account.js router and signin.pug view.
+
 > Leaderboards
 
 >> User
